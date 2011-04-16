@@ -24,7 +24,10 @@ namespace Pierwiastki_CS
         {
             get
             {
-                return settings[setting];
+                if (settings.ContainsKey(setting))
+                    return settings[setting];
+                else
+                    throw new BrakUstawieniaException();
             }
 
             set
@@ -77,7 +80,7 @@ namespace Pierwiastki_CS
                 catch
                 {
                     //Ustawiamy defaultowe ustawienia
-                    DefaultSettings();
+                    PrzywrocUstawieniaDomyslne();
 
                     //Serializujemy
                     Zapisz();
@@ -86,14 +89,14 @@ namespace Pierwiastki_CS
             else
             {
                 //Ustawiamy defaultowe ustawienia
-                DefaultSettings();
+                PrzywrocUstawieniaDomyslne();
 
                 //Serializujemy
                 Zapisz();
             }
         }
 
-        private void DefaultSettings()
+        public void PrzywrocUstawieniaDomyslne()
         {
             settings[Setting.WykresMenuChecked] = true;
             settings[Setting.PodgladWykresuMenuChecked] = true;
@@ -104,6 +107,8 @@ namespace Pierwiastki_CS
             settings[Setting.RozniczkaIIChecked] = false;
             settings[Setting.EnergiaChecked] = false;
             settings[Setting.FunkcjaSpecjalnaChecked] = false;
+            settings[Setting.FFTChecked] = false;
+            settings[Setting.RFFTChecked] = false;
             settings[Setting.AutomatycznyReskallingChecked] = true;
         }
     }
@@ -188,6 +193,19 @@ namespace Pierwiastki_CS
         RozniczkaIIChecked,
         EnergiaChecked,
         FunkcjaSpecjalnaChecked,
+        FFTChecked,
+        RFFTChecked,
         AutomatycznyReskallingChecked
 	}
+
+    public class BrakUstawieniaException : Exception
+    {
+        public BrakUstawieniaException()
+            : base("Brak ustawienia!")
+        { }
+
+        public BrakUstawieniaException(string msg)
+            : base(msg)
+        { }
+    }
 }

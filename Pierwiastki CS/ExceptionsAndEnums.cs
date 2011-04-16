@@ -122,6 +122,8 @@ namespace Pierwiastki_CS
         DrugaPochodna,
         Rozniczka,
         RozniczkaII,
+        FFT,
+        RFFT,
         Bessel,
         BesselSferyczny,
         BesselPochodnaSferycznej,

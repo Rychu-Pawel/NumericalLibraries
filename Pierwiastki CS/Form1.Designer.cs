@@ -110,6 +110,8 @@
             this.gbWarunkiII = new System.Windows.Forms.GroupBox();
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
+            this.chkFFT = new System.Windows.Forms.CheckBox();
+            this.chkRFFT = new System.Windows.Forms.CheckBox();
             this.menuStrip.SuspendLayout();
             this.gbFunkcja.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -704,7 +706,7 @@
             // 
             // btnRysuj
             // 
-            this.btnRysuj.Location = new System.Drawing.Point(824, 338);
+            this.btnRysuj.Location = new System.Drawing.Point(826, 357);
             this.btnRysuj.Name = "btnRysuj";
             this.btnRysuj.Size = new System.Drawing.Size(75, 23);
             this.btnRysuj.TabIndex = 8;
@@ -716,7 +718,7 @@
             // 
             this.btnFunkcjaSpecjalna.Location = new System.Drawing.Point(124, 158);
             this.btnFunkcjaSpecjalna.Name = "btnFunkcjaSpecjalna";
-            this.btnFunkcjaSpecjalna.Size = new System.Drawing.Size(24, 23);
+            this.btnFunkcjaSpecjalna.Size = new System.Drawing.Size(17, 21);
             this.btnFunkcjaSpecjalna.TabIndex = 19;
             this.btnFunkcjaSpecjalna.Text = "?";
             this.toolTip.SetToolTip(this.btnFunkcjaSpecjalna, "Podpowiedzi");
@@ -751,6 +753,8 @@
             // 
             // gbRysujFunkcje
             // 
+            this.gbRysujFunkcje.Controls.Add(this.chkRFFT);
+            this.gbRysujFunkcje.Controls.Add(this.chkFFT);
             this.gbRysujFunkcje.Controls.Add(this.chkEnergia);
             this.gbRysujFunkcje.Controls.Add(this.chkRozniczkaII);
             this.gbRysujFunkcje.Controls.Add(this.chkRozniczka);
@@ -761,7 +765,7 @@
             this.gbRysujFunkcje.Controls.Add(this.chkFunkcja);
             this.gbRysujFunkcje.Location = new System.Drawing.Point(759, 35);
             this.gbRysujFunkcje.Name = "gbRysujFunkcje";
-            this.gbRysujFunkcje.Size = new System.Drawing.Size(210, 189);
+            this.gbRysujFunkcje.Size = new System.Drawing.Size(210, 208);
             this.gbRysujFunkcje.TabIndex = 6;
             this.gbRysujFunkcje.TabStop = false;
             this.gbRysujFunkcje.Text = "Rysuj";
@@ -856,7 +860,7 @@
             this.gbSkala.Controls.Add(this.txtYOd);
             this.gbSkala.Controls.Add(this.chkX);
             this.gbSkala.Controls.Add(this.label7);
-            this.gbSkala.Location = new System.Drawing.Point(759, 230);
+            this.gbSkala.Location = new System.Drawing.Point(761, 249);
             this.gbSkala.Name = "gbSkala";
             this.gbSkala.Size = new System.Drawing.Size(210, 102);
             this.gbSkala.TabIndex = 7;
@@ -980,6 +984,30 @@
             this.pnlWarunkiII.Size = new System.Drawing.Size(163, 44);
             this.pnlWarunkiII.TabIndex = 13;
             // 
+            // chkFFT
+            // 
+            this.chkFFT.AutoSize = true;
+            this.chkFFT.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.chkFFT.Location = new System.Drawing.Point(6, 184);
+            this.chkFFT.Name = "chkFFT";
+            this.chkFFT.Size = new System.Drawing.Size(45, 17);
+            this.chkFFT.TabIndex = 23;
+            this.chkFFT.Text = "FFT";
+            this.chkFFT.UseVisualStyleBackColor = true;
+            this.chkFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            // 
+            // chkRFFT
+            // 
+            this.chkRFFT.AutoSize = true;
+            this.chkRFFT.ForeColor = System.Drawing.Color.Maroon;
+            this.chkRFFT.Location = new System.Drawing.Point(81, 184);
+            this.chkRFFT.Name = "chkRFFT";
+            this.chkRFFT.Size = new System.Drawing.Size(103, 17);
+            this.chkRFFT.TabIndex = 24;
+            this.chkRFFT.Text = "Odwrócona FFT";
+            this.chkRFFT.UseVisualStyleBackColor = true;
+            this.chkRFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnOblicz;
@@ -994,9 +1022,9 @@
             this.Controls.Add(this.gbWynik);
             this.Controls.Add(this.gbFunkcja);
             this.Controls.Add(this.pnlWarunki);
+            this.Controls.Add(this.pnlWarunkiII);
             this.Controls.Add(this.gbSkala);
             this.Controls.Add(this.btnRysuj);
-            this.Controls.Add(this.pnlWarunkiII);
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(998, 435);
             this.Name = "Form1";
@@ -1118,6 +1146,8 @@
         private System.Windows.Forms.TextBox txtDoII;
         private System.Windows.Forms.Panel pnlWarunki;
         private System.Windows.Forms.CheckBox chkEnergia;
+        private System.Windows.Forms.CheckBox chkRFFT;
+        private System.Windows.Forms.CheckBox chkFFT;
     }
 }
 

@@ -70,6 +70,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Numerics" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -93,6 +94,7 @@
     <Compile Include="Calka.cs" />
     <Compile Include="Aproksymacja.cs" />
     <Compile Include="ExceptionsAndEnums.cs" />
+    <Compile Include="FastFourierTransform.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -116,6 +118,7 @@
     </Compile>
     <Compile Include="Kalkulator.cs" />
     <Compile Include="Pochodna.cs" />
+    <Compile Include="PointC.cs" />
     <Compile Include="PointD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

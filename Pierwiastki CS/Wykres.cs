@@ -213,6 +213,98 @@ namespace Pierwiastki_CS
             }           
         }
 
+        public void RysujFFT(TypFunkcji typFunkcji)
+        {
+            Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
+
+            List<PointF> punkty = new List<PointF>();
+            List<PointF> punktyRevers = new List<PointF>();
+
+            List<PointC> punktyC = new List<PointC>();
+            List<PointC> punktyReversC = new List<PointC>();
+
+            Pen pen = null;
+
+            //Obliczenie FFT
+            FastFourierTransform fft = new FastFourierTransform();
+            punktyC = fft.Oblicz(funkcja, xOd, xDo);
+
+            //Obliczenie Reverse FFT
+            punktyReversC = fft.ObliczOdwrocona(punktyC);
+
+            //Przeskalowanie pkt-ow
+            for (int i = 0; i < punktyC.Count; i++)
+            {
+                PointC pc = punktyC[i];
+                
+                pc.X = (pc.X * wspX + zeroX);
+                pc.Y = (pc.Y * wspY);
+
+                if (pc.Y.Real > max)
+                    pc.Y = max;
+                else if (pc.Y.Real < min)
+                    pc.Y = min;
+
+                pc.Y = (zeroY - pc.Y);
+
+                punkty.Add(pc.ToPointF());
+            }
+
+            //Przeskalowanie pkt-ow Reverse
+            for (int i = 0; i < punktyReversC.Count; i++)
+            {
+                PointC pc = punktyReversC[i];
+
+                pc.X = (pc.X * wspX + zeroX);
+                pc.Y = (pc.Y * wspY);
+
+                if (pc.Y.Real > max)
+                    pc.Y = max;
+                else if (pc.Y.Real < min)
+                    pc.Y = min;
+
+                pc.Y = (zeroY - pc.Y);
+
+                punktyRevers.Add(pc.ToPointF());
+            }
+
+            //Wypisanie wzoru funkcji
+            g.DrawString("FFT(" + '\u03C9' + ") = " + funkcja, font2, Brushes.Black, 3, 16);
+
+            switch (typFunkcji)
+            {
+                case TypFunkcji.FFT:
+                    pen = Pens.PaleVioletRed;
+                    break;
+                case TypFunkcji.RFFT:
+                    pen = Pens.Red;
+                    break;
+                default:
+                    pen = Pens.Red;
+                    break;
+            }
+
+            //RYSOWANIE WYKRESU
+            try
+            {
+              //  g.DrawLines(pen, punkty.ToArray());
+                g.DrawLines(pen, punktyRevers.ToArray());
+            }
+            catch (Exception)
+            {
+                //Pozbycie sie NaN - może pomoże
+              //  punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
+                punktyRevers = punktyRevers.Where(p => !double.IsNaN(p.Y)).ToList();
+
+                try
+                {
+                 //   g.DrawLines(pen, punkty.ToArray());
+                    g.DrawLines(pen, punktyRevers.ToArray());
+                }
+                catch { }
+            }
+        }
+
         public void RysujRozniczke(TypFunkcji typFunkcji, bool czyRysowacTylkoEnergie, params double[] parametry)
         {
             List<PointF> punkty = new List<PointF>();

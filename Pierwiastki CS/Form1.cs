@@ -42,15 +42,30 @@ namespace Pierwiastki_CS
                 zamienNa = ",";
             }
 
-            settings = new Settings();
-            UstawSettings(settings);
-
             cmbFunkcjaSpecjalna.SelectedIndex = 0;
+
+            //Ustawienia
+            settings = new Settings();
+
+            try
+            {
+                UstawSettings(settings);
+            }
+            catch (BrakUstawieniaException)
+            {
+                settings.PrzywrocUstawieniaDomyslne();
+                UstawSettings(settings);
+            }
 
             //Dodatkowe zdarzenia
             this.wykresToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
             this.btnPomoc.Click += new EventHandler(PokazFunkcjeForm_Handler);
-            this.chkEnergia.CheckedChanged +=new EventHandler(radioButton_CheckedChanged);
+            this.chkEnergia.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            this.chkFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            this.chkRFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+
+            //Zrobienie gui
+            radioButton_CheckedChanged(null, new EventArgs());
         }
 
         private void UstawSettings(Settings settings)
@@ -69,6 +84,8 @@ namespace Pierwiastki_CS
             chkEnergia.Checked = (bool)settings[Setting.EnergiaChecked];
             chkFunkcjaSpecjalna.Checked = (bool)settings[Setting.FunkcjaSpecjalnaChecked];
             chkReskalling.Checked = (bool)settings[Setting.AutomatycznyReskallingChecked];
+            chkFFT.Checked = (bool)settings[Setting.FFTChecked];
+            chkRFFT.Checked = (bool)settings[Setting.RFFTChecked];
         }
 
         /// <summary>
@@ -261,6 +278,8 @@ namespace Pierwiastki_CS
                 chkRozniczka.Enabled = true;
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = false;
+                chkFFT.Enabled = false;
+                chkRFFT.Enabled = false;
 
                 chkReskalling.Enabled = false;
             }
@@ -272,6 +291,8 @@ namespace Pierwiastki_CS
                 chkRozniczka.Enabled = false;
                 chkRozniczkaII.Enabled = true;
                 chkFunkcjaSpecjalna.Enabled = false;
+                chkFFT.Enabled = false;
+                chkRFFT.Enabled = false;
 
                 chkReskalling.Enabled = false;
             }
@@ -283,6 +304,8 @@ namespace Pierwiastki_CS
                 chkRozniczka.Enabled = false;
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = true;
+                chkFFT.Enabled = false;
+                chkRFFT.Enabled = false;
 
                 chkReskalling.Enabled = true;
             }
@@ -294,9 +317,15 @@ namespace Pierwiastki_CS
                 chkRozniczka.Enabled = false;
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = false;
+                chkFFT.Enabled = true;
+                chkRFFT.Enabled = true;
 
                 chkReskalling.Enabled = true;
             }
+
+            //Wyłączenie reskallingu gdy FFT
+            if ((chkFFT.Checked && chkFFT.Enabled) || (chkRFFT.Checked && chkRFFT.Enabled))
+                chkReskalling.Enabled = false;
         }
 
         /// <summary>
@@ -923,11 +952,11 @@ namespace Pierwiastki_CS
 
                 txtArgumentKomendaCzwarty.Focus();
             }
-            catch (SystemException except)
+            catch (SystemException)
             {
                 ObsluzException(stopWatch, "Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
             }
-            catch (Exception except)
+            catch (Exception)
             {
                 ObsluzException(stopWatch, "Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
             }
@@ -1029,7 +1058,7 @@ namespace Pierwiastki_CS
                 }
                 else
                 {
-                    if (!(chkFunkcja.Checked || chkPierwszaPochodna.Checked || chkDrugaPochodna.Checked || chkRozniczka.Checked || chkRozniczkaII.Checked))
+                    if (!(chkFunkcja.Checked || chkPierwszaPochodna.Checked || chkDrugaPochodna.Checked || chkRozniczka.Checked || chkRozniczkaII.Checked || chkFFT.Checked || chkRFFT.Checked))
                         throw new NoneWykresOptionCheckedException();
                 }
 
@@ -1269,6 +1298,12 @@ namespace Pierwiastki_CS
 
                 if (chkDrugaPochodna.Checked && chkDrugaPochodna.Enabled)
                     wykres.Rysuj(TypFunkcji.DrugaPochodna);
+
+                if (chkFFT.Checked && chkFFT.Enabled)
+                    wykres.RysujFFT(TypFunkcji.FFT);
+
+                if (chkRFFT.Checked && chkRFFT.Enabled)
+                    wykres.RysujFFT(TypFunkcji.RFFT);
 
                 if (chkRozniczka.Checked && chkRozniczka.Enabled)
                 {
@@ -2086,6 +2121,12 @@ namespace Pierwiastki_CS
                         break;
                     case "chkEnergia":
                         settings[Setting.EnergiaChecked] = chk.Checked;
+                        break;
+                    case "chkFFT":
+                        settings[Setting.FFTChecked] = chk.Checked;
+                        break;
+                    case "chkRFFT":
+                        settings[Setting.RFFTChecked] = chk.Checked;
                         break;
                     default:
                         break;
