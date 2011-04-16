@@ -1,0 +1,24 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pierwiastki CS", "Pierwiastki CS\Pierwiastki CS.csproj", "{789B7B5E-F9D2-486B-94EB-C119F126AE95}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PierwiastkiCS Setup", "PierwiastkiCS Setup\PierwiastkiCS Setup.vdproj", "{5F275D48-2275-49A3-9D6E-12358E5DC416}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{789B7B5E-F9D2-486B-94EB-C119F126AE95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{789B7B5E-F9D2-486B-94EB-C119F126AE95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{789B7B5E-F9D2-486B-94EB-C119F126AE95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{789B7B5E-F9D2-486B-94EB-C119F126AE95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5F275D48-2275-49A3-9D6E-12358E5DC416}.Debug|Any CPU.ActiveCfg = Debug
+		{5F275D48-2275-49A3-9D6E-12358E5DC416}.Release|Any CPU.ActiveCfg = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
