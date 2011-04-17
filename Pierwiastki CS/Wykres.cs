@@ -213,7 +213,7 @@ namespace Pierwiastki_CS
             }           
         }
 
-        public void RysujFFT(TypFunkcji typFunkcji)
+        public void RysujFFT(TypFunkcji typFunkcji, int probkowanie, double odciecie = 0.0)
         {
             Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
@@ -225,51 +225,80 @@ namespace Pierwiastki_CS
 
             Pen pen = null;
 
-            //Obliczenie FFT
             FastFourierTransform fft = new FastFourierTransform();
-            punktyC = fft.Oblicz(funkcja, xOd, xDo);
 
-            //Obliczenie Reverse FFT
-            punktyReversC = fft.ObliczOdwrocona(punktyC);
+            //Obliczenie FFT
+            punktyC = fft.Oblicz(funkcja, probkowanie, xOd, xDo);
 
-            //Przeskalowanie pkt-ow
+            //Przefiltrowanie
             for (int i = 0; i < punktyC.Count; i++)
             {
                 PointC pc = punktyC[i];
-                
-                pc.X = (pc.X * wspX + zeroX);
-                pc.Y = (pc.Y * wspY);
 
-                if (pc.Y.Real > max)
-                    pc.Y = max;
-                else if (pc.Y.Real < min)
-                    pc.Y = min;
+                if (Math.Abs(pc.Y.Real) < odciecie)
+                    pc.Y = 0;
 
-                pc.Y = (zeroY - pc.Y);
-
-                punkty.Add(pc.ToPointF());
+                punktyC[i] = pc;
             }
 
-            //Przeskalowanie pkt-ow Reverse
-            for (int i = 0; i < punktyReversC.Count; i++)
+            //Obliczenie Reverse FFT
+            if (typFunkcji == TypFunkcji.RFFT)
+                punktyReversC = fft.ObliczOdwrocona(punktyC, probkowanie, xOd, xDo);
+
+            //Nowe przygotowanie
+            if (typFunkcji == TypFunkcji.FFT)
+                Przygotowanie(funkcja, pWykres, 0, probkowanie + 3, yOd, yDo);
+
+            //Przeskalowanie pkt-ow
+            if (typFunkcji == TypFunkcji.FFT)
             {
-                PointC pc = punktyReversC[i];
+                for (int i = 0; i < punktyC.Count; i++)
+                {
+                    PointC pc = punktyC[i];
 
-                pc.X = (pc.X * wspX + zeroX);
-                pc.Y = (pc.Y * wspY);
+                    pc.X = (pc.X * wspX + zeroX);
+                    pc.Y = (pc.Y * wspY);
 
-                if (pc.Y.Real > max)
-                    pc.Y = max;
-                else if (pc.Y.Real < min)
-                    pc.Y = min;
+                    if (pc.Y.Real > max)
+                        pc.Y = max;
+                    else if (pc.Y.Real < min)
+                        pc.Y = min;
 
-                pc.Y = (zeroY - pc.Y);
+                    pc.Y = (zeroY - pc.Y);
 
-                punktyRevers.Add(pc.ToPointF());
+                    punkty.Add(pc.ToPointF());
+                }
+            }
+
+            if (typFunkcji == TypFunkcji.RFFT)
+            {
+                //Przeskalowanie pkt-ow Reverse
+                for (int i = 0; i < punktyReversC.Count; i++)
+                {
+                    PointC pc = punktyReversC[i];
+
+                    pc.X = (pc.X * wspX + zeroX);
+                    pc.Y = (pc.Y * wspY);
+
+                    if (pc.Y.Real > max)
+                        pc.Y = max;
+                    else if (pc.Y.Real < min)
+                        pc.Y = min;
+
+                    //if (Math.Abs(pc.Y.Real) < odciecie)
+                    //    pc.Y = 0;
+
+                    pc.Y = (zeroY - pc.Y);
+
+                    punktyRevers.Add(pc.ToPointF());
+                }
             }
 
             //Wypisanie wzoru funkcji
-            g.DrawString("FFT(" + '\u03C9' + ") = " + funkcja, font2, Brushes.Black, 3, 16);
+            if (typFunkcji == TypFunkcji.FFT)
+                g.DrawString("FFT(" + '\u03C9' + ") = " + funkcja, font2, Brushes.Black, 3, 16);
+            else
+                g.DrawString("RFFT(x) = " + funkcja, font2, Brushes.Black, 3, 16);
 
             switch (typFunkcji)
             {
@@ -287,19 +316,25 @@ namespace Pierwiastki_CS
             //RYSOWANIE WYKRESU
             try
             {
-              //  g.DrawLines(pen, punkty.ToArray());
-                g.DrawLines(pen, punktyRevers.ToArray());
+                if (typFunkcji == TypFunkcji.FFT)
+                    g.DrawLines(pen, punkty.ToArray());
+                else
+                    g.DrawLines(pen, punktyRevers.ToArray());
             }
             catch (Exception)
             {
                 //Pozbycie sie NaN - może pomoże
-              //  punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
-                punktyRevers = punktyRevers.Where(p => !double.IsNaN(p.Y)).ToList();
+                if (typFunkcji == TypFunkcji.FFT)
+                    punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
+                else
+                    punktyRevers = punktyRevers.Where(p => !double.IsNaN(p.Y)).ToList();
 
                 try
                 {
-                 //   g.DrawLines(pen, punkty.ToArray());
-                    g.DrawLines(pen, punktyRevers.ToArray());
+                    if (typFunkcji == TypFunkcji.FFT)
+                        g.DrawLines(pen, punkty.ToArray());
+                    else
+                        g.DrawLines(pen, punktyRevers.ToArray());
                 }
                 catch { }
             }
@@ -1214,6 +1249,11 @@ namespace Pierwiastki_CS
 
     // Konstruktor ------------------------
         public Wykres(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
+        {
+            Przygotowanie(funk, picWykres, xOd, xDo, yOd, yDo);
+        }
+
+        private void Przygotowanie(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
         {
             if (xDo == xOd)
                 throw new WspolrzedneXException("Wspolrzedne x od i do nie mogą być takie same!");

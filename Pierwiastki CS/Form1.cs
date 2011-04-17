@@ -281,6 +281,12 @@ namespace Pierwiastki_CS
                 chkFFT.Enabled = false;
                 chkRFFT.Enabled = false;
 
+                txtProbkowanie.Enabled = false;
+                txtOdciecie.Enabled = false;
+
+                lblProbkowanie.Enabled = false;
+                lblOdciecie.Enabled = false;
+
                 chkReskalling.Enabled = false;
             }
             else if (rbRozniczkaII.Checked)
@@ -293,6 +299,12 @@ namespace Pierwiastki_CS
                 chkFunkcjaSpecjalna.Enabled = false;
                 chkFFT.Enabled = false;
                 chkRFFT.Enabled = false;
+
+                txtProbkowanie.Enabled = false;
+                txtOdciecie.Enabled = false;
+
+                lblProbkowanie.Enabled = false;
+                lblOdciecie.Enabled = false;
 
                 chkReskalling.Enabled = false;
             }
@@ -307,6 +319,12 @@ namespace Pierwiastki_CS
                 chkFFT.Enabled = false;
                 chkRFFT.Enabled = false;
 
+                txtProbkowanie.Enabled = false;
+                txtOdciecie.Enabled = false;
+
+                lblProbkowanie.Enabled = false;
+                lblOdciecie.Enabled = false;
+
                 chkReskalling.Enabled = true;
             }
             else
@@ -320,12 +338,27 @@ namespace Pierwiastki_CS
                 chkFFT.Enabled = true;
                 chkRFFT.Enabled = true;
 
+                txtProbkowanie.Enabled = true;
+                txtOdciecie.Enabled = true;
+
+                lblProbkowanie.Enabled = true;
+                lblOdciecie.Enabled = true;
+
                 chkReskalling.Enabled = true;
             }
 
             //Wyłączenie reskallingu gdy FFT
             if ((chkFFT.Checked && chkFFT.Enabled) || (chkRFFT.Checked && chkRFFT.Enabled))
                 chkReskalling.Enabled = false;
+
+            //Jak FFT to nie RFFT i na odwrot
+            if (chkFFT.Checked && chkFFT.Enabled)
+            {
+                chkFunkcja.Enabled = false;
+                chkPierwszaPochodna.Enabled = false;
+                chkDrugaPochodna.Enabled = false;
+                chkRFFT.Enabled = false;
+            }
         }
 
         /// <summary>
@@ -1289,7 +1322,7 @@ namespace Pierwiastki_CS
                     wykres = new Wykres(funkcja, picWykres, xOd, xDo, yOd, yDo);
                 }
 
-                //Rysowanie
+                //Rysowanie funkcji i pochodnych
                 if (chkFunkcja.Checked && chkFunkcja.Enabled)
                     wykres.Rysuj(TypFunkcji.Funkcja);
 
@@ -1299,12 +1332,39 @@ namespace Pierwiastki_CS
                 if (chkDrugaPochodna.Checked && chkDrugaPochodna.Enabled)
                     wykres.Rysuj(TypFunkcji.DrugaPochodna);
 
+                //Rysowanie FFT
+                int probkowanie = 1000;
+                double odciecie = 0.0;
+
+                //probki
+                if ((chkFFT.Checked && chkFFT.Enabled) || (chkRFFT.Checked && chkRFFT.Enabled))
+                {
+                    string probkowanieString = txtProbkowanie.Text;
+                    string odciecieString = txtOdciecie.Text;
+
+                    if (!int.TryParse(probkowanieString, out probkowanie))
+                        throw new ProbkowanieValueException();
+
+                    double temp;
+
+                    if (string.IsNullOrEmpty(odciecieString))
+                        odciecie = 0.0;
+                    else
+                    {
+                        if (!double.TryParse(odciecieString, out temp))
+                            throw new FiltrValueException();
+                        else
+                            odciecie = temp;
+                    }
+                }
+
                 if (chkFFT.Checked && chkFFT.Enabled)
-                    wykres.RysujFFT(TypFunkcji.FFT);
+                    wykres.RysujFFT(TypFunkcji.FFT, probkowanie, odciecie);
 
                 if (chkRFFT.Checked && chkRFFT.Enabled)
-                    wykres.RysujFFT(TypFunkcji.RFFT);
+                    wykres.RysujFFT(TypFunkcji.RFFT, probkowanie, odciecie);
 
+                //Rysowanie rozniczek
                 if (chkRozniczka.Checked && chkRozniczka.Enabled)
                 {
                     double from, to;
@@ -1606,6 +1666,12 @@ namespace Pierwiastki_CS
             catch (NoneWykresOptionCheckedException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
+            }
+            catch (FiltrValueException excep)
+            {
+                ObsluzExceptionWykres(excep.Message);
+
+                txtOdciecie.Focus();
             }
             catch (SystemException)
             {

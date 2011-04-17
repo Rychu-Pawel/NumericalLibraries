@@ -92,6 +92,8 @@
             this.chkFunkcjaSpecjalna = new System.Windows.Forms.CheckBox();
             this.gbPunkt = new System.Windows.Forms.GroupBox();
             this.gbRysujFunkcje = new System.Windows.Forms.GroupBox();
+            this.chkRFFT = new System.Windows.Forms.CheckBox();
+            this.chkFFT = new System.Windows.Forms.CheckBox();
             this.chkEnergia = new System.Windows.Forms.CheckBox();
             this.chkRozniczkaII = new System.Windows.Forms.CheckBox();
             this.chkRozniczka = new System.Windows.Forms.CheckBox();
@@ -110,8 +112,10 @@
             this.gbWarunkiII = new System.Windows.Forms.GroupBox();
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
-            this.chkFFT = new System.Windows.Forms.CheckBox();
-            this.chkRFFT = new System.Windows.Forms.CheckBox();
+            this.txtOdciecie = new System.Windows.Forms.TextBox();
+            this.txtProbkowanie = new System.Windows.Forms.TextBox();
+            this.lblProbkowanie = new System.Windows.Forms.Label();
+            this.lblOdciecie = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.gbFunkcja.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -132,7 +136,7 @@
             // 
             // btnOblicz
             // 
-            this.btnOblicz.Location = new System.Drawing.Point(129, 56);
+            this.btnOblicz.Location = new System.Drawing.Point(130, 73);
             this.btnOblicz.Name = "btnOblicz";
             this.btnOblicz.Size = new System.Drawing.Size(75, 23);
             this.btnOblicz.TabIndex = 13;
@@ -429,7 +433,7 @@
             this.gbWynik.Controls.Add(this.btnOblicz);
             this.gbWynik.Location = new System.Drawing.Point(15, 301);
             this.gbWynik.Name = "gbWynik";
-            this.gbWynik.Size = new System.Drawing.Size(332, 84);
+            this.gbWynik.Size = new System.Drawing.Size(332, 102);
             this.gbWynik.TabIndex = 5;
             this.gbWynik.TabStop = false;
             this.gbWynik.Text = "Wynik";
@@ -437,7 +441,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(88, 43);
+            this.label3.Location = new System.Drawing.Point(89, 60);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 13);
             this.label3.TabIndex = 11;
@@ -446,7 +450,7 @@
             // lblCzas
             // 
             this.lblCzas.AutoSize = true;
-            this.lblCzas.Location = new System.Drawing.Point(169, 43);
+            this.lblCzas.Location = new System.Drawing.Point(170, 60);
             this.lblCzas.Name = "lblCzas";
             this.lblCzas.Size = new System.Drawing.Size(73, 13);
             this.lblCzas.TabIndex = 10;
@@ -613,7 +617,7 @@
             this.pnlWykres.Controls.Add(this.picWykres);
             this.pnlWykres.Location = new System.Drawing.Point(353, 35);
             this.pnlWykres.Name = "pnlWykres";
-            this.pnlWykres.Size = new System.Drawing.Size(400, 350);
+            this.pnlWykres.Size = new System.Drawing.Size(400, 368);
             this.pnlWykres.TabIndex = 21;
             // 
             // picWykres
@@ -622,7 +626,7 @@
             this.picWykres.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picWykres.Location = new System.Drawing.Point(-2, -2);
             this.picWykres.Name = "picWykres";
-            this.picWykres.Size = new System.Drawing.Size(400, 350);
+            this.picWykres.Size = new System.Drawing.Size(400, 368);
             this.picWykres.TabIndex = 0;
             this.picWykres.TabStop = false;
             this.picWykres.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseDown);
@@ -706,7 +710,7 @@
             // 
             // btnRysuj
             // 
-            this.btnRysuj.Location = new System.Drawing.Point(826, 357);
+            this.btnRysuj.Location = new System.Drawing.Point(826, 380);
             this.btnRysuj.Name = "btnRysuj";
             this.btnRysuj.Size = new System.Drawing.Size(75, 23);
             this.btnRysuj.TabIndex = 8;
@@ -753,6 +757,10 @@
             // 
             // gbRysujFunkcje
             // 
+            this.gbRysujFunkcje.Controls.Add(this.lblOdciecie);
+            this.gbRysujFunkcje.Controls.Add(this.lblProbkowanie);
+            this.gbRysujFunkcje.Controls.Add(this.txtProbkowanie);
+            this.gbRysujFunkcje.Controls.Add(this.txtOdciecie);
             this.gbRysujFunkcje.Controls.Add(this.chkRFFT);
             this.gbRysujFunkcje.Controls.Add(this.chkFFT);
             this.gbRysujFunkcje.Controls.Add(this.chkEnergia);
@@ -765,12 +773,36 @@
             this.gbRysujFunkcje.Controls.Add(this.chkFunkcja);
             this.gbRysujFunkcje.Location = new System.Drawing.Point(759, 35);
             this.gbRysujFunkcje.Name = "gbRysujFunkcje";
-            this.gbRysujFunkcje.Size = new System.Drawing.Size(210, 208);
+            this.gbRysujFunkcje.Size = new System.Drawing.Size(210, 231);
             this.gbRysujFunkcje.TabIndex = 6;
             this.gbRysujFunkcje.TabStop = false;
             this.gbRysujFunkcje.Text = "Rysuj";
             this.gbRysujFunkcje.Enter += new System.EventHandler(this.GroupBoxWykresowy_Enter);
             this.gbRysujFunkcje.Leave += new System.EventHandler(this.GroupBoxWykresowy_Leave);
+            // 
+            // chkRFFT
+            // 
+            this.chkRFFT.AutoSize = true;
+            this.chkRFFT.ForeColor = System.Drawing.Color.Maroon;
+            this.chkRFFT.Location = new System.Drawing.Point(6, 207);
+            this.chkRFFT.Name = "chkRFFT";
+            this.chkRFFT.Size = new System.Drawing.Size(53, 17);
+            this.chkRFFT.TabIndex = 24;
+            this.chkRFFT.Text = "RFFT";
+            this.chkRFFT.UseVisualStyleBackColor = true;
+            this.chkRFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            // 
+            // chkFFT
+            // 
+            this.chkFFT.AutoSize = true;
+            this.chkFFT.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.chkFFT.Location = new System.Drawing.Point(6, 184);
+            this.chkFFT.Name = "chkFFT";
+            this.chkFFT.Size = new System.Drawing.Size(45, 17);
+            this.chkFFT.TabIndex = 23;
+            this.chkFFT.Text = "FFT";
+            this.chkFFT.UseVisualStyleBackColor = true;
+            this.chkFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
             // 
             // chkEnergia
             // 
@@ -860,7 +892,7 @@
             this.gbSkala.Controls.Add(this.txtYOd);
             this.gbSkala.Controls.Add(this.chkX);
             this.gbSkala.Controls.Add(this.label7);
-            this.gbSkala.Location = new System.Drawing.Point(761, 249);
+            this.gbSkala.Location = new System.Drawing.Point(761, 272);
             this.gbSkala.Name = "gbSkala";
             this.gbSkala.Size = new System.Drawing.Size(210, 102);
             this.gbSkala.TabIndex = 7;
@@ -984,36 +1016,46 @@
             this.pnlWarunkiII.Size = new System.Drawing.Size(163, 44);
             this.pnlWarunkiII.TabIndex = 13;
             // 
-            // chkFFT
+            // txtOdciecie
             // 
-            this.chkFFT.AutoSize = true;
-            this.chkFFT.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.chkFFT.Location = new System.Drawing.Point(6, 184);
-            this.chkFFT.Name = "chkFFT";
-            this.chkFFT.Size = new System.Drawing.Size(45, 17);
-            this.chkFFT.TabIndex = 23;
-            this.chkFFT.Text = "FFT";
-            this.chkFFT.UseVisualStyleBackColor = true;
-            this.chkFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.txtOdciecie.Location = new System.Drawing.Point(140, 205);
+            this.txtOdciecie.Name = "txtOdciecie";
+            this.txtOdciecie.Size = new System.Drawing.Size(64, 20);
+            this.txtOdciecie.TabIndex = 25;
+            this.txtOdciecie.Text = "0";
             // 
-            // chkRFFT
+            // txtProbkowanie
             // 
-            this.chkRFFT.AutoSize = true;
-            this.chkRFFT.ForeColor = System.Drawing.Color.Maroon;
-            this.chkRFFT.Location = new System.Drawing.Point(81, 184);
-            this.chkRFFT.Name = "chkRFFT";
-            this.chkRFFT.Size = new System.Drawing.Size(103, 17);
-            this.chkRFFT.TabIndex = 24;
-            this.chkRFFT.Text = "Odwrócona FFT";
-            this.chkRFFT.UseVisualStyleBackColor = true;
-            this.chkRFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.txtProbkowanie.Location = new System.Drawing.Point(140, 182);
+            this.txtProbkowanie.Name = "txtProbkowanie";
+            this.txtProbkowanie.Size = new System.Drawing.Size(64, 20);
+            this.txtProbkowanie.TabIndex = 26;
+            this.txtProbkowanie.Text = "1000";
+            // 
+            // lblProbkowanie
+            // 
+            this.lblProbkowanie.AutoSize = true;
+            this.lblProbkowanie.Location = new System.Drawing.Point(59, 185);
+            this.lblProbkowanie.Name = "lblProbkowanie";
+            this.lblProbkowanie.Size = new System.Drawing.Size(72, 13);
+            this.lblProbkowanie.TabIndex = 27;
+            this.lblProbkowanie.Text = "Próbkowanie:";
+            // 
+            // lblOdciecie
+            // 
+            this.lblOdciecie.AutoSize = true;
+            this.lblOdciecie.Location = new System.Drawing.Point(59, 208);
+            this.lblOdciecie.Name = "lblOdciecie";
+            this.lblOdciecie.Size = new System.Drawing.Size(75, 13);
+            this.lblOdciecie.TabIndex = 28;
+            this.lblOdciecie.Text = "Próg odcięcia:";
             // 
             // Form1
             // 
             this.AcceptButton = this.btnOblicz;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 397);
+            this.ClientSize = new System.Drawing.Size(982, 415);
             this.Controls.Add(this.gbOperacja);
             this.Controls.Add(this.pnlWykres);
             this.Controls.Add(this.gbPunkt);
@@ -1023,8 +1065,8 @@
             this.Controls.Add(this.gbFunkcja);
             this.Controls.Add(this.pnlWarunki);
             this.Controls.Add(this.pnlWarunkiII);
-            this.Controls.Add(this.gbSkala);
             this.Controls.Add(this.btnRysuj);
+            this.Controls.Add(this.gbSkala);
             this.MainMenuStrip = this.menuStrip;
             this.MinimumSize = new System.Drawing.Size(998, 435);
             this.Name = "Form1";
@@ -1148,6 +1190,10 @@
         private System.Windows.Forms.CheckBox chkEnergia;
         private System.Windows.Forms.CheckBox chkRFFT;
         private System.Windows.Forms.CheckBox chkFFT;
+        private System.Windows.Forms.TextBox txtOdciecie;
+        private System.Windows.Forms.Label lblOdciecie;
+        private System.Windows.Forms.Label lblProbkowanie;
+        private System.Windows.Forms.TextBox txtProbkowanie;
     }
 }
 

@@ -115,6 +115,28 @@ namespace Pierwiastki_CS
             : base("Nie wybrano żadnej opcji wykresu!") { }
     }
 
+    class FiltrValueException : Exception
+    {
+        public FiltrValueException()
+            : base("Niepoprawnna wartość filtru!")
+        { }
+
+        public FiltrValueException(string msg)
+            : base(msg)
+        { }
+    }
+
+    class ProbkowanieValueException : Exception
+    {
+        public ProbkowanieValueException()
+            : base("Niepoprawnna wartość próbkowania!")
+        { }
+
+        public ProbkowanieValueException(string msg)
+            : base(msg)
+        { }
+    }
+
     enum TypFunkcji
     {
         Funkcja,
