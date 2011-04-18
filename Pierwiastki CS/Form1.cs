@@ -62,7 +62,7 @@ namespace Pierwiastki_CS
             this.btnPomoc.Click += new EventHandler(PokazFunkcjeForm_Handler);
             this.chkEnergia.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
             this.chkFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
-            this.chkRFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            this.chkIFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
 
             //Zrobienie gui
             radioButton_CheckedChanged(null, new EventArgs());
@@ -85,7 +85,7 @@ namespace Pierwiastki_CS
             chkFunkcjaSpecjalna.Checked = (bool)settings[Setting.FunkcjaSpecjalnaChecked];
             chkReskalling.Checked = (bool)settings[Setting.AutomatycznyReskallingChecked];
             chkFFT.Checked = (bool)settings[Setting.FFTChecked];
-            chkRFFT.Checked = (bool)settings[Setting.RFFTChecked];
+            chkIFFT.Checked = (bool)settings[Setting.IFFTChecked];
         }
 
         /// <summary>
@@ -279,7 +279,7 @@ namespace Pierwiastki_CS
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = false;
                 chkFFT.Enabled = false;
-                chkRFFT.Enabled = false;
+                chkIFFT.Enabled = false;
 
                 txtProbkowanie.Enabled = false;
                 txtOdciecie.Enabled = false;
@@ -298,7 +298,7 @@ namespace Pierwiastki_CS
                 chkRozniczkaII.Enabled = true;
                 chkFunkcjaSpecjalna.Enabled = false;
                 chkFFT.Enabled = false;
-                chkRFFT.Enabled = false;
+                chkIFFT.Enabled = false;
 
                 txtProbkowanie.Enabled = false;
                 txtOdciecie.Enabled = false;
@@ -317,7 +317,7 @@ namespace Pierwiastki_CS
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = true;
                 chkFFT.Enabled = false;
-                chkRFFT.Enabled = false;
+                chkIFFT.Enabled = false;
 
                 txtProbkowanie.Enabled = false;
                 txtOdciecie.Enabled = false;
@@ -336,7 +336,7 @@ namespace Pierwiastki_CS
                 chkRozniczkaII.Enabled = false;
                 chkFunkcjaSpecjalna.Enabled = false;
                 chkFFT.Enabled = true;
-                chkRFFT.Enabled = true;
+                chkIFFT.Enabled = true;
 
                 txtProbkowanie.Enabled = true;
                 txtOdciecie.Enabled = true;
@@ -348,7 +348,7 @@ namespace Pierwiastki_CS
             }
 
             //Wyłączenie reskallingu gdy FFT
-            if ((chkFFT.Checked && chkFFT.Enabled) || (chkRFFT.Checked && chkRFFT.Enabled))
+            if ((chkFFT.Checked && chkFFT.Enabled) || (chkIFFT.Checked && chkIFFT.Enabled))
                 chkReskalling.Enabled = false;
 
             //Jak FFT to nie RFFT i na odwrot
@@ -357,7 +357,7 @@ namespace Pierwiastki_CS
                 chkFunkcja.Enabled = false;
                 chkPierwszaPochodna.Enabled = false;
                 chkDrugaPochodna.Enabled = false;
-                chkRFFT.Enabled = false;
+                chkIFFT.Enabled = false;
             }
         }
 
@@ -1091,7 +1091,7 @@ namespace Pierwiastki_CS
                 }
                 else
                 {
-                    if (!(chkFunkcja.Checked || chkPierwszaPochodna.Checked || chkDrugaPochodna.Checked || chkRozniczka.Checked || chkRozniczkaII.Checked || chkFFT.Checked || chkRFFT.Checked))
+                    if (!(chkFunkcja.Checked || chkPierwszaPochodna.Checked || chkDrugaPochodna.Checked || chkRozniczka.Checked || chkRozniczkaII.Checked || chkFFT.Checked || chkIFFT.Checked))
                         throw new NoneWykresOptionCheckedException();
                 }
 
@@ -1337,7 +1337,7 @@ namespace Pierwiastki_CS
                 double odciecie = 0.0;
 
                 //probki
-                if ((chkFFT.Checked && chkFFT.Enabled) || (chkRFFT.Checked && chkRFFT.Enabled))
+                if ((chkFFT.Checked && chkFFT.Enabled) || (chkIFFT.Checked && chkIFFT.Enabled))
                 {
                     string probkowanieString = txtProbkowanie.Text;
                     string odciecieString = txtOdciecie.Text;
@@ -1361,7 +1361,7 @@ namespace Pierwiastki_CS
                 if (chkFFT.Checked && chkFFT.Enabled)
                     wykres.RysujFFT(TypFunkcji.FFT, probkowanie, odciecie);
 
-                if (chkRFFT.Checked && chkRFFT.Enabled)
+                if (chkIFFT.Checked && chkIFFT.Enabled)
                     wykres.RysujFFT(TypFunkcji.RFFT, probkowanie, odciecie);
 
                 //Rysowanie rozniczek
@@ -2192,7 +2192,7 @@ namespace Pierwiastki_CS
                         settings[Setting.FFTChecked] = chk.Checked;
                         break;
                     case "chkRFFT":
-                        settings[Setting.RFFTChecked] = chk.Checked;
+                        settings[Setting.IFFTChecked] = chk.Checked;
                         break;
                     default:
                         break;

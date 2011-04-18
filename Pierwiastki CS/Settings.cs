@@ -108,7 +108,7 @@ namespace Pierwiastki_CS
             settings[Setting.EnergiaChecked] = false;
             settings[Setting.FunkcjaSpecjalnaChecked] = false;
             settings[Setting.FFTChecked] = false;
-            settings[Setting.RFFTChecked] = false;
+            settings[Setting.IFFTChecked] = false;
             settings[Setting.AutomatycznyReskallingChecked] = true;
         }
     }
@@ -194,7 +194,7 @@ namespace Pierwiastki_CS
         EnergiaChecked,
         FunkcjaSpecjalnaChecked,
         FFTChecked,
-        RFFTChecked,
+        IFFTChecked,
         AutomatycznyReskallingChecked
 	}
 

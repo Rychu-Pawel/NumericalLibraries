@@ -13,41 +13,6 @@ namespace Pierwiastki_CS
         Complex complexDwa = new Complex(2.0, 0);
         Complex complexPi = new Complex(Math.PI, 0);
 
-        //public List<PointC> Oblicz(string funkcja, double poczatek, double koniec)
-        //{
-        //    Pochodna p = new Pochodna(funkcja);
-
-        //    List<PointC> wyniki = new List<PointC>();
-
-        //    double krok = (koniec - poczatek) / 1000;
-
-        //    int n = 0;
-        //    double k = poczatek;
-        //    double[] wartosciFunkcji = new double[1000];
-            
-        //    while (n < 1000)
-        //    {
-        //        wartosciFunkcji[n] = p.ObliczFunkcjeWPunkcie(k);
-
-        //        n++;
-        //        k += krok;
-        //    }
-            
-        //    for (k = poczatek; k <= koniec; k += krok)
-        //    {
-        //        Complex suma = new Complex();
-
-        //        for (n = 0; n < 1000; n++)
-        //        {
-        //            suma += wartosciFunkcji[n] * Complex.Exp((-2 * Math.PI * Complex.ImaginaryOne * n * k) / 1000);
-        //        }
-
-        //        wyniki.Add(new PointC(k, suma));
-        //    }
-
-        //    return wyniki;
-        //}
-
         public List<PointC> Oblicz(string funkcja, int probkowanie, double poczatek, double koniec)
         {
             Pochodna p = new Pochodna(funkcja);

@@ -92,7 +92,11 @@
             this.chkFunkcjaSpecjalna = new System.Windows.Forms.CheckBox();
             this.gbPunkt = new System.Windows.Forms.GroupBox();
             this.gbRysujFunkcje = new System.Windows.Forms.GroupBox();
-            this.chkRFFT = new System.Windows.Forms.CheckBox();
+            this.lblOdciecie = new System.Windows.Forms.Label();
+            this.lblProbkowanie = new System.Windows.Forms.Label();
+            this.txtProbkowanie = new System.Windows.Forms.TextBox();
+            this.txtOdciecie = new System.Windows.Forms.TextBox();
+            this.chkIFFT = new System.Windows.Forms.CheckBox();
             this.chkFFT = new System.Windows.Forms.CheckBox();
             this.chkEnergia = new System.Windows.Forms.CheckBox();
             this.chkRozniczkaII = new System.Windows.Forms.CheckBox();
@@ -112,10 +116,6 @@
             this.gbWarunkiII = new System.Windows.Forms.GroupBox();
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
-            this.txtOdciecie = new System.Windows.Forms.TextBox();
-            this.txtProbkowanie = new System.Windows.Forms.TextBox();
-            this.lblProbkowanie = new System.Windows.Forms.Label();
-            this.lblOdciecie = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.gbFunkcja.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -136,7 +136,7 @@
             // 
             // btnOblicz
             // 
-            this.btnOblicz.Location = new System.Drawing.Point(130, 73);
+            this.btnOblicz.Location = new System.Drawing.Point(129, 70);
             this.btnOblicz.Name = "btnOblicz";
             this.btnOblicz.Size = new System.Drawing.Size(75, 23);
             this.btnOblicz.TabIndex = 13;
@@ -441,7 +441,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(89, 60);
+            this.label3.Location = new System.Drawing.Point(89, 54);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(75, 13);
             this.label3.TabIndex = 11;
@@ -450,7 +450,7 @@
             // lblCzas
             // 
             this.lblCzas.AutoSize = true;
-            this.lblCzas.Location = new System.Drawing.Point(170, 60);
+            this.lblCzas.Location = new System.Drawing.Point(170, 54);
             this.lblCzas.Name = "lblCzas";
             this.lblCzas.Size = new System.Drawing.Size(73, 13);
             this.lblCzas.TabIndex = 10;
@@ -458,7 +458,7 @@
             // 
             // txtWynik
             // 
-            this.txtWynik.Location = new System.Drawing.Point(70, 14);
+            this.txtWynik.Location = new System.Drawing.Point(70, 19);
             this.txtWynik.Name = "txtWynik";
             this.txtWynik.Size = new System.Drawing.Size(192, 20);
             this.txtWynik.TabIndex = 14;
@@ -761,7 +761,7 @@
             this.gbRysujFunkcje.Controls.Add(this.lblProbkowanie);
             this.gbRysujFunkcje.Controls.Add(this.txtProbkowanie);
             this.gbRysujFunkcje.Controls.Add(this.txtOdciecie);
-            this.gbRysujFunkcje.Controls.Add(this.chkRFFT);
+            this.gbRysujFunkcje.Controls.Add(this.chkIFFT);
             this.gbRysujFunkcje.Controls.Add(this.chkFFT);
             this.gbRysujFunkcje.Controls.Add(this.chkEnergia);
             this.gbRysujFunkcje.Controls.Add(this.chkRozniczkaII);
@@ -780,17 +780,51 @@
             this.gbRysujFunkcje.Enter += new System.EventHandler(this.GroupBoxWykresowy_Enter);
             this.gbRysujFunkcje.Leave += new System.EventHandler(this.GroupBoxWykresowy_Leave);
             // 
-            // chkRFFT
+            // lblOdciecie
             // 
-            this.chkRFFT.AutoSize = true;
-            this.chkRFFT.ForeColor = System.Drawing.Color.Maroon;
-            this.chkRFFT.Location = new System.Drawing.Point(6, 207);
-            this.chkRFFT.Name = "chkRFFT";
-            this.chkRFFT.Size = new System.Drawing.Size(53, 17);
-            this.chkRFFT.TabIndex = 24;
-            this.chkRFFT.Text = "RFFT";
-            this.chkRFFT.UseVisualStyleBackColor = true;
-            this.chkRFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.lblOdciecie.AutoSize = true;
+            this.lblOdciecie.Location = new System.Drawing.Point(59, 208);
+            this.lblOdciecie.Name = "lblOdciecie";
+            this.lblOdciecie.Size = new System.Drawing.Size(75, 13);
+            this.lblOdciecie.TabIndex = 28;
+            this.lblOdciecie.Text = "Próg odcięcia:";
+            // 
+            // lblProbkowanie
+            // 
+            this.lblProbkowanie.AutoSize = true;
+            this.lblProbkowanie.Location = new System.Drawing.Point(59, 185);
+            this.lblProbkowanie.Name = "lblProbkowanie";
+            this.lblProbkowanie.Size = new System.Drawing.Size(72, 13);
+            this.lblProbkowanie.TabIndex = 27;
+            this.lblProbkowanie.Text = "Próbkowanie:";
+            // 
+            // txtProbkowanie
+            // 
+            this.txtProbkowanie.Location = new System.Drawing.Point(140, 182);
+            this.txtProbkowanie.Name = "txtProbkowanie";
+            this.txtProbkowanie.Size = new System.Drawing.Size(64, 20);
+            this.txtProbkowanie.TabIndex = 26;
+            this.txtProbkowanie.Text = "1000";
+            // 
+            // txtOdciecie
+            // 
+            this.txtOdciecie.Location = new System.Drawing.Point(140, 205);
+            this.txtOdciecie.Name = "txtOdciecie";
+            this.txtOdciecie.Size = new System.Drawing.Size(64, 20);
+            this.txtOdciecie.TabIndex = 25;
+            this.txtOdciecie.Text = "0";
+            // 
+            // chkIFFT
+            // 
+            this.chkIFFT.AutoSize = true;
+            this.chkIFFT.ForeColor = System.Drawing.Color.Maroon;
+            this.chkIFFT.Location = new System.Drawing.Point(6, 207);
+            this.chkIFFT.Name = "chkIFFT";
+            this.chkIFFT.Size = new System.Drawing.Size(48, 17);
+            this.chkIFFT.TabIndex = 24;
+            this.chkIFFT.Text = "IFFT";
+            this.chkIFFT.UseVisualStyleBackColor = true;
+            this.chkIFFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
             // 
             // chkFFT
             // 
@@ -1016,40 +1050,6 @@
             this.pnlWarunkiII.Size = new System.Drawing.Size(163, 44);
             this.pnlWarunkiII.TabIndex = 13;
             // 
-            // txtOdciecie
-            // 
-            this.txtOdciecie.Location = new System.Drawing.Point(140, 205);
-            this.txtOdciecie.Name = "txtOdciecie";
-            this.txtOdciecie.Size = new System.Drawing.Size(64, 20);
-            this.txtOdciecie.TabIndex = 25;
-            this.txtOdciecie.Text = "0";
-            // 
-            // txtProbkowanie
-            // 
-            this.txtProbkowanie.Location = new System.Drawing.Point(140, 182);
-            this.txtProbkowanie.Name = "txtProbkowanie";
-            this.txtProbkowanie.Size = new System.Drawing.Size(64, 20);
-            this.txtProbkowanie.TabIndex = 26;
-            this.txtProbkowanie.Text = "1000";
-            // 
-            // lblProbkowanie
-            // 
-            this.lblProbkowanie.AutoSize = true;
-            this.lblProbkowanie.Location = new System.Drawing.Point(59, 185);
-            this.lblProbkowanie.Name = "lblProbkowanie";
-            this.lblProbkowanie.Size = new System.Drawing.Size(72, 13);
-            this.lblProbkowanie.TabIndex = 27;
-            this.lblProbkowanie.Text = "Próbkowanie:";
-            // 
-            // lblOdciecie
-            // 
-            this.lblOdciecie.AutoSize = true;
-            this.lblOdciecie.Location = new System.Drawing.Point(59, 208);
-            this.lblOdciecie.Name = "lblOdciecie";
-            this.lblOdciecie.Size = new System.Drawing.Size(75, 13);
-            this.lblOdciecie.TabIndex = 28;
-            this.lblOdciecie.Text = "Próg odcięcia:";
-            // 
             // Form1
             // 
             this.AcceptButton = this.btnOblicz;
@@ -1188,7 +1188,7 @@
         private System.Windows.Forms.TextBox txtDoII;
         private System.Windows.Forms.Panel pnlWarunki;
         private System.Windows.Forms.CheckBox chkEnergia;
-        private System.Windows.Forms.CheckBox chkRFFT;
+        private System.Windows.Forms.CheckBox chkIFFT;
         private System.Windows.Forms.CheckBox chkFFT;
         private System.Windows.Forms.TextBox txtOdciecie;
         private System.Windows.Forms.Label lblOdciecie;
