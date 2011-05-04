@@ -81,18 +81,12 @@ namespace Pierwiastki_CS
                 {
                     //Ustawiamy defaultowe ustawienia
                     PrzywrocUstawieniaDomyslne();
-
-                    //Serializujemy
-                    Zapisz();
                 }
             }
             else
             {
                 //Ustawiamy defaultowe ustawienia
                 PrzywrocUstawieniaDomyslne();
-
-                //Serializujemy
-                Zapisz();
             }
         }
 
@@ -110,6 +104,8 @@ namespace Pierwiastki_CS
             settings[Setting.FFTChecked] = false;
             settings[Setting.IFFTChecked] = false;
             settings[Setting.AutomatycznyReskallingChecked] = true;
+
+            Zapisz();
         }
     }
 

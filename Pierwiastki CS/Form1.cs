@@ -2279,5 +2279,10 @@ namespace Pierwiastki_CS
             else
                 txtOd.Text = txtOdII.Text;
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }
