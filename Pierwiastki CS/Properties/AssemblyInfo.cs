@@ -11,7 +11,7 @@ using System.Resources;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Pierwiastki CS")]
-[assembly: AssemblyCopyright("Copyright © 2009 Pawel Rychlicki")]
+[assembly: AssemblyCopyright("Copyright © 2009-2011 Pawel Rychlicki")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -33,8 +33,8 @@ using System.Resources;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("1.0.0.1")]
-[assembly: AssemblyFileVersion("1.0.0.1")]
+[assembly: AssemblyVersion("1.1.2.0")]
+[assembly: AssemblyFileVersion("1.1.2.0")]
 [assembly: NeutralResourcesLanguageAttribute("pl-PL")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("SilniaTest2")]

@@ -2032,7 +2032,7 @@ namespace Pierwiastki_CS
         {
             if (wykresToolStripMenuItem.Checked)
             {
-                this.MinimumSize = new Size(970, 401);
+                this.MinimumSize = new Size(1007, 435);
                 this.MaximumSize = new Size(0, 0);
 
                 this.MaximizeBox = true;
@@ -2048,13 +2048,13 @@ namespace Pierwiastki_CS
                 
                 staryRozmiar = this.Size;
 
-                this.MinimumSize = new Size(362, 401);
-                this.MaximumSize = new Size(362, 401);
+                this.MinimumSize = new Size(365, 435);
+                this.MaximumSize = new Size(365, 435);
 
                 this.MaximizeBox = false;
                 this.FormBorderStyle = FormBorderStyle.FixedSingle;
                 
-                Width = 362;
+                Width = 365;
             }
         }
 

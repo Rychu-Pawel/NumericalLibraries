@@ -190,7 +190,7 @@
             this.programToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(982, 24);
+            this.menuStrip.Size = new System.Drawing.Size(991, 24);
             this.menuStrip.TabIndex = 14;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -615,7 +615,7 @@
             this.pnlWykres.BackColor = System.Drawing.Color.White;
             this.pnlWykres.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.pnlWykres.Controls.Add(this.picWykres);
-            this.pnlWykres.Location = new System.Drawing.Point(353, 35);
+            this.pnlWykres.Location = new System.Drawing.Point(363, 35);
             this.pnlWykres.Name = "pnlWykres";
             this.pnlWykres.Size = new System.Drawing.Size(400, 368);
             this.pnlWykres.TabIndex = 21;
@@ -710,7 +710,7 @@
             // 
             // btnRysuj
             // 
-            this.btnRysuj.Location = new System.Drawing.Point(826, 380);
+            this.btnRysuj.Location = new System.Drawing.Point(836, 380);
             this.btnRysuj.Name = "btnRysuj";
             this.btnRysuj.Size = new System.Drawing.Size(75, 23);
             this.btnRysuj.TabIndex = 8;
@@ -771,7 +771,7 @@
             this.gbRysujFunkcje.Controls.Add(this.chkDrugaPochodna);
             this.gbRysujFunkcje.Controls.Add(this.chkPierwszaPochodna);
             this.gbRysujFunkcje.Controls.Add(this.chkFunkcja);
-            this.gbRysujFunkcje.Location = new System.Drawing.Point(759, 35);
+            this.gbRysujFunkcje.Location = new System.Drawing.Point(769, 35);
             this.gbRysujFunkcje.Name = "gbRysujFunkcje";
             this.gbRysujFunkcje.Size = new System.Drawing.Size(210, 231);
             this.gbRysujFunkcje.TabIndex = 6;
@@ -926,7 +926,7 @@
             this.gbSkala.Controls.Add(this.txtYOd);
             this.gbSkala.Controls.Add(this.chkX);
             this.gbSkala.Controls.Add(this.label7);
-            this.gbSkala.Location = new System.Drawing.Point(761, 272);
+            this.gbSkala.Location = new System.Drawing.Point(771, 272);
             this.gbSkala.Name = "gbSkala";
             this.gbSkala.Size = new System.Drawing.Size(210, 102);
             this.gbSkala.TabIndex = 7;
@@ -1055,20 +1055,20 @@
             this.AcceptButton = this.btnOblicz;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(982, 415);
+            this.ClientSize = new System.Drawing.Size(991, 415);
             this.Controls.Add(this.gbOperacja);
-            this.Controls.Add(this.pnlWykres);
             this.Controls.Add(this.gbPunkt);
             this.Controls.Add(this.menuStrip);
-            this.Controls.Add(this.gbRysujFunkcje);
             this.Controls.Add(this.gbWynik);
             this.Controls.Add(this.gbFunkcja);
+            this.Controls.Add(this.pnlWykres);
             this.Controls.Add(this.pnlWarunki);
             this.Controls.Add(this.pnlWarunkiII);
-            this.Controls.Add(this.btnRysuj);
+            this.Controls.Add(this.gbRysujFunkcje);
             this.Controls.Add(this.gbSkala);
+            this.Controls.Add(this.btnRysuj);
             this.MainMenuStrip = this.menuStrip;
-            this.MinimumSize = new System.Drawing.Size(998, 435);
+            this.MinimumSize = new System.Drawing.Size(1007, 453);
             this.Name = "Form1";
             this.Text = "PierwiastkiCS";
             this.Load += new System.EventHandler(this.Form1_Load);
