@@ -69,6 +69,8 @@ namespace Pierwiastki_CS
         {
             this.x = x;
             this.y = y;
+
+            isEmpty = false;
         }
     }
 }

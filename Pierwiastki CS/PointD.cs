@@ -60,7 +60,7 @@ namespace Pierwiastki_CS
             this.x = x;
             this.y = y;
 
-            isEmpty = true;
+            isEmpty = false;
         }
     }
 }

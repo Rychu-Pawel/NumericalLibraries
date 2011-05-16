@@ -23,6 +23,8 @@ namespace Pierwiastki_CS
 
         Settings settings;
 
+        PointF[] punktyWykresu;
+
         public Form1()
         {
             InitializeComponent();
@@ -1555,7 +1557,11 @@ namespace Pierwiastki_CS
                 if (chkFunkcjaSpecjalna.Checked && chkFunkcjaSpecjalna.Enabled)
                     wykres.RysujBessele(tfb, pierwszy, drugi, trzeci, czwarty);
 
+                //Zakończenie
                 czyFunkcjaNarysowana = true;
+
+                //Pobranie punktow wykresu
+                punktyWykresu = wykres.PunktyWykresu;
             }
             catch (XOdWiekszeNizXDoException)
             {
@@ -2069,7 +2075,7 @@ namespace Pierwiastki_CS
                     Image image = picWykres.Image;
                     image.Save(saveFileDialog.FileName);
 
-                    MessageBox.Show("Plik zapisany pomyślnie!", "Pierwiastki", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Plik zapisany pomyślnie!", "PierwiastkiCS", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception excep)
@@ -2085,12 +2091,47 @@ namespace Pierwiastki_CS
                 Image image = picWykres.Image;
                 Clipboard.SetImage(image);
 
-                MessageBox.Show("Obrazek skopiowany do schowka.", "Pierwiastki", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Obrazek skopiowany do schowka.", "PierwiastkiCS", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception excep)
             {
                 MessageBox.Show("Nie udało się skopiować obrazka do schowka. " + excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void zapiszDoTXTToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (punktyWykresu != null && punktyWykresu.Length > 0)
+            {
+                try
+                {
+                    DialogResult dr = saveFileDialogTXT.ShowDialog();
+
+                    if (dr == DialogResult.OK)
+                    {
+                        string sciezkaPliku = saveFileDialogTXT.FileName;
+
+                        //Otworzenie pliku
+                        StreamWriter sw = File.CreateText(sciezkaPliku);
+
+                        //Zapisanie do pliku
+                        foreach (PointF p in punktyWykresu)
+                            sw.WriteLine(p.X + " " + p.Y);
+
+                        //Zamkniecie i komunikat ze ok
+                        sw.Flush();
+                        sw.Close();
+
+                        MessageBox.Show("Plik zapisany pomyślnie!", "PierwiastkiCS", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show("Nie udało się zapisać pliku. " + excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                MessageBox.Show("Brak punktów wykresu!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void chkBoxWykres_CheckedChanged(object sender, EventArgs e)
@@ -2278,11 +2319,6 @@ namespace Pierwiastki_CS
                 txtOdII.Text = txtOd.Text;
             else
                 txtOd.Text = txtOdII.Text;
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
         }
     }
 }

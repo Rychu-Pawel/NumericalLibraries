@@ -80,6 +80,7 @@
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zapiszDoPlikuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kopiujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.zapiszDoTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtYDo = new System.Windows.Forms.TextBox();
             this.txtXDo = new System.Windows.Forms.TextBox();
             this.txtYOd = new System.Windows.Forms.TextBox();
@@ -116,6 +117,7 @@
             this.gbWarunkiII = new System.Windows.Forms.GroupBox();
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
+            this.saveFileDialogTXT = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip.SuspendLayout();
             this.gbFunkcja.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -636,23 +638,31 @@
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.zapiszDoPlikuToolStripMenuItem,
-            this.kopiujToolStripMenuItem});
+            this.kopiujToolStripMenuItem,
+            this.zapiszDoTXTToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(109, 48);
+            this.contextMenuStrip.Size = new System.Drawing.Size(149, 70);
             // 
             // zapiszDoPlikuToolStripMenuItem
             // 
             this.zapiszDoPlikuToolStripMenuItem.Name = "zapiszDoPlikuToolStripMenuItem";
-            this.zapiszDoPlikuToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.zapiszDoPlikuToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.zapiszDoPlikuToolStripMenuItem.Text = "&Zapisz";
             this.zapiszDoPlikuToolStripMenuItem.Click += new System.EventHandler(this.zapiszDoPlikuToolStripMenuItem_Click);
             // 
             // kopiujToolStripMenuItem
             // 
             this.kopiujToolStripMenuItem.Name = "kopiujToolStripMenuItem";
-            this.kopiujToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.kopiujToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.kopiujToolStripMenuItem.Text = "&Kopiuj";
             this.kopiujToolStripMenuItem.Click += new System.EventHandler(this.kopiujToolStripMenuItem_Click);
+            // 
+            // zapiszDoTXTToolStripMenuItem
+            // 
+            this.zapiszDoTXTToolStripMenuItem.Name = "zapiszDoTXTToolStripMenuItem";
+            this.zapiszDoTXTToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.zapiszDoTXTToolStripMenuItem.Text = "Zapisz do TXT";
+            this.zapiszDoTXTToolStripMenuItem.Click += new System.EventHandler(this.zapiszDoTXTToolStripMenuItem_Click);
             // 
             // txtYDo
             // 
@@ -981,7 +991,7 @@
             this.saveFileDialog.DefaultExt = "jpg";
             this.saveFileDialog.FileName = "Wykres";
             this.saveFileDialog.Filter = "JPEG|*.jpg";
-            this.saveFileDialog.Title = "Pierwiastki";
+            this.saveFileDialog.Title = "PierwiastkiCS";
             // 
             // txtDoII
             // 
@@ -1050,6 +1060,13 @@
             this.pnlWarunkiII.Size = new System.Drawing.Size(163, 44);
             this.pnlWarunkiII.TabIndex = 13;
             // 
+            // saveFileDialogTXT
+            // 
+            this.saveFileDialogTXT.DefaultExt = "txt";
+            this.saveFileDialogTXT.FileName = "Wykres";
+            this.saveFileDialogTXT.Filter = "TXT|*.txt";
+            this.saveFileDialogTXT.Title = "PierwiastkiCS";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnOblicz;
@@ -1071,7 +1088,6 @@
             this.MinimumSize = new System.Drawing.Size(1007, 453);
             this.Name = "Form1";
             this.Text = "PierwiastkiCS";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.Shown += new System.EventHandler(this.Form1_Shown);
             this.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseWheel);
             this.Resize += new System.EventHandler(this.Form1_Resize);
@@ -1195,6 +1211,8 @@
         private System.Windows.Forms.Label lblOdciecie;
         private System.Windows.Forms.Label lblProbkowanie;
         private System.Windows.Forms.TextBox txtProbkowanie;
+        private System.Windows.Forms.ToolStripMenuItem zapiszDoTXTToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialogTXT;
     }
 }
 

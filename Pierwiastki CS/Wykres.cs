@@ -26,6 +26,13 @@ namespace Pierwiastki_CS
 
         string funkcja;
 
+        List<PointF> punktyWykresu;
+
+        public PointF[] PunktyWykresu
+        {
+            get { return punktyWykresu.ToArray(); }
+        }
+
     // Metody -----------------------------
         public void Wyczysc() //Wyczyszczenie starego wykresu i przygotowanie siatki X i Y
         {
@@ -140,10 +147,15 @@ namespace Pierwiastki_CS
             g.DrawLine(Pens.Black, (float)zeroX - 6f, 10f, (float)zeroX - 1, 2);
             g.DrawLine(Pens.Black, (float)zeroX + 5f, 10f, (float)zeroX + 1, 2);
             g.DrawString("f(x)", font, Brushes.Black, (float)zeroX + 7f, 4f);
+
+            //Wyczyszczenie punktow wykresu
+            punktyWykresu = new List<PointF>();
         }
 
         public void Rysuj(TypFunkcji typFunkcji)
         {
+            punktyWykresu.Clear();
+
             Pochodna funkcjaWPunkcie = new Pochodna(funkcja);
 
             Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
@@ -155,17 +167,18 @@ namespace Pierwiastki_CS
             for (double i = 0; i < picWidth; i += (double)picWidth / 1000.0)
             {
                 float fx = 0;
+                double x = (i - zeroX) / wspX;
 
                 switch (typFunkcji)
                 {
                     case TypFunkcji.Funkcja:
-                        fx = (float)(funkcjaWPunkcie.ObliczFunkcjeWPunkcie((i - zeroX) / wspX) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ObliczFunkcjeWPunkcie(x) * wspY);
                         break;
                     case TypFunkcji.Pochodna:
-                        fx = (float)(funkcjaWPunkcie.ObliczPochodna((i - zeroX) / wspX) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ObliczPochodna(x) * wspY);
                         break;
                     case TypFunkcji.DrugaPochodna:
-                        fx = (float)(funkcjaWPunkcie.ObliczPochodnaBis((i - zeroX) / wspX) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ObliczPochodnaBis(x) * wspY);
                         break;
                     default:
                         throw new NoneWykresOptionCheckedException(); //not reachable code?
@@ -177,6 +190,7 @@ namespace Pierwiastki_CS
                     fx = (float)min;
 
                 punkty.Add(new PointF((float)(i), (float)(zeroY - fx)));
+                punktyWykresu.Add(new PointF((float)x, (float)(fx / wspY)));
             }
 
             //Wypisanie wzoru funkcji
@@ -215,6 +229,8 @@ namespace Pierwiastki_CS
 
         public void RysujFFT(TypFunkcji typFunkcji, int probkowanie, double odciecie = 0.0)
         {
+            punktyWykresu.Clear();
+
             Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
             List<PointF> punkty = new List<PointF>();
@@ -256,6 +272,8 @@ namespace Pierwiastki_CS
                 {
                     PointC pc = punktyC[i];
 
+                    punktyWykresu.Add(pc.ToPointF());
+
                     pc.X = (pc.X * wspX + zeroX);
                     pc.Y = (pc.Y * wspY);
 
@@ -276,6 +294,8 @@ namespace Pierwiastki_CS
                 for (int i = 0; i < punktyReversC.Count; i++)
                 {
                     PointC pc = punktyReversC[i];
+
+                    punktyWykresu.Add(pc.ToPointF());
 
                     pc.X = (pc.X * wspX + zeroX);
                     pc.Y = (pc.Y * wspY);
@@ -342,6 +362,8 @@ namespace Pierwiastki_CS
 
         public void RysujRozniczke(TypFunkcji typFunkcji, bool czyRysowacTylkoEnergie, params double[] parametry)
         {
+            punktyWykresu.Clear();
+
             List<PointF> punkty = new List<PointF>();
             List<PointF> energia = new List<PointF>();
             List<PointF> energia2 = new List<PointF>();
@@ -394,6 +416,8 @@ namespace Pierwiastki_CS
                     {
                         PointF pf = new PointF();
 
+                        punktyWykresu.Add(point.ToPointF());
+
                         pf.X = (float)(point.X * wspX + zeroX);
                         pf.Y = (float)(point.Y * wspY);
 
@@ -411,6 +435,8 @@ namespace Pierwiastki_CS
                     foreach (PointD point in prawo)
                     {
                         PointF pf = new PointF();
+
+                        punktyWykresu.Add(point.ToPointF());
 
                         pf.X = (float)(point.X * wspX + zeroX);
                         pf.Y = (float)(point.Y * wspY);
@@ -486,6 +512,8 @@ namespace Pierwiastki_CS
                         //Normalne:
                         PointF pf = new PointF();
 
+                        punktyWykresu.Add(point.ToPointF());
+
                         pf.X = (float)(point.X * wspX + zeroX);
                         pf.Y = (float)(point.Y * wspY);
 
@@ -535,6 +563,8 @@ namespace Pierwiastki_CS
 
                         //Normalne:
                         PointF pf = new PointF();
+
+                        punktyWykresu.Add(point.ToPointF());
 
                         pf.X = (float)(point.X * wspX + zeroX);
                         pf.Y = (float)(point.Y * wspY);
@@ -611,6 +641,8 @@ namespace Pierwiastki_CS
 
         public void RysujBessele(TypFunkcjiBessela typFunkcji, params double[] parametry)
         {
+            punktyWykresu.Clear();
+
             int indexZmiennej = ZnajdzIndexZmiennej(typFunkcji, parametry);
 
             BesselNeumanHyper bnh = new BesselNeumanHyper();
@@ -663,6 +695,7 @@ namespace Pierwiastki_CS
                         fx = (float)min;
 
                     punkty.Add(new PointF((float)(i), (float)(zeroY - fx)));
+                    punktyWykresu.Add(new PointF((float)parametry[indexZmiennej], (float)(fx / wspY)));
                 }
             }
             else //Dodanie dwóch punktów - funkcja stała
