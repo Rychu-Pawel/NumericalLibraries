@@ -38,9 +38,7 @@ namespace Pierwiastki_CS
             {
                 //Obliczam ostateczne r
                 for(int j = iloscZmiennych - i - 1; j > 0; j--)
-                {
                     wspolczynniki[iloscZmiennych, i] -= (wspolczynniki[iloscZmiennych - j, i] * niewiadome[iloscZmiennych - j]);
-                }
 
                 //Obliczam i-tą niewiadomą
                 niewiadome[i] = wspolczynniki[iloscZmiennych, i] / wspolczynniki[i, i];
