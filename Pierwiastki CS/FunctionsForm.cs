@@ -7,11 +7,11 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
-    public partial class Funkcje : Form
+    public partial class FunctionForm : Form
     {
-        public Funkcje()
+        public FunctionForm()
         {
             InitializeComponent();
         }

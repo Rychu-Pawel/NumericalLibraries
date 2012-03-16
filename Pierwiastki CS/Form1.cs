@@ -9,9 +9,9 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
-using Pierwiastki_CS.Properties;
+using NumericalCalculator.Properties;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     public partial class Form1 : Form
     {
@@ -44,7 +44,7 @@ namespace Pierwiastki_CS
                 zamienNa = ",";
             }
 
-            cmbFunkcjaSpecjalna.SelectedIndex = 0;
+            cmbSpecialFunction.SelectedIndex = 0;
 
             //Ustawienia
             settings = new Settings();
@@ -60,11 +60,10 @@ namespace Pierwiastki_CS
             }
 
             //Dodatkowe zdarzenia
-            this.wykresToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
-            this.btnPomoc.Click += new EventHandler(PokazFunkcjeForm_Handler);
-            this.chkEnergia.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
-            this.chkFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
-            this.chkIFFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
+            this.btnHelp.Click += new EventHandler(PokazFunkcjeForm_Handler);
+            this.chkFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+            this.chkIFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
 
             //Zrobienie gui
             radioButton_CheckedChanged(null, new EventArgs());
@@ -72,22 +71,21 @@ namespace Pierwiastki_CS
 
         private void UstawSettings(Settings settings)
         {
-            wykresToolStripMenuItem.Checked = (bool)settings[Setting.WykresMenuChecked];
+            graphToolStripMenuItem.Checked = (bool)settings[Setting.WykresMenuChecked];
 
-            if (!wykresToolStripMenuItem.Checked)
+            if (!graphToolStripMenuItem.Checked)
                 wykresToolStripMenuItem_Click(null, new EventArgs());
 
-            podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked = (bool)settings[Setting.PodgladWykresuMenuChecked];
-            chkFunkcja.Checked = (bool)settings[Setting.FunkcjaChecked];
-            chkPierwszaPochodna.Checked = (bool)settings[Setting.PierwszaPochodnaChecked];
-            chkDrugaPochodna.Checked = (bool)settings[Setting.DrugaPochodnaChecked];
-            chkRozniczka.Checked = (bool)settings[Setting.RozniczkaChecked];
-            chkRozniczkaII.Checked = (bool)settings[Setting.RozniczkaIIChecked];
-            chkEnergia.Checked = (bool)settings[Setting.EnergiaChecked];
-            chkFunkcjaSpecjalna.Checked = (bool)settings[Setting.FunkcjaSpecjalnaChecked];
-            chkReskalling.Checked = (bool)settings[Setting.AutomatycznyReskallingChecked];
-            chkFFT.Checked = (bool)settings[Setting.FFTChecked];
-            chkIFFT.Checked = (bool)settings[Setting.IFFTChecked];
+            graphPreviewWhileWindowsScalingToolStripMenuItem.Checked = (bool)settings[Setting.PodgladWykresuMenuChecked];
+            chkFunction.Checked = (bool)settings[Setting.FunkcjaChecked];
+            chkFirstDerivative.Checked = (bool)settings[Setting.PierwszaPochodnaChecked];
+            chkSecondDerivative.Checked = (bool)settings[Setting.DrugaPochodnaChecked];
+            chkDifferential.Checked = (bool)settings[Setting.RozniczkaChecked];
+            chkDifferentialII.Checked = (bool)settings[Setting.RozniczkaIIChecked];
+            chkSpecialFunction.Checked = (bool)settings[Setting.FunkcjaSpecjalnaChecked];
+            chkRescaling.Checked = (bool)settings[Setting.AutomatycznyReskallingChecked];
+            chkFT.Checked = (bool)settings[Setting.FFTChecked];
+            chkIFT.Checked = (bool)settings[Setting.IFFTChecked];
         }
 
         /// <summary>
@@ -99,267 +97,252 @@ namespace Pierwiastki_CS
         private void radioButton_CheckedChanged(object sender, EventArgs e)
         {
             //Zarzadzanie GUI procz checkboxow
-            if (rbRozniczkaII.Checked)
+            if (rbDifferentialII.Checked)
             {
                 lblFx.Text = "f''(x) =";
 
-                gbWarunki.Text = "Warunki";
-                gbWarunki.Width = 163;
+                gbConditions.Text = "Warunki";
+                gbConditions.Width = 163;
 
                 pnlWarunki.Width = 163;
 
-                lblOd.Text = "f (";
-                lblDo.Text = ") =";
+                lblFrom.Text = "f (";
+                lblTo.Text = ") =";
 
-                txtOd.Enabled = true;
-                txtDo.Enabled = true;
-                txtPunkt.Enabled = true;
+                txtFrom.Enabled = true;
+                txtTo.Enabled = true;
+                txtPoint.Enabled = true;
 
-                txtOd.Width = 44;
-                txtDo.Width = 44;
+                txtFrom.Width = 44;
+                txtTo.Width = 44;
 
                 gbWarunkiII.Enabled = true;
                 gbWarunkiII.Visible = true;
 
-                lblOd.Left = 6;
-                lblDo.Left = 80;
-                txtOd.Left = 30;
-                txtDo.Left = 108;
-
-                txtOd.Enabled = !chkEnergia.Checked;
-
-                txtOdII.Enabled = !chkEnergia.Checked;
-                txtDoII.Enabled = !chkEnergia.Checked;
-
-                if (chkEnergia.Checked)
-                {
-                    txtOd.Text = "0";
-                    txtDoII.Text = "0";
-                }
-
-                chkEnergia.Enabled = true;
+                lblFrom.Left = 6;
+                lblTo.Left = 80;
+                txtFrom.Left = 30;
+                txtTo.Left = 108;
             }
             else
             {
                 lblFx.Text = "f(x) =";
 
-                lblOd.Text = "od";
-                lblDo.Text = "do";
+                lblFrom.Text = "od";
+                lblTo.Text = "do";
 
-                txtOd.Width = 96;
-                txtDo.Width = 96;
+                txtFrom.Width = 96;
+                txtTo.Width = 96;
 
-                txtOd.Enabled = true;
+                txtFrom.Enabled = true;
 
-                gbWarunki.Text = "Warunki";
-                gbWarunki.Width = 332;
+                gbConditions.Text = "Warunki";
+                gbConditions.Width = 332;
 
                 pnlWarunki.Width = 332;
 
-                lblOd.Left = 37;
-                lblDo.Left = 169;
-                txtOd.Left = 67;
-                txtDo.Left = 199;
-
-                chkEnergia.Enabled = false;
+                lblFrom.Left = 37;
+                lblTo.Left = 169;
+                txtFrom.Left = 67;
+                txtTo.Left = 199;
             }
 
-            if (rbRozniczka.Checked)
+            if (rbDifferential.Checked)
             {
                 lblFx.Text = "f'(x) =";
 
-                gbWarunki.Text = "Warunki";
+                gbConditions.Text = "Warunki";
 
-                lblOd.Text = "f(";
-                lblDo.Text = ") =";
+                lblFrom.Text = "f(";
+                lblTo.Text = ") =";
 
-                txtOd.Enabled = true;
-                txtDo.Enabled = true;
-                txtPunkt.Enabled = true;
+                txtFrom.Enabled = true;
+                txtTo.Enabled = true;
+                txtPoint.Enabled = true;
 
-                lblOd.Left = 43;
-                lblDo.Left = 166;
-                txtOd.Left = 64;
-                txtDo.Left = 194;
+                lblFrom.Left = 43;
+                lblTo.Left = 166;
+                txtFrom.Left = 64;
+                txtTo.Left = 194;
             }
-            else if (rbCalka.Checked)
+            else if (rbIntegral.Checked)
             {
                 lblFx.Text = "f(x) =";
 
-                gbWarunki.Text = "Granice";
+                gbConditions.Text = "Granice";
 
-                lblOd.Text = "dolna";
-                lblDo.Text = "górna";
+                lblFrom.Text = "dolna";
+                lblTo.Text = "górna";
 
-                lblOd.Left = 19;
-                lblDo.Left = 169;
-                txtOd.Left = 67;
-                txtDo.Left = 218;
+                lblFrom.Left = 19;
+                lblTo.Left = 169;
+                txtFrom.Left = 67;
+                txtTo.Left = 218;
             }
-            else if (!rbRozniczkaII.Checked)
+            else if (!rbDifferentialII.Checked)
             {
                 lblFx.Text = "f(x) =";
 
-                lblOd.Text = "od";
-                lblDo.Text = "do";
+                lblFrom.Text = "od";
+                lblTo.Text = "do";
 
-                gbWarunki.Text = "Warunki";
+                gbConditions.Text = "Warunki";
 
-                lblOd.Left = 37;
-                lblDo.Left = 169;
-                txtOd.Left = 67;
-                txtDo.Left = 199;
+                lblFrom.Left = 37;
+                lblTo.Left = 169;
+                txtFrom.Left = 67;
+                txtTo.Left = 199;
             }
 
-            if (rbFunkcjaSpecjalna.Checked)
+            if (rbSpecialFunction.Checked)
             {
-                gbFunkcja.Text = "Funkcja specjalna";
+                gbFunction.Text = "Funkcja specjalna";
 
                 pnlFunkcja.Visible = false;
                 pnlKomenda.Visible = true;
 
-                txtOd.Enabled = false;
-                txtDo.Enabled = false;
-                txtPunkt.Enabled = false;                
+                txtFrom.Enabled = false;
+                txtTo.Enabled = false;
+                txtPoint.Enabled = false;                
             }
             else
             {
-                gbFunkcja.Text = "Funkcja";
+                gbFunction.Text = "Funkcja";
 
                 pnlFunkcja.Visible = true;
                 pnlKomenda.Visible = false;
 
-                cmbFunkcjaSpecjalna.Visible = true;
+                cmbSpecialFunction.Visible = true;
             }
 
-            if (rbHybryda.Checked || rbCalka.Checked)
+            if (rbRoot.Checked || rbIntegral.Checked)
             {
-                txtOd.Enabled = true;
-                txtDo.Enabled = true;
-                txtPunkt.Enabled = false;
+                txtFrom.Enabled = true;
+                txtTo.Enabled = true;
+                txtPoint.Enabled = false;
             }
-            else if (rbPunkt.Checked || rbPochodnaPunkt.Checked || rbPunktPochodnaBis.Checked)
+            else if (rbPoint.Checked || rbDerivativePoint.Checked || rbDerivativePointBis.Checked)
             {
-                txtOd.Enabled = false;
-                txtDo.Enabled = false;
-                txtPunkt.Enabled = true;
+                txtFrom.Enabled = false;
+                txtTo.Enabled = false;
+                txtPoint.Enabled = true;
             }
-            else if (rbKalkulator.Checked)
+            else if (rbCalculator.Checked)
             {
-                txtOd.Enabled = false;
-                txtDo.Enabled = false;
-                txtPunkt.Enabled = false;
+                txtFrom.Enabled = false;
+                txtTo.Enabled = false;
+                txtPoint.Enabled = false;
             }
 
-            if (rbKalkulator.Checked)
+            if (rbCalculator.Checked)
             {
                 lblFx.Text = string.Empty;
 
-                txtFunkcja.Width = 278;
-                txtFunkcja.Left = 9;
+                txtFunction.Width = 278;
+                txtFunction.Left = 9;
             }
-            else if (!rbRozniczka.Checked && !rbRozniczkaII.Checked)
+            else if (!rbDifferential.Checked && !rbDifferentialII.Checked)
             {
                 lblFx.Text = "f(x) =";
 
-                txtFunkcja.Width = 243;
-                txtFunkcja.Left = 44;
+                txtFunction.Width = 243;
+                txtFunction.Left = 44;
             }
             else
             {
-                txtFunkcja.Width = 243;
-                txtFunkcja.Left = 44;
+                txtFunction.Width = 243;
+                txtFunction.Left = 44;
             }
 
             //Checkboxy
-            if (rbRozniczka.Checked)
+            if (rbDifferential.Checked)
             {
-                chkFunkcja.Enabled = false;
-                chkPierwszaPochodna.Enabled = false;
-                chkDrugaPochodna.Enabled = false;
-                chkRozniczka.Enabled = true;
-                chkRozniczkaII.Enabled = false;
-                chkFunkcjaSpecjalna.Enabled = false;
-                chkFFT.Enabled = false;
-                chkIFFT.Enabled = false;
+                chkFunction.Enabled = false;
+                chkFirstDerivative.Enabled = false;
+                chkSecondDerivative.Enabled = false;
+                chkDifferential.Enabled = true;
+                chkDifferentialII.Enabled = false;
+                chkSpecialFunction.Enabled = false;
+                chkFT.Enabled = false;
+                chkIFT.Enabled = false;
 
-                txtProbkowanie.Enabled = false;
-                txtOdciecie.Enabled = false;
+                txtSampling.Enabled = false;
+                txtCutoff.Enabled = false;
 
-                lblProbkowanie.Enabled = false;
-                lblOdciecie.Enabled = false;
+                lblSampling.Enabled = false;
+                lblCutoff.Enabled = false;
 
-                chkReskalling.Enabled = false;
+                chkRescaling.Enabled = false;
             }
-            else if (rbRozniczkaII.Checked)
+            else if (rbDifferentialII.Checked)
             {
-                chkFunkcja.Enabled = false;
-                chkPierwszaPochodna.Enabled = false;
-                chkDrugaPochodna.Enabled = false;
-                chkRozniczka.Enabled = false;
-                chkRozniczkaII.Enabled = true;
-                chkFunkcjaSpecjalna.Enabled = false;
-                chkFFT.Enabled = false;
-                chkIFFT.Enabled = false;
+                chkFunction.Enabled = false;
+                chkFirstDerivative.Enabled = false;
+                chkSecondDerivative.Enabled = false;
+                chkDifferential.Enabled = false;
+                chkDifferentialII.Enabled = true;
+                chkSpecialFunction.Enabled = false;
+                chkFT.Enabled = false;
+                chkIFT.Enabled = false;
 
-                txtProbkowanie.Enabled = false;
-                txtOdciecie.Enabled = false;
+                txtSampling.Enabled = false;
+                txtCutoff.Enabled = false;
 
-                lblProbkowanie.Enabled = false;
-                lblOdciecie.Enabled = false;
+                lblSampling.Enabled = false;
+                lblCutoff.Enabled = false;
 
-                chkReskalling.Enabled = false;
+                chkRescaling.Enabled = false;
             }
-            else if (rbFunkcjaSpecjalna.Checked)
+            else if (rbSpecialFunction.Checked)
             {
-                chkFunkcja.Enabled = false;
-                chkPierwszaPochodna.Enabled = false;
-                chkDrugaPochodna.Enabled = false;
-                chkRozniczka.Enabled = false;
-                chkRozniczkaII.Enabled = false;
-                chkFunkcjaSpecjalna.Enabled = true;
-                chkFFT.Enabled = false;
-                chkIFFT.Enabled = false;
+                chkFunction.Enabled = false;
+                chkFirstDerivative.Enabled = false;
+                chkSecondDerivative.Enabled = false;
+                chkDifferential.Enabled = false;
+                chkDifferentialII.Enabled = false;
+                chkSpecialFunction.Enabled = true;
+                chkFT.Enabled = false;
+                chkIFT.Enabled = false;
 
-                txtProbkowanie.Enabled = false;
-                txtOdciecie.Enabled = false;
+                txtSampling.Enabled = false;
+                txtCutoff.Enabled = false;
 
-                lblProbkowanie.Enabled = false;
-                lblOdciecie.Enabled = false;
+                lblSampling.Enabled = false;
+                lblCutoff.Enabled = false;
 
-                chkReskalling.Enabled = true;
+                chkRescaling.Enabled = true;
             }
             else
             {
-                chkFunkcja.Enabled = true;
-                chkPierwszaPochodna.Enabled = true;
-                chkDrugaPochodna.Enabled = true;
-                chkRozniczka.Enabled = false;
-                chkRozniczkaII.Enabled = false;
-                chkFunkcjaSpecjalna.Enabled = false;
-                chkFFT.Enabled = true;
-                chkIFFT.Enabled = true;
+                chkFunction.Enabled = true;
+                chkFirstDerivative.Enabled = true;
+                chkSecondDerivative.Enabled = true;
+                chkDifferential.Enabled = false;
+                chkDifferentialII.Enabled = false;
+                chkSpecialFunction.Enabled = false;
+                chkFT.Enabled = true;
+                chkIFT.Enabled = true;
 
-                txtProbkowanie.Enabled = true;
-                txtOdciecie.Enabled = true;
+                txtSampling.Enabled = true;
+                txtCutoff.Enabled = true;
 
-                lblProbkowanie.Enabled = true;
-                lblOdciecie.Enabled = true;
+                lblSampling.Enabled = true;
+                lblCutoff.Enabled = true;
 
-                chkReskalling.Enabled = true;
+                chkRescaling.Enabled = true;
             }
 
             //Wyłączenie reskallingu gdy FFT
-            if ((chkFFT.Checked && chkFFT.Enabled) || (chkIFFT.Checked && chkIFFT.Enabled))
-                chkReskalling.Enabled = false;
+            if ((chkFT.Checked && chkFT.Enabled) || (chkIFT.Checked && chkIFT.Enabled))
+                chkRescaling.Enabled = false;
 
             //Jak FFT to nie RFFT i na odwrot
-            if (chkFFT.Checked && chkFFT.Enabled)
+            if (chkFT.Checked && chkFT.Enabled)
             {
-                chkFunkcja.Enabled = false;
-                chkPierwszaPochodna.Enabled = false;
-                chkDrugaPochodna.Enabled = false;
-                chkIFFT.Enabled = false;
+                chkFunction.Enabled = false;
+                chkFirstDerivative.Enabled = false;
+                chkSecondDerivative.Enabled = false;
+                chkIFT.Enabled = false;
             }
         }
 
@@ -378,9 +361,9 @@ namespace Pierwiastki_CS
             {
                 string funkcja = string.Empty;
 
-                if (!rbFunkcjaSpecjalna.Checked)
+                if (!rbSpecialFunction.Checked)
                 {
-                    funkcja = txtFunkcja.Text.Replace(zamienZ, zamienNa);
+                    funkcja = txtFunction.Text.Replace(zamienZ, zamienNa);
 
                     if (string.IsNullOrEmpty(funkcja))
                     {
@@ -388,28 +371,28 @@ namespace Pierwiastki_CS
                     }
                 }                
 
-                if (rbKalkulator.Checked)
+                if (rbCalculator.Checked)
                 {
                     Kalkulator kalkulator = new Kalkulator(funkcja);
-                    txtWynik.Text = kalkulator.ObliczWnetrze().ToString();
+                    txtResult.Text = kalkulator.ObliczWnetrze().ToString();
                 }
-                else if (rbPunkt.Checked)
+                else if (rbPoint.Checked)
                 {
                     double x;
 
                     try
                     {
-                        x = Convert.ToDouble(txtPunkt.Text.Replace(zamienZ, zamienNa));
+                        x = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować z E jako Euler
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPunkt.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             x = kalkulator.ObliczWnetrze();
 
-                            if (txtPunkt.Text.Contains('E'))
+                            if (txtPoint.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -419,25 +402,25 @@ namespace Pierwiastki_CS
                     }
 
                     Pochodna punkt = new Pochodna(funkcja, x);
-                    txtWynik.Text = punkt.ObliczFunkcjeWPunkcie().ToString();
+                    txtResult.Text = punkt.ObliczFunkcjeWPunkcie().ToString();
                 }
-                else if (rbPochodnaPunkt.Checked)
+                else if (rbDerivativePoint.Checked)
                 {
                     double punkt;
 
                     try
                     {
-                        punkt = Convert.ToDouble(txtPunkt.Text.Replace(zamienZ, zamienNa));
+                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPunkt.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             punkt = kalkulator.ObliczWnetrze();
 
-                            if (txtPunkt.Text.Contains('E'))
+                            if (txtPoint.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -447,25 +430,25 @@ namespace Pierwiastki_CS
                     }
 
                     Pochodna pochodna = new Pochodna(funkcja, punkt);
-                    txtWynik.Text = pochodna.ObliczPochodna().ToString();
+                    txtResult.Text = pochodna.ObliczPochodna().ToString();
                 }
-                else if (rbPunktPochodnaBis.Checked)
+                else if (rbDerivativePointBis.Checked)
                 {
                     double punkt;
 
                     try
                     {
-                        punkt = Convert.ToDouble(txtPunkt.Text.Replace(zamienZ, zamienNa));
+                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPunkt.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             punkt = kalkulator.ObliczWnetrze();
 
-                            if (txtPunkt.Text.Contains('E'))
+                            if (txtPoint.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -475,25 +458,25 @@ namespace Pierwiastki_CS
                     }
 
                     Pochodna pochodnaBis = new Pochodna(funkcja, punkt);
-                    txtWynik.Text = pochodnaBis.ObliczPochodnaBis().ToString();
+                    txtResult.Text = pochodnaBis.ObliczPochodnaBis().ToString();
                 }
-                else if (rbHybryda.Checked)
+                else if (rbRoot.Checked)
                 {
                     double from, to;
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -504,17 +487,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -524,25 +507,25 @@ namespace Pierwiastki_CS
                     }
 
                     Hybryda hybryda = new Hybryda(funkcja, from, to);
-                    txtWynik.Text = hybryda.ObliczWnetrze().ToString();
+                    txtResult.Text = hybryda.ObliczWnetrze().ToString();
                 }
-                else if (rbCalka.Checked)
+                else if (rbIntegral.Checked)
                 {
                     double from, to;
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -553,17 +536,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -573,25 +556,25 @@ namespace Pierwiastki_CS
                     }
 
                     Calka calka = new Calka(funkcja, from, to);
-                    txtWynik.Text = calka.ObliczWnetrze().ToString();
+                    txtResult.Text = calka.ObliczWnetrze().ToString();
                 }
-                else if (rbRozniczka.Checked)
+                else if (rbDifferential.Checked)
                 {
                     double punkt, from, to;
 
                     try
                     {
-                        punkt = Convert.ToDouble(txtPunkt.Text.Replace(zamienZ, zamienNa));
+                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPunkt.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             punkt = kalkulator.ObliczWnetrze();
 
-                            if (txtPunkt.Text.Contains('E'))
+                            if (txtPoint.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -602,17 +585,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -623,17 +606,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -645,25 +628,25 @@ namespace Pierwiastki_CS
                     Rozniczka rozniczka = new Rozniczka(funkcja);
                     List<PointD> punkty = rozniczka.ObliczRozniczke(punkt, from, to);
 
-                    txtWynik.Text = punkty.Last().Y.ToString();
+                    txtResult.Text = punkty.Last().Y.ToString();
                 }
-                else if (rbRozniczkaII.Checked)
+                else if (rbDifferentialII.Checked)
                 {
                     double punkt, from, to, fromII, toII;
 
                     try
                     {
-                        punkt = Convert.ToDouble(txtPunkt.Text.Replace(zamienZ, zamienNa));
+                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPunkt.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             punkt = kalkulator.ObliczWnetrze();
 
-                            if (txtPunkt.Text.Contains('E'))
+                            if (txtPoint.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
                         }
                         catch
@@ -674,17 +657,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -705,7 +688,7 @@ namespace Pierwiastki_CS
                             Kalkulator kalkulator = new Kalkulator(txtOdII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             fromII = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -716,17 +699,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -747,7 +730,7 @@ namespace Pierwiastki_CS
                             Kalkulator kalkulator = new Kalkulator(txtDoII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             toII = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -759,25 +742,25 @@ namespace Pierwiastki_CS
                     Rozniczka rozniczka = new Rozniczka(funkcja);
                     List<PointD> punkty = rozniczka.ObliczRozniczkeII(punkt, from, to, fromII, toII);
 
-                    txtWynik.Text = punkty.Last().Y.ToString();
+                    txtResult.Text = punkty.Last().Y.ToString();
                 }
-                else if (rbFunkcjaSpecjalna.Checked)
+                else if (rbSpecialFunction.Checked)
                 {
                     double pierwszy, drugi, trzeci = 0.0d, czwarty = 0.0d;
 
                     try
                     {
-                        pierwszy = double.Parse(txtArgumentKomendaPierwszy.Text.Replace(zamienZ, zamienNa));
+                        pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaPierwszy.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             pierwszy = kalkulator.ObliczWnetrze();
 
-                            if (txtArgumentKomendaPierwszy.Text.Contains('E'))
+                            if (txtFirstCommandArgument.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -788,17 +771,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        drugi = double.Parse(txtArgumentKomendaDrugi.Text.Replace(zamienZ, zamienNa));
+                        drugi = double.Parse(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaDrugi.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             drugi = kalkulator.ObliczWnetrze();
 
-                            if (txtArgumentKomendaDrugi.Text.Contains('E'))
+                            if (txtSecondCommandArgument.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -807,21 +790,21 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    if (cmbFunkcjaSpecjalna.SelectedIndex == 7 || cmbFunkcjaSpecjalna.SelectedIndex == 8)
+                    if (cmbSpecialFunction.SelectedIndex == 7 || cmbSpecialFunction.SelectedIndex == 8)
                     {
                         try
                         {
-                            trzeci = double.Parse(txtArgumentKomendaTrzeci.Text.Replace(zamienZ, zamienNa));
+                            trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaTrzeci.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                                Kalkulator kalkulator = new Kalkulator(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                                 trzeci = kalkulator.ObliczWnetrze();
 
-                                if (txtArgumentKomendaTrzeci.Text.Contains('E'))
+                                if (txtThirdCommandArgument.Text.Contains('E'))
                                     MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             catch
@@ -831,21 +814,21 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    if (cmbFunkcjaSpecjalna.SelectedIndex == 8)
+                    if (cmbSpecialFunction.SelectedIndex == 8)
                     {
                         try
                         {
-                            czwarty = double.Parse(txtArgumentKomendaCzwarty.Text.Replace(zamienZ, zamienNa));
+                            czwarty = double.Parse(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaCzwarty.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                                Kalkulator kalkulator = new Kalkulator(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                                 czwarty = kalkulator.ObliczWnetrze();
 
-                                if (txtArgumentKomendaCzwarty.Text.Contains('E'))
+                                if (thtFourthCommandArgument.Text.Contains('E'))
                                     MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             catch
@@ -859,7 +842,7 @@ namespace Pierwiastki_CS
 
                     double wynik = 0.0d;
 
-                    switch (cmbFunkcjaSpecjalna.SelectedIndex)
+                    switch (cmbSpecialFunction.SelectedIndex)
                     {
                         case 0:
                             wynik = bessel.Bessel(pierwszy, drugi);
@@ -892,53 +875,53 @@ namespace Pierwiastki_CS
                             break;
                     }
 
-                    txtWynik.Text = wynik.ToString();
+                    txtResult.Text = wynik.ToString();
                 }
 
                 stopWatch.Stop();
-                lblCzas.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
+                lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
             }
             catch (BrakFunkcjiException)
             {
-                if (rbKalkulator.Checked)
+                if (rbCalculator.Checked)
                     ObsluzException(stopWatch, "Wpisz działanie!");
                 else
                     ObsluzException(stopWatch, "Wpisz funkcję!");
 
-                txtFunkcja.Focus();
+                txtFunction.Focus();
             }
             catch (WystepujeZmiennaException)
             {
                 stopWatch.Stop();
-                lblCzas.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
+                lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
 
-                btnRysuj_Click(btnOblicz, new EventArgs());
+                btnRysuj_Click(btnCompute, new EventArgs());
 
-                txtWynik.Text = "W wyr. nie może występować zmienna!";
-                txtFunkcja.Focus();
+                txtResult.Text = "W wyr. nie może występować zmienna!";
+                txtFunction.Focus();
             }
             catch (FunkcjaException excep)
             {
                 ObsluzException(stopWatch, excep.Message);
 
-                txtFunkcja.Focus();
+                txtFunction.Focus();
             }
             catch (PunktConversionException)
             {
                 ObsluzException(stopWatch, "Niepoprawny punkt!");
 
-                txtPunkt.Focus();
+                txtPoint.Focus();
             }
             catch (FromConversionException)
             {
-                if (rbCalka.Checked)
+                if (rbIntegral.Checked)
                     ObsluzException(stopWatch, "Niepoprawna dolna granica całkowania!");
-                else if (rbRozniczka.Checked)
+                else if (rbDifferential.Checked)
                     ObsluzException(stopWatch, "Niepoprawny punkt x w pierwszym warunku!");
                 else
                     ObsluzException(stopWatch, "Niepoprawny punkt od!");
 
-                txtOd.Focus();
+                txtFrom.Focus();
             }
             catch (FromIIConversionException)
             {
@@ -948,14 +931,14 @@ namespace Pierwiastki_CS
             }
             catch (ToConversionException)
             {
-                if (rbCalka.Checked)
+                if (rbIntegral.Checked)
                     ObsluzException(stopWatch, "Niepoprawna górna granica całkowania!");
-                else if (rbRozniczka.Checked)
+                else if (rbDifferential.Checked)
                     ObsluzException(stopWatch, "Niepoprawna wartość w pierwszym warunku!");
                 else
                     ObsluzException(stopWatch, "Niepoprawny punkt do!");
 
-                txtDo.Focus();
+                txtTo.Focus();
             }
             catch (ToIIConversionException)
             {
@@ -967,25 +950,25 @@ namespace Pierwiastki_CS
             {
                 ObsluzException(stopWatch, excep.Message);
 
-                txtArgumentKomendaPierwszy.Focus();
+                txtFirstCommandArgument.Focus();
             }
             catch (BesseleDrugiArgumentException excep)
             {
                 ObsluzException(stopWatch, excep.Message);
 
-                txtArgumentKomendaDrugi.Focus();
+                txtSecondCommandArgument.Focus();
             }
             catch (BesseleTrzeciArgumentException excep)
             {
                 ObsluzException(stopWatch, excep.Message);
 
-                txtArgumentKomendaTrzeci.Focus();
+                txtThirdCommandArgument.Focus();
             }
             catch (BesseleCzwartyArgumentException excep)
             {
                 ObsluzException(stopWatch, excep.Message);
 
-                txtArgumentKomendaCzwarty.Focus();
+                thtFourthCommandArgument.Focus();
             }
             catch (SystemException)
             {
@@ -1000,22 +983,22 @@ namespace Pierwiastki_CS
         private void ObsluzException(Stopwatch stopWatch, string message)
         {
             stopWatch.Stop();
-            lblCzas.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
-            txtWynik.Text = "";
+            lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
+            txtResult.Text = "";
 
             MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ObsluzException(string message)
         {
-            txtWynik.Text = "";
+            txtResult.Text = "";
 
             MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void ObsluzExceptionWykres(string message)
         {
-            txtWynik.Text = "";
+            txtResult.Text = "";
             czyFunkcjaNarysowana = false;
 
             MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1037,7 +1020,7 @@ namespace Pierwiastki_CS
         private void Form1_Shown(object sender, EventArgs e)
         {
             //Focus
-            txtFunkcja.Focus();
+            txtFunction.Focus();
 
             WyczyscWykres();
         }
@@ -1046,7 +1029,7 @@ namespace Pierwiastki_CS
         {
             try
             {
-                Wykres wykres = new Wykres(txtFunkcja.Text, picWykres, Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa)));
+                Wykres wykres = new Wykres(txtFunction.Text, picWykres, Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa)));
                 wykres.Wyczysc();
             }
             catch (SystemException excep)
@@ -1058,14 +1041,14 @@ namespace Pierwiastki_CS
         //FUNKCJE FORM (opis dostepnych funkcji)
         private void PokazFunkcjeForm_Handler(object sender, EventArgs e)
         {
-            Funkcje f = new Funkcje();
+            FunctionForm f = new FunctionForm();
             f.Show();
         }
 
         //RownaniaLinioweForm
         private void rownaniaLinioweToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            RownaniaLinioweForm rownaniaForm = new RownaniaLinioweForm(zamienZ, zamienNa);
+            LinearEquationForm rownaniaForm = new LinearEquationForm(zamienZ, zamienNa);
 
             rownaniaForm.Show();
         }
@@ -1076,31 +1059,31 @@ namespace Pierwiastki_CS
             try
             {
                 //Sprawdzenie czy jakas opcja wykresu jest zacheckowana
-                if (rbFunkcjaSpecjalna.Checked)
+                if (rbSpecialFunction.Checked)
                 {
-                    if (!chkFunkcjaSpecjalna.Checked)
+                    if (!chkSpecialFunction.Checked)
                         throw new NoneWykresOptionCheckedException();
                 }
-                else if (rbRozniczka.Checked)
+                else if (rbDifferential.Checked)
                 {
-                    if (!chkRozniczka.Checked)
+                    if (!chkDifferential.Checked)
                         throw new NoneWykresOptionCheckedException();
                 }
-                else if (rbRozniczkaII.Checked)
+                else if (rbDifferentialII.Checked)
                 {
-                    if (!(chkRozniczkaII.Checked || chkEnergia.Checked))
+                    if (!chkDifferentialII.Checked)
                         throw new NoneWykresOptionCheckedException();
                 }
                 else
                 {
-                    if (!(chkFunkcja.Checked || chkPierwszaPochodna.Checked || chkDrugaPochodna.Checked || chkRozniczka.Checked || chkRozniczkaII.Checked || chkFFT.Checked || chkIFFT.Checked))
+                    if (!(chkFunction.Checked || chkFirstDerivative.Checked || chkSecondDerivative.Checked || chkDifferential.Checked || chkDifferentialII.Checked || chkFT.Checked || chkIFT.Checked))
                         throw new NoneWykresOptionCheckedException();
                 }
 
                 //Konwersja zmiennych
-                string funkcja = txtFunkcja.Text.Replace(zamienZ, zamienNa);
+                string funkcja = txtFunction.Text.Replace(zamienZ, zamienNa);
 
-                if (string.IsNullOrEmpty(funkcja) && !chkFunkcjaSpecjalna.Enabled)
+                if (string.IsNullOrEmpty(funkcja) && !chkSpecialFunction.Enabled)
                 {
                     throw new BrakFunkcjiException();
                 }
@@ -1109,7 +1092,7 @@ namespace Pierwiastki_CS
 
                 try
                 {
-                    xOd = Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa));
+                    xOd = Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa));
                 }
                 catch (Exception)
                 {
@@ -1118,7 +1101,7 @@ namespace Pierwiastki_CS
 
                 try
                 {
-                    xDo = Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa));
+                    xDo = Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa));
                 }
                 catch (Exception)
                 {
@@ -1127,7 +1110,7 @@ namespace Pierwiastki_CS
 
                 try
                 {
-                    yOd = Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa));
+                    yOd = Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa));
                 }
                 catch (Exception)
                 {
@@ -1136,7 +1119,7 @@ namespace Pierwiastki_CS
 
                 try
                 {
-                    yDo = Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa));
+                    yDo = Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa));
                 }
                 catch (Exception)
                 {
@@ -1158,21 +1141,21 @@ namespace Pierwiastki_CS
                 double pierwszy = 0.0, drugi = 0.0, trzeci = 0.0, czwarty = 0.0;
                 TypFunkcjiBessela tfb = TypFunkcjiBessela.Bessel;
 
-                if (chkFunkcjaSpecjalna.Checked && chkFunkcjaSpecjalna.Enabled)
+                if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                 {
                     try
                     {
-                        if (txtArgumentKomendaPierwszy.Text == "x")
+                        if (txtFirstCommandArgument.Text == "x")
                             pierwszy = double.NaN;
                         else
-                            pierwszy = double.Parse(txtArgumentKomendaPierwszy.Text.Replace(zamienZ, zamienNa));
+                            pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaPierwszy.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             pierwszy = kalkulator.ObliczWnetrze();
                         }
                         catch
@@ -1183,17 +1166,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        if (txtArgumentKomendaDrugi.Text == "x")
+                        if (txtSecondCommandArgument.Text == "x")
                             drugi = double.NaN;
                         else
-                            drugi = double.Parse(txtArgumentKomendaDrugi.Text.Replace(zamienZ, zamienNa));
+                            drugi = double.Parse(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaDrugi.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             drugi = kalkulator.ObliczWnetrze();
                         }
                         catch
@@ -1202,21 +1185,21 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    if (cmbFunkcjaSpecjalna.SelectedIndex == 7 || cmbFunkcjaSpecjalna.SelectedIndex == 8)
+                    if (cmbSpecialFunction.SelectedIndex == 7 || cmbSpecialFunction.SelectedIndex == 8)
                     {
                         try
                         {
-                            if (txtArgumentKomendaTrzeci.Text == "x")
+                            if (txtThirdCommandArgument.Text == "x")
                                 trzeci = double.NaN;
                             else
-                                trzeci = double.Parse(txtArgumentKomendaTrzeci.Text.Replace(zamienZ, zamienNa));
+                                trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaTrzeci.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                                Kalkulator kalkulator = new Kalkulator(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                                 trzeci = kalkulator.ObliczWnetrze();
                             }
                             catch
@@ -1226,21 +1209,21 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    if (cmbFunkcjaSpecjalna.SelectedIndex == 8)
+                    if (cmbSpecialFunction.SelectedIndex == 8)
                     {
                         try
                         {
-                            if (txtArgumentKomendaCzwarty.Text == "x")
+                            if (thtFourthCommandArgument.Text == "x")
                                 czwarty = double.NaN;
                             else
-                                czwarty = double.Parse(txtArgumentKomendaCzwarty.Text.Replace(zamienZ, zamienNa));
+                                czwarty = double.Parse(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtArgumentKomendaCzwarty.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                                Kalkulator kalkulator = new Kalkulator(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                                 czwarty = kalkulator.ObliczWnetrze();
                             }
                             catch
@@ -1251,7 +1234,7 @@ namespace Pierwiastki_CS
                     }
 
                     //znalezienie typu besselowego
-                    switch (cmbFunkcjaSpecjalna.SelectedIndex)
+                    switch (cmbSpecialFunction.SelectedIndex)
                     {
                         case 0:
                             tfb = TypFunkcjiBessela.Bessel;
@@ -1289,24 +1272,24 @@ namespace Pierwiastki_CS
                 Wykres wykres = new Wykres(funkcja, picWykres, xOd, xDo, yOd, yDo);
 
                 //Reskalling
-                if (chkReskalling.Checked && chkReskalling.Enabled && sender is Button)
+                if (chkRescaling.Checked && chkRescaling.Enabled && sender is Button)
                 {
                     //Zbudowanie listy typow funkcji
                     List<TypFunkcji> typyFunkcji = new List<TypFunkcji>();
 
-                    if (chkFunkcja.Checked)
+                    if (chkFunction.Checked)
                         typyFunkcji.Add(TypFunkcji.Funkcja);
 
-                    if (chkPierwszaPochodna.Checked)
+                    if (chkFirstDerivative.Checked)
                         typyFunkcji.Add(TypFunkcji.Pochodna);
 
-                    if (chkDrugaPochodna.Checked)
+                    if (chkSecondDerivative.Checked)
                         typyFunkcji.Add(TypFunkcji.DrugaPochodna);
 
                     double[] reskalling = null;
 
                     //Obliczenie maxów i minów do reskalingu
-                    if (chkFunkcjaSpecjalna.Checked && chkFunkcjaSpecjalna.Enabled)
+                    if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                         reskalling = wykres.Reskalling(tfb, pierwszy, drugi, trzeci, czwarty);
                     else
                         reskalling = wykres.Reskalling(typyFunkcji.ToArray()); //normlanych
@@ -1316,22 +1299,22 @@ namespace Pierwiastki_CS
                     yOd = reskalling[2];
                     yDo = reskalling[3];
 
-                    txtXOd.Text = xOd.ToString();
-                    txtXDo.Text = xDo.ToString();
-                    txtYOd.Text = yOd.ToString();
-                    txtYDo.Text = yDo.ToString();
+                    txtXFrom.Text = xOd.ToString();
+                    txtXTo.Text = xDo.ToString();
+                    txtYFrom.Text = yOd.ToString();
+                    txtYTo.Text = yDo.ToString();
 
                     wykres = new Wykres(funkcja, picWykres, xOd, xDo, yOd, yDo);
                 }
 
                 //Rysowanie funkcji i pochodnych
-                if (chkFunkcja.Checked && chkFunkcja.Enabled)
+                if (chkFunction.Checked && chkFunction.Enabled)
                     wykres.Rysuj(TypFunkcji.Funkcja);
 
-                if (chkPierwszaPochodna.Checked && chkPierwszaPochodna.Enabled)
+                if (chkFirstDerivative.Checked && chkFirstDerivative.Enabled)
                     wykres.Rysuj(TypFunkcji.Pochodna);
 
-                if (chkDrugaPochodna.Checked && chkDrugaPochodna.Enabled)
+                if (chkSecondDerivative.Checked && chkSecondDerivative.Enabled)
                     wykres.Rysuj(TypFunkcji.DrugaPochodna);
 
                 //Rysowanie FFT
@@ -1339,10 +1322,10 @@ namespace Pierwiastki_CS
                 double odciecie = 0.0;
 
                 //probki
-                if ((chkFFT.Checked && chkFFT.Enabled) || (chkIFFT.Checked && chkIFFT.Enabled))
+                if ((chkFT.Checked && chkFT.Enabled) || (chkIFT.Checked && chkIFT.Enabled))
                 {
-                    string probkowanieString = txtProbkowanie.Text;
-                    string odciecieString = txtOdciecie.Text;
+                    string probkowanieString = txtSampling.Text;
+                    string odciecieString = txtCutoff.Text;
 
                     if (!int.TryParse(probkowanieString, out probkowanie))
                         throw new ProbkowanieValueException();
@@ -1360,30 +1343,30 @@ namespace Pierwiastki_CS
                     }
                 }
 
-                if (chkFFT.Checked && chkFFT.Enabled)
+                if (chkFT.Checked && chkFT.Enabled)
                     wykres.RysujFFT(TypFunkcji.FFT, probkowanie, odciecie);
 
-                if (chkIFFT.Checked && chkIFFT.Enabled)
+                if (chkIFT.Checked && chkIFT.Enabled)
                     wykres.RysujFFT(TypFunkcji.RFFT, probkowanie, odciecie);
 
                 //Rysowanie rozniczek
-                if (chkRozniczka.Checked && chkRozniczka.Enabled)
+                if (chkDifferential.Checked && chkDifferential.Enabled)
                 {
                     double from, to;
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1394,17 +1377,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1413,26 +1396,26 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    wykres.RysujRozniczke(TypFunkcji.Rozniczka, false, from, to);
+                    wykres.RysujRozniczke(TypFunkcji.Rozniczka, from, to);
                 }
 
-                if ((chkRozniczkaII.Checked && chkRozniczkaII.Enabled) || (chkEnergia.Checked && chkEnergia.Enabled))
+                if (chkDifferentialII.Checked && chkDifferentialII.Enabled)
                 {
                     double from, to, fromII, toII;
 
                     try
                     {
-                        from = Convert.ToDouble(txtOd.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOd.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             from = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1453,7 +1436,7 @@ namespace Pierwiastki_CS
                             Kalkulator kalkulator = new Kalkulator(txtOdII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             fromII = kalkulator.ObliczWnetrze();
 
-                            if (txtOd.Text.Contains('E'))
+                            if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1464,17 +1447,17 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        to = Convert.ToDouble(txtDo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
+                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             to = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1495,7 +1478,7 @@ namespace Pierwiastki_CS
                             Kalkulator kalkulator = new Kalkulator(txtDoII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
                             toII = kalkulator.ObliczWnetrze();
 
-                            if (txtDo.Text.Contains('E'))
+                            if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
@@ -1504,57 +1487,10 @@ namespace Pierwiastki_CS
                         }
                     }
 
-                    if (chkEnergia.Checked && chkEnergia.Enabled)
-                    {
-                        //Znalezienie bety
-                        double beta = 0;
-                        int betaIndex = funkcja.IndexOf("*y'");
-
-                        if (betaIndex < 1)
-                            beta = 0;
-                        else
-                        {
-                            int plusOrMinusIndex = -1;
-                            int poprzedniTempIndex = -1;
-                            int tempIndex = 0;
-
-                            //Znalezienie plus lub minus
-                            do
-                            {
-                                tempIndex = funkcja.IndexOfAny(new char[] { '+', '-' }, tempIndex, betaIndex - tempIndex);
-
-                                if (tempIndex >= 0)
-                                {
-                                    poprzedniTempIndex = tempIndex;
-                                    tempIndex++;
-                                }
-                            }
-                            while (tempIndex != -1);
-
-                            if (poprzedniTempIndex >= 0)
-                                plusOrMinusIndex = poprzedniTempIndex;
-                            else
-                                plusOrMinusIndex = 0;
-
-                            //Wyciecie stringa i proba rzutowania
-                            string betaString = funkcja.Substring(plusOrMinusIndex, betaIndex - plusOrMinusIndex);
-
-                            double betaTemp;
-
-                            if (double.TryParse(betaString, out betaTemp))
-                                beta = betaTemp;
-                        }
-
-                        if (chkRozniczkaII.Checked)
-                            wykres.RysujRozniczke(TypFunkcji.RozniczkaII, false, from, to, fromII, toII, beta);
-                        else
-                            wykres.RysujRozniczke(TypFunkcji.RozniczkaII, true, from, to, fromII, toII, beta);
-                    }
-                    else
-                        wykres.RysujRozniczke(TypFunkcji.RozniczkaII, false, from, to, fromII, toII);
+                    wykres.RysujRozniczke(TypFunkcji.RozniczkaII, from, to, fromII, toII);
                 }
 
-                if (chkFunkcjaSpecjalna.Checked && chkFunkcjaSpecjalna.Enabled)
+                if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                     wykres.RysujBessele(tfb, pierwszy, drugi, trzeci, czwarty);
 
                 //Zakończenie
@@ -1567,13 +1503,13 @@ namespace Pierwiastki_CS
             {
                 ObsluzExceptionWykres("Wartości skali x są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
-                txtXOd.Focus();
+                txtXFrom.Focus();
             }
             catch (YOdWiekszeNizYDoException)
             {
                 ObsluzExceptionWykres("Wartości skali y są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
-                txtYOd.Focus();
+                txtYFrom.Focus();
             }
             catch (OverflowException)
             {
@@ -1583,49 +1519,49 @@ namespace Pierwiastki_CS
             {
                 ObsluzExceptionWykres("Niepoprawna wartość od osi x");
 
-                txtXOd.Focus();
+                txtXFrom.Focus();
             }
             catch (xDoException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość do osi x");
 
-                txtXDo.Focus();
+                txtXTo.Focus();
             }
             catch (yOdException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość od osi y");
 
-                txtYOd.Focus();
+                txtYFrom.Focus();
             }
             catch (yDoException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość do osi y");
 
-                txtYDo.Focus();
+                txtYTo.Focus();
             }
             catch (WspolrzedneXException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtXOd.Focus();
+                txtXFrom.Focus();
             }
             catch (WspolrzedneYException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtYOd.Focus();
+                txtYFrom.Focus();
             }
             catch (BrakFunkcjiException)
             {
                 ObsluzExceptionWykres("Wpisz funkcję!");
 
-                txtFunkcja.Focus();
+                txtFunction.Focus();
             }
             catch (FromConversionException)
             {
                 ObsluzExceptionWykres("Niepoprawny punkt x w pierwszym warunku!");
 
-                txtOd.Focus();
+                txtFrom.Focus();
             }
             catch (FromIIConversionException)
             {
@@ -1637,7 +1573,7 @@ namespace Pierwiastki_CS
             {
                 ObsluzExceptionWykres("Niepoprawna wartość w pierwszym warunku!");
 
-                txtDo.Focus();
+                txtTo.Focus();
             }
             catch (ToIIConversionException)
             {
@@ -1649,25 +1585,25 @@ namespace Pierwiastki_CS
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtArgumentKomendaPierwszy.Focus();
+                txtFirstCommandArgument.Focus();
             }
             catch (BesseleDrugiArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtArgumentKomendaDrugi.Focus();
+                txtSecondCommandArgument.Focus();
             }
             catch (BesseleTrzeciArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtArgumentKomendaTrzeci.Focus();
+                txtThirdCommandArgument.Focus();
             }
             catch (BesseleCzwartyArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtArgumentKomendaCzwarty.Focus();
+                thtFourthCommandArgument.Focus();
             }
             catch (NoneWykresOptionCheckedException excep)
             {
@@ -1677,7 +1613,7 @@ namespace Pierwiastki_CS
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                txtOdciecie.Focus();
+                txtCutoff.Focus();
             }
             catch (SystemException)
             {
@@ -1709,7 +1645,7 @@ namespace Pierwiastki_CS
         {
             try
             {
-                if (e.Button == MouseButtons.Left && (!string.IsNullOrEmpty(txtFunkcja.Text) || rbFunkcjaSpecjalna.Checked))
+                if (e.Button == MouseButtons.Left && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked))
                 {
                     //Zmienne
                     double xOd, xDo, yOd, yDo;
@@ -1718,10 +1654,10 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        xOd = Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa));
-                        xDo = Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa));
-                        yOd = Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa));
-                        yDo = Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa));
+                        xOd = Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa));
+                        xDo = Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa));
+                        yOd = Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa));
+                        yDo = Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa));
                     }
                     catch (SystemException)
                     {
@@ -1780,14 +1716,14 @@ namespace Pierwiastki_CS
 
                     if (chkX.Checked)
                     {
-                        txtXOd.Text = Convert.ToString(xOd);
-                        txtXDo.Text = Convert.ToString(xDo);
+                        txtXFrom.Text = Convert.ToString(xOd);
+                        txtXTo.Text = Convert.ToString(xDo);
                     }
 
                     if (chkY.Checked)
                     {
-                        txtYOd.Text = Convert.ToString(yOd);
-                        txtYDo.Text = Convert.ToString(yDo);
+                        txtYFrom.Text = Convert.ToString(yOd);
+                        txtYTo.Text = Convert.ToString(yDo);
                     }
 
                     //Narysowanie nowego wykresu
@@ -1806,33 +1742,33 @@ namespace Pierwiastki_CS
         // POWIEKSZANIE/POMNIEJSZANIE WYKRESU
         private void Form1_MouseWheel(object sender, MouseEventArgs e)
         {
-            if (!string.IsNullOrEmpty(txtFunkcja.Text) || rbFunkcjaSpecjalna.Checked)
+            if (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked)
             {
                 try
                 {
                     double xOd, xDo, yOd, yDo;
 
                     //Zmienienie nieskończoności w max
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa))))
-                        txtXOd.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa))))
-                        txtXDo.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa))))
-                        txtYOd.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa))))
-                        txtYDo.Text = max.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa))))
-                        txtXOd.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa))))
-                        txtXDo.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa))))
-                        txtYOd.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa))))
-                        txtYDo.Text = min.ToString();
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa))))
+                        txtXFrom.Text = max.ToString();
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa))))
+                        txtXTo.Text = max.ToString();
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa))))
+                        txtYFrom.Text = max.ToString();
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa))))
+                        txtYTo.Text = max.ToString();
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa))))
+                        txtXFrom.Text = min.ToString();
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa))))
+                        txtXTo.Text = min.ToString();
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa))))
+                        txtYFrom.Text = min.ToString();
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa))))
+                        txtYTo.Text = min.ToString();
 
                     try
                     {
-                        xOd = Math.Round(Convert.ToDouble(txtXOd.Text.Replace(zamienZ, zamienNa)), 2);
+                        xOd = Math.Round(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa)), 2);
                     }
                     catch (Exception)
                     {
@@ -1841,7 +1777,7 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        xDo = Math.Round(Convert.ToDouble(txtXDo.Text.Replace(zamienZ, zamienNa)), 2);
+                        xDo = Math.Round(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa)), 2);
                     }
                     catch (Exception)
                     {
@@ -1850,7 +1786,7 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        yOd = Math.Round(Convert.ToDouble(txtYOd.Text.Replace(zamienZ, zamienNa)), 2);
+                        yOd = Math.Round(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa)), 2);
                     }
                     catch (Exception)
                     {
@@ -1859,7 +1795,7 @@ namespace Pierwiastki_CS
 
                     try
                     {
-                        yDo = Math.Round(Convert.ToDouble(txtYDo.Text.Replace(zamienZ, zamienNa)), 2);
+                        yDo = Math.Round(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa)), 2);
                     }
                     catch (Exception)
                     {
@@ -1978,10 +1914,10 @@ namespace Pierwiastki_CS
                     else if (yDo < min)
                         yDo = min;
 
-                    txtXOd.Text = Convert.ToString(xOd);
-                    txtXDo.Text = Convert.ToString(xDo);
-                    txtYOd.Text = Convert.ToString(yOd);
-                    txtYDo.Text = Convert.ToString(yDo);
+                    txtXFrom.Text = Convert.ToString(xOd);
+                    txtXTo.Text = Convert.ToString(xDo);
+                    txtYFrom.Text = Convert.ToString(yOd);
+                    txtYTo.Text = Convert.ToString(yDo);
 
                     if (czyFunkcjaNarysowana/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
                         btnRysuj_Click(this, new EventArgs());
@@ -1992,25 +1928,25 @@ namespace Pierwiastki_CS
                 {
                     ObsluzException("Niepoprawna wartość od osi x");
 
-                    txtXOd.Focus();
+                    txtXFrom.Focus();
                 }
                 catch (xDoException)
                 {
                     ObsluzException("Niepoprawna wartość do osi x");
 
-                    txtXDo.Focus();
+                    txtXTo.Focus();
                 }
                 catch (yOdException)
                 {
                     ObsluzException("Niepoprawna wartość od osi y");
 
-                    txtYOd.Focus();
+                    txtYFrom.Focus();
                 }
                 catch (yDoException)
                 {
                     ObsluzException("Niepoprawna wartość do osi y");
 
-                    txtYDo.Focus();
+                    txtYTo.Focus();
                 }
                 catch (Exception excep)
                 {
@@ -2027,7 +1963,7 @@ namespace Pierwiastki_CS
 
         private void interpolacjaIAproksymacjaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InterpolacjaForm interpolacjaForm = new InterpolacjaForm(this);
+            InterpolationForm interpolacjaForm = new InterpolationForm(this);
             interpolacjaForm.Show();
         }
 
@@ -2036,7 +1972,7 @@ namespace Pierwiastki_CS
 
         private void wykresToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (wykresToolStripMenuItem.Checked)
+            if (graphToolStripMenuItem.Checked)
             {
                 this.MinimumSize = new Size(1007, 435);
                 this.MaximumSize = new Size(0, 0);
@@ -2155,11 +2091,11 @@ namespace Pierwiastki_CS
                 picWykres.Width = 400 + gainW;
                 pnlWykres.Height = 350 + gainH;
                 pnlWykres.Width = 400 + gainW;
-                gbRysujFunkcje.Left = 759 + gainW;
-                gbSkala.Left = 759 + gainW;
-                btnRysuj.Left = 824 + gainW;
+                gbDrawFunction.Left = 759 + gainW;
+                gbScale.Left = 759 + gainW;
+                btnDraw.Left = 824 + gainW;
 
-                if (czyFunkcjaNarysowana && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked)
+                if (czyFunkcjaNarysowana && graphPreviewWhileWindowsScalingToolStripMenuItem.Checked)
                     btnRysuj_Click(this, new EventArgs());
                 else
                     WyczyscWykres();
@@ -2173,12 +2109,12 @@ namespace Pierwiastki_CS
 
         private void GroupBoxWykresowy_Enter(object sender, EventArgs e)
         {
-            AcceptButton = btnRysuj;
+            AcceptButton = btnDraw;
         }
 
         private void GroupBoxWykresowy_Leave(object sender, EventArgs e)
         {
-            AcceptButton = btnOblicz;
+            AcceptButton = btnCompute;
         }
 
         private void ZmienUstawinia(object sender, EventArgs e)
@@ -2243,68 +2179,68 @@ namespace Pierwiastki_CS
 
         private void cmbKomenda_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int index = cmbFunkcjaSpecjalna.SelectedIndex;
+            int index = cmbSpecialFunction.SelectedIndex;
 
             if (index < 6)
             {
-                txtArgumentKomendaTrzeci.Visible = false;
-                txtArgumentKomendaCzwarty.Visible = false;
+                txtThirdCommandArgument.Visible = false;
+                thtFourthCommandArgument.Visible = false;
 
-                cmbFunkcjaSpecjalna.Width = 126;
+                cmbSpecialFunction.Width = 126;
 
-                txtArgumentKomendaPierwszy.Left = 133;
-                txtArgumentKomendaPierwszy.Width = 90;
+                txtFirstCommandArgument.Left = 133;
+                txtFirstCommandArgument.Width = 90;
 
-                txtArgumentKomendaDrugi.Left = 226;
-                txtArgumentKomendaDrugi.Width = 90;
+                txtSecondCommandArgument.Left = 226;
+                txtSecondCommandArgument.Width = 90;
             }
             else if (index == 6)
             {
-                txtArgumentKomendaTrzeci.Visible = false;
-                txtArgumentKomendaCzwarty.Visible = false;
+                txtThirdCommandArgument.Visible = false;
+                thtFourthCommandArgument.Visible = false;
 
-                cmbFunkcjaSpecjalna.Width = 162;
+                cmbSpecialFunction.Width = 162;
 
-                txtArgumentKomendaPierwszy.Left = 169;
-                txtArgumentKomendaPierwszy.Width = 72;
+                txtFirstCommandArgument.Left = 169;
+                txtFirstCommandArgument.Width = 72;
 
-                txtArgumentKomendaDrugi.Left = 244;
-                txtArgumentKomendaDrugi.Width = 72;
+                txtSecondCommandArgument.Left = 244;
+                txtSecondCommandArgument.Width = 72;
             }
             else if (index == 7)
             {
-                txtArgumentKomendaTrzeci.Visible = true;
-                txtArgumentKomendaCzwarty.Visible = false;
+                txtThirdCommandArgument.Visible = true;
+                thtFourthCommandArgument.Visible = false;
 
-                cmbFunkcjaSpecjalna.Width = 99;
+                cmbSpecialFunction.Width = 99;
 
-                txtArgumentKomendaPierwszy.Left = 106;
-                txtArgumentKomendaPierwszy.Width = 68;
+                txtFirstCommandArgument.Left = 106;
+                txtFirstCommandArgument.Width = 68;
 
-                txtArgumentKomendaDrugi.Left = 177;
-                txtArgumentKomendaDrugi.Width = 68;
+                txtSecondCommandArgument.Left = 177;
+                txtSecondCommandArgument.Width = 68;
 
-                txtArgumentKomendaTrzeci.Left = 248;
-                txtArgumentKomendaTrzeci.Width = 68;
+                txtThirdCommandArgument.Left = 248;
+                txtThirdCommandArgument.Width = 68;
             }
             else
             {
-                txtArgumentKomendaTrzeci.Visible = true;
-                txtArgumentKomendaCzwarty.Visible = true;
+                txtThirdCommandArgument.Visible = true;
+                thtFourthCommandArgument.Visible = true;
 
-                cmbFunkcjaSpecjalna.Width = 99;
+                cmbSpecialFunction.Width = 99;
 
-                txtArgumentKomendaPierwszy.Left = 107;
-                txtArgumentKomendaPierwszy.Width = 50;
+                txtFirstCommandArgument.Left = 107;
+                txtFirstCommandArgument.Width = 50;
 
-                txtArgumentKomendaDrugi.Left = 160;
-                txtArgumentKomendaDrugi.Width = 50;
+                txtSecondCommandArgument.Left = 160;
+                txtSecondCommandArgument.Width = 50;
 
-                txtArgumentKomendaTrzeci.Left = 213;
-                txtArgumentKomendaTrzeci.Width = 50;
+                txtThirdCommandArgument.Left = 213;
+                txtThirdCommandArgument.Width = 50;
 
-                txtArgumentKomendaCzwarty.Left = 266;
-                txtArgumentKomendaCzwarty.Width = 50;
+                thtFourthCommandArgument.Left = 266;
+                thtFourthCommandArgument.Width = 50;
             }
         }
 
@@ -2316,9 +2252,9 @@ namespace Pierwiastki_CS
         private void txtOd_TextChanged(object sender, EventArgs e)
         {
             if ((sender as TextBox).Name == "txtOd")
-                txtOdII.Text = txtOd.Text;
+                txtOdII.Text = txtFrom.Text;
             else
-                txtOd.Text = txtOdII.Text;
+                txtFrom.Text = txtOdII.Text;
         }
     }
 }

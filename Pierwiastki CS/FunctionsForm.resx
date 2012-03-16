@@ -112,15 +112,53 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="x.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="fx.UserAddedColumn" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
+  <data name="lblBody.Text" xml:space="preserve">
+    <value>Sinus = sin
+Sinus hiperboliczny = sinh
+Cosinus = cos
+Cosinus hiperboliczny = cosh
+Tangens = tg, tan
+Tangens hiperboliczny = tgh, tanh
+Cotangens = ctg, ctn, cot
+Cotangens hiperboliczny = ctgh, ctnh, coth
+Secans = sec
+Cosecans = csc
+Arcsin = asin
+Arccos = acos
+Arctg = atg
+Arcctg = actg
+Funkcja wykładnicza o podstawie e = exp
+Pierwiastek = sqrt
+Logarytm o podstawie 2 = lg
+Logarytm o podstawie e = ln
+Logarytm o podstawie 10 = log
+
+Silnia z liczb naturalnych mniejszych od 20 jest liczona standardowym wzorem np. 5! = 1*2*3*4*5
+Natomiast silnia z liczb rzeczywistych i naturalnych większych i równych 20 jest funkcją gamma.
+
+Dozwolone, lecz nie wskazane, jest używanie wyrażeń sinx zamiast sin(x).
+Lecz sinx+2 = sin(x)+2
+
+W funkcjach można używać PI oraz E. Za PI zostanie podstawiona wartość 3.14159265358979,
+natomiast za E liczba 10 podniesiona do występującej po E potęgi.
+Np.: E-05 = 10^(-5)
+
+UWAGA!!
+Gdy program w argumentach operacji nie będzie mógł zweryfikować poprawności
+wprowadzonego wyrażenia, to za E podstawi liczbę Eulera, informując o tym komunikatem! 
+Gdy w granicy całkowania podamy E, to zostanie w to miejsce podstawiona wartość 2.71828183.
+Np.: Całka sin(x) w granicach od -E do 2/3*E oznacza całkę w granicach od -2.718 do 2/3*2.718
+
+Program nie zwraca uwagi na spacje.
+
+Program nie potrafi operować na liczbach urojonych. Jeżeli w którymś momencie obliczeń
+znajdą się operacje na liczbach urojonych, to program zwróci "nie jest liczbą".
+
+Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4)))</value>
+  </data>
 </root>

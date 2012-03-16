@@ -5,7 +5,7 @@ using System.Text;
 using System.Numerics;
 using System.Drawing;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     class FastFourierTransform
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     class Kalkulator: Wnetrze
     {

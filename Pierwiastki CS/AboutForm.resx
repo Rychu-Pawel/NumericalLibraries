@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="txtOpis.Text" xml:space="preserve">
+  <data name="txtDescription.Text" xml:space="preserve">
     <value>Program do obliczeń naukowych i inżynierskich. Posiada zaimplementowany kalkulator, metody szukania pierwiastków funkcji, potrafi obliczyć wartość funkcji, pierwszej i drugiej pochodnej w dowolonym punkcie. Dodatkowo możliwe jest zinterpolowanie wzoru funkcji wielomianowej dla dowolnej ilosci punktów i wykreślenie jej wykresu (jak rownież innej dowolonej).
 Program jest główną częścią pracy inżynierskiej "Oprogramowanie wspierające obliczenia naukowe i inżynierskie".</value>
   </data>

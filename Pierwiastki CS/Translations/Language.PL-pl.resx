@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <root>
   <!-- 
     Microsoft ResX Schema 
@@ -117,7 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label3.Text" xml:space="preserve">
+  <data name="AboutForm" xml:space="preserve">
+    <value>O programie</value>
+  </data>
+  <data name="AboutForm.lblAppTitle" xml:space="preserve">
+    <value>Numerical Calculator</value>
+  </data>
+  <data name="AboutForm.lblVersion" xml:space="preserve">
+    <value>Wersja</value>
+  </data>
+  <data name="AboutForm.txtDescription" xml:space="preserve">
+    <value>Program do obliczeń naukowych i inżynierskich. Posiada zaimplementowany kalkulator, metody szukania pierwiastków funkcji, potrafi obliczyć wartość funkcji, pierwszej i drugiej pochodnej w dowolonym punkcie. Dodatkowo możliwe jest zinterpolowanie wzoru funkcji wielomianowej dla dowolnej ilosci punktów i wykreślenie jej wykresu (jak rownież innej dowolonej).
+Program jest główną częścią pracy inżynierskiej "Oprogramowanie wspierające obliczenia naukowe i inżynierskie".</value>
+  </data>
+  <data name="aboutToolStripMenuItem" xml:space="preserve">
+    <value>O programie</value>
+  </data>
+  <data name="applicationToolStripMenuItem" xml:space="preserve">
+    <value>Program</value>
+  </data>
+  <data name="btnCompute" xml:space="preserve">
+    <value>Oblicz</value>
+  </data>
+  <data name="btnDraw" xml:space="preserve">
+    <value>Rysuj</value>
+  </data>
+  <data name="chkDifferential" xml:space="preserve">
+    <value>Równanie różniczkowe</value>
+  </data>
+  <data name="chkDifferentialII" xml:space="preserve">
+    <value>R. różniczkowe drugiego rzędu</value>
+  </data>
+  <data name="chkFirstDerivative" xml:space="preserve">
+    <value>Pierwsza pochodna</value>
+  </data>
+  <data name="chkFunction" xml:space="preserve">
+    <value>Funkcja</value>
+  </data>
+  <data name="chkRescaling" xml:space="preserve">
+    <value>Automatyczne skalowanie</value>
+  </data>
+  <data name="chkSecondDerivative" xml:space="preserve">
+    <value>Druga pochodna</value>
+  </data>
+  <data name="chkSpecialFunction" xml:space="preserve">
+    <value>Funkcja specjalna</value>
+  </data>
+  <data name="closeToolStripMenuItem" xml:space="preserve">
+    <value>Zakończ</value>
+  </data>
+  <data name="extraComputationsToolStripMenuItem" xml:space="preserve">
+    <value>Dodatkowe obliczenia</value>
+  </data>
+  <data name="fileToolStripMenuItem" xml:space="preserve">
+    <value>Plik</value>
+  </data>
+  <data name="FunctionForm" xml:space="preserve">
+    <value>Funkcje</value>
+  </data>
+  <data name="FunctionForm.lblBody" xml:space="preserve">
     <value>Sinus = sin
 Sinus hiperboliczny = sinh
 Cosinus = cos
@@ -160,5 +218,122 @@ Program nie potrafi operować na liczbach urojonych. Jeżeli w którymś momenci
 znajdą się operacje na liczbach urojonych, to program zwróci "nie jest liczbą".
 
 Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4)))</value>
+  </data>
+  <data name="FunctionForm.lblHeader" xml:space="preserve">
+    <value>W programie można używać następujących funkcji:</value>
+  </data>
+  <data name="FunctionForm.lblOperators" xml:space="preserve">
+    <value>Operatory:  +, -, *, /, ^, !</value>
+  </data>
+  <data name="functionsToolStripMenuItem" xml:space="preserve">
+    <value>Funkcje</value>
+  </data>
+  <data name="gbConditions" xml:space="preserve">
+    <value>Warunki</value>
+  </data>
+  <data name="gbDrawFunction" xml:space="preserve">
+    <value>Rysuj</value>
+  </data>
+  <data name="gbFunction" xml:space="preserve">
+    <value>Funkcja</value>
+  </data>
+  <data name="gbOperation" xml:space="preserve">
+    <value>Operacja</value>
+  </data>
+  <data name="gbPoint" xml:space="preserve">
+    <value>Punkt</value>
+  </data>
+  <data name="gbResult" xml:space="preserve">
+    <value>Wynik</value>
+  </data>
+  <data name="gbScale" xml:space="preserve">
+    <value>Skala</value>
+  </data>
+  <data name="graphPreviewWhileWindowsScalingToolStripMenuItem" xml:space="preserve">
+    <value>Podgląd wykresu podczas skalowania okna</value>
+  </data>
+  <data name="graphToolStripMenuItem" xml:space="preserve">
+    <value>Wykres</value>
+  </data>
+  <data name="interpolationApproximationToolStripMenuItem" xml:space="preserve">
+    <value>Interpolacja i aproksymacja</value>
+  </data>
+  <data name="InterpolationForm" xml:space="preserve">
+    <value>Interpolacja</value>
+  </data>
+  <data name="InterpolationForm.btnApply" xml:space="preserve">
+    <value>Zatwierdź</value>
+  </data>
+  <data name="InterpolationForm.btnCompute" xml:space="preserve">
+    <value>Oblicz</value>
+  </data>
+  <data name="InterpolationForm.gbApproximation" xml:space="preserve">
+    <value>Aproksymacja</value>
+  </data>
+  <data name="InterpolationForm.gbInterpolation" xml:space="preserve">
+    <value>Interpolacja</value>
+  </data>
+  <data name="InterpolationForm.rbApproximation" xml:space="preserve">
+    <value>Aproksymacja stopnia</value>
+  </data>
+  <data name="InterpolationForm.rbInterpolation" xml:space="preserve">
+    <value>Interpolacja Lagrange'a</value>
+  </data>
+  <data name="lblCalculationTime" xml:space="preserve">
+    <value>Czas obliczeń</value>
+  </data>
+  <data name="lblCutoff" xml:space="preserve">
+    <value>Próg odcięcia</value>
+  </data>
+  <data name="lblSampling" xml:space="preserve">
+    <value>Próbkowanie</value>
+  </data>
+  <data name="LinearEquationForm" xml:space="preserve">
+    <value>Równania liniowe</value>
+  </data>
+  <data name="LinearEquationForm.btnCompute" xml:space="preserve">
+    <value>Oblicz</value>
+  </data>
+  <data name="LinearEquationForm.lblNumberOfVariables" xml:space="preserve">
+    <value>Ilość zmiennych</value>
+  </data>
+  <data name="LinearEquationForm.lblResults" xml:space="preserve">
+    <value>Wyniki:</value>
+  </data>
+  <data name="linearEquationToolStripMenuItem" xml:space="preserve">
+    <value>Równania liniowe</value>
+  </data>
+  <data name="multipleIntegralToolStripMenuItem" xml:space="preserve">
+    <value>Całka wielokrotna</value>
+  </data>
+  <data name="optionsToolStripMenuItem" xml:space="preserve">
+    <value>Opcje</value>
+  </data>
+  <data name="rbCalculator" xml:space="preserve">
+    <value>Kalkulator</value>
+  </data>
+  <data name="rbDerivativePoint" xml:space="preserve">
+    <value>Pierwsza pochodna</value>
+  </data>
+  <data name="rbDerivativePointBis" xml:space="preserve">
+    <value>Druga pochodna</value>
+  </data>
+  <data name="rbDifferential" xml:space="preserve">
+    <value>Równanie różniczkowe</value>
+  </data>
+  <data name="rbDifferentialII" xml:space="preserve">
+    <value>Równanie różniczkowe II rzędu</value>
+  </data>
+  <data name="rbHybrid" xml:space="preserve">
+    <value>Pierwiastek</value>
+  </data>
+  <data name="rbIntegral" xml:space="preserve">
+    <value>Całka</value>
+  </data>
+  <data name="rbPoint" xml:space="preserve">
+    <value>Wartość funkcji w punkcie</value>
+  </data>
+  <data name="rbSpecialFunction" xml:space="preserve">
+    <value>Funkcje specjalne</value>
   </data>
 </root>

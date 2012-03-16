@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     static class Program
     {

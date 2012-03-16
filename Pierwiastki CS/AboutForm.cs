@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     public partial class AboutForm : Form
     {
@@ -24,12 +24,14 @@ namespace Pierwiastki_CS
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            txtOpis.Select(txtOpis.Text.Length, 0);
+            txtDescription.Select(txtDescription.Text.Length, 0);
+
+            lblVersionValue.Text = Application.ProductVersion;
         }
 
         private void lnkPawelRychlicki_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("mailto:pawel.rychlicki@gmail.com");
+            Process.Start("http://pawelrychlicki.pl");
         }
     }
 }

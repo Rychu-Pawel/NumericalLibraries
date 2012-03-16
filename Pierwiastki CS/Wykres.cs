@@ -8,7 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     class Wykres
     {
@@ -360,15 +360,13 @@ namespace Pierwiastki_CS
             }
         }
 
-        public void RysujRozniczke(TypFunkcji typFunkcji, bool czyRysowacTylkoEnergie, params double[] parametry)
+        public void RysujRozniczke(TypFunkcji typFunkcji, params double[] parametry)
         {
             punktyWykresu.Clear();
 
             List<PointF> punkty = new List<PointF>();
             List<PointF> energia = new List<PointF>();
             List<PointF> energia2 = new List<PointF>();
-
-            bool czyRysowacEnergie = parametry.Length > 4;
 
             Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
@@ -473,42 +471,8 @@ namespace Pierwiastki_CS
                     //odwracamy w lewo
                     lewoII.Reverse();
 
-                    //dodajemy lewo
-                    double dzielnik = 2.0; //dzielnik dla energii - jak jest 1.91 - 1.92 to moim zdaniem ładniej wychodzi
-
                     foreach (PointD point in lewoII)
                     {
-                        if (czyRysowacEnergie)
-                        {
-                            //Energia:
-                            PointF energiaPoint = new PointF();
-                            energiaPoint.X = (float)(point.X * wspX + zeroX);
-                            energiaPoint.Y = (float)((parametry[1] * Math.Exp(parametry[4] / dzielnik * point.X)) * wspY);
-
-                            if (energiaPoint.Y > max)
-                                energiaPoint.Y = (float)max;
-                            else if (energiaPoint.Y < min)
-                                energiaPoint.Y = (float)min;
-
-                            energiaPoint.Y = (float)(zeroY - energiaPoint.Y);
-
-                            energia.Add(energiaPoint);
-
-                            //Energia2:
-                            PointF energiaPoint2 = new PointF();
-                            energiaPoint2.X = (float)(point.X * wspX + zeroX);
-                            energiaPoint2.Y = (float)((-parametry[1] * Math.Exp(parametry[4] / dzielnik * point.X)) * wspY);
-
-                            if (energiaPoint2.Y > max)
-                                energiaPoint2.Y = (float)max;
-                            else if (energiaPoint2.Y < min)
-                                energiaPoint2.Y = (float)min;
-
-                            energiaPoint2.Y = (float)(zeroY - energiaPoint2.Y);
-
-                            energia2.Add(energiaPoint2);
-                        }
-
                         //Normalne:
                         PointF pf = new PointF();
 
@@ -530,37 +494,6 @@ namespace Pierwiastki_CS
                     //dodajemy prawo
                     foreach (PointD point in prawoII)
                     {
-                        if (czyRysowacEnergie)
-                        {
-                            //Energia:
-                            PointF energiaPoint = new PointF();
-                            energiaPoint.X = (float)(point.X * wspX + zeroX);
-                            energiaPoint.Y = (float)((parametry[1] * Math.Exp(parametry[4] / dzielnik * point.X)) * wspY);
-
-                            if (energiaPoint.Y > max)
-                                energiaPoint.Y = (float)max;
-                            else if (energiaPoint.Y < min)
-                                energiaPoint.Y = (float)min;
-
-                            energiaPoint.Y = (float)(zeroY - energiaPoint.Y);
-
-                            energia.Add(energiaPoint);
-
-                            //Energia2:
-                            PointF energiaPoint2 = new PointF();
-                            energiaPoint2.X = (float)(point.X * wspX + zeroX);
-                            energiaPoint2.Y = (float)((-parametry[1] * Math.Exp(parametry[4] / dzielnik * point.X)) * wspY);
-
-                            if (energiaPoint2.Y > max)
-                                energiaPoint2.Y = (float)max;
-                            else if (energiaPoint2.Y < min)
-                                energiaPoint2.Y = (float)min;
-
-                            energiaPoint2.Y = (float)(zeroY - energiaPoint2.Y);
-
-                            energia2.Add(energiaPoint2);
-                        }
-
                         //Normalne:
                         PointF pf = new PointF();
 
@@ -600,40 +533,16 @@ namespace Pierwiastki_CS
             //RYSOWANIE WYKRESU
             try
             {
-                if (!czyRysowacTylkoEnergie)
-                    g.DrawLines(pen, punkty.ToArray());
-
-                if (czyRysowacEnergie)
-                {
-                    //Energia:
-                    g.DrawLines(Pens.DarkSeaGreen, energia.ToArray());
-                    g.DrawLines(Pens.DarkSeaGreen, energia2.ToArray());
-                }
+                g.DrawLines(pen, punkty.ToArray());
             }
             catch (Exception)
             {
                 //Pozbycie sie NaN - może pomoże
-                if (!czyRysowacTylkoEnergie)
-                    punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
-
-                if (czyRysowacEnergie)
-                {
-                    //W energii
-                    energia = energia.Where(p => !double.IsNaN(p.Y)).ToList();
-                    energia2 = energia2.Where(p => !double.IsNaN(p.Y)).ToList();
-                }
-
+                punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
+                
                 try
                 {
-                    if (!czyRysowacTylkoEnergie)
-                        g.DrawLines(pen, punkty.ToArray());
-
-                    if (czyRysowacEnergie)
-                    {
-                        //Energia:
-                        g.DrawLines(Pens.DarkSeaGreen, energia.ToArray());
-                        g.DrawLines(Pens.DarkSeaGreen, energia2.ToArray());
-                    }
+                    g.DrawLines(pen, punkty.ToArray());
                 }
                 catch { }
             }

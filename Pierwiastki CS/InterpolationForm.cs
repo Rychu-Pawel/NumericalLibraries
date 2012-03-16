@@ -7,12 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
-    public partial class InterpolacjaForm : Form
+    public partial class InterpolationForm : Form
     {
         private Form1 f1;
-        public InterpolacjaForm(Form1 f)
+        public InterpolationForm(Form1 f)
         {
             InitializeComponent();
             f1 = f;
@@ -23,7 +23,7 @@ namespace Pierwiastki_CS
         private void btnInterpoluj_Click(object sender, EventArgs e)
         {
             //Interpolacja
-            if (rbInterpolacja.Checked == true)
+            if (rbInterpolation.Checked == true)
             {
                 try
                 {
@@ -41,12 +41,12 @@ namespace Pierwiastki_CS
                         interpolacja.punkty[1, i] = Convert.ToDouble(dgvInterpolacja[1, i].Value.ToString().Replace(f1.zamienZ, f1.zamienNa));
                     }
 
-                    txtFunkcja.Text = interpolacja.Oblicz();
+                    txtFunction.Text = interpolacja.Oblicz();
                 }
                 catch (FunkcjaException excep)
                 {
                     MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtFunkcja.Focus();
+                    txtFunction.Focus();
                 }
                 catch (NullReferenceException)
                 {
@@ -62,13 +62,13 @@ namespace Pierwiastki_CS
                 }
             }
             //Regresja
-            else if (rbAproksymacja.Checked == true)
+            else if (rbApproximation.Checked == true)
             {
                 try
                 {
-                    Aproksymacja aproksymacja = new Aproksymacja(dgvInterpolacja, (int)nudStopien.Value, f1.zamienZ, f1.zamienNa);
+                    Aproksymacja aproksymacja = new Aproksymacja(dgvInterpolacja, (int)nudLevel.Value, f1.zamienZ, f1.zamienNa);
 
-                    txtFunkcja.Text = aproksymacja.Oblicz();
+                    txtFunction.Text = aproksymacja.Oblicz();
 
                     //Sprawdzenie czy wynik jest sensowny
                     
@@ -76,7 +76,7 @@ namespace Pierwiastki_CS
                 catch (FunkcjaException excep)
                 {
                     MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtFunkcja.Focus();
+                    txtFunction.Focus();
                 }
                 catch (NullReferenceException)
                 {
@@ -100,9 +100,9 @@ namespace Pierwiastki_CS
 
         private void btnZatwierdz_Click(object sender, EventArgs e)
         {
-            if (txtFunkcja.Text != string.Empty)
+            if (txtFunction.Text != string.Empty)
             {
-                f1.txtFunkcja.Text = txtFunkcja.Text;
+                f1.txtFunction.Text = txtFunction.Text;
                 Close();
             }
             else
@@ -113,14 +113,14 @@ namespace Pierwiastki_CS
 
         private void rbInterpolacja_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbInterpolacja.Checked == true)
-                rbAproksymacja.Checked = false;
+            if (rbInterpolation.Checked == true)
+                rbApproximation.Checked = false;
         }
 
         private void rbRegresjaLiniowa_CheckedChanged(object sender, EventArgs e)
         {
-            if (rbAproksymacja.Checked == true)
-                rbInterpolacja.Checked = false;
+            if (rbApproximation.Checked == true)
+                rbInterpolation.Checked = false;
         }
 
         private void InterpolacjaForm_Resize(object sender, EventArgs e)
@@ -128,12 +128,12 @@ namespace Pierwiastki_CS
             int gain = Height - 440;
 
             dgvInterpolacja.Height = 199 + gain;
-            gbInterpolacja.Top = 217 + gain;
-            gbEkstrapolacja.Top = 273 + gain;
-            lblWynik.Top = 343 + gain;
-            txtFunkcja.Top = 339 + gain;
-            btnOblicz.Top = 366 + gain;
-            btnZatwierdz.Top = 366 + gain;
+            gbInterpolation.Top = 217 + gain;
+            gbApproximation.Top = 273 + gain;
+            lblResult.Top = 343 + gain;
+            txtFunction.Top = 339 + gain;
+            btnCompute.Top = 366 + gain;
+            btnApply.Top = 366 + gain;
         }
     }
 }

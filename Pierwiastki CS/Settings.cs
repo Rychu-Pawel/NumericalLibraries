@@ -6,7 +6,7 @@ using System.Xml.Serialization;
 using System.IO.IsolatedStorage;
 using System.IO;
 
-namespace Pierwiastki_CS
+namespace NumericalCalculator
 {
     [XmlRoot("settings")]
     public class Settings

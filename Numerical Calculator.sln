@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pierwiastki CS", "Pierwiastki CS\Pierwiastki CS.csproj", "{789B7B5E-F9D2-486B-94EB-C119F126AE95}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Numerical Calculator", "Pierwiastki CS\Numerical Calculator.csproj", "{789B7B5E-F9D2-486B-94EB-C119F126AE95}"
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "PierwiastkiCS Setup", "PierwiastkiCS Setup\PierwiastkiCS Setup.vdproj", "{5F275D48-2275-49A3-9D6E-12358E5DC416}"
 EndProject
