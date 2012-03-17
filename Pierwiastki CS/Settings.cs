@@ -104,6 +104,7 @@ namespace NumericalCalculator
             settings[Setting.FFTChecked] = false;
             settings[Setting.IFFTChecked] = false;
             settings[Setting.AutomatycznyReskallingChecked] = true;
+            settings[Setting.Language] = "en-GB";
 
             Zapisz();
         }
@@ -191,7 +192,8 @@ namespace NumericalCalculator
         FunkcjaSpecjalnaChecked,
         FFTChecked,
         IFFTChecked,
-        AutomatycznyReskallingChecked
+        AutomatycznyReskallingChecked,
+        Language
 	}
 
     public class BrakUstawieniaException : Exception

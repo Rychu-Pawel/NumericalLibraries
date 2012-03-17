@@ -10,6 +10,8 @@ using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
 using NumericalCalculator.Properties;
+using System.Resources;
+using System.Reflection;
 
 namespace NumericalCalculator
 {
@@ -67,6 +69,11 @@ namespace NumericalCalculator
 
             //Zrobienie gui
             radioButton_CheckedChanged(null, new EventArgs());
+
+            //Załadowanie Tłumaczenia
+            ResourceManager language = new ResourceManager("NumericalCalculator.Translations.LanguageEnglish", GetType().Assembly);
+
+
         }
 
         private void UstawSettings(Settings settings)

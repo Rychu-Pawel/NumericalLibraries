@@ -24,8 +24,6 @@ namespace NumericalCalculator
 
         private void AboutForm_Load(object sender, EventArgs e)
         {
-            txtDescription.Select(txtDescription.Text.Length, 0);
-
             lblVersionValue.Text = Application.ProductVersion;
         }
 
