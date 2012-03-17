@@ -117,6 +117,10 @@
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
             this.saveFileDialogTXT = new System.Windows.Forms.SaveFileDialog();
+            this.językToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.polskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.gbFunction.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -188,6 +192,7 @@
             this.fileToolStripMenuItem,
             this.extraComputationsToolStripMenuItem,
             this.optionsToolStripMenuItem,
+            this.languageToolStripMenuItem,
             this.applicationToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
@@ -206,7 +211,7 @@
             // closeToolStripMenuItem
             // 
             this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
-            this.closeToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeToolStripMenuItem.Size = new System.Drawing.Size(118, 22);
             this.closeToolStripMenuItem.Text = "&Zakończ";
             this.closeToolStripMenuItem.Click += new System.EventHandler(this.wyjscieToolStripMenuItem_Click);
             // 
@@ -246,7 +251,8 @@
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.graphToolStripMenuItem,
-            this.graphPreviewWhileWindowsScalingToolStripMenuItem});
+            this.graphPreviewWhileWindowsScalingToolStripMenuItem,
+            this.językToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.optionsToolStripMenuItem.Text = "&Opcje";
@@ -1053,6 +1059,33 @@
             this.saveFileDialogTXT.Filter = "TXT|*.txt";
             this.saveFileDialogTXT.Title = "PierwiastkiCS";
             // 
+            // językToolStripMenuItem
+            // 
+            this.językToolStripMenuItem.Name = "językToolStripMenuItem";
+            this.językToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
+            this.językToolStripMenuItem.Text = "Język";
+            // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.englishToolStripMenuItem,
+            this.polskiToolStripMenuItem});
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.languageToolStripMenuItem.Text = "Język";
+            // 
+            // englishToolStripMenuItem
+            // 
+            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.englishToolStripMenuItem.Text = "English";
+            // 
+            // polskiToolStripMenuItem
+            // 
+            this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
+            this.polskiToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.polskiToolStripMenuItem.Text = "Polski";
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnCompute;
@@ -1198,6 +1231,10 @@
         private System.Windows.Forms.TextBox txtSampling;
         private System.Windows.Forms.ToolStripMenuItem zapiszDoTXTToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogTXT;
+        private System.Windows.Forms.ToolStripMenuItem językToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem polskiToolStripMenuItem;
     }
 }
 

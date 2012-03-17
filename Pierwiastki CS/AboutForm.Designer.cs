@@ -28,11 +28,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
             this.lblAppTitle = new System.Windows.Forms.Label();
             this.lblVersion = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.txtDescription = new System.Windows.Forms.TextBox();
             this.btnOK = new System.Windows.Forms.Button();
             this.lnkPawelRychlicki = new System.Windows.Forms.LinkLabel();
             this.lblVersionValue = new System.Windows.Forms.Label();
@@ -63,23 +61,12 @@
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(123, 13);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Copyright © 2009 - 2010";
-            // 
-            // txtDescription
-            // 
-            this.txtDescription.Location = new System.Drawing.Point(17, 101);
-            this.txtDescription.Multiline = true;
-            this.txtDescription.Name = "txtDescription";
-            this.txtDescription.ReadOnly = true;
-            this.txtDescription.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtDescription.Size = new System.Drawing.Size(253, 174);
-            this.txtDescription.TabIndex = 4;
-            this.txtDescription.Text = resources.GetString("txtDescription.Text");
+            this.label3.Text = "Copyright © 2009 - 2012";
             // 
             // btnOK
             // 
             this.btnOK.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.btnOK.Location = new System.Drawing.Point(106, 294);
+            this.btnOK.Location = new System.Drawing.Point(106, 113);
             this.btnOK.Name = "btnOK";
             this.btnOK.Size = new System.Drawing.Size(75, 23);
             this.btnOK.TabIndex = 5;
@@ -116,11 +103,10 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btnOK;
-            this.ClientSize = new System.Drawing.Size(286, 330);
+            this.ClientSize = new System.Drawing.Size(286, 144);
             this.Controls.Add(this.lblVersionValue);
             this.Controls.Add(this.lnkPawelRychlicki);
             this.Controls.Add(this.btnOK);
-            this.Controls.Add(this.txtDescription);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.lblVersion);
             this.Controls.Add(this.lblAppTitle);
@@ -139,7 +125,6 @@
         private System.Windows.Forms.Label lblAppTitle;
         private System.Windows.Forms.Label lblVersion;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox txtDescription;
         private System.Windows.Forms.Button btnOK;
         private System.Windows.Forms.LinkLabel lnkPawelRychlicki;
         private System.Windows.Forms.Label lblVersionValue;

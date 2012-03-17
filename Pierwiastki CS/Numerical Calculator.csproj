@@ -152,6 +152,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Translations\Language.En-gb.resx" />
     <EmbeddedResource Include="Translations\Language.PL-pl.resx" />
     <None Include="Properties\app.manifest" />
     <None Include="Properties\Settings.settings">
