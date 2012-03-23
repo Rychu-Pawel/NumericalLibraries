@@ -5,13 +5,14 @@ using System.Text;
 using System.Xml.Serialization;
 using System.IO.IsolatedStorage;
 using System.IO;
+using System.Globalization;
 
 namespace NumericalCalculator
 {
     [XmlRoot("settings")]
     public class Settings
     {
-        SerializableDictionary<Setting, object> settings;
+        SerializableDictionary<SettingEnum, object> settings;
 
         IsolatedStorageFile storage;
         IsolatedStorageFileStream stream;
@@ -20,14 +21,14 @@ namespace NumericalCalculator
 
         private readonly string fileName = "Settings.xml";
 
-        public object this[Setting setting]
+        public object this[SettingEnum setting]
         {
             get
             {
                 if (settings.ContainsKey(setting))
                     return settings[setting];
                 else
-                    throw new BrakUstawieniaException();
+                    throw new SettingNullReferenceException();
             }
 
             set
@@ -45,19 +46,19 @@ namespace NumericalCalculator
             
             stream = storage.OpenFile(fileName, FileMode.Create);
 
-            serializer = new XmlSerializer(typeof(SerializableDictionary<Setting, object>));
+            serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
             serializer.Serialize(stream, settings);
         }
 
         private void Odczytaj()
         {
-            serializer = new XmlSerializer(typeof(SerializableDictionary<Setting, object>));
-            settings = (SerializableDictionary<Setting, object>)serializer.Deserialize(stream);
+            serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
+            settings = (SerializableDictionary<SettingEnum, object>)serializer.Deserialize(stream);
         }
 
         public Settings()
         {
-            settings = new SerializableDictionary<Setting, object>();
+            settings = new SerializableDictionary<SettingEnum, object>();
 
             storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
             
@@ -92,19 +93,23 @@ namespace NumericalCalculator
 
         public void PrzywrocUstawieniaDomyslne()
         {
-            settings[Setting.WykresMenuChecked] = true;
-            settings[Setting.PodgladWykresuMenuChecked] = true;
-            settings[Setting.FunkcjaChecked] = true;
-            settings[Setting.PierwszaPochodnaChecked] = false;
-            settings[Setting.DrugaPochodnaChecked] = false;
-            settings[Setting.RozniczkaChecked] = false;
-            settings[Setting.RozniczkaIIChecked] = false;
-            settings[Setting.EnergiaChecked] = false;
-            settings[Setting.FunkcjaSpecjalnaChecked] = false;
-            settings[Setting.FFTChecked] = false;
-            settings[Setting.IFFTChecked] = false;
-            settings[Setting.AutomatycznyReskallingChecked] = true;
-            settings[Setting.Language] = "en-GB";
+            settings[SettingEnum.GraphMenuChecked] = true;
+            settings[SettingEnum.GraphPreviewMenuChecked] = true;
+            settings[SettingEnum.FunctionChecked] = true;
+            settings[SettingEnum.FirstDerativeChecked] = false;
+            settings[SettingEnum.SecondDerativeChecked] = false;
+            settings[SettingEnum.DifferentialChecked] = false;
+            settings[SettingEnum.DifferentialIIChecked] = false;
+            settings[SettingEnum.SpecialFunctionChecked] = false;
+            settings[SettingEnum.FourierTransformChecked] = false;
+            settings[SettingEnum.InverseFourierTransformChecked] = false;
+            settings[SettingEnum.AutomaticRescallingChecked] = true;
+
+            switch (CultureInfo.CurrentCulture.Name)
+            {
+                case "pl-PL": settings[SettingEnum.Language] = LanguageEnum.Polish; break;
+                default: settings[SettingEnum.Language] = LanguageEnum.English; break;
+            }
 
             Zapisz();
         }
@@ -179,30 +184,35 @@ namespace NumericalCalculator
         }
     }
 
-    public enum Setting
+    public enum SettingEnum
 	{
-        WykresMenuChecked,
-        PodgladWykresuMenuChecked,
-        FunkcjaChecked,
-        PierwszaPochodnaChecked,
-        DrugaPochodnaChecked,
-        RozniczkaChecked,
-        RozniczkaIIChecked,
-        EnergiaChecked,
-        FunkcjaSpecjalnaChecked,
-        FFTChecked,
-        IFFTChecked,
-        AutomatycznyReskallingChecked,
+        GraphMenuChecked,
+        GraphPreviewMenuChecked,
+        FunctionChecked,
+        FirstDerativeChecked,
+        SecondDerativeChecked,
+        DifferentialChecked,
+        DifferentialIIChecked,
+        SpecialFunctionChecked,
+        FourierTransformChecked,
+        InverseFourierTransformChecked,
+        AutomaticRescallingChecked,
         Language
 	}
 
-    public class BrakUstawieniaException : Exception
+    public enum LanguageEnum
     {
-        public BrakUstawieniaException()
+        Polish,
+        English
+    }
+
+    public class SettingNullReferenceException : Exception
+    {
+        public SettingNullReferenceException()
             : base("Brak ustawienia!")
         { }
 
-        public BrakUstawieniaException(string msg)
+        public SettingNullReferenceException(string msg)
             : base(msg)
         { }
     }

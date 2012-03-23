@@ -12,6 +12,7 @@ using System.IO;
 using NumericalCalculator.Properties;
 using System.Resources;
 using System.Reflection;
+using System.Globalization;
 
 namespace NumericalCalculator
 {
@@ -24,6 +25,7 @@ namespace NumericalCalculator
         readonly double min = -530000000.0;
 
         Settings settings;
+        ResourceManager language;
 
         PointF[] punktyWykresu;
 
@@ -53,12 +55,23 @@ namespace NumericalCalculator
 
             try
             {
+                LoadLanguage(settings);
                 UstawSettings(settings);
             }
-            catch (BrakUstawieniaException)
+            catch (SettingNullReferenceException)
             {
-                settings.PrzywrocUstawieniaDomyslne();
-                UstawSettings(settings);
+                try
+                {
+                    settings.PrzywrocUstawieniaDomyslne();
+
+                    LoadLanguage(settings);
+                    UstawSettings(settings);
+                }
+                catch
+                {
+                    MessageBox.Show("Instalacja programu jest niepoprawna. Należy odinstalować i zainstalować program ponownie!", "Niezidentyfikowany problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
             }
 
             //Dodatkowe zdarzenia
@@ -69,30 +82,33 @@ namespace NumericalCalculator
 
             //Zrobienie gui
             radioButton_CheckedChanged(null, new EventArgs());
+        }
 
-            //Załadowanie Tłumaczenia
-            ResourceManager language = new ResourceManager("NumericalCalculator.Translations.LanguageEnglish", GetType().Assembly);
-
-
+        private void LoadLanguage(Settings settings)
+        {
+            if ((LanguageEnum)settings[SettingEnum.Language] == LanguageEnum.Polish)
+                language = new ResourceManager("NumericalCalculator.Translations.LanguagePolish", GetType().Assembly);
+            else
+                language = new ResourceManager("NumericalCalculator.Translations.LanguageEnglish", GetType().Assembly);
         }
 
         private void UstawSettings(Settings settings)
         {
-            graphToolStripMenuItem.Checked = (bool)settings[Setting.WykresMenuChecked];
+            graphToolStripMenuItem.Checked = (bool)settings[SettingEnum.GraphMenuChecked];
 
             if (!graphToolStripMenuItem.Checked)
                 wykresToolStripMenuItem_Click(null, new EventArgs());
 
-            graphPreviewWhileWindowsScalingToolStripMenuItem.Checked = (bool)settings[Setting.PodgladWykresuMenuChecked];
-            chkFunction.Checked = (bool)settings[Setting.FunkcjaChecked];
-            chkFirstDerivative.Checked = (bool)settings[Setting.PierwszaPochodnaChecked];
-            chkSecondDerivative.Checked = (bool)settings[Setting.DrugaPochodnaChecked];
-            chkDifferential.Checked = (bool)settings[Setting.RozniczkaChecked];
-            chkDifferentialII.Checked = (bool)settings[Setting.RozniczkaIIChecked];
-            chkSpecialFunction.Checked = (bool)settings[Setting.FunkcjaSpecjalnaChecked];
-            chkRescaling.Checked = (bool)settings[Setting.AutomatycznyReskallingChecked];
-            chkFT.Checked = (bool)settings[Setting.FFTChecked];
-            chkIFT.Checked = (bool)settings[Setting.IFFTChecked];
+            graphPreviewWhileWindowsScalingToolStripMenuItem.Checked = (bool)settings[SettingEnum.GraphPreviewMenuChecked];
+            chkFunction.Checked = (bool)settings[SettingEnum.FunctionChecked];
+            chkFirstDerivative.Checked = (bool)settings[SettingEnum.FirstDerativeChecked];
+            chkSecondDerivative.Checked = (bool)settings[SettingEnum.SecondDerativeChecked];
+            chkDifferential.Checked = (bool)settings[SettingEnum.DifferentialChecked];
+            chkDifferentialII.Checked = (bool)settings[SettingEnum.DifferentialIIChecked];
+            chkSpecialFunction.Checked = (bool)settings[SettingEnum.SpecialFunctionChecked];
+            chkRescaling.Checked = (bool)settings[SettingEnum.AutomaticRescallingChecked];
+            chkFT.Checked = (bool)settings[SettingEnum.FourierTransformChecked];
+            chkIFT.Checked = (bool)settings[SettingEnum.InverseFourierTransformChecked];
         }
 
         /// <summary>
@@ -2133,10 +2149,10 @@ namespace NumericalCalculator
                 switch (tsmi.Name)
                 {
                     case "wykresToolStripMenuItem":
-                        settings[Setting.WykresMenuChecked] = tsmi.Checked;
+                        settings[SettingEnum.GraphMenuChecked] = tsmi.Checked;
                         break;
                     case "podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem":
-                        settings[Setting.PodgladWykresuMenuChecked] = tsmi.Checked;
+                        settings[SettingEnum.GraphPreviewMenuChecked] = tsmi.Checked;
                         break;
                     default:
                         break;
@@ -2149,34 +2165,31 @@ namespace NumericalCalculator
                 switch (chk.Name)
                 {
                     case "chkFunkcja":
-                        settings[Setting.FunkcjaChecked] = chk.Checked;
+                        settings[SettingEnum.FunctionChecked] = chk.Checked;
                         break;
                     case "chkPierwszaPochodna":
-                        settings[Setting.PierwszaPochodnaChecked] = chk.Checked;
+                        settings[SettingEnum.FirstDerativeChecked] = chk.Checked;
                         break;
                     case "chkDrugaPochodna":
-                        settings[Setting.DrugaPochodnaChecked] = chk.Checked;
+                        settings[SettingEnum.SecondDerativeChecked] = chk.Checked;
                         break;
                     case "chkFunkcjaSpecjalna":
-                        settings[Setting.FunkcjaSpecjalnaChecked] = chk.Checked;
+                        settings[SettingEnum.SpecialFunctionChecked] = chk.Checked;
                         break;
                     case "chkWykresAuto":
-                        settings[Setting.AutomatycznyReskallingChecked] = chk.Checked;
+                        settings[SettingEnum.AutomaticRescallingChecked] = chk.Checked;
                         break;
                     case "chkRozniczka":
-                        settings[Setting.RozniczkaChecked] = chk.Checked;
+                        settings[SettingEnum.DifferentialChecked] = chk.Checked;
                         break;
                     case "chkRozniczkaII":
-                        settings[Setting.RozniczkaIIChecked] = chk.Checked;
-                        break;
-                    case "chkEnergia":
-                        settings[Setting.EnergiaChecked] = chk.Checked;
+                        settings[SettingEnum.DifferentialIIChecked] = chk.Checked;
                         break;
                     case "chkFFT":
-                        settings[Setting.FFTChecked] = chk.Checked;
+                        settings[SettingEnum.FourierTransformChecked] = chk.Checked;
                         break;
                     case "chkRFFT":
-                        settings[Setting.IFFTChecked] = chk.Checked;
+                        settings[SettingEnum.InverseFourierTransformChecked] = chk.Checked;
                         break;
                     default:
                         break;
