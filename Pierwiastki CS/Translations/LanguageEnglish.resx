@@ -126,11 +126,11 @@
   <data name="AboutForm_lblVersion" xml:space="preserve">
     <value>Version</value>
   </data>
-  <data name="aboutToolStripMenuItem" xml:space="preserve">
-    <value>About</value>
+  <data name="menuStrip_aboutToolStripMenuItem" xml:space="preserve">
+    <value>&amp;About</value>
   </data>
-  <data name="applicationToolStripMenuItem" xml:space="preserve">
-    <value>Application</value>
+  <data name="menuStrip_applicationToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Application</value>
   </data>
   <data name="btnCompute" xml:space="preserve">
     <value>Compute</value>
@@ -159,14 +159,14 @@
   <data name="chkSpecialFunction" xml:space="preserve">
     <value>Special function</value>
   </data>
-  <data name="closeToolStripMenuItem" xml:space="preserve">
-    <value>Close</value>
+  <data name="menuStrip_closeToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Close</value>
   </data>
-  <data name="extraComputationsToolStripMenuItem" xml:space="preserve">
-    <value>Extra computations</value>
+  <data name="menuStrip_extraComputationsToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Extra computations</value>
   </data>
-  <data name="fileToolStripMenuItem" xml:space="preserve">
-    <value>File</value>
+  <data name="menuStrip_fileToolStripMenuItem" xml:space="preserve">
+    <value>&amp;File</value>
   </data>
   <data name="FunctionForm" xml:space="preserve">
     <value>Functions</value>
@@ -221,8 +221,8 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="FunctionForm_lblOperators" xml:space="preserve">
     <value>Operators:  +, -, *, /, ^, !</value>
   </data>
-  <data name="functionsToolStripMenuItem" xml:space="preserve">
-    <value>Functions</value>
+  <data name="menuStrip_functionsToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Functions</value>
   </data>
   <data name="gbConditions" xml:space="preserve">
     <value>Conditions</value>
@@ -245,14 +245,14 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="gbScale" xml:space="preserve">
     <value>Scale</value>
   </data>
-  <data name="graphPreviewWhileWindowsScalingToolStripMenuItem" xml:space="preserve">
-    <value>Graph preview while window scaling</value>
+  <data name="menuStrip_graphPreviewWhileWindowsScalingToolStripMenuItem" xml:space="preserve">
+    <value>Graph &amp;preview while window scaling</value>
   </data>
-  <data name="graphToolStripMenuItem" xml:space="preserve">
-    <value>Graph</value>
+  <data name="menuStrip_graphToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Graph</value>
   </data>
-  <data name="interpolationApproximationToolStripMenuItem" xml:space="preserve">
-    <value>Interpolation and approximation</value>
+  <data name="menuStrip_interpolationApproximationToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Interpolation and approximation</value>
   </data>
   <data name="InterpolationForm" xml:space="preserve">
     <value>Interpolation</value>
@@ -275,17 +275,17 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="InterpolationForm_rbInterpolation" xml:space="preserve">
     <value>Lagrange interpolation</value>
   </data>
-  <data name="languageToolStripMenuItem" xml:space="preserve">
-    <value>Language</value>
+  <data name="menuStrip_languageToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Language</value>
   </data>
   <data name="lblCalculationTime" xml:space="preserve">
-    <value>Computation time</value>
+    <value>Computation time:</value>
   </data>
   <data name="lblCutoff" xml:space="preserve">
-    <value>Cut-off threshold</value>
+    <value>Cut-off threshold:</value>
   </data>
   <data name="lblSampling" xml:space="preserve">
-    <value>Sampling</value>
+    <value>Sampling:</value>
   </data>
   <data name="LinearEquationForm" xml:space="preserve">
     <value>Linear equation</value>
@@ -299,14 +299,14 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="LinearEquationForm_lblResults" xml:space="preserve">
     <value>Result:</value>
   </data>
-  <data name="linearEquationToolStripMenuItem" xml:space="preserve">
-    <value>Linear equations</value>
+  <data name="menuStrip_linearEquationToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Linear equations</value>
   </data>
-  <data name="multipleIntegralToolStripMenuItem" xml:space="preserve">
-    <value>Multiple integral</value>
+  <data name="menuStrip_multipleIntegralToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Multiple integral</value>
   </data>
-  <data name="optionsToolStripMenuItem" xml:space="preserve">
-    <value>Options</value>
+  <data name="menuStrip_optionsToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Options</value>
   </data>
   <data name="rbCalculator" xml:space="preserve">
     <value>Calculator</value>
@@ -330,9 +330,99 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Integral</value>
   </data>
   <data name="rbPoint" xml:space="preserve">
-    <value>Value of the function at</value>
+    <value>Value of the function at point</value>
   </data>
   <data name="rbSpecialFunction" xml:space="preserve">
     <value>Special function</value>
+  </data>
+  <data name="BesseleFourthArgumentException" xml:space="preserve">
+    <value>Incorrect fourth argument!</value>
+  </data>
+  <data name="BesseleSecondArgumentException" xml:space="preserve">
+    <value>Incorrect second argument!</value>
+  </data>
+  <data name="BesseleThirdArgumentException" xml:space="preserve">
+    <value>Incorrect third argument!</value>
+  </data>
+  <data name="BesselFirstArgumentException" xml:space="preserve">
+    <value>Incorrect first argument!</value>
+  </data>
+  <data name="Exception" xml:space="preserve">
+    <value>Unhandled exception occured! Checked entered formula!</value>
+  </data>
+  <data name="FromConversionException" xml:space="preserve">
+    <value>Incorrect "from" point!</value>
+  </data>
+  <data name="FromConversionException_Differential" xml:space="preserve">
+    <value>Incorrect x point in first condition!</value>
+  </data>
+  <data name="FromConversionException_Integral" xml:space="preserve">
+    <value>Incorrect lower limit of the integration!</value>
+  </data>
+  <data name="FromIIConversionException" xml:space="preserve">
+    <value>Incorrect point in second condition!</value>
+  </data>
+  <data name="FunctionNullReferenceException" xml:space="preserve">
+    <value>Enter the function!</value>
+  </data>
+  <data name="FunctionNullReferenceException_Calculator" xml:space="preserve">
+    <value>Enter the computation!</value>
+  </data>
+  <data name="gbConditionsII" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="gbConditions_Range" xml:space="preserve">
+    <value>Limits</value>
+  </data>
+  <data name="gbFunction_SpecialFunction" xml:space="preserve">
+    <value>Special function</value>
+  </data>
+  <data name="interpolationApproximationToolStripMenuItem" xml:space="preserve">
+    <value>Interpolation and approximation</value>
+  </data>
+  <data name="lblFrom_Range" xml:space="preserve">
+    <value>lower</value>
+  </data>
+  <data name="lblTo_Range" xml:space="preserve">
+    <value>upper</value>
+  </data>
+  <data name="MessageBox_Caption_Error" xml:space="preserve">
+    <value>Error!</value>
+  </data>
+  <data name="MessageBox_Caption_Warning" xml:space="preserve">
+    <value>Warning!</value>
+  </data>
+  <data name="MessageBox_EulerWarning" xml:space="preserve">
+    <value>E was interpreted as Euler's number!</value>
+  </data>
+  <data name="MessageBox_InstallationCorrupted" xml:space="preserve">
+    <value>Application installation is corrupted! It may run unstable. You should reinstall this application.</value>
+  </data>
+  <data name="MessageBox_InstallationCorrupted_Caption" xml:space="preserve">
+    <value>Unidentified problem!</value>
+  </data>
+  <data name="PointConversionException" xml:space="preserve">
+    <value>Incorrect point!</value>
+  </data>
+  <data name="rbRoot" xml:space="preserve">
+    <value>Function Root</value>
+  </data>
+  <data name="SystemException" xml:space="preserve">
+    <value>Unhandled exception occured! Checked entered formula!</value>
+  </data>
+  <data name="ToConversionException" xml:space="preserve">
+    <value>Incorrect "to" point!</value>
+  </data>
+  <data name="ToConversionException_Differential" xml:space="preserve">
+    <value>Incorrect value in first condition!</value>
+  </data>
+  <data name="ToConversionException_Integral" xml:space="preserve">
+    <value>Incorrect upper limit of integration!</value>
+  </data>
+  <data name="ToIIConversionException" xml:space="preserve">
+    <value>Incorrect value in second condition!</value>
+  </data>
+  <data name="VariableFoundException" xml:space="preserve">
+    <value>There can't be any variable in the computation!</value>
   </data>
 </root>

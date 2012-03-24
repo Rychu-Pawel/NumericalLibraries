@@ -81,36 +81,36 @@ namespace NumericalCalculator
                     }
                     catch (SystemException)
                     {
-                        throw new FunkcjaException("Niepoprawne wystąpienie operatora \"E\"");
+                        throw new FunctionException("Niepoprawne wystąpienie operatora \"E\"");
                     }
                 }
 
                 //Operator nie moze stac na poczatku wyrazenia (za wyjatkiem + i -), i na koncu (za wyjątkiem silni)
                 if (i == 0 && operatoryBezPlusMinus.Contains(c))
-                    throw new FunkcjaException("Operator \"" + c + "\" nie może stać na początku wyrażenia!");
+                    throw new FunctionException("Operator \"" + c + "\" nie może stać na początku wyrażenia!");
 
                 if (i == funkcja.Length - 1 && operatoryBezSilni.Contains(c))
-                    throw new FunkcjaException("Operator nie może stać na koncu wyrażenia!");
+                    throw new FunctionException("Operator nie może stać na koncu wyrażenia!");
 
                 //Czy nie stoja kolo siebie dwa operatory (za wyjątkiem silni jako pierwszej z dwóch operatorów)
                 if (i != 0)
                     if (operatory.Contains(c) && operatoryBezSilniAleZKropkaPrzecinek.Contains(funkcja[i - 1]))
-                        throw new FunkcjaException("Dwa operatory występują obok siebie!");
+                        throw new FunctionException("Dwa operatory występują obok siebie!");
 
                 //Sprawdzenie czy nie ma dwóch silni obok siebie
                 if (i != 0)
                     if (c == '!' && funkcja[i - 1] == '!')
-                        throw new FunkcjaException("Dwie silnie występują obok siebie!");
+                        throw new FunctionException("Dwie silnie występują obok siebie!");
 
                 //Przepuszcza tylko dozwolone znaki
                 if (!(dozwoloneZnaki.Contains(c) || char.IsDigit(c)))                    
-                    throw new FunkcjaException("Występuje niedozwolony znak \'" + c.ToString() + "\' !");
+                    throw new FunctionException("Występuje niedozwolony znak \'" + c.ToString() + "\' !");
 
                 // TO DO: Sprawdzenie czy funkcje np. exp(x) sa dobrze wpisane, np. nie epx, albo exp)
             }
 
             if (funkcja == string.Empty)
-                throw new FunkcjaException("Wpisz funkcję!");
+                throw new FunctionException("Wpisz funkcję!");
         }
 
         protected void KonwertujNaTablice()// Konwertuje string funkcja na string[] funkcja
@@ -332,7 +332,7 @@ namespace NumericalCalculator
 
             //Ilosc lewych i prawych nawiasow nie zgadza sie
             if (n != 0)
-                throw new FunkcjaException("Ilość lewych i prawych nawiasów nie zgadza się!");
+                throw new FunctionException("Ilość lewych i prawych nawiasów nie zgadza się!");
 
             // PRZYGOTOWANIE ZMIENNYCH
             funkcjaONP = new string[funkcjaTablica.Length - nn];

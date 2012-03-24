@@ -81,17 +81,17 @@ namespace NumericalCalculator
                 catch
                 {
                     //Ustawiamy defaultowe ustawienia
-                    PrzywrocUstawieniaDomyslne();
+                    RestoreDefaults();
                 }
             }
             else
             {
                 //Ustawiamy defaultowe ustawienia
-                PrzywrocUstawieniaDomyslne();
+                RestoreDefaults();
             }
         }
 
-        public void PrzywrocUstawieniaDomyslne()
+        public void RestoreDefaults()
         {
             settings[SettingEnum.GraphMenuChecked] = true;
             settings[SettingEnum.GraphPreviewMenuChecked] = true;
@@ -199,12 +199,6 @@ namespace NumericalCalculator
         AutomaticRescallingChecked,
         Language
 	}
-
-    public enum LanguageEnum
-    {
-        Polish,
-        English
-    }
 
     public class SettingNullReferenceException : Exception
     {

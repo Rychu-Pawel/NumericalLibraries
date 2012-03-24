@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Hybryda: Pochodna
+    class Hybrid: Derivative
     {
     // ZMIENNE --------------------
         double przedzialOd, przedzialDo;
@@ -26,7 +26,7 @@ namespace NumericalCalculator
 
             // SPRAWDZENIE CZY JEST TU PIERWIASTEK I CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
             if (a * b > 0)
-                throw new FunkcjaException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
             else if (a == 0)
                 return przedzialOd;
             else if (b == 0)
@@ -55,7 +55,7 @@ namespace NumericalCalculator
                         return x;
                 }
                 else
-                    throw new FunkcjaException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                    throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
             }
         }
         
@@ -119,7 +119,7 @@ namespace NumericalCalculator
                 return wynik;                
         }
 
-        public override double ObliczWnetrze()
+        public override double ComputeInterior()
         {
             double wynik;
 
@@ -129,7 +129,7 @@ namespace NumericalCalculator
                 wynik = Newton();
 
                 if (double.IsNaN(wynik))
-                    throw new FunkcjaException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                    throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
                 else
                     return wynik;
             }
@@ -147,7 +147,7 @@ namespace NumericalCalculator
 
 
     // KONSTRUKTOR ----------------
-        public Hybryda(string funkcja, double przedzialOd, double przedzialDo): base(funkcja)
+        public Hybrid(string funkcja, double przedzialOd, double przedzialDo): base(funkcja)
         {
             this.przedzialOd = przedzialOd;
             this.przedzialDo = przedzialDo;

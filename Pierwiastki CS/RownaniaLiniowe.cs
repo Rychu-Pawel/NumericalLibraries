@@ -44,7 +44,7 @@ namespace NumericalCalculator
                 niewiadome[i] = wspolczynniki[iloscZmiennych, i] / wspolczynniki[i, i];
 
                 if (double.IsNaN(niewiadome[i]))
-                    throw new FunkcjaException("Układ sprzeczny!");
+                    throw new FunctionException("Układ sprzeczny!");
 
                 //Formatowanie niewiadomoej, żeby 4,0000000000001 wypluł jako 4
                 if (Math.Abs(niewiadome[i] - Math.Floor(niewiadome[i])) < 0.000000001)

@@ -15,7 +15,7 @@ namespace NumericalCalculator
 
         public List<PointC> Oblicz(string funkcja, int probkowanie, double poczatek, double koniec)
         {
-            Pochodna p = new Pochodna(funkcja);
+            Derivative p = new Derivative(funkcja);
 
             List<PointC> wyniki = new List<PointC>();
 

@@ -40,10 +40,13 @@
             this.extraComputationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linearEquationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.multipleIntegralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.interpolationAproximationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.interpolationApproximationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphPreviewWhileWindowsScalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.polskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.applicationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.functionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,7 +56,7 @@
             this.lblFx = new System.Windows.Forms.Label();
             this.txtFunction = new System.Windows.Forms.TextBox();
             this.pnlKomenda = new System.Windows.Forms.Panel();
-            this.thtFourthCommandArgument = new System.Windows.Forms.TextBox();
+            this.txtFourthCommandArgument = new System.Windows.Forms.TextBox();
             this.cmbSpecialFunction = new System.Windows.Forms.ComboBox();
             this.txtFirstCommandArgument = new System.Windows.Forms.TextBox();
             this.txtSecondCommandArgument = new System.Windows.Forms.TextBox();
@@ -109,18 +112,14 @@
             this.chkY = new System.Windows.Forms.CheckBox();
             this.chkX = new System.Windows.Forms.CheckBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.txtDoII = new System.Windows.Forms.TextBox();
+            this.txtToII = new System.Windows.Forms.TextBox();
             this.lblDoII = new System.Windows.Forms.Label();
-            this.txtOdII = new System.Windows.Forms.TextBox();
+            this.txtFromII = new System.Windows.Forms.TextBox();
             this.lblOdII = new System.Windows.Forms.Label();
-            this.gbWarunkiII = new System.Windows.Forms.GroupBox();
+            this.gbConditionsII = new System.Windows.Forms.GroupBox();
             this.pnlWarunki = new System.Windows.Forms.Panel();
             this.pnlWarunkiII = new System.Windows.Forms.Panel();
             this.saveFileDialogTXT = new System.Windows.Forms.SaveFileDialog();
-            this.językToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.languageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.englishToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.polskiToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.gbFunction.SuspendLayout();
             this.pnlFunkcja.SuspendLayout();
@@ -134,7 +133,7 @@
             this.gbPoint.SuspendLayout();
             this.gbDrawFunction.SuspendLayout();
             this.gbScale.SuspendLayout();
-            this.gbWarunkiII.SuspendLayout();
+            this.gbConditionsII.SuspendLayout();
             this.pnlWarunki.SuspendLayout();
             this.pnlWarunkiII.SuspendLayout();
             this.SuspendLayout();
@@ -220,7 +219,7 @@
             this.extraComputationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.linearEquationToolStripMenuItem,
             this.multipleIntegralToolStripMenuItem,
-            this.interpolationAproximationToolStripMenuItem});
+            this.interpolationApproximationToolStripMenuItem});
             this.extraComputationsToolStripMenuItem.Name = "extraComputationsToolStripMenuItem";
             this.extraComputationsToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
             this.extraComputationsToolStripMenuItem.Text = "&Dodatkowe obliczenia";
@@ -240,19 +239,18 @@
             this.multipleIntegralToolStripMenuItem.Visible = false;
             this.multipleIntegralToolStripMenuItem.Click += new System.EventHandler(this.całkaWielokrotnaToolStripMenuItem_Click);
             // 
-            // interpolationAproximationToolStripMenuItem
+            // interpolationApproximationToolStripMenuItem
             // 
-            this.interpolationAproximationToolStripMenuItem.Name = "interpolationAproximationToolStripMenuItem";
-            this.interpolationAproximationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.interpolationAproximationToolStripMenuItem.Text = "&Interpolacja i aproksymacja";
-            this.interpolationAproximationToolStripMenuItem.Click += new System.EventHandler(this.interpolacjaIAproksymacjaToolStripMenuItem_Click);
+            this.interpolationApproximationToolStripMenuItem.Name = "interpolationApproximationToolStripMenuItem";
+            this.interpolationApproximationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.interpolationApproximationToolStripMenuItem.Text = "&Interpolacja i aproksymacja";
+            this.interpolationApproximationToolStripMenuItem.Click += new System.EventHandler(this.interpolacjaIAproksymacjaToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
             this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.graphToolStripMenuItem,
-            this.graphPreviewWhileWindowsScalingToolStripMenuItem,
-            this.językToolStripMenuItem});
+            this.graphPreviewWhileWindowsScalingToolStripMenuItem});
             this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
             this.optionsToolStripMenuItem.Size = new System.Drawing.Size(50, 20);
             this.optionsToolStripMenuItem.Text = "&Opcje";
@@ -277,6 +275,31 @@
             this.graphPreviewWhileWindowsScalingToolStripMenuItem.Text = "Podgląd wykresu podczas skalowania okna";
             this.graphPreviewWhileWindowsScalingToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
             // 
+            // languageToolStripMenuItem
+            // 
+            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.englishToolStripMenuItem,
+            this.polskiToolStripMenuItem});
+            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
+            this.languageToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
+            this.languageToolStripMenuItem.Text = "Język";
+            // 
+            // englishToolStripMenuItem
+            // 
+            this.englishToolStripMenuItem.CheckOnClick = true;
+            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.englishToolStripMenuItem.Text = "&English";
+            this.englishToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
+            // 
+            // polskiToolStripMenuItem
+            // 
+            this.polskiToolStripMenuItem.CheckOnClick = true;
+            this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
+            this.polskiToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
+            this.polskiToolStripMenuItem.Text = "&Polski";
+            this.polskiToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
+            // 
             // applicationToolStripMenuItem
             // 
             this.applicationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -289,14 +312,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.aboutToolStripMenuItem.Text = "&O programie";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.oProgramieToolStripMenuItem_Click);
             // 
             // functionsToolStripMenuItem
             // 
             this.functionsToolStripMenuItem.Name = "functionsToolStripMenuItem";
-            this.functionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.functionsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.functionsToolStripMenuItem.Text = "&Funkcje";
             this.functionsToolStripMenuItem.Click += new System.EventHandler(this.PokazFunkcjeForm_Handler);
             // 
@@ -354,7 +377,7 @@
             // 
             // pnlKomenda
             // 
-            this.pnlKomenda.Controls.Add(this.thtFourthCommandArgument);
+            this.pnlKomenda.Controls.Add(this.txtFourthCommandArgument);
             this.pnlKomenda.Controls.Add(this.cmbSpecialFunction);
             this.pnlKomenda.Controls.Add(this.txtFirstCommandArgument);
             this.pnlKomenda.Controls.Add(this.txtSecondCommandArgument);
@@ -367,11 +390,11 @@
             // 
             // thtFourthCommandArgument
             // 
-            this.thtFourthCommandArgument.Location = new System.Drawing.Point(293, 14);
-            this.thtFourthCommandArgument.Name = "thtFourthCommandArgument";
-            this.thtFourthCommandArgument.Size = new System.Drawing.Size(24, 20);
-            this.thtFourthCommandArgument.TabIndex = 8;
-            this.thtFourthCommandArgument.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            this.txtFourthCommandArgument.Location = new System.Drawing.Point(293, 14);
+            this.txtFourthCommandArgument.Name = "thtFourthCommandArgument";
+            this.txtFourthCommandArgument.Size = new System.Drawing.Size(24, 20);
+            this.txtFourthCommandArgument.TabIndex = 8;
+            this.txtFourthCommandArgument.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // cmbSpecialFunction
             // 
@@ -448,7 +471,7 @@
             // lblCalculationTime
             // 
             this.lblCalculationTime.AutoSize = true;
-            this.lblCalculationTime.Location = new System.Drawing.Point(89, 54);
+            this.lblCalculationTime.Location = new System.Drawing.Point(85, 54);
             this.lblCalculationTime.Name = "lblCalculationTime";
             this.lblCalculationTime.Size = new System.Drawing.Size(75, 13);
             this.lblCalculationTime.TabIndex = 11;
@@ -457,7 +480,7 @@
             // lblTime
             // 
             this.lblTime.AutoSize = true;
-            this.lblTime.Location = new System.Drawing.Point(170, 54);
+            this.lblTime.Location = new System.Drawing.Point(174, 54);
             this.lblTime.Name = "lblTime";
             this.lblTime.Size = new System.Drawing.Size(73, 13);
             this.lblTime.TabIndex = 10;
@@ -517,7 +540,7 @@
             // rbRoot
             // 
             this.rbRoot.AutoSize = true;
-            this.rbRoot.Location = new System.Drawing.Point(108, 19);
+            this.rbRoot.Location = new System.Drawing.Point(105, 19);
             this.rbRoot.Name = "rbRoot";
             this.rbRoot.Size = new System.Drawing.Size(79, 17);
             this.rbRoot.TabIndex = 3;
@@ -755,7 +778,7 @@
             this.chkSpecialFunction.TabIndex = 18;
             this.chkSpecialFunction.Text = "Funkcja specjalna";
             this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
-                    "argumentów wstawić zmienną x.\r\n");
+        "argumentów wstawić zmienną x.\r\n");
             this.chkSpecialFunction.UseVisualStyleBackColor = true;
             this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
             // 
@@ -823,7 +846,7 @@
             // lblCutoff
             // 
             this.lblCutoff.AutoSize = true;
-            this.lblCutoff.Location = new System.Drawing.Point(59, 206);
+            this.lblCutoff.Location = new System.Drawing.Point(52, 206);
             this.lblCutoff.Name = "lblCutoff";
             this.lblCutoff.Size = new System.Drawing.Size(75, 13);
             this.lblCutoff.TabIndex = 28;
@@ -832,7 +855,7 @@
             // lblSampling
             // 
             this.lblSampling.AutoSize = true;
-            this.lblSampling.Location = new System.Drawing.Point(59, 180);
+            this.lblSampling.Location = new System.Drawing.Point(52, 180);
             this.lblSampling.Name = "lblSampling";
             this.lblSampling.Size = new System.Drawing.Size(72, 13);
             this.lblSampling.TabIndex = 27;
@@ -988,10 +1011,10 @@
             // 
             // txtDoII
             // 
-            this.txtDoII.Location = new System.Drawing.Point(108, 16);
-            this.txtDoII.Name = "txtDoII";
-            this.txtDoII.Size = new System.Drawing.Size(44, 20);
-            this.txtDoII.TabIndex = 12;
+            this.txtToII.Location = new System.Drawing.Point(108, 16);
+            this.txtToII.Name = "txtDoII";
+            this.txtToII.Size = new System.Drawing.Size(44, 20);
+            this.txtToII.TabIndex = 12;
             // 
             // lblDoII
             // 
@@ -1005,11 +1028,11 @@
             // 
             // txtOdII
             // 
-            this.txtOdII.Location = new System.Drawing.Point(30, 16);
-            this.txtOdII.Name = "txtOdII";
-            this.txtOdII.Size = new System.Drawing.Size(44, 20);
-            this.txtOdII.TabIndex = 11;
-            this.txtOdII.TextChanged += new System.EventHandler(this.txtOd_TextChanged);
+            this.txtFromII.Location = new System.Drawing.Point(30, 16);
+            this.txtFromII.Name = "txtOdII";
+            this.txtFromII.Size = new System.Drawing.Size(44, 20);
+            this.txtFromII.TabIndex = 11;
+            this.txtFromII.TextChanged += new System.EventHandler(this.txtOd_TextChanged);
             // 
             // lblOdII
             // 
@@ -1021,20 +1044,20 @@
             this.lblOdII.TabIndex = 10;
             this.lblOdII.Text = "f\'(";
             // 
-            // gbWarunkiII
+            // gbConditionsII
             // 
-            this.gbWarunkiII.Controls.Add(this.lblOdII);
-            this.gbWarunkiII.Controls.Add(this.txtOdII);
-            this.gbWarunkiII.Controls.Add(this.lblDoII);
-            this.gbWarunkiII.Controls.Add(this.txtDoII);
-            this.gbWarunkiII.Enabled = false;
-            this.gbWarunkiII.Location = new System.Drawing.Point(0, 0);
-            this.gbWarunkiII.Name = "gbWarunkiII";
-            this.gbWarunkiII.Size = new System.Drawing.Size(163, 44);
-            this.gbWarunkiII.TabIndex = 13;
-            this.gbWarunkiII.TabStop = false;
-            this.gbWarunkiII.Text = "Warunki";
-            this.gbWarunkiII.Visible = false;
+            this.gbConditionsII.Controls.Add(this.lblOdII);
+            this.gbConditionsII.Controls.Add(this.txtFromII);
+            this.gbConditionsII.Controls.Add(this.lblDoII);
+            this.gbConditionsII.Controls.Add(this.txtToII);
+            this.gbConditionsII.Enabled = false;
+            this.gbConditionsII.Location = new System.Drawing.Point(0, 0);
+            this.gbConditionsII.Name = "gbConditionsII";
+            this.gbConditionsII.Size = new System.Drawing.Size(163, 44);
+            this.gbConditionsII.TabIndex = 13;
+            this.gbConditionsII.TabStop = false;
+            this.gbConditionsII.Text = "Warunki";
+            this.gbConditionsII.Visible = false;
             // 
             // pnlWarunki
             // 
@@ -1046,7 +1069,7 @@
             // 
             // pnlWarunkiII
             // 
-            this.pnlWarunkiII.Controls.Add(this.gbWarunkiII);
+            this.pnlWarunkiII.Controls.Add(this.gbConditionsII);
             this.pnlWarunkiII.Location = new System.Drawing.Point(184, 251);
             this.pnlWarunkiII.Name = "pnlWarunkiII";
             this.pnlWarunkiII.Size = new System.Drawing.Size(163, 44);
@@ -1058,33 +1081,6 @@
             this.saveFileDialogTXT.FileName = "Wykres";
             this.saveFileDialogTXT.Filter = "TXT|*.txt";
             this.saveFileDialogTXT.Title = "PierwiastkiCS";
-            // 
-            // językToolStripMenuItem
-            // 
-            this.językToolStripMenuItem.Name = "językToolStripMenuItem";
-            this.językToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
-            this.językToolStripMenuItem.Text = "Język";
-            // 
-            // languageToolStripMenuItem
-            // 
-            this.languageToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.englishToolStripMenuItem,
-            this.polskiToolStripMenuItem});
-            this.languageToolStripMenuItem.Name = "languageToolStripMenuItem";
-            this.languageToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
-            this.languageToolStripMenuItem.Text = "Język";
-            // 
-            // englishToolStripMenuItem
-            // 
-            this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.englishToolStripMenuItem.Text = "English";
-            // 
-            // polskiToolStripMenuItem
-            // 
-            this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
-            this.polskiToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.polskiToolStripMenuItem.Text = "Polski";
             // 
             // Form1
             // 
@@ -1132,8 +1128,8 @@
             this.gbDrawFunction.PerformLayout();
             this.gbScale.ResumeLayout(false);
             this.gbScale.PerformLayout();
-            this.gbWarunkiII.ResumeLayout(false);
-            this.gbWarunkiII.PerformLayout();
+            this.gbConditionsII.ResumeLayout(false);
+            this.gbConditionsII.PerformLayout();
             this.pnlWarunki.ResumeLayout(false);
             this.pnlWarunkiII.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -1183,7 +1179,7 @@
         private System.Windows.Forms.RadioButton rbIntegral;
         private System.Windows.Forms.ToolTip toolTip;
         private System.Windows.Forms.ToolStripMenuItem multipleIntegralToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem interpolationAproximationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem interpolationApproximationToolStripMenuItem;
         private System.Windows.Forms.GroupBox gbPoint;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem graphToolStripMenuItem;
@@ -1210,18 +1206,18 @@
         private System.Windows.Forms.TextBox txtFirstCommandArgument;
         private System.Windows.Forms.TextBox txtSecondCommandArgument;
         private System.Windows.Forms.TextBox txtThirdCommandArgument;
-        private System.Windows.Forms.TextBox thtFourthCommandArgument;
+        private System.Windows.Forms.TextBox txtFourthCommandArgument;
         private System.Windows.Forms.CheckBox chkSpecialFunction;
         private System.Windows.Forms.Button btnSpecialFunction;
         private System.Windows.Forms.RadioButton rbDifferentialII;
         private System.Windows.Forms.CheckBox chkDifferentialII;
         private System.Windows.Forms.CheckBox chkDifferential;
         private System.Windows.Forms.Panel pnlWarunkiII;
-        private System.Windows.Forms.GroupBox gbWarunkiII;
+        private System.Windows.Forms.GroupBox gbConditionsII;
         private System.Windows.Forms.Label lblOdII;
-        private System.Windows.Forms.TextBox txtOdII;
+        private System.Windows.Forms.TextBox txtFromII;
         private System.Windows.Forms.Label lblDoII;
-        private System.Windows.Forms.TextBox txtDoII;
+        private System.Windows.Forms.TextBox txtToII;
         private System.Windows.Forms.Panel pnlWarunki;
         private System.Windows.Forms.CheckBox chkIFT;
         private System.Windows.Forms.CheckBox chkFT;
@@ -1231,7 +1227,6 @@
         private System.Windows.Forms.TextBox txtSampling;
         private System.Windows.Forms.ToolStripMenuItem zapiszDoTXTToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogTXT;
-        private System.Windows.Forms.ToolStripMenuItem językToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polskiToolStripMenuItem;

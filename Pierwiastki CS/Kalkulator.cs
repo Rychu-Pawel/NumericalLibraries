@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Kalkulator: Wnetrze
+    class Calculator: Interior
     {
     // METODY ---------------------------------
         new void SprawdzenieOdBledow() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
@@ -17,21 +17,21 @@ namespace NumericalCalculator
                 if (funkcja[i] == 'x')
                 {
                     if (i == 0 || i == funkcja.Length - 1)
-                        throw new WystepujeZmiennaException();
+                        throw new VariableFoundException();
 
                     if (funkcja[i - 1] != 'e' || funkcja[i + 1] != 'p')
-                        throw new WystepujeZmiennaException();
+                        throw new VariableFoundException();
                 }
             }
         }
 
-        override public double ObliczWnetrze()
+        override public double ComputeInterior()
         {
             return EvaluateWnetrze();
         }
 
     // KONSTRUKTOR --------------------------
-        public Kalkulator(string funkcja) : base(funkcja, 0.0)
+        public Calculator(string funkcja) : base(funkcja, 0.0)
         {
             SprawdzenieOdBledow();
             KonwertujNaTablice();

@@ -5,10 +5,10 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class BrakFunkcjiException : Exception
+    class FunctionNullReferenceException : Exception
     { }
 
-    class PunktConversionException : Exception
+    class PointConversionException : Exception
     { }
 
     class FromConversionException : Exception
@@ -23,150 +23,150 @@ namespace NumericalCalculator
     class ToIIConversionException : Exception
     { }
 
-    class xOdException : Exception
+    class xFromException : Exception
     { }
 
-    class xDoException : Exception
+    class xToException : Exception
     { }
 
-    class yOdException : Exception
+    class yFromException : Exception
     { }
 
-    class yDoException : Exception
+    class yToException : Exception
     { }
 
-    class BesselePierwszyArgumentException : Exception
+    class BesselFirstArgumentException : Exception
     {
-        public BesselePierwszyArgumentException()
+        public BesselFirstArgumentException()
             : base("Niepoprawny pierwszy argument!")
         { }
 
-        public BesselePierwszyArgumentException(string msg)
+        public BesselFirstArgumentException(string msg)
             : base(msg)
         { }
     }
 
-    class BesseleDrugiArgumentException : Exception
+    class BesseleSecondArgumentException : Exception
     {
-        public BesseleDrugiArgumentException()
+        public BesseleSecondArgumentException()
             : base("Niepoprawny drugi argument!")
         { }
 
-        public BesseleDrugiArgumentException(string msg)
+        public BesseleSecondArgumentException(string msg)
             : base(msg)
         { }
     }
 
-    class BesseleTrzeciArgumentException : Exception
+    class BesseleThirdArgumentException : Exception
     {
-        public BesseleTrzeciArgumentException()
+        public BesseleThirdArgumentException()
             : base("Niepoprawny trzeci argument!")
         { }
 
-        public BesseleTrzeciArgumentException(string msg)
+        public BesseleThirdArgumentException(string msg)
             : base(msg)
         { }
     }
 
-    class BesseleCzwartyArgumentException : Exception
+    class BesseleFourthArgumentException : Exception
     {
-        public BesseleCzwartyArgumentException()
+        public BesseleFourthArgumentException()
             : base("Niepoprawny czwarty argument!")
         { }
 
-        public BesseleCzwartyArgumentException(string msg)
+        public BesseleFourthArgumentException(string msg)
             : base(msg)
         { }
     }
 
-    class WystepujeZmiennaException : Exception
+    class VariableFoundException : Exception
     { }
 
-    class XOdWiekszeNizXDoException : Exception
+    class XFromIsGreaterThenXToException : Exception
     { }
 
-    class YOdWiekszeNizYDoException : Exception
+    class YFromIsGreaterThenYToException : Exception
     { }
 
-    class FunkcjaException : Exception
+    class FunctionException : Exception
     {
-        public FunkcjaException(string msg)
+        public FunctionException(string msg)
             : base(msg)
         { }
     }
 
-    class WspolrzedneXException : Exception
+    class CoordinatesXException : Exception
     {
-        public WspolrzedneXException(string msg)
+        public CoordinatesXException(string msg)
             : base(msg)
         { }
     }
 
-    class WspolrzedneYException : Exception
+    class CoordinatesYException : Exception
     {
-        public WspolrzedneYException(string msg)
+        public CoordinatesYException(string msg)
             : base(msg)
         { }
     }
 
-    class NoneWykresOptionCheckedException : Exception
+    class NoneGraphOptionCheckedException : Exception
     {
-        public NoneWykresOptionCheckedException()
+        public NoneGraphOptionCheckedException()
             : base("Nie wybrano żadnej opcji wykresu!") { }
     }
 
-    class FiltrValueException : Exception
+    class FilterValueException : Exception
     {
-        public FiltrValueException()
+        public FilterValueException()
             : base("Niepoprawnna wartość filtru!")
         { }
 
-        public FiltrValueException(string msg)
+        public FilterValueException(string msg)
             : base(msg)
         { }
     }
 
-    class ProbkowanieValueException : Exception
+    class SamplingValueException : Exception
     {
-        public ProbkowanieValueException()
+        public SamplingValueException()
             : base("Niepoprawnna wartość próbkowania!")
         { }
 
-        public ProbkowanieValueException(string msg)
+        public SamplingValueException(string msg)
             : base(msg)
         { }
     }
 
-    enum TypFunkcji
+    enum FunctionTypeEnum
     {
-        Funkcja,
-        Pochodna,
-        DrugaPochodna,
-        Rozniczka,
-        RozniczkaII,
-        FFT,
-        RFFT,
+        Function,
+        Derivative,
+        SecondDerivative,
+        Differential,
+        DifferentialII,
+        FT,
+        IFT,
         Bessel,
-        BesselSferyczny,
-        BesselPochodnaSferycznej,
+        BesselSphere,
+        BesselSphereDerivative,
         Neumann,
-        NeumannSferyczny,
-        NeumannPochodnaSferycznej,
-        Hipergeometryczna01,
-        Hipergeometryczna11,
-        Hipergeometryczna21,
+        NeumannSphere,
+        NeumannSphereDerivative,
+        Hypergeometric01,
+        Hypergeometric11,
+        Hypergeometric21,
     }
 
     enum TypFunkcjiBessela
     {
         Bessel,
-        BesselSferyczny,
-        BesselPochodnaSferycznej,
+        BesselSphere,
+        BesselSphereDerivative,
         Neumann,
-        NeumannSferyczny,
-        NeumannPochodnaSferycznej,
-        Hipergeometryczna01,
-        Hipergeometryczna11,
-        Hipergeometryczna21,
+        NeumannSphere,
+        NeumannSphereDerivative,
+        Hypergeometric01,
+        Hypergeometric11,
+        Hypergeometric21,
     }
 }

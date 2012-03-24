@@ -320,7 +320,7 @@ namespace NumericalCalculator
             else if (stopien == 2)
                 return ObliczRegresjeKwadratowa();
             else if (stopien < 1)
-                throw new FunkcjaException("Bledny stopien ekstrapolacji. Oczekiwano stopnia > 0");
+                throw new FunctionException("Bledny stopien ekstrapolacji. Oczekiwano stopnia > 0");
             else
             {
                 Sprawdzenie();

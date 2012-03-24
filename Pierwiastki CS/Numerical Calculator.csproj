@@ -93,6 +93,7 @@
     <Compile Include="Bessel.cs" />
     <Compile Include="Calka.cs" />
     <Compile Include="Aproksymacja.cs" />
+    <Compile Include="Language.cs" />
     <Compile Include="ExceptionsAndEnums.cs" />
     <Compile Include="FastFourierTransform.cs" />
     <Compile Include="Form1.cs">

@@ -18,8 +18,8 @@ namespace NumericalCalculator
 {
     public partial class Form1 : Form
     {
-        bool czyFunkcjaNarysowana = false;
-        public string zamienZ, zamienNa; //kropki i przecinki do zamieniania podczas konwersji string na double
+        bool IsFunctionDrawn = false;
+        public string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
 
         readonly double max = 530000000.0;
         readonly double min = -530000000.0;
@@ -27,7 +27,7 @@ namespace NumericalCalculator
         Settings settings;
         ResourceManager language;
 
-        PointF[] punktyWykresu;
+        PointF[] graphPoint;
 
         public Form1()
         {
@@ -39,13 +39,13 @@ namespace NumericalCalculator
 
             if (double.TryParse(test, out testDouble))
             {
-                zamienZ = ",";
-                zamienNa = ".";
+                changeFrom = ",";
+                changeTo = ".";
             }
             else
             {
-                zamienZ = ".";
-                zamienNa = ",";
+                changeFrom = ".";
+                changeTo = ",";
             }
 
             cmbSpecialFunction.SelectedIndex = 0;
@@ -55,22 +55,23 @@ namespace NumericalCalculator
 
             try
             {
-                LoadLanguage(settings);
-                UstawSettings(settings);
+                LoadLanguage();
+                SetSettings();
+                Language.TranslateControl(this, language);
             }
             catch (SettingNullReferenceException)
             {
                 try
                 {
-                    settings.PrzywrocUstawieniaDomyslne();
+                    settings.RestoreDefaults();
 
-                    LoadLanguage(settings);
-                    UstawSettings(settings);
+                    LoadLanguage();
+                    SetSettings();
+                    Language.TranslateControl(this, language);
                 }
                 catch
                 {
-                    MessageBox.Show("Instalacja programu jest niepoprawna. Należy odinstalować i zainstalować program ponownie!", "Niezidentyfikowany problem", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    Application.Exit();
+                    MessageBox.Show(language.GetString("MessageBox_InstallationCorrupted"), language.GetString("MessageBox_InstallationCorrupted_Caption"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
 
@@ -81,10 +82,10 @@ namespace NumericalCalculator
             this.chkIFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
 
             //Zrobienie gui
-            radioButton_CheckedChanged(null, new EventArgs());
+            SetRadioButtons();
         }
 
-        private void LoadLanguage(Settings settings)
+        private void LoadLanguage()
         {
             if ((LanguageEnum)settings[SettingEnum.Language] == LanguageEnum.Polish)
                 language = new ResourceManager("NumericalCalculator.Translations.LanguagePolish", GetType().Assembly);
@@ -92,7 +93,7 @@ namespace NumericalCalculator
                 language = new ResourceManager("NumericalCalculator.Translations.LanguageEnglish", GetType().Assembly);
         }
 
-        private void UstawSettings(Settings settings)
+        private void SetSettings()
         {
             graphToolStripMenuItem.Checked = (bool)settings[SettingEnum.GraphMenuChecked];
 
@@ -109,6 +110,11 @@ namespace NumericalCalculator
             chkRescaling.Checked = (bool)settings[SettingEnum.AutomaticRescallingChecked];
             chkFT.Checked = (bool)settings[SettingEnum.FourierTransformChecked];
             chkIFT.Checked = (bool)settings[SettingEnum.InverseFourierTransformChecked];
+
+            if ((LanguageEnum)settings[SettingEnum.Language] == LanguageEnum.English)
+                englishToolStripMenuItem.Checked = true;
+            else
+                polskiToolStripMenuItem.Checked = true;
         }
 
         /// <summary>
@@ -117,14 +123,14 @@ namespace NumericalCalculator
         /// <param name="sender"></param>
         /// <param name="e"></param>
 
-        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        private void SetRadioButtons()
         {
             //Zarzadzanie GUI procz checkboxow
             if (rbDifferentialII.Checked)
             {
                 lblFx.Text = "f''(x) =";
 
-                gbConditions.Text = "Warunki";
+                gbConditions.Text = language.GetString(gbConditions.Name);
                 gbConditions.Width = 163;
 
                 pnlWarunki.Width = 163;
@@ -139,8 +145,8 @@ namespace NumericalCalculator
                 txtFrom.Width = 44;
                 txtTo.Width = 44;
 
-                gbWarunkiII.Enabled = true;
-                gbWarunkiII.Visible = true;
+                gbConditionsII.Enabled = true;
+                gbConditionsII.Visible = true;
 
                 lblFrom.Left = 6;
                 lblTo.Left = 80;
@@ -151,15 +157,15 @@ namespace NumericalCalculator
             {
                 lblFx.Text = "f(x) =";
 
-                lblFrom.Text = "od";
-                lblTo.Text = "do";
+                lblFrom.Text = language.GetString(lblFrom.Name);
+                lblTo.Text = language.GetString(lblTo.Name);
 
                 txtFrom.Width = 96;
                 txtTo.Width = 96;
 
                 txtFrom.Enabled = true;
 
-                gbConditions.Text = "Warunki";
+                gbConditions.Text = language.GetString(gbConditions.Name);
                 gbConditions.Width = 332;
 
                 pnlWarunki.Width = 332;
@@ -174,7 +180,7 @@ namespace NumericalCalculator
             {
                 lblFx.Text = "f'(x) =";
 
-                gbConditions.Text = "Warunki";
+                gbConditions.Text = language.GetString(gbConditions.Name);
 
                 lblFrom.Text = "f(";
                 lblTo.Text = ") =";
@@ -192,10 +198,10 @@ namespace NumericalCalculator
             {
                 lblFx.Text = "f(x) =";
 
-                gbConditions.Text = "Granice";
+                gbConditions.Text = language.GetString(gbConditions.Name + "_Range");
 
-                lblFrom.Text = "dolna";
-                lblTo.Text = "górna";
+                lblFrom.Text = language.GetString(lblFrom.Name + "_Range");
+                lblTo.Text = language.GetString(lblTo.Name + "_Range");
 
                 lblFrom.Left = 19;
                 lblTo.Left = 169;
@@ -206,10 +212,10 @@ namespace NumericalCalculator
             {
                 lblFx.Text = "f(x) =";
 
-                lblFrom.Text = "od";
-                lblTo.Text = "do";
+                lblFrom.Text = language.GetString(lblFrom.Name);
+                lblTo.Text = language.GetString(lblTo.Name);
 
-                gbConditions.Text = "Warunki";
+                gbConditions.Text = language.GetString(gbConditions.Name);
 
                 lblFrom.Left = 37;
                 lblTo.Left = 169;
@@ -219,18 +225,18 @@ namespace NumericalCalculator
 
             if (rbSpecialFunction.Checked)
             {
-                gbFunction.Text = "Funkcja specjalna";
+                gbFunction.Text = language.GetString(gbFunction.Name + "_SpecialFunction");
 
                 pnlFunkcja.Visible = false;
                 pnlKomenda.Visible = true;
 
                 txtFrom.Enabled = false;
                 txtTo.Enabled = false;
-                txtPoint.Enabled = false;                
+                txtPoint.Enabled = false;
             }
             else
             {
-                gbFunction.Text = "Funkcja";
+                gbFunction.Text = language.GetString(gbFunction.Name);
 
                 pnlFunkcja.Visible = true;
                 pnlKomenda.Visible = false;
@@ -369,6 +375,11 @@ namespace NumericalCalculator
             }
         }
 
+        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        {
+            SetRadioButtons();
+        }
+
         /// <summary>
         /// Obliczanie pierwiastkow
         /// </summary>
@@ -382,125 +393,53 @@ namespace NumericalCalculator
 
             try
             {
-                string funkcja = string.Empty;
+                //Pobranie argumentów i funkcji
+                double point = 0.0d, from = 0.0d, to = 0.0d, fromII = 0.0d, toII = 0.0d;
+                double firstBesselArgument = 0.0d, secondBesselArgument = 0.0d, thirdBesselArgument = 0.0d, fourthBesselArgument = 0.0d;
+                string function = string.Empty;
 
-                if (!rbSpecialFunction.Checked)
+                if (rbPoint.Checked || rbDerivativePoint.Checked || rbDerivativePointBis.Checked || rbDifferential.Checked || rbDifferentialII.Checked)
                 {
-                    funkcja = txtFunction.Text.Replace(zamienZ, zamienNa);
-
-                    if (string.IsNullOrEmpty(funkcja))
-                    {
-                        throw new BrakFunkcjiException();
-                    }
-                }                
-
-                if (rbCalculator.Checked)
-                {
-                    Kalkulator kalkulator = new Kalkulator(funkcja);
-                    txtResult.Text = kalkulator.ObliczWnetrze().ToString();
-                }
-                else if (rbPoint.Checked)
-                {
-                    double x;
-
+                    //Pobranie punktu
                     try
                     {
-                        x = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować z E jako Euler
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            x = kalkulator.ObliczWnetrze();
-
-                            if (txtPoint.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
-                        }
-                        catch
-                        {
-                            throw new PunktConversionException();
-                        }                            
-                    }
-
-                    Pochodna punkt = new Pochodna(funkcja, x);
-                    txtResult.Text = punkt.ObliczFunkcjeWPunkcie().ToString();
-                }
-                else if (rbDerivativePoint.Checked)
-                {
-                    double punkt;
-
-                    try
-                    {
-                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
+                        point = Convert.ToDouble(txtPoint.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            punkt = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtPoint.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            point = kalkulator.ComputeInterior();
 
                             if (txtPoint.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
-                            throw new PunktConversionException();
+                            throw new PointConversionException();
                         }
                     }
-
-                    Pochodna pochodna = new Pochodna(funkcja, punkt);
-                    txtResult.Text = pochodna.ObliczPochodna().ToString();
                 }
-                else if (rbDerivativePointBis.Checked)
+            
+                if (rbRoot.Checked || rbIntegral.Checked || rbDifferential.Checked || rbDifferentialII.Checked)
                 {
-                    double punkt;
-
+                    //Pobranie from i to
                     try
                     {
-                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            punkt = kalkulator.ObliczWnetrze();
-
-                            if (txtPoint.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
-                        }
-                        catch
-                        {
-                            throw new PunktConversionException();
-                        }
-                    }
-
-                    Pochodna pochodnaBis = new Pochodna(funkcja, punkt);
-                    txtResult.Text = pochodnaBis.ObliczPochodnaBis().ToString();
-                }
-                else if (rbRoot.Checked)
-                {
-                    double from, to;
-
-                    try
-                    {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            from = kalkulator.ComputeInterior();
 
                             if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
@@ -510,209 +449,43 @@ namespace NumericalCalculator
 
                     try
                     {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            to = kalkulator.ComputeInterior();
 
                             if (txtTo.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
                             throw new ToConversionException();
                         }
                     }
-
-                    Hybryda hybryda = new Hybryda(funkcja, from, to);
-                    txtResult.Text = hybryda.ObliczWnetrze().ToString();
                 }
-                else if (rbIntegral.Checked)
+
+                if (rbDifferentialII.Checked)
                 {
-                    double from, to;
-
+                    //Pobranie fromII i toII
                     try
                     {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
+                        fromII = Convert.ToDouble(txtFromII.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFromII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            fromII = kalkulator.ComputeInterior();
 
                             if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
-
-                            if (txtTo.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
-
-                    Calka calka = new Calka(funkcja, from, to);
-                    txtResult.Text = calka.ObliczWnetrze().ToString();
-                }
-                else if (rbDifferential.Checked)
-                {
-                    double punkt, from, to;
-
-                    try
-                    {
-                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            punkt = kalkulator.ObliczWnetrze();
-
-                            if (txtPoint.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new PunktConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
-
-                            if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
-
-                            if (txtTo.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
-
-                    Rozniczka rozniczka = new Rozniczka(funkcja);
-                    List<PointD> punkty = rozniczka.ObliczRozniczke(punkt, from, to);
-
-                    txtResult.Text = punkty.Last().Y.ToString();
-                }
-                else if (rbDifferentialII.Checked)
-                {
-                    double punkt, from, to, fromII, toII;
-
-                    try
-                    {
-                        punkt = Convert.ToDouble(txtPoint.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtPoint.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            punkt = kalkulator.ObliczWnetrze();
-
-                            if (txtPoint.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);  
-                        }
-                        catch
-                        {
-                            throw new PunktConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
-
-                            if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        fromII = Convert.ToDouble(txtOdII.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtOdII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            fromII = kalkulator.ObliczWnetrze();
-
-                            if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
@@ -722,94 +495,68 @@ namespace NumericalCalculator
 
                     try
                     {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
+                        toII = Convert.ToDouble(txtToII.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtToII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            toII = kalkulator.ComputeInterior();
 
                             if (txtTo.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        toII = Convert.ToDouble(txtDoII.Text.Replace(zamienZ, zamienNa));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Kalkulator kalkulator = new Kalkulator(txtDoII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            toII = kalkulator.ObliczWnetrze();
-
-                            if (txtTo.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
                             throw new ToIIConversionException();
                         }
                     }
-
-                    Rozniczka rozniczka = new Rozniczka(funkcja);
-                    List<PointD> punkty = rozniczka.ObliczRozniczkeII(punkt, from, to, fromII, toII);
-
-                    txtResult.Text = punkty.Last().Y.ToString();
                 }
-                else if (rbSpecialFunction.Checked)
-                {
-                    double pierwszy, drugi, trzeci = 0.0d, czwarty = 0.0d;
 
+                if (rbSpecialFunction.Checked)
+                {
+                    //Pobranie argumentow besselowych
                     try
                     {
-                        pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa));
+                        firstBesselArgument = double.Parse(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            pierwszy = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            firstBesselArgument = kalkulator.ComputeInterior();
 
                             if (txtFirstCommandArgument.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
-                            throw new BesselePierwszyArgumentException();
+                            throw new BesselFirstArgumentException();
                         }
                     }
 
                     try
                     {
-                        drugi = double.Parse(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa));
+                        secondBesselArgument = double.Parse(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            drugi = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            secondBesselArgument = kalkulator.ComputeInterior();
 
                             if (txtSecondCommandArgument.Text.Contains('E'))
-                                MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         catch
                         {
-                            throw new BesseleDrugiArgumentException();
+                            throw new BesseleSecondArgumentException();
                         }
                     }
 
@@ -817,22 +564,22 @@ namespace NumericalCalculator
                     {
                         try
                         {
-                            trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa));
+                            thirdBesselArgument = double.Parse(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                                trzeci = kalkulator.ObliczWnetrze();
+                                Calculator kalkulator = new Calculator(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                                thirdBesselArgument = kalkulator.ComputeInterior();
 
                                 if (txtThirdCommandArgument.Text.Contains('E'))
-                                    MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                    MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             catch
                             {
-                                throw new BesseleTrzeciArgumentException();
+                                throw new BesseleThirdArgumentException();
                             }
                         }
                     }
@@ -841,26 +588,84 @@ namespace NumericalCalculator
                     {
                         try
                         {
-                            czwarty = double.Parse(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa));
+                            fourthBesselArgument = double.Parse(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                                czwarty = kalkulator.ObliczWnetrze();
+                                Calculator kalkulator = new Calculator(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                                fourthBesselArgument = kalkulator.ComputeInterior();
 
-                                if (thtFourthCommandArgument.Text.Contains('E'))
-                                    MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                if (txtFourthCommandArgument.Text.Contains('E'))
+                                    MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
                             }
                             catch
                             {
-                                throw new BesseleCzwartyArgumentException();
+                                throw new BesseleFourthArgumentException();
                             }
                         }
                     }
+                }
+                else
+                {
+                    //Pobranie funkcji
+                    function = txtFunction.Text.Replace(changeFrom, changeTo);
 
+                    if (string.IsNullOrEmpty(function))
+                    {
+                        throw new FunctionNullReferenceException();
+                    }
+                }        
+
+                //Obliczenia
+                if (rbCalculator.Checked)
+                {
+                    Calculator calculator = new Calculator(function);
+                    txtResult.Text = calculator.ComputeInterior().ToString();
+                }
+                else if (rbPoint.Checked)
+                {
+                    Derivative derivative = new Derivative(function, point);
+                    txtResult.Text = derivative.ComputeFunctionAtPoint().ToString();
+                }
+                else if (rbDerivativePoint.Checked)
+                {              
+                    Derivative derivative = new Derivative(function, point);
+                    txtResult.Text = derivative.ComputeDerivative().ToString();
+                }
+                else if (rbDerivativePointBis.Checked)
+                {
+                    Derivative derivativeBis = new Derivative(function, point);
+                    txtResult.Text = derivativeBis.ComputeDerivativeBis().ToString();
+                }
+                else if (rbRoot.Checked)
+                {
+                    Hybrid hybrid = new Hybrid(function, from, to);
+                    txtResult.Text = hybrid.ComputeInterior().ToString();
+                }
+                else if (rbIntegral.Checked)
+                {
+                    Integral integral = new Integral(function, from, to);
+                    txtResult.Text = integral.ComputeInterior().ToString();
+                }
+                else if (rbDifferential.Checked)
+                {
+                    Differential derivative = new Differential(function);
+                    List<PointD> points = derivative.ComputeDifferential(point, from, to);
+
+                    txtResult.Text = points.Last().Y.ToString();
+                }
+                else if (rbDifferentialII.Checked)
+                {
+                    Differential derivative = new Differential(function);
+                    List<PointD> points = derivative.ObliczRozniczkeII(point, from, to, fromII, toII);
+
+                    txtResult.Text = points.Last().Y.ToString();
+                }
+                else if (rbSpecialFunction.Checked)
+                {
                     BesselNeumanHyper bessel = new BesselNeumanHyper();
 
                     double wynik = 0.0d;
@@ -868,31 +673,31 @@ namespace NumericalCalculator
                     switch (cmbSpecialFunction.SelectedIndex)
                     {
                         case 0:
-                            wynik = bessel.Bessel(pierwszy, drugi);
+                            wynik = bessel.Bessel(firstBesselArgument, secondBesselArgument);
                             break;
                         case 1:
-                            wynik = bessel.SphBessel(pierwszy, drugi);
+                            wynik = bessel.SphBessel(firstBesselArgument, secondBesselArgument);
                             break;
                         case 2:
-                            wynik = bessel.SphBesselPrim(pierwszy, drugi);
+                            wynik = bessel.SphBesselPrim(firstBesselArgument, secondBesselArgument);
                             break;
                         case 3:
-                            wynik = bessel.Neumann(pierwszy, drugi);
+                            wynik = bessel.Neumann(firstBesselArgument, secondBesselArgument);
                             break;
                         case 4:
-                            wynik = bessel.SphNeuman(pierwszy, drugi);
+                            wynik = bessel.SphNeuman(firstBesselArgument, secondBesselArgument);
                             break;
                         case 5:
-                            wynik = bessel.SphNeumanPrim(pierwszy, drugi);
+                            wynik = bessel.SphNeumanPrim(firstBesselArgument, secondBesselArgument);
                             break;
                         case 6:
-                            wynik = bessel.Hyperg_0F_1(pierwszy, drugi);
+                            wynik = bessel.Hyperg_0F_1(firstBesselArgument, secondBesselArgument);
                             break;
                         case 7:
-                            wynik = bessel.Hyperg_1F_1(pierwszy, drugi, trzeci);
+                            wynik = bessel.Hyperg_1F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument);
                             break;
                         case 8:
-                            wynik = bessel.Hyperg_2F_1(pierwszy, drugi, trzeci, czwarty);
+                            wynik = bessel.Hyperg_2F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument, fourthBesselArgument);
                             break;
                         default:
                             break;
@@ -904,106 +709,106 @@ namespace NumericalCalculator
                 stopWatch.Stop();
                 lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
             }
-            catch (BrakFunkcjiException)
+            catch (FunctionNullReferenceException)
             {
                 if (rbCalculator.Checked)
-                    ObsluzException(stopWatch, "Wpisz działanie!");
+                    HandleException(stopWatch, language.GetString("FunctionNullReferenceException_Calculator"));
                 else
-                    ObsluzException(stopWatch, "Wpisz funkcję!");
+                    HandleException(stopWatch, language.GetString("FunctionNullReferenceException"));
 
                 txtFunction.Focus();
             }
-            catch (WystepujeZmiennaException)
+            catch (VariableFoundException)
             {
                 stopWatch.Stop();
                 lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
 
                 btnRysuj_Click(btnCompute, new EventArgs());
 
-                txtResult.Text = "W wyr. nie może występować zmienna!";
+                txtResult.Text = language.GetString("VariableFoundException");
                 txtFunction.Focus();
             }
-            catch (FunkcjaException excep)
+            catch (FunctionException excep)
             {
-                ObsluzException(stopWatch, excep.Message);
+                HandleException(stopWatch, excep.Message);
 
                 txtFunction.Focus();
             }
-            catch (PunktConversionException)
+            catch (PointConversionException)
             {
-                ObsluzException(stopWatch, "Niepoprawny punkt!");
+                HandleException(stopWatch, language.GetString("PointConversionException"));
 
                 txtPoint.Focus();
             }
             catch (FromConversionException)
             {
                 if (rbIntegral.Checked)
-                    ObsluzException(stopWatch, "Niepoprawna dolna granica całkowania!");
-                else if (rbDifferential.Checked)
-                    ObsluzException(stopWatch, "Niepoprawny punkt x w pierwszym warunku!");
+                    HandleException(stopWatch, language.GetString("FromConversionException_Integral"));
+                else if (rbDifferential.Checked || rbDifferentialII.Checked)
+                    HandleException(stopWatch, language.GetString("FromConversionException_Differential"));
                 else
-                    ObsluzException(stopWatch, "Niepoprawny punkt od!");
+                    HandleException(stopWatch, language.GetString("FromConversionException"));
 
                 txtFrom.Focus();
             }
             catch (FromIIConversionException)
             {
-                ObsluzException(stopWatch, "Niepoprawny punkt x w drugim warunku!");
+                HandleException(stopWatch, language.GetString("FromIIConversionException"));
 
-                txtOdII.Focus();
+                txtFromII.Focus();
             }
             catch (ToConversionException)
             {
                 if (rbIntegral.Checked)
-                    ObsluzException(stopWatch, "Niepoprawna górna granica całkowania!");
-                else if (rbDifferential.Checked)
-                    ObsluzException(stopWatch, "Niepoprawna wartość w pierwszym warunku!");
+                    HandleException(stopWatch, language.GetString("ToConversionException_Integral"));
+                else if (rbDifferential.Checked || rbDifferentialII.Checked)
+                    HandleException(stopWatch, language.GetString("ToConversionException_Differential"));
                 else
-                    ObsluzException(stopWatch, "Niepoprawny punkt do!");
+                    HandleException(stopWatch, language.GetString("ToConversionException"));
 
                 txtTo.Focus();
             }
             catch (ToIIConversionException)
             {
-                ObsluzException(stopWatch, "Niepoprawna wartość w drugim warunku!");
+                HandleException(stopWatch, language.GetString("ToIIConversionException"));
 
-                txtDoII.Focus();
+                txtToII.Focus();
             }
-            catch (BesselePierwszyArgumentException excep)
+            catch (BesselFirstArgumentException)
             {
-                ObsluzException(stopWatch, excep.Message);
+                HandleException(stopWatch, language.GetString("BesselFirstArgumentException"));
 
                 txtFirstCommandArgument.Focus();
             }
-            catch (BesseleDrugiArgumentException excep)
+            catch (BesseleSecondArgumentException)
             {
-                ObsluzException(stopWatch, excep.Message);
+                HandleException(stopWatch, language.GetString("BesseleSecondArgumentException"));
 
                 txtSecondCommandArgument.Focus();
             }
-            catch (BesseleTrzeciArgumentException excep)
+            catch (BesseleThirdArgumentException)
             {
-                ObsluzException(stopWatch, excep.Message);
+                HandleException(stopWatch, language.GetString("BesseleThirdArgumentException"));
 
                 txtThirdCommandArgument.Focus();
             }
-            catch (BesseleCzwartyArgumentException excep)
+            catch (BesseleFourthArgumentException)
             {
-                ObsluzException(stopWatch, excep.Message);
+                HandleException(stopWatch, language.GetString("BesseleFourthArgumentException"));
 
-                thtFourthCommandArgument.Focus();
+                txtFourthCommandArgument.Focus();
             }
             catch (SystemException)
             {
-                ObsluzException(stopWatch, "Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
+                HandleException(stopWatch, language.GetString("SystemException"));
             }
             catch (Exception)
             {
-                ObsluzException(stopWatch, "Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
+                HandleException(stopWatch, language.GetString("Exception"));
             }
         }
 
-        private void ObsluzException(Stopwatch stopWatch, string message)
+        private void HandleException(Stopwatch stopWatch, string message)
         {
             stopWatch.Stop();
             lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
@@ -1022,7 +827,7 @@ namespace NumericalCalculator
         private void ObsluzExceptionWykres(string message)
         {
             txtResult.Text = "";
-            czyFunkcjaNarysowana = false;
+            IsFunctionDrawn = false;
 
             MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
@@ -1052,7 +857,7 @@ namespace NumericalCalculator
         {
             try
             {
-                Wykres wykres = new Wykres(txtFunction.Text, picWykres, Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa)), Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa)));
+                Wykres wykres = new Wykres(txtFunction.Text, picWykres, Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)));
                 wykres.Wyczysc();
             }
             catch (SystemException excep)
@@ -1071,7 +876,7 @@ namespace NumericalCalculator
         //RownaniaLinioweForm
         private void rownaniaLinioweToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LinearEquationForm rownaniaForm = new LinearEquationForm(zamienZ, zamienNa);
+            LinearEquationForm rownaniaForm = new LinearEquationForm(changeFrom, changeTo);
 
             rownaniaForm.Show();
         }
@@ -1085,79 +890,79 @@ namespace NumericalCalculator
                 if (rbSpecialFunction.Checked)
                 {
                     if (!chkSpecialFunction.Checked)
-                        throw new NoneWykresOptionCheckedException();
+                        throw new NoneGraphOptionCheckedException();
                 }
                 else if (rbDifferential.Checked)
                 {
                     if (!chkDifferential.Checked)
-                        throw new NoneWykresOptionCheckedException();
+                        throw new NoneGraphOptionCheckedException();
                 }
                 else if (rbDifferentialII.Checked)
                 {
                     if (!chkDifferentialII.Checked)
-                        throw new NoneWykresOptionCheckedException();
+                        throw new NoneGraphOptionCheckedException();
                 }
                 else
                 {
                     if (!(chkFunction.Checked || chkFirstDerivative.Checked || chkSecondDerivative.Checked || chkDifferential.Checked || chkDifferentialII.Checked || chkFT.Checked || chkIFT.Checked))
-                        throw new NoneWykresOptionCheckedException();
+                        throw new NoneGraphOptionCheckedException();
                 }
 
                 //Konwersja zmiennych
-                string funkcja = txtFunction.Text.Replace(zamienZ, zamienNa);
+                string funkcja = txtFunction.Text.Replace(changeFrom, changeTo);
 
                 if (string.IsNullOrEmpty(funkcja) && !chkSpecialFunction.Enabled)
                 {
-                    throw new BrakFunkcjiException();
+                    throw new FunctionNullReferenceException();
                 }
 
                 double xOd, xDo, yOd, yDo;
 
                 try
                 {
-                    xOd = Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa));
+                    xOd = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new xOdException();
+                    throw new xFromException();
                 }
 
                 try
                 {
-                    xDo = Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa));
+                    xDo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new xDoException();
+                    throw new xToException();
                 }
 
                 try
                 {
-                    yOd = Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa));
+                    yOd = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new yOdException();
+                    throw new yFromException();
                 }
 
                 try
                 {
-                    yDo = Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa));
+                    yDo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new yDoException();
+                    throw new yToException();
                 }
 
                 //Sprawdzenie czy zakres jest OK
                 if (xOd >= xDo)
                 {
-                    throw new XOdWiekszeNizXDoException();
+                    throw new XFromIsGreaterThenXToException();
                 }
 
                 if (yOd >= yDo)
                 {
-                    throw new YOdWiekszeNizYDoException();
+                    throw new YFromIsGreaterThenYToException();
                 }
 
                 //Pobranie Besselowych wartosci i znalezienie typu besselowego
@@ -1171,19 +976,19 @@ namespace NumericalCalculator
                         if (txtFirstCommandArgument.Text == "x")
                             pierwszy = double.NaN;
                         else
-                            pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa));
+                            pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtFirstCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            pierwszy = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            pierwszy = kalkulator.ComputeInterior();
                         }
                         catch
                         {
-                            throw new BesselePierwszyArgumentException();
+                            throw new BesselFirstArgumentException();
                         }
                     }
 
@@ -1192,19 +997,19 @@ namespace NumericalCalculator
                         if (txtSecondCommandArgument.Text == "x")
                             drugi = double.NaN;
                         else
-                            drugi = double.Parse(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa));
+                            drugi = double.Parse(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtSecondCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            drugi = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            drugi = kalkulator.ComputeInterior();
                         }
                         catch
                         {
-                            throw new BesseleDrugiArgumentException();
+                            throw new BesseleSecondArgumentException();
                         }
                     }
 
@@ -1215,19 +1020,19 @@ namespace NumericalCalculator
                             if (txtThirdCommandArgument.Text == "x")
                                 trzeci = double.NaN;
                             else
-                                trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa));
+                                trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(txtThirdCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                                trzeci = kalkulator.ObliczWnetrze();
+                                Calculator kalkulator = new Calculator(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                                trzeci = kalkulator.ComputeInterior();
                             }
                             catch
                             {
-                                throw new BesseleTrzeciArgumentException();
+                                throw new BesseleThirdArgumentException();
                             }
                         }
                     }
@@ -1236,22 +1041,22 @@ namespace NumericalCalculator
                     {
                         try
                         {
-                            if (thtFourthCommandArgument.Text == "x")
+                            if (txtFourthCommandArgument.Text == "x")
                                 czwarty = double.NaN;
                             else
-                                czwarty = double.Parse(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa));
+                                czwarty = double.Parse(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
                             //Sprawdzenie może da się oszacować
                             try
                             {
-                                Kalkulator kalkulator = new Kalkulator(thtFourthCommandArgument.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                                czwarty = kalkulator.ObliczWnetrze();
+                                Calculator kalkulator = new Calculator(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                                czwarty = kalkulator.ComputeInterior();
                             }
                             catch
                             {
-                                throw new BesseleCzwartyArgumentException();
+                                throw new BesseleFourthArgumentException();
                             }
                         }
                     }
@@ -1263,28 +1068,28 @@ namespace NumericalCalculator
                             tfb = TypFunkcjiBessela.Bessel;
                             break;
                         case 1:
-                            tfb = TypFunkcjiBessela.BesselSferyczny;
+                            tfb = TypFunkcjiBessela.BesselSphere;
                             break;
                         case 2:
-                            tfb = TypFunkcjiBessela.BesselPochodnaSferycznej;
+                            tfb = TypFunkcjiBessela.BesselSphereDerivative;
                             break;
                         case 3:
                             tfb = TypFunkcjiBessela.Neumann;
                             break;
                         case 4:
-                            tfb = TypFunkcjiBessela.NeumannSferyczny;
+                            tfb = TypFunkcjiBessela.NeumannSphere;
                             break;
                         case 5:
-                            tfb = TypFunkcjiBessela.NeumannPochodnaSferycznej;
+                            tfb = TypFunkcjiBessela.NeumannSphereDerivative;
                             break;
                         case 6:
-                            tfb = TypFunkcjiBessela.Hipergeometryczna01;
+                            tfb = TypFunkcjiBessela.Hypergeometric01;
                             break;
                         case 7:
-                            tfb = TypFunkcjiBessela.Hipergeometryczna11;
+                            tfb = TypFunkcjiBessela.Hypergeometric11;
                             break;
                         case 8:
-                            tfb = TypFunkcjiBessela.Hipergeometryczna21;
+                            tfb = TypFunkcjiBessela.Hypergeometric21;
                             break;
                         default:
                             break;
@@ -1298,16 +1103,16 @@ namespace NumericalCalculator
                 if (chkRescaling.Checked && chkRescaling.Enabled && sender is Button)
                 {
                     //Zbudowanie listy typow funkcji
-                    List<TypFunkcji> typyFunkcji = new List<TypFunkcji>();
+                    List<FunctionTypeEnum> typyFunkcji = new List<FunctionTypeEnum>();
 
                     if (chkFunction.Checked)
-                        typyFunkcji.Add(TypFunkcji.Funkcja);
+                        typyFunkcji.Add(FunctionTypeEnum.Function);
 
                     if (chkFirstDerivative.Checked)
-                        typyFunkcji.Add(TypFunkcji.Pochodna);
+                        typyFunkcji.Add(FunctionTypeEnum.Derivative);
 
                     if (chkSecondDerivative.Checked)
-                        typyFunkcji.Add(TypFunkcji.DrugaPochodna);
+                        typyFunkcji.Add(FunctionTypeEnum.SecondDerivative);
 
                     double[] reskalling = null;
 
@@ -1332,13 +1137,13 @@ namespace NumericalCalculator
 
                 //Rysowanie funkcji i pochodnych
                 if (chkFunction.Checked && chkFunction.Enabled)
-                    wykres.Rysuj(TypFunkcji.Funkcja);
+                    wykres.Rysuj(FunctionTypeEnum.Function);
 
                 if (chkFirstDerivative.Checked && chkFirstDerivative.Enabled)
-                    wykres.Rysuj(TypFunkcji.Pochodna);
+                    wykres.Rysuj(FunctionTypeEnum.Derivative);
 
                 if (chkSecondDerivative.Checked && chkSecondDerivative.Enabled)
-                    wykres.Rysuj(TypFunkcji.DrugaPochodna);
+                    wykres.Rysuj(FunctionTypeEnum.SecondDerivative);
 
                 //Rysowanie FFT
                 int probkowanie = 1000;
@@ -1351,7 +1156,7 @@ namespace NumericalCalculator
                     string odciecieString = txtCutoff.Text;
 
                     if (!int.TryParse(probkowanieString, out probkowanie))
-                        throw new ProbkowanieValueException();
+                        throw new SamplingValueException();
 
                     double temp;
 
@@ -1360,17 +1165,17 @@ namespace NumericalCalculator
                     else
                     {
                         if (!double.TryParse(odciecieString, out temp))
-                            throw new FiltrValueException();
+                            throw new FilterValueException();
                         else
                             odciecie = temp;
                     }
                 }
 
                 if (chkFT.Checked && chkFT.Enabled)
-                    wykres.RysujFFT(TypFunkcji.FFT, probkowanie, odciecie);
+                    wykres.RysujFFT(FunctionTypeEnum.FT, probkowanie, odciecie);
 
                 if (chkIFT.Checked && chkIFT.Enabled)
-                    wykres.RysujFFT(TypFunkcji.RFFT, probkowanie, odciecie);
+                    wykres.RysujFFT(FunctionTypeEnum.IFT, probkowanie, odciecie);
 
                 //Rysowanie rozniczek
                 if (chkDifferential.Checked && chkDifferential.Enabled)
@@ -1379,15 +1184,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            from = kalkulator.ComputeInterior();
 
                             if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1400,15 +1205,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            to = kalkulator.ComputeInterior();
 
                             if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1419,7 +1224,7 @@ namespace NumericalCalculator
                         }
                     }
 
-                    wykres.RysujRozniczke(TypFunkcji.Rozniczka, from, to);
+                    wykres.RysujRozniczke(FunctionTypeEnum.Differential, from, to);
                 }
 
                 if (chkDifferentialII.Checked && chkDifferentialII.Enabled)
@@ -1428,15 +1233,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(zamienZ, zamienNa));
+                        from = Convert.ToDouble(txtFrom.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtFrom.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            from = kalkulator.ComputeInterior();
 
                             if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1449,15 +1254,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        fromII = Convert.ToDouble(txtOdII.Text.Replace(zamienZ, zamienNa));
+                        fromII = Convert.ToDouble(txtFromII.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtOdII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            fromII = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtFromII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            fromII = kalkulator.ComputeInterior();
 
                             if (txtFrom.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1470,15 +1275,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        to = Convert.ToDouble(txtTo.Text.Replace(zamienZ, zamienNa));
+                        to = Convert.ToDouble(txtTo.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtTo.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            to = kalkulator.ComputeInterior();
 
                             if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1491,15 +1296,15 @@ namespace NumericalCalculator
 
                     try
                     {
-                        toII = Convert.ToDouble(txtDoII.Text.Replace(zamienZ, zamienNa));
+                        toII = Convert.ToDouble(txtToII.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
                         //Sprawdzenie może da się oszacować
                         try
                         {
-                            Kalkulator kalkulator = new Kalkulator(txtDoII.Text.Replace(zamienZ, zamienNa).Replace("E", Math.E.ToString()));
-                            toII = kalkulator.ObliczWnetrze();
+                            Calculator kalkulator = new Calculator(txtToII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                            toII = kalkulator.ComputeInterior();
 
                             if (txtTo.Text.Contains('E'))
                                 MessageBox.Show("Zinterpretowano E jako liczbę Eulera!", "Uwaga!", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1510,25 +1315,25 @@ namespace NumericalCalculator
                         }
                     }
 
-                    wykres.RysujRozniczke(TypFunkcji.RozniczkaII, from, to, fromII, toII);
+                    wykres.RysujRozniczke(FunctionTypeEnum.DifferentialII, from, to, fromII, toII);
                 }
 
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                     wykres.RysujBessele(tfb, pierwszy, drugi, trzeci, czwarty);
 
                 //Zakończenie
-                czyFunkcjaNarysowana = true;
+                IsFunctionDrawn = true;
 
                 //Pobranie punktow wykresu
-                punktyWykresu = wykres.PunktyWykresu;
+                graphPoint = wykres.PunktyWykresu;
             }
-            catch (XOdWiekszeNizXDoException)
+            catch (XFromIsGreaterThenXToException)
             {
                 ObsluzExceptionWykres("Wartości skali x są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
                 txtXFrom.Focus();
             }
-            catch (YOdWiekszeNizYDoException)
+            catch (YFromIsGreaterThenYToException)
             {
                 ObsluzExceptionWykres("Wartości skali y są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
@@ -1538,43 +1343,43 @@ namespace NumericalCalculator
             {
                 ObsluzExceptionWykres("Nie można narysować tej funkcji w tym przedziale.");
             }
-            catch (xOdException)
+            catch (xFromException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość od osi x");
 
                 txtXFrom.Focus();
             }
-            catch (xDoException)
+            catch (xToException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość do osi x");
 
                 txtXTo.Focus();
             }
-            catch (yOdException)
+            catch (yFromException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość od osi y");
 
                 txtYFrom.Focus();
             }
-            catch (yDoException)
+            catch (yToException)
             {
                 ObsluzExceptionWykres("Niepoprawna wartość do osi y");
 
                 txtYTo.Focus();
             }
-            catch (WspolrzedneXException excep)
+            catch (CoordinatesXException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
                 txtXFrom.Focus();
             }
-            catch (WspolrzedneYException excep)
+            catch (CoordinatesYException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
                 txtYFrom.Focus();
             }
-            catch (BrakFunkcjiException)
+            catch (FunctionNullReferenceException)
             {
                 ObsluzExceptionWykres("Wpisz funkcję!");
 
@@ -1590,7 +1395,7 @@ namespace NumericalCalculator
             {
                 ObsluzExceptionWykres("Niepoprawny punkt x w drugim warunku!");
 
-                txtOdII.Focus();
+                txtFromII.Focus();
             }
             catch (ToConversionException)
             {
@@ -1602,37 +1407,37 @@ namespace NumericalCalculator
             {
                 ObsluzExceptionWykres("Niepoprawna wartość w drugim warunku!");
 
-                txtDoII.Focus();
+                txtToII.Focus();
             }
-            catch (BesselePierwszyArgumentException excep)
+            catch (BesselFirstArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
                 txtFirstCommandArgument.Focus();
             }
-            catch (BesseleDrugiArgumentException excep)
+            catch (BesseleSecondArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
                 txtSecondCommandArgument.Focus();
             }
-            catch (BesseleTrzeciArgumentException excep)
+            catch (BesseleThirdArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
                 txtThirdCommandArgument.Focus();
             }
-            catch (BesseleCzwartyArgumentException excep)
+            catch (BesseleFourthArgumentException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
-                thtFourthCommandArgument.Focus();
+                txtFourthCommandArgument.Focus();
             }
-            catch (NoneWykresOptionCheckedException excep)
+            catch (NoneGraphOptionCheckedException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
             }
-            catch (FiltrValueException excep)
+            catch (FilterValueException excep)
             {
                 ObsluzExceptionWykres(excep.Message);
 
@@ -1677,10 +1482,10 @@ namespace NumericalCalculator
 
                     try
                     {
-                        xOd = Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa));
-                        xDo = Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa));
-                        yOd = Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa));
-                        yDo = Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa));
+                        xOd = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
+                        xDo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
+                        yOd = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
+                        yDo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
                     }
                     catch (SystemException)
                     {
@@ -1750,7 +1555,7 @@ namespace NumericalCalculator
                     }
 
                     //Narysowanie nowego wykresu
-                    if (czyFunkcjaNarysowana/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
+                    if (IsFunctionDrawn/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
                         btnRysuj_Click(this, new EventArgs());
                     else
                         WyczyscWykres();
@@ -1772,57 +1577,57 @@ namespace NumericalCalculator
                     double xOd, xDo, yOd, yDo;
 
                     //Zmienienie nieskończoności w max
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo))))
                         txtXFrom.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo))))
                         txtXTo.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo))))
                         txtYFrom.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo))))
                         txtYTo.Text = max.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo))))
                         txtXFrom.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo))))
                         txtXTo.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo))))
                         txtYFrom.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa))))
+                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo))))
                         txtYTo.Text = min.ToString();
 
                     try
                     {
-                        xOd = Math.Round(Convert.ToDouble(txtXFrom.Text.Replace(zamienZ, zamienNa)), 2);
+                        xOd = Math.Round(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), 2);
                     }
                     catch (Exception)
                     {
-                        throw new xOdException();
+                        throw new xFromException();
                     }
 
                     try
                     {
-                        xDo = Math.Round(Convert.ToDouble(txtXTo.Text.Replace(zamienZ, zamienNa)), 2);
+                        xDo = Math.Round(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), 2);
                     }
                     catch (Exception)
                     {
-                        throw new xDoException();
+                        throw new xToException();
                     }
 
                     try
                     {
-                        yOd = Math.Round(Convert.ToDouble(txtYFrom.Text.Replace(zamienZ, zamienNa)), 2);
+                        yOd = Math.Round(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), 2);
                     }
                     catch (Exception)
                     {
-                        throw new yOdException();
+                        throw new yFromException();
                     }
 
                     try
                     {
-                        yDo = Math.Round(Convert.ToDouble(txtYTo.Text.Replace(zamienZ, zamienNa)), 2);
+                        yDo = Math.Round(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)), 2);
                     }
                     catch (Exception)
                     {
-                        throw new yDoException();
+                        throw new yToException();
                     }
 
                     //Obliczenie nowych wartosci
@@ -1942,30 +1747,30 @@ namespace NumericalCalculator
                     txtYFrom.Text = Convert.ToString(yOd);
                     txtYTo.Text = Convert.ToString(yDo);
 
-                    if (czyFunkcjaNarysowana/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
+                    if (IsFunctionDrawn/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
                         btnRysuj_Click(this, new EventArgs());
                     else
                         WyczyscWykres();
                 }
-                catch (xOdException)
+                catch (xFromException)
                 {
                     ObsluzException("Niepoprawna wartość od osi x");
 
                     txtXFrom.Focus();
                 }
-                catch (xDoException)
+                catch (xToException)
                 {
                     ObsluzException("Niepoprawna wartość do osi x");
 
                     txtXTo.Focus();
                 }
-                catch (yOdException)
+                catch (yFromException)
                 {
                     ObsluzException("Niepoprawna wartość od osi y");
 
                     txtYFrom.Focus();
                 }
-                catch (yDoException)
+                catch (yToException)
                 {
                     ObsluzException("Niepoprawna wartość do osi y");
 
@@ -2060,7 +1865,7 @@ namespace NumericalCalculator
 
         private void zapiszDoTXTToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (punktyWykresu != null && punktyWykresu.Length > 0)
+            if (graphPoint != null && graphPoint.Length > 0)
             {
                 try
                 {
@@ -2074,7 +1879,7 @@ namespace NumericalCalculator
                         StreamWriter sw = File.CreateText(sciezkaPliku);
 
                         //Zapisanie do pliku
-                        foreach (PointF p in punktyWykresu)
+                        foreach (PointF p in graphPoint)
                             sw.WriteLine(p.X + " " + p.Y);
 
                         //Zamkniecie i komunikat ze ok
@@ -2118,7 +1923,7 @@ namespace NumericalCalculator
                 gbScale.Left = 759 + gainW;
                 btnDraw.Left = 824 + gainW;
 
-                if (czyFunkcjaNarysowana && graphPreviewWhileWindowsScalingToolStripMenuItem.Checked)
+                if (IsFunctionDrawn && graphPreviewWhileWindowsScalingToolStripMenuItem.Checked)
                     btnRysuj_Click(this, new EventArgs());
                 else
                     WyczyscWykres();
@@ -2127,7 +1932,7 @@ namespace NumericalCalculator
 
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
-            czyFunkcjaNarysowana = false;
+            IsFunctionDrawn = false;
         }
 
         private void GroupBoxWykresowy_Enter(object sender, EventArgs e)
@@ -2204,7 +2009,7 @@ namespace NumericalCalculator
             if (index < 6)
             {
                 txtThirdCommandArgument.Visible = false;
-                thtFourthCommandArgument.Visible = false;
+                txtFourthCommandArgument.Visible = false;
 
                 cmbSpecialFunction.Width = 126;
 
@@ -2217,7 +2022,7 @@ namespace NumericalCalculator
             else if (index == 6)
             {
                 txtThirdCommandArgument.Visible = false;
-                thtFourthCommandArgument.Visible = false;
+                txtFourthCommandArgument.Visible = false;
 
                 cmbSpecialFunction.Width = 162;
 
@@ -2230,7 +2035,7 @@ namespace NumericalCalculator
             else if (index == 7)
             {
                 txtThirdCommandArgument.Visible = true;
-                thtFourthCommandArgument.Visible = false;
+                txtFourthCommandArgument.Visible = false;
 
                 cmbSpecialFunction.Width = 99;
 
@@ -2246,7 +2051,7 @@ namespace NumericalCalculator
             else
             {
                 txtThirdCommandArgument.Visible = true;
-                thtFourthCommandArgument.Visible = true;
+                txtFourthCommandArgument.Visible = true;
 
                 cmbSpecialFunction.Width = 99;
 
@@ -2259,8 +2064,8 @@ namespace NumericalCalculator
                 txtThirdCommandArgument.Left = 213;
                 txtThirdCommandArgument.Width = 50;
 
-                thtFourthCommandArgument.Left = 266;
-                thtFourthCommandArgument.Width = 50;
+                txtFourthCommandArgument.Left = 266;
+                txtFourthCommandArgument.Width = 50;
             }
         }
 
@@ -2271,10 +2076,39 @@ namespace NumericalCalculator
 
         private void txtOd_TextChanged(object sender, EventArgs e)
         {
-            if ((sender as TextBox).Name == "txtOd")
-                txtOdII.Text = txtFrom.Text;
+            if ((sender as TextBox).Name == txtFrom.Name)
+                txtFromII.Text = txtFrom.Text;
             else
-                txtFrom.Text = txtOdII.Text;
+                txtFrom.Text = txtFromII.Text;
+        }
+
+        private void languageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Zarzadzanie zaznaczeniami
+            if ((sender as ToolStripItem).Name == englishToolStripMenuItem.Name)
+            {
+                if (englishToolStripMenuItem.Checked)
+                    polskiToolStripMenuItem.Checked = false;
+                else
+                    polskiToolStripMenuItem.Checked = true;
+            }
+            else
+            {
+                if (polskiToolStripMenuItem.Checked)
+                    englishToolStripMenuItem.Checked = false;
+                else
+                    englishToolStripMenuItem.Checked = true;
+            }
+
+            //Ustawienie settings
+            if (englishToolStripMenuItem.Checked)
+                settings[SettingEnum.Language] = LanguageEnum.English;
+            else
+                settings[SettingEnum.Language] = LanguageEnum.Polish;
+
+            //Ustawienie GUI
+            LoadLanguage();
+            Language.TranslateControl(this, language);
         }
     }
 }

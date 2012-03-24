@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Wnetrze : Funkcja
+    class Interior : Funkcja
     {
     // ZMIENNE ------------------------------
         protected double x, u, y;
@@ -62,7 +62,7 @@ namespace NumericalCalculator
                     }
                     while (n != 0);
 
-                    Wnetrze Wnetrze = new Wnetrze(sWnetrze, x, y, u);
+                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
                     double wnetrze = Wnetrze.EvaluateWnetrze();
 
                     // obliczenie funkcji
@@ -97,7 +97,7 @@ namespace NumericalCalculator
                     }
                     while (n != 0);
 
-                    Wnetrze Wnetrze = new Wnetrze(sWnetrze, x, y, u);
+                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
                     double wnetrze = Wnetrze.EvaluateWnetrze();
 
                     // obliczenie funkcji
@@ -133,7 +133,7 @@ namespace NumericalCalculator
                     }
                     while (n != 0);
 
-                    Wnetrze Wnetrze = new Wnetrze(sWnetrze, x, y, u);
+                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
                     double wnetrze = Wnetrze.EvaluateWnetrze();
 
                     // obliczenie funkcji
@@ -268,7 +268,7 @@ namespace NumericalCalculator
             return Convert.ToDouble(stos.zdejmij()); // WYNIK
         }
 
-        public virtual double ObliczWnetrze()
+        public virtual double ComputeInterior()
         {
             double wynik = EvaluateWnetrze();
 
@@ -282,7 +282,7 @@ namespace NumericalCalculator
         }
 
     // KONSTRUKTOR --------------------------
-        public Wnetrze(string funkcja, double x, double y = 0, double u = 0) : base(funkcja)
+        public Interior(string funkcja, double x, double y = 0, double u = 0) : base(funkcja)
         {
             this.x = x;
             this.y = y;

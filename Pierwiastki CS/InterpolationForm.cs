@@ -37,13 +37,13 @@ namespace NumericalCalculator
                     // Wczytanie punktow do pamieci
                     for (int i = 0; i < interpolacja.iloscPunktow; i++)
                     {
-                        interpolacja.punkty[0, i] = Convert.ToDouble(dgvInterpolacja[0, i].Value.ToString().Replace(f1.zamienZ, f1.zamienNa));
-                        interpolacja.punkty[1, i] = Convert.ToDouble(dgvInterpolacja[1, i].Value.ToString().Replace(f1.zamienZ, f1.zamienNa));
+                        interpolacja.punkty[0, i] = Convert.ToDouble(dgvInterpolacja[0, i].Value.ToString().Replace(f1.changeFrom, f1.changeTo));
+                        interpolacja.punkty[1, i] = Convert.ToDouble(dgvInterpolacja[1, i].Value.ToString().Replace(f1.changeFrom, f1.changeTo));
                     }
 
                     txtFunction.Text = interpolacja.Oblicz();
                 }
-                catch (FunkcjaException excep)
+                catch (FunctionException excep)
                 {
                     MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtFunction.Focus();
@@ -66,14 +66,14 @@ namespace NumericalCalculator
             {
                 try
                 {
-                    Aproksymacja aproksymacja = new Aproksymacja(dgvInterpolacja, (int)nudLevel.Value, f1.zamienZ, f1.zamienNa);
+                    Aproksymacja aproksymacja = new Aproksymacja(dgvInterpolacja, (int)nudLevel.Value, f1.changeFrom, f1.changeTo);
 
                     txtFunction.Text = aproksymacja.Oblicz();
 
                     //Sprawdzenie czy wynik jest sensowny
                     
                 }
-                catch (FunkcjaException excep)
+                catch (FunctionException excep)
                 {
                     MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     txtFunction.Focus();

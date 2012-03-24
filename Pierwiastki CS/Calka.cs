@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Calka : Pochodna
+    class Integral : Derivative
     {
     //ZMIENNE ---------------------------------------
         double[,] kwadratury;
@@ -86,7 +86,7 @@ namespace NumericalCalculator
             return wynikPosredni;
         }
 
-        public override double ObliczWnetrze()
+        public override double ComputeInterior()
         {
             //Zamiana granic
             if (xOd != -1 || xDo != 1)
@@ -114,13 +114,13 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR -----------------------------------
-        public Calka(string funkcja, double xOd, double xDo) : base(funkcja)
+        public Integral(string funkcja, double xOd, double xDo) : base(funkcja)
         {
             this.xOd = xOd;
             this.xDo = xDo;
 
             if (double.IsInfinity(xOd) || double.IsInfinity(xDo))
-                throw new FunkcjaException("Niestety nieskończoność nie jest jeszcze obsługiwana");
+                throw new FunctionException("Niestety nieskończoność nie jest jeszcze obsługiwana");
 
             kwadratury = new double[2, 5]; //calka dla 10 kwadratur
 

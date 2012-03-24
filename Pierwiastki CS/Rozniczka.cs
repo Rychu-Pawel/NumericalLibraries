@@ -6,7 +6,7 @@ using System.Drawing;
 
 namespace NumericalCalculator
 {
-    class Rozniczka : Pochodna
+    class Differential : Derivative
     {
         //ZMIENNE -----------------------------------
         string funkcjaII;
@@ -26,7 +26,7 @@ namespace NumericalCalculator
         double wynikII;
 
         //METODY ------------------------------------
-        public List<PointD> ObliczRozniczke(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, bool czyFormatowacWynik = true, double krok = 0.001)
+        public List<PointD> ComputeDifferential(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, bool czyFormatowacWynik = true, double krok = 0.001)
         {
             this.krok = krok;
 
@@ -246,35 +246,35 @@ namespace NumericalCalculator
 
             //Obliczenie f0
             if (double.IsNaN(y))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f0 = ObliczFunkcjeWPunkcie();
+            f0 = ComputeFunctionAtPoint();
 
             //Obliczenie f1
             x += krok / 2;
             y = wartoscPoczatkowa + ((krok / 2) * f0);
 
             if (double.IsNaN(y))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f1 = ObliczFunkcjeWPunkcie();
+            f1 = ComputeFunctionAtPoint();
 
             //Obliczenie f2
             y = wartoscPoczatkowa + ((krok / 2) * f1);
 
             if (double.IsNaN(y))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f2 = ObliczFunkcjeWPunkcie();
+            f2 = ComputeFunctionAtPoint();
 
             //Obliczenie f3
             x += krok / 2;
             y = wartoscPoczatkowa + (krok * f2);
 
             if (double.IsNaN(y))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f3 = ObliczFunkcjeWPunkcie();
+            f3 = ComputeFunctionAtPoint();
         }
 
         private void ObliczFyII()
@@ -285,9 +285,9 @@ namespace NumericalCalculator
 
             //Obliczenie f0
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f0 = ObliczFunkcjeWPunkcie();
+            f0 = ComputeFunctionAtPoint();
 
             //Obliczenie f0II
             string funkcjaTemp = funkcja;
@@ -295,7 +295,7 @@ namespace NumericalCalculator
 
             funkcjaONP = tablicaONPfunkcjiII;
 
-            f0II = ObliczFunkcjeWPunkcie();
+            f0II = ComputeFunctionAtPoint();
 
             //Obliczenie f1
             funkcja = funkcjaTemp;
@@ -307,9 +307,9 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok / 2) * f0II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f1 = ObliczFunkcjeWPunkcie();
+            f1 = ComputeFunctionAtPoint();
 
             //Obliczenie f1II
             funkcjaTemp = funkcja;
@@ -317,7 +317,7 @@ namespace NumericalCalculator
 
             funkcjaONP = tablicaONPfunkcjiII;
 
-            f1II = ObliczFunkcjeWPunkcie();
+            f1II = ComputeFunctionAtPoint();
 
             //Obliczenie f2
             funkcja = funkcjaTemp;
@@ -328,9 +328,9 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok / 2) * f1II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f2 = ObliczFunkcjeWPunkcie();
+            f2 = ComputeFunctionAtPoint();
 
             //Obliczenie f2II
             funkcjaTemp = funkcja;
@@ -338,7 +338,7 @@ namespace NumericalCalculator
 
             funkcjaONP = tablicaONPfunkcjiII;
 
-            f2II = ObliczFunkcjeWPunkcie();
+            f2II = ComputeFunctionAtPoint();
 
             //Oblicenie f3
             funkcja = funkcjaTemp;
@@ -350,9 +350,9 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok) * f2II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunkcjaException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
 
-            f3 = ObliczFunkcjeWPunkcie();
+            f3 = ComputeFunctionAtPoint();
 
             //Obliczenie f3II
             funkcjaTemp = funkcja;
@@ -360,7 +360,7 @@ namespace NumericalCalculator
 
             funkcjaONP = tablicaONPfunkcjiII;
 
-            f3II = ObliczFunkcjeWPunkcie();
+            f3II = ComputeFunctionAtPoint();
 
             //Przywrocenie funkcji i ONP
             funkcja = funkcjaTemp;
@@ -369,7 +369,7 @@ namespace NumericalCalculator
         }
 
         //KONSTUKTOR --------------------------------
-        public Rozniczka(string funkcja)
+        public Differential(string funkcja)
             : base(funkcja)
         { }
     }

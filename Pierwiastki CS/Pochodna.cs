@@ -5,13 +5,13 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Pochodna : Wnetrze
+    class Derivative : Interior
     {
     // ZMIENNE ------------------------------
         double h;
         
     // METODY -------------------------------
-        public double ObliczFunkcjeWPunkcie() // Obliczanie wartosci funkcji w punkcie
+        public double ComputeFunctionAtPoint() // Obliczanie wartosci funkcji w punkcie
         {
             double wynik = EvaluateWnetrze();
 
@@ -24,7 +24,7 @@ namespace NumericalCalculator
             return wynik;
         }            
 
-        public double ObliczPochodna() //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
+        public double ComputeDerivative() //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
         {
             double fx1, fx2, fx3, fx4;
             double wynik;
@@ -56,7 +56,7 @@ namespace NumericalCalculator
             return wynik;
         }
 
-        public double ObliczPochodnaBis()
+        public double ComputeDerivativeBis()
         {
             double wynik;
             double fx, fx1, fx2, fx3, fx4;
@@ -96,25 +96,25 @@ namespace NumericalCalculator
         {
             this.x = x;
 
-            return this.ObliczFunkcjeWPunkcie();
+            return this.ComputeFunctionAtPoint();
         }
 
         public double ObliczPochodna(double x) //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
         {
             this.x = x;
 
-            return this.ObliczPochodna();
+            return this.ComputeDerivative();
         }
 
         public double ObliczPochodnaBis(double x)
         {
             this.x = x;
 
-            return this.ObliczPochodnaBis();
+            return this.ComputeDerivativeBis();
         }
 
     // KONSTRUKTOR --------------------------
-        public Pochodna(string funkcja, double x) : base(funkcja, x)
+        public Derivative(string funkcja, double x) : base(funkcja, x)
         {
             //bool czySaLiczbyZmiennoprzecinkowe = false;
 
@@ -152,7 +152,7 @@ namespace NumericalCalculator
             KonwertujNaONP();
         }
 
-        public Pochodna(string funkcja) : base(funkcja, 0.0)
+        public Derivative(string funkcja) : base(funkcja, 0.0)
         {
             h = 0.0001;
 
