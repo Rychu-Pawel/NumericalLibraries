@@ -425,4 +425,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="VariableFoundException" xml:space="preserve">
     <value>W wyr. nie może występować zmienna!</value>
   </data>
+  <data name="MessageBox_ClearGraph_Exception" xml:space="preserve">
+    <value>Błąd rysowania siatki wykresu!</value>
+  </data>
 </root>

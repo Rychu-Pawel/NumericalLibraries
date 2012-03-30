@@ -425,4 +425,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="VariableFoundException" xml:space="preserve">
     <value>There can't be any variable in the computation!</value>
   </data>
+  <data name="MessageBox_ClearGraph_Exception" xml:space="preserve">
+    <value>Error drawing graph grid!</value>
+  </data>
 </root>

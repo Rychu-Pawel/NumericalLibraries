@@ -10,7 +10,7 @@ using System.Diagnostics;
 
 namespace NumericalCalculator
 {
-    class Wykres
+    class Graph
     {
     // Zmienne ----------------------------
         double xOd, xDo, yOd, yDo; //Wybrany przedzial
@@ -34,7 +34,7 @@ namespace NumericalCalculator
         }
 
     // Metody -----------------------------
-        public void Wyczysc() //Wyczyszczenie starego wykresu i przygotowanie siatki X i Y
+        public void Clear() //Wyczyszczenie starego wykresu i przygotowanie siatki X i Y
         {
             Font font = new Font("Arial", 7); // Do wypisywania punktow siatki
 
@@ -742,7 +742,7 @@ namespace NumericalCalculator
                 minX = Math.Round(minX, 2);
                 maxX = Math.Round(maxX, 2);
 
-                Wykres wykres = new Wykres(funkcja, pWykres, minX, maxX, yOd, yDo);
+                Graph wykres = new Graph(funkcja, pWykres, minX, maxX, yOd, yDo);
 
                 return wykres.Reskalling(typFunkcji);
             }
@@ -905,7 +905,7 @@ namespace NumericalCalculator
                 minX = Math.Round(minX, 2);
                 maxX = Math.Round(maxX, 2);
 
-                Wykres wykres = new Wykres(funkcja, pWykres, minX, maxX, yOd, yDo);
+                Graph wykres = new Graph(funkcja, pWykres, minX, maxX, yOd, yDo);
 
                 parametry[indexZmiennej] = double.NaN;
 
@@ -1190,7 +1190,7 @@ namespace NumericalCalculator
 
 
     // Konstruktor ------------------------
-        public Wykres(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
+        public Graph(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
         {
             Przygotowanie(funk, picWykres, xOd, xDo, yOd, yDo);
         }
@@ -1273,7 +1273,7 @@ namespace NumericalCalculator
             }
 
             //Czyszczenie starego wykresu
-            Wyczysc();
+            Clear();
         }
     }
 }

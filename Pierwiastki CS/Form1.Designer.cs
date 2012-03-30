@@ -79,7 +79,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.txtPoint = new System.Windows.Forms.TextBox();
             this.pnlWykres = new System.Windows.Forms.Panel();
-            this.picWykres = new System.Windows.Forms.PictureBox();
+            this.picGraph = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.zapiszDoPlikuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.kopiujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -128,7 +128,7 @@
             this.gbResult.SuspendLayout();
             this.gbOperation.SuspendLayout();
             this.pnlWykres.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.picWykres)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGraph)).BeginInit();
             this.contextMenuStrip.SuspendLayout();
             this.gbPoint.SuspendLayout();
             this.gbDrawFunction.SuspendLayout();
@@ -229,7 +229,7 @@
             this.linearEquationToolStripMenuItem.Name = "linearEquationToolStripMenuItem";
             this.linearEquationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.linearEquationToolStripMenuItem.Text = "&Równania liniowe";
-            this.linearEquationToolStripMenuItem.Click += new System.EventHandler(this.rownaniaLinioweToolStripMenuItem_Click);
+            this.linearEquationToolStripMenuItem.Click += new System.EventHandler(this.linearEquationToolStripMenuItem_Click);
             // 
             // multipleIntegralToolStripMenuItem
             // 
@@ -321,7 +321,7 @@
             this.functionsToolStripMenuItem.Name = "functionsToolStripMenuItem";
             this.functionsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.functionsToolStripMenuItem.Text = "&Funkcje";
-            this.functionsToolStripMenuItem.Click += new System.EventHandler(this.PokazFunkcjeForm_Handler);
+            this.functionsToolStripMenuItem.Click += new System.EventHandler(this.ShowFunctionForm_Handler);
             // 
             // gbFunction
             // 
@@ -644,7 +644,7 @@
             // 
             this.pnlWykres.BackColor = System.Drawing.Color.White;
             this.pnlWykres.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.pnlWykres.Controls.Add(this.picWykres);
+            this.pnlWykres.Controls.Add(this.picGraph);
             this.pnlWykres.Location = new System.Drawing.Point(363, 35);
             this.pnlWykres.Name = "pnlWykres";
             this.pnlWykres.Size = new System.Drawing.Size(400, 368);
@@ -652,15 +652,15 @@
             // 
             // picWykres
             // 
-            this.picWykres.ContextMenuStrip = this.contextMenuStrip;
-            this.picWykres.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.picWykres.Location = new System.Drawing.Point(-2, -2);
-            this.picWykres.Name = "picWykres";
-            this.picWykres.Size = new System.Drawing.Size(400, 368);
-            this.picWykres.TabIndex = 0;
-            this.picWykres.TabStop = false;
-            this.picWykres.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseDown);
-            this.picWykres.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseUp);
+            this.picGraph.ContextMenuStrip = this.contextMenuStrip;
+            this.picGraph.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.picGraph.Location = new System.Drawing.Point(-2, -2);
+            this.picGraph.Name = "picWykres";
+            this.picGraph.Size = new System.Drawing.Size(400, 368);
+            this.picGraph.TabIndex = 0;
+            this.picGraph.TabStop = false;
+            this.picGraph.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseDown);
+            this.picGraph.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseUp);
             // 
             // contextMenuStrip
             // 
@@ -754,7 +754,7 @@
             this.btnDraw.TabIndex = 8;
             this.btnDraw.Text = "Rysuj";
             this.btnDraw.UseVisualStyleBackColor = true;
-            this.btnDraw.Click += new System.EventHandler(this.btnRysuj_Click);
+            this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
             // btnSpecialFunction
             // 
@@ -1120,7 +1120,7 @@
             this.gbOperation.ResumeLayout(false);
             this.gbOperation.PerformLayout();
             this.pnlWykres.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.picWykres)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.picGraph)).EndInit();
             this.contextMenuStrip.ResumeLayout(false);
             this.gbPoint.ResumeLayout(false);
             this.gbPoint.PerformLayout();
@@ -1172,7 +1172,7 @@
         private System.Windows.Forms.TextBox txtYTo;
         private System.Windows.Forms.TextBox txtXTo;
         private System.Windows.Forms.TextBox txtYFrom;
-        private System.Windows.Forms.PictureBox picWykres;
+        private System.Windows.Forms.PictureBox picGraph;
         private System.Windows.Forms.ToolStripMenuItem extraComputationsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem linearEquationToolStripMenuItem;
         private System.Windows.Forms.RadioButton rbDifferential;

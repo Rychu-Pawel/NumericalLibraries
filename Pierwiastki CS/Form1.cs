@@ -77,7 +77,7 @@ namespace NumericalCalculator
 
             //Dodatkowe zdarzenia
             this.graphToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
-            this.btnHelp.Click += new EventHandler(PokazFunkcjeForm_Handler);
+            this.btnHelp.Click += new EventHandler(ShowFunctionForm_Handler);
             this.chkFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
             this.chkIFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
 
@@ -723,7 +723,7 @@ namespace NumericalCalculator
                 stopWatch.Stop();
                 lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
 
-                btnRysuj_Click(btnCompute, new EventArgs());
+                btnDraw_Click(btnCompute, new EventArgs());
 
                 txtResult.Text = language.GetString("VariableFoundException");
                 txtFunction.Focus();
@@ -814,26 +814,26 @@ namespace NumericalCalculator
             lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
             txtResult.Text = "";
 
-            MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ObsluzException(string message)
+        private void HandleException(string message)
         {
             txtResult.Text = "";
 
-            MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        private void ObsluzExceptionWykres(string message)
+        private void HandleGraphException(string message)
         {
             txtResult.Text = "";
             IsFunctionDrawn = false;
 
-            MessageBox.Show(message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            MessageBox.Show(message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             try
             {
-                WyczyscWykres();
+                ClearGraph();
             }
             catch { }
         }
@@ -850,31 +850,31 @@ namespace NumericalCalculator
             //Focus
             txtFunction.Focus();
 
-            WyczyscWykres();
+            ClearGraph();
         }
 
-        private void WyczyscWykres()
+        private void ClearGraph()
         {
             try
             {
-                Wykres wykres = new Wykres(txtFunction.Text, picWykres, Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)));
-                wykres.Wyczysc();
+                Graph graph = new Graph(txtFunction.Text, picGraph, Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)));
+                graph.Clear();
             }
-            catch (SystemException excep)
+            catch (Exception excep)
             {
-                MessageBox.Show("Błąd rysowania siatki wykresu! " + excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(language.GetString("MessageBox_ClearGraph_Exception") + System.Environment.NewLine + excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         //FUNKCJE FORM (opis dostepnych funkcji)
-        private void PokazFunkcjeForm_Handler(object sender, EventArgs e)
+        private void ShowFunctionForm_Handler(object sender, EventArgs e)
         {
             FunctionForm f = new FunctionForm();
             f.Show();
         }
 
         //RownaniaLinioweForm
-        private void rownaniaLinioweToolStripMenuItem_Click(object sender, EventArgs e)
+        private void linearEquationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             LinearEquationForm rownaniaForm = new LinearEquationForm(changeFrom, changeTo);
 
@@ -882,7 +882,7 @@ namespace NumericalCalculator
         }
 
         // RYSOWANIE WYKRESU
-        private void btnRysuj_Click(object sender, EventArgs e)
+        private void btnDraw_Click(object sender, EventArgs e)
         {
             try
             {
@@ -916,57 +916,105 @@ namespace NumericalCalculator
                     throw new FunctionNullReferenceException();
                 }
 
-                double xOd, xDo, yOd, yDo;
+                double xFrom, xTo, yFrom, yTo;
 
                 try
                 {
-                    xOd = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
+                    xFrom = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new xFromException();
-                }
+                    //Sprawdzenie może da się oszacować
+                    try
+                    {
+                        Calculator calculator = new Calculator(txtXFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                        xFrom = calculator.ComputeInterior();
 
-                try
-                {
-                    xDo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    throw new xToException();
-                }
-
-                try
-                {
-                    yOd = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    throw new yFromException();
+                        if (txtXFrom.Text.Contains('E'))
+                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch
+                    {
+                        throw new xFromException();
+                    }                    
                 }
 
                 try
                 {
-                    yDo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
+                    xTo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
                 }
                 catch (Exception)
                 {
-                    throw new yToException();
+                    //Sprawdzenie może da się oszacować
+                    try
+                    {
+                        Calculator calculator = new Calculator(txtXTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                        xTo = calculator.ComputeInterior();
+
+                        if (txtXTo.Text.Contains('E'))
+                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch
+                    {
+                        throw new xToException();
+                    }                    
+                }
+
+                try
+                {
+                    yFrom = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
+                }
+                catch (Exception)
+                {
+                    //Sprawdzenie może da się oszacować
+                    try
+                    {
+                        Calculator calculator = new Calculator(txtYFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                        yFrom = calculator.ComputeInterior();
+
+                        if (txtYFrom.Text.Contains('E'))
+                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch
+                    {
+                        throw new yFromException();
+                    }                      
+                }
+
+                try
+                {
+                    yTo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
+                }
+                catch (Exception)
+                {
+                    //Sprawdzenie może da się oszacować
+                    try
+                    {
+                        Calculator calculator = new Calculator(txtYTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
+                        yTo = calculator.ComputeInterior();
+
+                        if (txtYTo.Text.Contains('E'))
+                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    catch
+                    {
+                        throw new yToException();
+                    }                      
                 }
 
                 //Sprawdzenie czy zakres jest OK
-                if (xOd >= xDo)
+                if (xFrom >= xTo)
                 {
                     throw new XFromIsGreaterThenXToException();
                 }
 
-                if (yOd >= yDo)
+                if (yFrom >= yTo)
                 {
                     throw new YFromIsGreaterThenYToException();
                 }
 
                 //Pobranie Besselowych wartosci i znalezienie typu besselowego
-                double pierwszy = 0.0, drugi = 0.0, trzeci = 0.0, czwarty = 0.0;
+                double first = 0.0, second = 0.0, thrid = 0.0, fourth = 0.0;
                 TypFunkcjiBessela tfb = TypFunkcjiBessela.Bessel;
 
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
@@ -974,9 +1022,9 @@ namespace NumericalCalculator
                     try
                     {
                         if (txtFirstCommandArgument.Text == "x")
-                            pierwszy = double.NaN;
+                            first = double.NaN;
                         else
-                            pierwszy = double.Parse(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo));
+                            first = double.Parse(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
@@ -984,7 +1032,7 @@ namespace NumericalCalculator
                         try
                         {
                             Calculator kalkulator = new Calculator(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            pierwszy = kalkulator.ComputeInterior();
+                            first = kalkulator.ComputeInterior();
                         }
                         catch
                         {
@@ -995,9 +1043,9 @@ namespace NumericalCalculator
                     try
                     {
                         if (txtSecondCommandArgument.Text == "x")
-                            drugi = double.NaN;
+                            second = double.NaN;
                         else
-                            drugi = double.Parse(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo));
+                            second = double.Parse(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo));
                     }
                     catch (Exception)
                     {
@@ -1005,7 +1053,7 @@ namespace NumericalCalculator
                         try
                         {
                             Calculator kalkulator = new Calculator(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            drugi = kalkulator.ComputeInterior();
+                            second = kalkulator.ComputeInterior();
                         }
                         catch
                         {
@@ -1018,9 +1066,9 @@ namespace NumericalCalculator
                         try
                         {
                             if (txtThirdCommandArgument.Text == "x")
-                                trzeci = double.NaN;
+                                thrid = double.NaN;
                             else
-                                trzeci = double.Parse(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo));
+                                thrid = double.Parse(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
@@ -1028,7 +1076,7 @@ namespace NumericalCalculator
                             try
                             {
                                 Calculator kalkulator = new Calculator(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                                trzeci = kalkulator.ComputeInterior();
+                                thrid = kalkulator.ComputeInterior();
                             }
                             catch
                             {
@@ -1042,9 +1090,9 @@ namespace NumericalCalculator
                         try
                         {
                             if (txtFourthCommandArgument.Text == "x")
-                                czwarty = double.NaN;
+                                fourth = double.NaN;
                             else
-                                czwarty = double.Parse(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo));
+                                fourth = double.Parse(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo));
                         }
                         catch (Exception)
                         {
@@ -1052,7 +1100,7 @@ namespace NumericalCalculator
                             try
                             {
                                 Calculator kalkulator = new Calculator(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                                czwarty = kalkulator.ComputeInterior();
+                                fourth = kalkulator.ComputeInterior();
                             }
                             catch
                             {
@@ -1097,7 +1145,7 @@ namespace NumericalCalculator
                 }
 
                 //Utworzenie klasy
-                Wykres wykres = new Wykres(funkcja, picWykres, xOd, xDo, yOd, yDo);
+                Graph wykres = new Graph(funkcja, picGraph, xFrom, xTo, yFrom, yTo);
 
                 //Reskalling
                 if (chkRescaling.Checked && chkRescaling.Enabled && sender is Button)
@@ -1118,21 +1166,21 @@ namespace NumericalCalculator
 
                     //Obliczenie maxów i minów do reskalingu
                     if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
-                        reskalling = wykres.Reskalling(tfb, pierwszy, drugi, trzeci, czwarty);
+                        reskalling = wykres.Reskalling(tfb, first, second, thrid, fourth);
                     else
                         reskalling = wykres.Reskalling(typyFunkcji.ToArray()); //normlanych
 
-                    xOd = reskalling[0];
-                    xDo = reskalling[1];
-                    yOd = reskalling[2];
-                    yDo = reskalling[3];
+                    xFrom = reskalling[0];
+                    xTo = reskalling[1];
+                    yFrom = reskalling[2];
+                    yTo = reskalling[3];
 
-                    txtXFrom.Text = xOd.ToString();
-                    txtXTo.Text = xDo.ToString();
-                    txtYFrom.Text = yOd.ToString();
-                    txtYTo.Text = yDo.ToString();
+                    txtXFrom.Text = xFrom.ToString();
+                    txtXTo.Text = xTo.ToString();
+                    txtYFrom.Text = yFrom.ToString();
+                    txtYTo.Text = yTo.ToString();
 
-                    wykres = new Wykres(funkcja, picWykres, xOd, xDo, yOd, yDo);
+                    wykres = new Graph(funkcja, picGraph, xFrom, xTo, yFrom, yTo);
                 }
 
                 //Rysowanie funkcji i pochodnych
@@ -1319,7 +1367,7 @@ namespace NumericalCalculator
                 }
 
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
-                    wykres.RysujBessele(tfb, pierwszy, drugi, trzeci, czwarty);
+                    wykres.RysujBessele(tfb, first, second, thrid, fourth);
 
                 //Zakończenie
                 IsFunctionDrawn = true;
@@ -1329,127 +1377,127 @@ namespace NumericalCalculator
             }
             catch (XFromIsGreaterThenXToException)
             {
-                ObsluzExceptionWykres("Wartości skali x są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
+                HandleGraphException("Wartości skali x są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
                 txtXFrom.Focus();
             }
             catch (YFromIsGreaterThenYToException)
             {
-                ObsluzExceptionWykres("Wartości skali y są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
+                HandleGraphException("Wartości skali y są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej.");
 
                 txtYFrom.Focus();
             }
             catch (OverflowException)
             {
-                ObsluzExceptionWykres("Nie można narysować tej funkcji w tym przedziale.");
+                HandleGraphException("Nie można narysować tej funkcji w tym przedziale.");
             }
             catch (xFromException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość od osi x");
+                HandleGraphException("Niepoprawna wartość od osi x");
 
                 txtXFrom.Focus();
             }
             catch (xToException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość do osi x");
+                HandleGraphException("Niepoprawna wartość do osi x");
 
                 txtXTo.Focus();
             }
             catch (yFromException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość od osi y");
+                HandleGraphException("Niepoprawna wartość od osi y");
 
                 txtYFrom.Focus();
             }
             catch (yToException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość do osi y");
+                HandleGraphException("Niepoprawna wartość do osi y");
 
                 txtYTo.Focus();
             }
             catch (CoordinatesXException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtXFrom.Focus();
             }
             catch (CoordinatesYException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtYFrom.Focus();
             }
             catch (FunctionNullReferenceException)
             {
-                ObsluzExceptionWykres("Wpisz funkcję!");
+                HandleGraphException("Wpisz funkcję!");
 
                 txtFunction.Focus();
             }
             catch (FromConversionException)
             {
-                ObsluzExceptionWykres("Niepoprawny punkt x w pierwszym warunku!");
+                HandleGraphException("Niepoprawny punkt x w pierwszym warunku!");
 
                 txtFrom.Focus();
             }
             catch (FromIIConversionException)
             {
-                ObsluzExceptionWykres("Niepoprawny punkt x w drugim warunku!");
+                HandleGraphException("Niepoprawny punkt x w drugim warunku!");
 
                 txtFromII.Focus();
             }
             catch (ToConversionException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość w pierwszym warunku!");
+                HandleGraphException("Niepoprawna wartość w pierwszym warunku!");
 
                 txtTo.Focus();
             }
             catch (ToIIConversionException)
             {
-                ObsluzExceptionWykres("Niepoprawna wartość w drugim warunku!");
+                HandleGraphException("Niepoprawna wartość w drugim warunku!");
 
                 txtToII.Focus();
             }
             catch (BesselFirstArgumentException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtFirstCommandArgument.Focus();
             }
             catch (BesseleSecondArgumentException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtSecondCommandArgument.Focus();
             }
             catch (BesseleThirdArgumentException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtThirdCommandArgument.Focus();
             }
             catch (BesseleFourthArgumentException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtFourthCommandArgument.Focus();
             }
             catch (NoneGraphOptionCheckedException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
             }
             catch (FilterValueException excep)
             {
-                ObsluzExceptionWykres(excep.Message);
+                HandleGraphException(excep.Message);
 
                 txtCutoff.Focus();
             }
             catch (SystemException)
             {
-                ObsluzExceptionWykres("Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
+                HandleGraphException("Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
             }
             catch (Exception)
             {
-                ObsluzExceptionWykres("Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
+                HandleGraphException("Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!");
             }
         }
 
@@ -1497,23 +1545,23 @@ namespace NumericalCalculator
 
                     // Obliczanie wspolczynnikow X
                     if (xOd * xDo <= 0)
-                        wspX = picWykres.Width / (-xOd + xDo);
+                        wspX = picGraph.Width / (-xOd + xDo);
                     else if (xOd < 0)
-                        wspX = picWykres.Width / (-xOd + xDo);
+                        wspX = picGraph.Width / (-xOd + xDo);
                     else
-                        wspX = picWykres.Width / (xDo - xOd);
+                        wspX = picGraph.Width / (xDo - xOd);
 
                     // Obliczanie wspolczynnikow Y
                     if (yOd * yDo <= 0)
-                        wspY = picWykres.Height / (-yOd + yDo);
+                        wspY = picGraph.Height / (-yOd + yDo);
                     else if (yOd < 0 && yDo < 0)
-                        wspY = picWykres.Height / (-yOd + yDo);
+                        wspY = picGraph.Height / (-yOd + yDo);
                     else
-                        wspY = picWykres.Height / (yDo - yOd);
+                        wspY = picGraph.Height / (yDo - yOd);
 
                     //Ustalenie przesuniecia
                     double roznicaX = (punktKoncowy.X - punktPoczatkowy.X) / wspX;
-                    double roznicaY = ((punktKoncowy.Y - picWykres.Width) - (punktPoczatkowy.Y - picWykres.Width)) / wspY;
+                    double roznicaY = ((punktKoncowy.Y - picGraph.Width) - (punktPoczatkowy.Y - picGraph.Width)) / wspY;
 
                     //Zapisanie przesuniec
                     xOd -= roznicaX;
@@ -1556,9 +1604,9 @@ namespace NumericalCalculator
 
                     //Narysowanie nowego wykresu
                     if (IsFunctionDrawn/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
-                        btnRysuj_Click(this, new EventArgs());
+                        btnDraw_Click(this, new EventArgs());
                     else
-                        WyczyscWykres();
+                        ClearGraph();
                 }
             }
             catch
@@ -1748,31 +1796,31 @@ namespace NumericalCalculator
                     txtYTo.Text = Convert.ToString(yDo);
 
                     if (IsFunctionDrawn/* && podgladWykresuPodczasSkalowaniaOnkaToolStripMenuItem.Checked*/)
-                        btnRysuj_Click(this, new EventArgs());
+                        btnDraw_Click(this, new EventArgs());
                     else
-                        WyczyscWykres();
+                        ClearGraph();
                 }
                 catch (xFromException)
                 {
-                    ObsluzException("Niepoprawna wartość od osi x");
+                    HandleException("Niepoprawna wartość od osi x");
 
                     txtXFrom.Focus();
                 }
                 catch (xToException)
                 {
-                    ObsluzException("Niepoprawna wartość do osi x");
+                    HandleException("Niepoprawna wartość do osi x");
 
                     txtXTo.Focus();
                 }
                 catch (yFromException)
                 {
-                    ObsluzException("Niepoprawna wartość od osi y");
+                    HandleException("Niepoprawna wartość od osi y");
 
                     txtYFrom.Focus();
                 }
                 catch (yToException)
                 {
-                    ObsluzException("Niepoprawna wartość do osi y");
+                    HandleException("Niepoprawna wartość do osi y");
 
                     txtYTo.Focus();
                 }
@@ -1836,7 +1884,7 @@ namespace NumericalCalculator
 
                 if (dr == DialogResult.OK)
                 {
-                    Image image = picWykres.Image;
+                    Image image = picGraph.Image;
                     image.Save(saveFileDialog.FileName);
 
                     MessageBox.Show("Plik zapisany pomyślnie!", "PierwiastkiCS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1852,7 +1900,7 @@ namespace NumericalCalculator
         {
             try
             {
-                Image image = picWykres.Image;
+                Image image = picGraph.Image;
                 Clipboard.SetImage(image);
 
                 MessageBox.Show("Obrazek skopiowany do schowka.", "PierwiastkiCS", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -1915,8 +1963,8 @@ namespace NumericalCalculator
                 int gainH = Height - 435;
                 int gainW = Width - 998;
 
-                picWykres.Height = 350 + gainH;
-                picWykres.Width = 400 + gainW;
+                picGraph.Height = 350 + gainH;
+                picGraph.Width = 400 + gainW;
                 pnlWykres.Height = 350 + gainH;
                 pnlWykres.Width = 400 + gainW;
                 gbDrawFunction.Left = 759 + gainW;
@@ -1924,9 +1972,9 @@ namespace NumericalCalculator
                 btnDraw.Left = 824 + gainW;
 
                 if (IsFunctionDrawn && graphPreviewWhileWindowsScalingToolStripMenuItem.Checked)
-                    btnRysuj_Click(this, new EventArgs());
+                    btnDraw_Click(this, new EventArgs());
                 else
-                    WyczyscWykres();
+                    ClearGraph();
             }            
         }
 
