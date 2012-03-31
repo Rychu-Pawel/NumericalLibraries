@@ -423,9 +423,93 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Incorrect value in second condition!</value>
   </data>
   <data name="VariableFoundException" xml:space="preserve">
-    <value>There can't be any variable in the computation!</value>
+    <value>There can't be any variables in the computation!</value>
   </data>
   <data name="MessageBox_ClearGraph_Exception" xml:space="preserve">
     <value>Error drawing graph grid!</value>
+  </data>
+  <data name="ApplicationName" xml:space="preserve">
+    <value>Numerical Calculator</value>
+  </data>
+  <data name="contextMenuStrip_copyToolStripMenuItem" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="contextMenuStrip_saveToFileToolStripMenuItem" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="contextMenuStrip_saveToTXTToolStripMenuItem" xml:space="preserve">
+    <value>Save as TXT</value>
+  </data>
+  <data name="CoordinatesXException" xml:space="preserve">
+    <value>The x coordinates can't be the same!</value>
+  </data>
+  <data name="CoordinatesYException" xml:space="preserve">
+    <value>The y coordinates can't be the same!</value>
+  </data>
+  <data name="CutoffValueException" xml:space="preserve">
+    <value>Incorrect cut-off value!</value>
+  </data>
+  <data name="lblFrom" xml:space="preserve">
+    <value>f (</value>
+  </data>
+  <data name="lblTo" xml:space="preserve">
+    <value>) =</value>
+  </data>
+  <data name="MessageBox_btnSpecialFunction_Click" xml:space="preserve">
+    <value>Check Special Function in Operation section and insert x variable as one of its arguments.</value>
+  </data>
+  <data name="MessageBox_btnSpecialFunction_Click_Caption" xml:space="preserve">
+    <value>Prompt</value>
+  </data>
+  <data name="MessageBox_CopyToClipboard_Failure" xml:space="preserve">
+    <value>Failed to copy image to clipboard!</value>
+  </data>
+  <data name="MessageBox_CopyToClipboard_Success" xml:space="preserve">
+    <value>Image copied to clipboard successfully!</value>
+  </data>
+  <data name="MessageBox_SaveToFile_Failure" xml:space="preserve">
+    <value>Failed to save the file!</value>
+  </data>
+  <data name="MessageBox_SaveToFile_Success" xml:space="preserve">
+    <value>File saved successfully!</value>
+  </data>
+  <data name="MessageBox_SaveToTXT_Failure" xml:space="preserve">
+    <value>Failed to save the file!</value>
+  </data>
+  <data name="MessageBox_SaveToTXT_Failure_LackPoints" xml:space="preserve">
+    <value>Lack of graph points!</value>
+  </data>
+  <data name="MessageBox_SaveToTXT_Success" xml:space="preserve">
+    <value>File saved successfully!</value>
+  </data>
+  <data name="NoneGraphOptionCheckedException" xml:space="preserve">
+    <value>Please select at least one graph option.</value>
+  </data>
+  <data name="OverflowException" xml:space="preserve">
+    <value>Can't draw this function in this interval.</value>
+  </data>
+  <data name="SamplingValueException" xml:space="preserve">
+    <value>Incorrect sampling value!</value>
+  </data>
+  <data name="saveFileDialog_FileName" xml:space="preserve">
+    <value>Graph</value>
+  </data>
+  <data name="xFromException" xml:space="preserve">
+    <value>Incorrect x-axis "from" value</value>
+  </data>
+  <data name="XFromIsGreaterThenXToException" xml:space="preserve">
+    <value>Incorrect x-axis values. "From" value can't be greater then (or equal) "to" value.</value>
+  </data>
+  <data name="xToException" xml:space="preserve">
+    <value>Incorrect x-axis "to" value</value>
+  </data>
+  <data name="yFromException" xml:space="preserve">
+    <value>Incorrect y-axis "from" value</value>
+  </data>
+  <data name="YFromIsGreaterThenYToException" xml:space="preserve">
+    <value>Incorrect y-axis values. "From" value can't be greater then (or equal) "to" value.</value>
+  </data>
+  <data name="yToException" xml:space="preserve">
+    <value>Incorrect y-asix "to" value</value>
   </data>
 </root>

@@ -28,7 +28,7 @@ namespace NumericalCalculator
 
         List<PointF> punktyWykresu;
 
-        public PointF[] PunktyWykresu
+        public PointF[] GraphPoints
         {
             get { return punktyWykresu.ToArray(); }
         }
@@ -152,7 +152,7 @@ namespace NumericalCalculator
             punktyWykresu = new List<PointF>();
         }
 
-        public void Rysuj(FunctionTypeEnum typFunkcji)
+        public void Draw(FunctionTypeEnum typFunkcji)
         {
             punktyWykresu.Clear();
 
@@ -227,7 +227,7 @@ namespace NumericalCalculator
             }           
         }
 
-        public void RysujFFT(FunctionTypeEnum typFunkcji, int probkowanie, double odciecie = 0.0)
+        public void DrawFT(FunctionTypeEnum typFunkcji, int probkowanie, double odciecie = 0.0)
         {
             punktyWykresu.Clear();
 
@@ -263,7 +263,7 @@ namespace NumericalCalculator
 
             //Nowe przygotowanie
             if (typFunkcji == FunctionTypeEnum.FT)
-                Przygotowanie(funkcja, pWykres, 0, probkowanie + 3, yOd, yDo);
+                Initialize(funkcja, pWykres, 0, probkowanie + 3, yOd, yDo);
 
             //Przeskalowanie pkt-ow
             if (typFunkcji == FunctionTypeEnum.FT)
@@ -360,7 +360,7 @@ namespace NumericalCalculator
             }
         }
 
-        public void RysujRozniczke(FunctionTypeEnum typFunkcji, params double[] parametry)
+        public void DrawDifferential(FunctionTypeEnum typFunkcji, params double[] parametry)
         {
             punktyWykresu.Clear();
 
@@ -548,7 +548,7 @@ namespace NumericalCalculator
             }
         }
 
-        public void RysujBessele(TypFunkcjiBessela typFunkcji, params double[] parametry)
+        public void DrawBessel(BesselFunctionType typFunkcji, params double[] parametry)
         {
             punktyWykresu.Clear();
 
@@ -567,31 +567,31 @@ namespace NumericalCalculator
 
                     switch (typFunkcji)
                     {
-                        case TypFunkcjiBessela.Bessel:
+                        case BesselFunctionType.Bessel:
                             fx = (float)(bnh.Bessel(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.BesselSphere:
+                        case BesselFunctionType.BesselSphere:
                             fx = (float)(bnh.SphBessel(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.BesselSphereDerivative:
+                        case BesselFunctionType.BesselSphereDerivative:
                             fx = (float)(bnh.SphBesselPrim(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.Neumann:
+                        case BesselFunctionType.Neumann:
                             fx = (float)(bnh.Neumann(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.NeumannSphere:
+                        case BesselFunctionType.NeumannSphere:
                             fx = (float)(bnh.SphNeuman(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.NeumannSphereDerivative:
+                        case BesselFunctionType.NeumannSphereDerivative:
                             fx = (float)(bnh.SphNeumanPrim(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric01:
+                        case BesselFunctionType.Hypergeometric01:
                             fx = (float)(bnh.Hyperg_0F_1(parametry[0], parametry[1]) * wspY);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric11:
+                        case BesselFunctionType.Hypergeometric11:
                             fx = (float)(bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]) * wspY);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric21:
+                        case BesselFunctionType.Hypergeometric21:
                             fx = (float)(bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]) * wspY);
                             break;
                         default:
@@ -613,31 +613,31 @@ namespace NumericalCalculator
 
                 switch (typFunkcji)
                 {
-                    case TypFunkcjiBessela.Bessel:
+                    case BesselFunctionType.Bessel:
                         fx = (float)(bnh.Bessel(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.BesselSphere:
+                    case BesselFunctionType.BesselSphere:
                         fx = (float)(bnh.SphBessel(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.BesselSphereDerivative:
+                    case BesselFunctionType.BesselSphereDerivative:
                         fx = (float)(bnh.SphBesselPrim(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.Neumann:
+                    case BesselFunctionType.Neumann:
                         fx = (float)(bnh.Neumann(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.NeumannSphere:
+                    case BesselFunctionType.NeumannSphere:
                         fx = (float)(bnh.SphNeuman(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.NeumannSphereDerivative:
+                    case BesselFunctionType.NeumannSphereDerivative:
                         fx = (float)(bnh.SphNeumanPrim(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric01:
+                    case BesselFunctionType.Hypergeometric01:
                         fx = (float)(bnh.Hyperg_0F_1(parametry[0], parametry[1]) * wspY);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric11:
+                    case BesselFunctionType.Hypergeometric11:
                         fx = (float)(bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]) * wspY);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric21:
+                    case BesselFunctionType.Hypergeometric21:
                         fx = (float)(bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]) * wspY);
                         break;
                     default:
@@ -780,7 +780,7 @@ namespace NumericalCalculator
             return f;
         }
 
-        public double[] Reskalling(TypFunkcjiBessela typFunkcji, params double[] parametry)
+        public double[] Reskalling(BesselFunctionType typFunkcji, params double[] parametry)
         {
             int indexZmiennej = ZnajdzIndexZmiennej(typFunkcji, parametry);
 
@@ -797,31 +797,31 @@ namespace NumericalCalculator
 
                     switch (typFunkcji)
                     {
-                        case TypFunkcjiBessela.Bessel:
+                        case BesselFunctionType.Bessel:
                             fx = (float)bnh.Bessel(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.BesselSphere:
+                        case BesselFunctionType.BesselSphere:
                             fx = (float)bnh.SphBessel(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.BesselSphereDerivative:
+                        case BesselFunctionType.BesselSphereDerivative:
                             fx = (float)bnh.SphBesselPrim(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.Neumann:
+                        case BesselFunctionType.Neumann:
                             fx = (float)bnh.Neumann(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.NeumannSphere:
+                        case BesselFunctionType.NeumannSphere:
                             fx = (float)bnh.SphNeuman(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.NeumannSphereDerivative:
+                        case BesselFunctionType.NeumannSphereDerivative:
                             fx = (float)bnh.SphNeumanPrim(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric01:
+                        case BesselFunctionType.Hypergeometric01:
                             fx = (float)bnh.Hyperg_0F_1(parametry[0], parametry[1]);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric11:
+                        case BesselFunctionType.Hypergeometric11:
                             fx = (float)bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]);
                             break;
-                        case TypFunkcjiBessela.Hypergeometric21:
+                        case BesselFunctionType.Hypergeometric21:
                             fx = (float)bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]);
                             break;
                         default:
@@ -842,31 +842,31 @@ namespace NumericalCalculator
 
                 switch (typFunkcji)
                 {
-                    case TypFunkcjiBessela.Bessel:
+                    case BesselFunctionType.Bessel:
                         fx = (float)bnh.Bessel(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.BesselSphere:
+                    case BesselFunctionType.BesselSphere:
                         fx = (float)bnh.SphBessel(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.BesselSphereDerivative:
+                    case BesselFunctionType.BesselSphereDerivative:
                         fx = (float)bnh.SphBesselPrim(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.Neumann:
+                    case BesselFunctionType.Neumann:
                         fx = (float)bnh.Neumann(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.NeumannSphere:
+                    case BesselFunctionType.NeumannSphere:
                         fx = (float)bnh.SphNeuman(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.NeumannSphereDerivative:
+                    case BesselFunctionType.NeumannSphereDerivative:
                         fx = (float)bnh.SphNeumanPrim(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric01:
+                    case BesselFunctionType.Hypergeometric01:
                         fx = (float)bnh.Hyperg_0F_1(parametry[0], parametry[1]);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric11:
+                    case BesselFunctionType.Hypergeometric11:
                         fx = (float)bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]);
                         break;
-                    case TypFunkcjiBessela.Hypergeometric21:
+                    case BesselFunctionType.Hypergeometric21:
                         fx = (float)bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]);
                         break;
                     default:
@@ -945,14 +945,14 @@ namespace NumericalCalculator
             return f;
         }
 
-        private void NapiszWzorFunkcjiBesselowej(TypFunkcjiBessela typFunkcji, double[] parametry, int indexZmiennej)
+        private void NapiszWzorFunkcjiBesselowej(BesselFunctionType typFunkcji, double[] parametry, int indexZmiennej)
         {
             Font font = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
             string parametryString = string.Empty;
 
             //Zbudowanie stringu parametrow
-            if (typFunkcji == TypFunkcjiBessela.Hypergeometric21)
+            if (typFunkcji == BesselFunctionType.Hypergeometric21)
             {
                 parametryString += (indexZmiennej != 0) ? parametry[0].ToString() : "x";
                 parametryString += ", ";
@@ -962,7 +962,7 @@ namespace NumericalCalculator
                 parametryString += ", ";
                 parametryString += (indexZmiennej != 3) ? parametry[3].ToString() : "x";
             }
-            else if (typFunkcji == TypFunkcjiBessela.Hypergeometric11)
+            else if (typFunkcji == BesselFunctionType.Hypergeometric11)
             {
                 parametryString += (indexZmiennej != 0) ? parametry[0].ToString() : "x";
                 parametryString += ", ";
@@ -980,31 +980,31 @@ namespace NumericalCalculator
             //Wypisanie nazw
             switch (typFunkcji)
             {
-                case TypFunkcjiBessela.Bessel:
+                case BesselFunctionType.Bessel:
                     g.DrawString("Bessel(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.BesselSphere:
+                case BesselFunctionType.BesselSphere:
                     g.DrawString("Sferyczna f. Bessela(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.BesselSphereDerivative:
+                case BesselFunctionType.BesselSphereDerivative:
                     g.DrawString("Poch. sfer. f. Bessela(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.Neumann:
+                case BesselFunctionType.Neumann:
                     g.DrawString("Neumann(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.NeumannSphere:
+                case BesselFunctionType.NeumannSphere:
                     g.DrawString("Sferyczna f. Neumanna(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.NeumannSphereDerivative:
+                case BesselFunctionType.NeumannSphereDerivative:
                     g.DrawString("Poch. sfer. f. Neumanna(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.Hypergeometric01:
+                case BesselFunctionType.Hypergeometric01:
                     g.DrawString("Hipergeometryczna0F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.Hypergeometric11:
+                case BesselFunctionType.Hypergeometric11:
                     g.DrawString("Hipergeometryczna1F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case TypFunkcjiBessela.Hypergeometric21:
+                case BesselFunctionType.Hypergeometric21:
                     g.DrawString("Hipergeometryczna2F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
                 default:
@@ -1115,12 +1115,12 @@ namespace NumericalCalculator
         //    return punkty;
         //}
 
-        private int ZnajdzIndexZmiennej(TypFunkcjiBessela typFunkcji, double[] parametry)
+        private int ZnajdzIndexZmiennej(BesselFunctionType typFunkcji, double[] parametry)
         {
             int indexZmiennej = -1;
 
             //Znalezienie indexu zmiennej
-            if (typFunkcji == TypFunkcjiBessela.Bessel || typFunkcji == TypFunkcjiBessela.BesselSphere || typFunkcji == TypFunkcjiBessela.BesselSphereDerivative || typFunkcji == TypFunkcjiBessela.Neumann || typFunkcji == TypFunkcjiBessela.NeumannSphere || typFunkcji == TypFunkcjiBessela.NeumannSphereDerivative || typFunkcji == TypFunkcjiBessela.Hypergeometric01)
+            if (typFunkcji == BesselFunctionType.Bessel || typFunkcji == BesselFunctionType.BesselSphere || typFunkcji == BesselFunctionType.BesselSphereDerivative || typFunkcji == BesselFunctionType.Neumann || typFunkcji == BesselFunctionType.NeumannSphere || typFunkcji == BesselFunctionType.NeumannSphereDerivative || typFunkcji == BesselFunctionType.Hypergeometric01)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;
@@ -1133,7 +1133,7 @@ namespace NumericalCalculator
                         throw new BesseleSecondArgumentException("Zmienna x może występować tylko jako jeden argument!");
                 }
             }
-            else if (typFunkcji == TypFunkcjiBessela.Hypergeometric11)
+            else if (typFunkcji == BesselFunctionType.Hypergeometric11)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;
@@ -1154,7 +1154,7 @@ namespace NumericalCalculator
                         throw new BesseleThirdArgumentException("Zmienna x może występować tylko jako jeden argument!");
                 }
             }
-            else if (typFunkcji == TypFunkcjiBessela.Hypergeometric21)
+            else if (typFunkcji == BesselFunctionType.Hypergeometric21)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;
@@ -1192,16 +1192,16 @@ namespace NumericalCalculator
     // Konstruktor ------------------------
         public Graph(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
         {
-            Przygotowanie(funk, picWykres, xOd, xDo, yOd, yDo);
+            Initialize(funk, picWykres, xOd, xDo, yOd, yDo);
         }
 
-        private void Przygotowanie(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
+        private void Initialize(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
         {
             if (xDo == xOd)
-                throw new CoordinatesXException("Wspolrzedne x od i do nie mogą być takie same!");
+                throw new CoordinatesXException();
 
             if (yDo == yOd)
-                throw new CoordinatesYException("Wspolrzedne y od i do nie mogą być takie same!");
+                throw new CoordinatesYException();
 
             funkcja = funk;
             this.pWykres = picWykres;

@@ -88,6 +88,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Numerical Calculator.
+        /// </summary>
+        internal static string ApplicationName {
+            get {
+                return ResourceManager.GetString("ApplicationName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Niepoprawny czwarty argument!.
         /// </summary>
         internal static string BesseleFourthArgumentException {
@@ -201,6 +210,60 @@ namespace NumericalCalculator.Translations {
         internal static string chkSpecialFunction {
             get {
                 return ResourceManager.GetString("chkSpecialFunction", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Kopiuj.
+        /// </summary>
+        internal static string contextMenuStrip_copyToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("contextMenuStrip_copyToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapisz.
+        /// </summary>
+        internal static string contextMenuStrip_saveToFileToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("contextMenuStrip_saveToFileToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Zapisz do TXT.
+        /// </summary>
+        internal static string contextMenuStrip_saveToTXTToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("contextMenuStrip_saveToTXTToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wspolrzedne x od i do nie mogą być takie same!.
+        /// </summary>
+        internal static string CoordinatesXException {
+            get {
+                return ResourceManager.GetString("CoordinatesXException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wspolrzedne y od i do nie mogą być takie same!.
+        /// </summary>
+        internal static string CoordinatesYException {
+            get {
+                return ResourceManager.GetString("CoordinatesYException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawnna wartość filtru!.
+        /// </summary>
+        internal static string CutoffValueException {
+            get {
+                return ResourceManager.GetString("CutoffValueException", resourceCulture);
             }
         }
         
@@ -504,6 +567,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to f (.
+        /// </summary>
+        internal static string lblFrom {
+            get {
+                return ResourceManager.GetString("lblFrom", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to dolna.
         /// </summary>
         internal static string lblFrom_Range {
@@ -518,6 +590,15 @@ namespace NumericalCalculator.Translations {
         internal static string lblSampling {
             get {
                 return ResourceManager.GetString("lblSampling", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ) =.
+        /// </summary>
+        internal static string lblTo {
+            get {
+                return ResourceManager.GetString("lblTo", resourceCulture);
             }
         }
         
@@ -684,6 +765,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej argumentów wstawić zmienną x..
+        /// </summary>
+        internal static string MessageBox_btnSpecialFunction_Click {
+            get {
+                return ResourceManager.GetString("MessageBox_btnSpecialFunction_Click", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Podpowiedź.
+        /// </summary>
+        internal static string MessageBox_btnSpecialFunction_Click_Caption {
+            get {
+                return ResourceManager.GetString("MessageBox_btnSpecialFunction_Click_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Błąd!.
         /// </summary>
         internal static string MessageBox_Caption_Error {
@@ -711,6 +810,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Nie udało się skopiować obrazka do schowka..
+        /// </summary>
+        internal static string MessageBox_CopyToClipboard_Failure {
+            get {
+                return ResourceManager.GetString("MessageBox_CopyToClipboard_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Obrazek skopiowany do schowka..
+        /// </summary>
+        internal static string MessageBox_CopyToClipboard_Success {
+            get {
+                return ResourceManager.GetString("MessageBox_CopyToClipboard_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Zinterpretowano E jako liczbę Eulera!.
         /// </summary>
         internal static string MessageBox_EulerWarning {
@@ -734,6 +851,69 @@ namespace NumericalCalculator.Translations {
         internal static string MessageBox_InstallationCorrupted_Caption {
             get {
                 return ResourceManager.GetString("MessageBox_InstallationCorrupted_Caption", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie udało się zapisać pliku..
+        /// </summary>
+        internal static string MessageBox_SaveToFile_Failure {
+            get {
+                return ResourceManager.GetString("MessageBox_SaveToFile_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plik zapisany pomyślnie!.
+        /// </summary>
+        internal static string MessageBox_SaveToFile_Success {
+            get {
+                return ResourceManager.GetString("MessageBox_SaveToFile_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie udało się zapisać pliku..
+        /// </summary>
+        internal static string MessageBox_SaveToTXT_Failure {
+            get {
+                return ResourceManager.GetString("MessageBox_SaveToTXT_Failure", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Brak punktów wykresu!.
+        /// </summary>
+        internal static string MessageBox_SaveToTXT_Failure_LackPoints {
+            get {
+                return ResourceManager.GetString("MessageBox_SaveToTXT_Failure_LackPoints", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Plik zapisany pomyślnie!.
+        /// </summary>
+        internal static string MessageBox_SaveToTXT_Success {
+            get {
+                return ResourceManager.GetString("MessageBox_SaveToTXT_Success", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie wybrano żadnej opcji wykresu!.
+        /// </summary>
+        internal static string NoneGraphOptionCheckedException {
+            get {
+                return ResourceManager.GetString("NoneGraphOptionCheckedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie można narysować tej funkcji w tym przedziale..
+        /// </summary>
+        internal static string OverflowException {
+            get {
+                return ResourceManager.GetString("OverflowException", resourceCulture);
             }
         }
         
@@ -837,6 +1017,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Niepoprawnna wartość próbkowania!.
+        /// </summary>
+        internal static string SamplingValueException {
+            get {
+                return ResourceManager.GetString("SamplingValueException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wykres.
+        /// </summary>
+        internal static string saveFileDialog_FileName {
+            get {
+                return ResourceManager.GetString("saveFileDialog_FileName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!.
         /// </summary>
         internal static string SystemException {
@@ -887,6 +1085,60 @@ namespace NumericalCalculator.Translations {
         internal static string VariableFoundException {
             get {
                 return ResourceManager.GetString("VariableFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawna wartość od osi x.
+        /// </summary>
+        internal static string xFromException {
+            get {
+                return ResourceManager.GetString("xFromException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wartości skali x są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej..
+        /// </summary>
+        internal static string XFromIsGreaterThenXToException {
+            get {
+                return ResourceManager.GetString("XFromIsGreaterThenXToException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawna wartość do osi x.
+        /// </summary>
+        internal static string xToException {
+            get {
+                return ResourceManager.GetString("xToException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawna wartość od osi y.
+        /// </summary>
+        internal static string yFromException {
+            get {
+                return ResourceManager.GetString("yFromException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wartości skali y są niepoprawne. Wartość początkowa skali nie może być większa (lub równa) od wartości końcowej..
+        /// </summary>
+        internal static string YFromIsGreaterThenYToException {
+            get {
+                return ResourceManager.GetString("YFromIsGreaterThenYToException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Niepoprawna wartość do osi y.
+        /// </summary>
+        internal static string yToException {
+            get {
+                return ResourceManager.GetString("yToException", resourceCulture);
             }
         }
     }

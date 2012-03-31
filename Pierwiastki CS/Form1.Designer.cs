@@ -81,9 +81,9 @@
             this.pnlWykres = new System.Windows.Forms.Panel();
             this.picGraph = new System.Windows.Forms.PictureBox();
             this.contextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.zapiszDoPlikuToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.kopiujToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zapiszDoTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtYTo = new System.Windows.Forms.TextBox();
             this.txtXTo = new System.Windows.Forms.TextBox();
             this.txtYFrom = new System.Windows.Forms.TextBox();
@@ -146,7 +146,7 @@
             this.btnCompute.TabIndex = 13;
             this.btnCompute.Text = "Oblicz";
             this.btnCompute.UseVisualStyleBackColor = true;
-            this.btnCompute.Click += new System.EventHandler(this.btnOblicz_Click);
+            this.btnCompute.Click += new System.EventHandler(this.btnCompute_Click);
             // 
             // lblFrom
             // 
@@ -165,7 +165,7 @@
             this.txtFrom.Name = "txtFrom";
             this.txtFrom.Size = new System.Drawing.Size(96, 20);
             this.txtFrom.TabIndex = 11;
-            this.txtFrom.TextChanged += new System.EventHandler(this.txtOd_TextChanged);
+            this.txtFrom.TextChanged += new System.EventHandler(this.txtFrom_TextChanged);
             // 
             // lblTo
             // 
@@ -244,7 +244,7 @@
             this.interpolationApproximationToolStripMenuItem.Name = "interpolationApproximationToolStripMenuItem";
             this.interpolationApproximationToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.interpolationApproximationToolStripMenuItem.Text = "&Interpolacja i aproksymacja";
-            this.interpolationApproximationToolStripMenuItem.Click += new System.EventHandler(this.interpolacjaIAproksymacjaToolStripMenuItem_Click);
+            this.interpolationApproximationToolStripMenuItem.Click += new System.EventHandler(this.interpolationAproximationToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -263,7 +263,7 @@
             this.graphToolStripMenuItem.Name = "graphToolStripMenuItem";
             this.graphToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.graphToolStripMenuItem.Text = "&Wykres";
-            this.graphToolStripMenuItem.Click += new System.EventHandler(this.wykresToolStripMenuItem_Click);
+            this.graphToolStripMenuItem.Click += new System.EventHandler(this.graphToolStripMenuItem_Click);
             // 
             // graphPreviewWhileWindowsScalingToolStripMenuItem
             // 
@@ -273,7 +273,7 @@
             this.graphPreviewWhileWindowsScalingToolStripMenuItem.Name = "graphPreviewWhileWindowsScalingToolStripMenuItem";
             this.graphPreviewWhileWindowsScalingToolStripMenuItem.Size = new System.Drawing.Size(300, 22);
             this.graphPreviewWhileWindowsScalingToolStripMenuItem.Text = "Podgląd wykresu podczas skalowania okna";
-            this.graphPreviewWhileWindowsScalingToolStripMenuItem.Click += new System.EventHandler(this.ZmienUstawinia);
+            this.graphPreviewWhileWindowsScalingToolStripMenuItem.Click += new System.EventHandler(this.ChangeSettings);
             // 
             // languageToolStripMenuItem
             // 
@@ -314,7 +314,7 @@
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.aboutToolStripMenuItem.Text = "&O programie";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.oProgramieToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // functionsToolStripMenuItem
             // 
@@ -388,10 +388,10 @@
             this.pnlKomenda.TabIndex = 1;
             this.pnlKomenda.Visible = false;
             // 
-            // thtFourthCommandArgument
+            // txtFourthCommandArgument
             // 
             this.txtFourthCommandArgument.Location = new System.Drawing.Point(293, 14);
-            this.txtFourthCommandArgument.Name = "thtFourthCommandArgument";
+            this.txtFourthCommandArgument.Name = "txtFourthCommandArgument";
             this.txtFourthCommandArgument.Size = new System.Drawing.Size(24, 20);
             this.txtFourthCommandArgument.TabIndex = 8;
             this.txtFourthCommandArgument.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
@@ -416,7 +416,7 @@
             this.cmbSpecialFunction.Name = "cmbSpecialFunction";
             this.cmbSpecialFunction.Size = new System.Drawing.Size(130, 21);
             this.cmbSpecialFunction.TabIndex = 4;
-            this.cmbSpecialFunction.SelectedIndexChanged += new System.EventHandler(this.cmbKomenda_SelectedIndexChanged);
+            this.cmbSpecialFunction.SelectedIndexChanged += new System.EventHandler(this.cmbCommand_SelectedIndexChanged);
             // 
             // txtFirstCommandArgument
             // 
@@ -650,47 +650,47 @@
             this.pnlWykres.Size = new System.Drawing.Size(400, 368);
             this.pnlWykres.TabIndex = 21;
             // 
-            // picWykres
+            // picGraph
             // 
             this.picGraph.ContextMenuStrip = this.contextMenuStrip;
             this.picGraph.Cursor = System.Windows.Forms.Cursors.Hand;
             this.picGraph.Location = new System.Drawing.Point(-2, -2);
-            this.picGraph.Name = "picWykres";
+            this.picGraph.Name = "picGraph";
             this.picGraph.Size = new System.Drawing.Size(400, 368);
             this.picGraph.TabIndex = 0;
             this.picGraph.TabStop = false;
-            this.picGraph.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseDown);
-            this.picGraph.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picWykres_MouseUp);
+            this.picGraph.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picGraph_MouseDown);
+            this.picGraph.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picGraph_MouseUp);
             // 
             // contextMenuStrip
             // 
             this.contextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.zapiszDoPlikuToolStripMenuItem,
-            this.kopiujToolStripMenuItem,
-            this.zapiszDoTXTToolStripMenuItem});
+            this.saveToFileToolStripMenuItem,
+            this.copyToolStripMenuItem,
+            this.saveToTXTToolStripMenuItem});
             this.contextMenuStrip.Name = "contextMenuStrip";
-            this.contextMenuStrip.Size = new System.Drawing.Size(149, 70);
+            this.contextMenuStrip.Size = new System.Drawing.Size(153, 92);
             // 
-            // zapiszDoPlikuToolStripMenuItem
+            // saveToFileToolStripMenuItem
             // 
-            this.zapiszDoPlikuToolStripMenuItem.Name = "zapiszDoPlikuToolStripMenuItem";
-            this.zapiszDoPlikuToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.zapiszDoPlikuToolStripMenuItem.Text = "&Zapisz";
-            this.zapiszDoPlikuToolStripMenuItem.Click += new System.EventHandler(this.zapiszDoPlikuToolStripMenuItem_Click);
+            this.saveToFileToolStripMenuItem.Name = "saveToFileToolStripMenuItem";
+            this.saveToFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToFileToolStripMenuItem.Text = "&Zapisz";
+            this.saveToFileToolStripMenuItem.Click += new System.EventHandler(this.saveToFileToolStripMenuItem_Click);
             // 
-            // kopiujToolStripMenuItem
+            // copyToolStripMenuItem
             // 
-            this.kopiujToolStripMenuItem.Name = "kopiujToolStripMenuItem";
-            this.kopiujToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.kopiujToolStripMenuItem.Text = "&Kopiuj";
-            this.kopiujToolStripMenuItem.Click += new System.EventHandler(this.kopiujToolStripMenuItem_Click);
+            this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
+            this.copyToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.copyToolStripMenuItem.Text = "&Kopiuj";
+            this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
             // 
-            // zapiszDoTXTToolStripMenuItem
+            // saveToTXTToolStripMenuItem
             // 
-            this.zapiszDoTXTToolStripMenuItem.Name = "zapiszDoTXTToolStripMenuItem";
-            this.zapiszDoTXTToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
-            this.zapiszDoTXTToolStripMenuItem.Text = "Zapisz do TXT";
-            this.zapiszDoTXTToolStripMenuItem.Click += new System.EventHandler(this.zapiszDoTXTToolStripMenuItem_Click);
+            this.saveToTXTToolStripMenuItem.Name = "saveToTXTToolStripMenuItem";
+            this.saveToTXTToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveToTXTToolStripMenuItem.Text = "Zapisz do TXT";
+            this.saveToTXTToolStripMenuItem.Click += new System.EventHandler(this.saveToTXTToolStripMenuItem_Click);
             // 
             // txtYTo
             // 
@@ -765,7 +765,7 @@
             this.btnSpecialFunction.Text = "?";
             this.toolTip.SetToolTip(this.btnSpecialFunction, "Podpowiedzi");
             this.btnSpecialFunction.UseVisualStyleBackColor = true;
-            this.btnSpecialFunction.Click += new System.EventHandler(this.btnFunkcjaSpecjalna_Click);
+            this.btnSpecialFunction.Click += new System.EventHandler(this.btnSpecialFunction_Click);
             // 
             // chkSpecialFunction
             // 
@@ -780,7 +780,7 @@
             this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
         "argumentów wstawić zmienną x.\r\n");
             this.chkSpecialFunction.UseVisualStyleBackColor = true;
-            this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkIFT
             // 
@@ -793,7 +793,7 @@
             this.chkIFT.Text = "IFT";
             this.toolTip.SetToolTip(this.chkIFT, "Inverse Fourier Transform");
             this.chkIFT.UseVisualStyleBackColor = true;
-            this.chkIFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkIFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkFT
             // 
@@ -806,7 +806,7 @@
             this.chkFT.Text = "FT";
             this.toolTip.SetToolTip(this.chkFT, "Fourier Transform");
             this.chkFT.UseVisualStyleBackColor = true;
-            this.chkFT.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // gbPoint
             // 
@@ -840,8 +840,8 @@
             this.gbDrawFunction.TabIndex = 6;
             this.gbDrawFunction.TabStop = false;
             this.gbDrawFunction.Text = "Rysuj";
-            this.gbDrawFunction.Enter += new System.EventHandler(this.GroupBoxWykresowy_Enter);
-            this.gbDrawFunction.Leave += new System.EventHandler(this.GroupBoxWykresowy_Leave);
+            this.gbDrawFunction.Enter += new System.EventHandler(this.gbGraph_Enter);
+            this.gbDrawFunction.Leave += new System.EventHandler(this.gbGraph_Leave);
             // 
             // lblCutoff
             // 
@@ -888,7 +888,7 @@
             this.chkDifferentialII.TabIndex = 21;
             this.chkDifferentialII.Text = "R. Różniczowe Drugiego Rzędu";
             this.chkDifferentialII.UseVisualStyleBackColor = true;
-            this.chkDifferentialII.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkDifferentialII.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkDifferential
             // 
@@ -901,7 +901,7 @@
             this.chkDifferential.TabIndex = 20;
             this.chkDifferential.Text = "Równanie różniczkowe";
             this.chkDifferential.UseVisualStyleBackColor = true;
-            this.chkDifferential.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkDifferential.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkSecondDerivative
             // 
@@ -913,7 +913,7 @@
             this.chkSecondDerivative.TabIndex = 17;
             this.chkSecondDerivative.Text = "Druga pochodna";
             this.chkSecondDerivative.UseVisualStyleBackColor = true;
-            this.chkSecondDerivative.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkSecondDerivative.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkFirstDerivative
             // 
@@ -925,7 +925,7 @@
             this.chkFirstDerivative.TabIndex = 16;
             this.chkFirstDerivative.Text = "Pierwsza pochodna";
             this.chkFirstDerivative.UseVisualStyleBackColor = true;
-            this.chkFirstDerivative.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkFirstDerivative.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkFunction
             // 
@@ -939,7 +939,7 @@
             this.chkFunction.TabIndex = 15;
             this.chkFunction.Text = "Funkcja";
             this.chkFunction.UseVisualStyleBackColor = true;
-            this.chkFunction.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // gbScale
             // 
@@ -958,8 +958,8 @@
             this.gbScale.TabIndex = 7;
             this.gbScale.TabStop = false;
             this.gbScale.Text = "Skala";
-            this.gbScale.Enter += new System.EventHandler(this.GroupBoxWykresowy_Enter);
-            this.gbScale.Leave += new System.EventHandler(this.GroupBoxWykresowy_Leave);
+            this.gbScale.Enter += new System.EventHandler(this.gbGraph_Enter);
+            this.gbScale.Leave += new System.EventHandler(this.gbGraph_Leave);
             // 
             // chkRescaling
             // 
@@ -972,7 +972,7 @@
             this.chkRescaling.TabIndex = 25;
             this.chkRescaling.Text = "Automatyczne skalowanie";
             this.chkRescaling.UseVisualStyleBackColor = true;
-            this.chkRescaling.CheckedChanged += new System.EventHandler(this.ZmienUstawinia);
+            this.chkRescaling.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkY
             // 
@@ -986,7 +986,7 @@
             this.chkY.Size = new System.Drawing.Size(22, 22);
             this.chkY.TabIndex = 24;
             this.chkY.UseVisualStyleBackColor = true;
-            this.chkY.CheckedChanged += new System.EventHandler(this.chkBoxWykres_CheckedChanged);
+            this.chkY.CheckedChanged += new System.EventHandler(this.chkBoxGraph_CheckedChanged);
             // 
             // chkX
             // 
@@ -1000,7 +1000,7 @@
             this.chkX.Size = new System.Drawing.Size(22, 22);
             this.chkX.TabIndex = 23;
             this.chkX.UseVisualStyleBackColor = true;
-            this.chkX.CheckedChanged += new System.EventHandler(this.chkBoxWykres_CheckedChanged);
+            this.chkX.CheckedChanged += new System.EventHandler(this.chkBoxGraph_CheckedChanged);
             // 
             // saveFileDialog
             // 
@@ -1009,10 +1009,10 @@
             this.saveFileDialog.Filter = "JPEG|*.jpg";
             this.saveFileDialog.Title = "PierwiastkiCS";
             // 
-            // txtDoII
+            // txtToII
             // 
             this.txtToII.Location = new System.Drawing.Point(108, 16);
-            this.txtToII.Name = "txtDoII";
+            this.txtToII.Name = "txtToII";
             this.txtToII.Size = new System.Drawing.Size(44, 20);
             this.txtToII.TabIndex = 12;
             // 
@@ -1026,13 +1026,13 @@
             this.lblDoII.TabIndex = 12;
             this.lblDoII.Text = ") =";
             // 
-            // txtOdII
+            // txtFromII
             // 
             this.txtFromII.Location = new System.Drawing.Point(30, 16);
-            this.txtFromII.Name = "txtOdII";
+            this.txtFromII.Name = "txtFromII";
             this.txtFromII.Size = new System.Drawing.Size(44, 20);
             this.txtFromII.TabIndex = 11;
-            this.txtFromII.TextChanged += new System.EventHandler(this.txtOd_TextChanged);
+            this.txtFromII.TextChanged += new System.EventHandler(this.txtFrom_TextChanged);
             // 
             // lblOdII
             // 
@@ -1189,8 +1189,8 @@
         private System.Windows.Forms.CheckBox chkFirstDerivative;
         private System.Windows.Forms.CheckBox chkFunction;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip;
-        private System.Windows.Forms.ToolStripMenuItem zapiszDoPlikuToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem kopiujToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialog;
         private System.Windows.Forms.CheckBox chkX;
         private System.Windows.Forms.CheckBox chkY;
@@ -1225,7 +1225,7 @@
         private System.Windows.Forms.Label lblCutoff;
         private System.Windows.Forms.Label lblSampling;
         private System.Windows.Forms.TextBox txtSampling;
-        private System.Windows.Forms.ToolStripMenuItem zapiszDoTXTToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToTXTToolStripMenuItem;
         private System.Windows.Forms.SaveFileDialog saveFileDialogTXT;
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;

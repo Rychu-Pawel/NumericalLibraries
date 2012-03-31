@@ -96,46 +96,19 @@ namespace NumericalCalculator
     }
 
     class CoordinatesXException : Exception
-    {
-        public CoordinatesXException(string msg)
-            : base(msg)
-        { }
-    }
+    { }
 
     class CoordinatesYException : Exception
-    {
-        public CoordinatesYException(string msg)
-            : base(msg)
-        { }
-    }
+    { }
 
     class NoneGraphOptionCheckedException : Exception
-    {
-        public NoneGraphOptionCheckedException()
-            : base("Nie wybrano żadnej opcji wykresu!") { }
-    }
+    { }
 
-    class FilterValueException : Exception
-    {
-        public FilterValueException()
-            : base("Niepoprawnna wartość filtru!")
-        { }
-
-        public FilterValueException(string msg)
-            : base(msg)
-        { }
-    }
+    class CutoffValueException : Exception
+    { }
 
     class SamplingValueException : Exception
-    {
-        public SamplingValueException()
-            : base("Niepoprawnna wartość próbkowania!")
-        { }
-
-        public SamplingValueException(string msg)
-            : base(msg)
-        { }
-    }
+    { }
 
     enum FunctionTypeEnum
     {
@@ -157,7 +130,7 @@ namespace NumericalCalculator
         Hypergeometric21,
     }
 
-    enum TypFunkcjiBessela
+    enum BesselFunctionType
     {
         Bessel,
         BesselSphere,
@@ -168,5 +141,24 @@ namespace NumericalCalculator
         Hypergeometric01,
         Hypergeometric11,
         Hypergeometric21,
+    }
+
+    enum ArgumentTypeEnum
+    {
+        Point,
+        From,
+        To,
+        FromII,
+        ToII,
+        BesselFirst,
+        BesselSecond,
+        BesselThird,
+        BesselFourth,
+        Sampling,
+        Cutoff,
+        xFrom,
+        xTo,
+        yFrom,
+        yTo,
     }
 }
