@@ -7,14 +7,24 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Resources;
 
 namespace NumericalCalculator
 {
     public partial class AboutForm : Form
     {
-        public AboutForm()
+        ResourceManager language;
+        Settings settings;
+
+        public AboutForm(ResourceManager language, Settings settings)
         {
             InitializeComponent();
+
+            this.language = language;
+            this.settings = settings;
+
+            //Translacja
+            Language.TranslateControl(this, language, "AboutForm_");
         }
 
         private void btnOK_Click(object sender, EventArgs e)

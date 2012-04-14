@@ -18,7 +18,7 @@ namespace NumericalCalculator
         /// </summary>
         /// <param name="control">Control to translate</param>
         /// <param name="language">Resources file containing translation strings</param>
-        /// <param name="prefix">Prefix to add to control stranslation strings. For example for AboutForm it is "AboutForm_".</param>
+        /// <param name="prefix">Prefix to add to control translation strings. For example for AboutForm it is "AboutForm_".</param>
         public static void TranslateControl(Control control, ResourceManager language, string prefix = "")
         {
             string text = language.GetString(prefix + control.Name);

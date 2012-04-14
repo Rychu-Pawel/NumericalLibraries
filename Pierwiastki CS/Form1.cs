@@ -1330,7 +1330,7 @@ namespace NumericalCalculator
         //AboutBox
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm aboutForm = new AboutForm();
+            AboutForm aboutForm = new AboutForm(language, settings);
             aboutForm.Show();
         }
 

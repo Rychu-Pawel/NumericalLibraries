@@ -63,9 +63,9 @@ namespace NumericalCalculator.Translations {
         /// <summary>
         ///   Looks up a localized string similar to O programie.
         /// </summary>
-        internal static string AboutForm {
+        internal static string AboutForm_AboutForm {
             get {
-                return ResourceManager.GetString("AboutForm", resourceCulture);
+                return ResourceManager.GetString("AboutForm_AboutForm", resourceCulture);
             }
         }
         

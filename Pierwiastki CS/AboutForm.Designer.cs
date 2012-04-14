@@ -91,7 +91,7 @@
             // lblVersionValue
             // 
             this.lblVersionValue.AutoSize = true;
-            this.lblVersionValue.Location = new System.Drawing.Point(53, 45);
+            this.lblVersionValue.Location = new System.Drawing.Point(63, 45);
             this.lblVersionValue.Name = "lblVersionValue";
             this.lblVersionValue.Size = new System.Drawing.Size(31, 13);
             this.lblVersionValue.TabIndex = 7;
