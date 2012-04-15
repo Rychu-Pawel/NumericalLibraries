@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.dgvInterpolacja = new System.Windows.Forms.DataGridView();
+            this.dgvInterpolation = new System.Windows.Forms.DataGridView();
             this.x = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fx = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.btnCompute = new System.Windows.Forms.Button();
@@ -40,7 +40,7 @@
             this.gbApproximation = new System.Windows.Forms.GroupBox();
             this.nudLevel = new System.Windows.Forms.NumericUpDown();
             this.rbApproximation = new System.Windows.Forms.RadioButton();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInterpolacja)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInterpolation)).BeginInit();
             this.gbInterpolation.SuspendLayout();
             this.gbApproximation.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nudLevel)).BeginInit();
@@ -48,14 +48,14 @@
             // 
             // dgvInterpolacja
             // 
-            this.dgvInterpolacja.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvInterpolacja.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.dgvInterpolation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvInterpolation.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.x,
             this.fx});
-            this.dgvInterpolacja.Location = new System.Drawing.Point(19, 12);
-            this.dgvInterpolacja.Name = "dgvInterpolacja";
-            this.dgvInterpolacja.Size = new System.Drawing.Size(260, 199);
-            this.dgvInterpolacja.TabIndex = 0;
+            this.dgvInterpolation.Location = new System.Drawing.Point(19, 12);
+            this.dgvInterpolation.Name = "dgvInterpolacja";
+            this.dgvInterpolation.Size = new System.Drawing.Size(260, 199);
+            this.dgvInterpolation.TabIndex = 0;
             // 
             // x
             // 
@@ -101,7 +101,7 @@
             this.btnApply.TabIndex = 4;
             this.btnApply.Text = "Zatwierdz";
             this.btnApply.UseVisualStyleBackColor = true;
-            this.btnApply.Click += new System.EventHandler(this.btnZatwierdz_Click);
+            this.btnApply.Click += new System.EventHandler(this.btnApply_Click);
             // 
             // gbInterpolation
             // 
@@ -124,7 +124,7 @@
             this.rbInterpolation.TabStop = true;
             this.rbInterpolation.Text = "Interpolacja Lagrange\'a";
             this.rbInterpolation.UseVisualStyleBackColor = true;
-            this.rbInterpolation.CheckedChanged += new System.EventHandler(this.rbInterpolacja_CheckedChanged);
+            this.rbInterpolation.CheckedChanged += new System.EventHandler(this.rbInterpolation_CheckedChanged);
             // 
             // gbApproximation
             // 
@@ -169,7 +169,7 @@
             this.rbApproximation.TabStop = true;
             this.rbApproximation.Text = "Aproksymacja stopnia";
             this.rbApproximation.UseVisualStyleBackColor = true;
-            this.rbApproximation.CheckedChanged += new System.EventHandler(this.rbRegresjaLiniowa_CheckedChanged);
+            this.rbApproximation.CheckedChanged += new System.EventHandler(this.rbApproximation_CheckedChanged);
             // 
             // InterpolationForm
             // 
@@ -183,14 +183,14 @@
             this.Controls.Add(this.lblResult);
             this.Controls.Add(this.txtFunction);
             this.Controls.Add(this.btnCompute);
-            this.Controls.Add(this.dgvInterpolacja);
+            this.Controls.Add(this.dgvInterpolation);
             this.MaximumSize = new System.Drawing.Size(314, 1000);
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(314, 440);
             this.Name = "InterpolationForm";
             this.Text = "Interpolacja";
-            this.Resize += new System.EventHandler(this.InterpolacjaForm_Resize);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvInterpolacja)).EndInit();
+            this.Resize += new System.EventHandler(this.InterpolationForm_Resize);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvInterpolation)).EndInit();
             this.gbInterpolation.ResumeLayout(false);
             this.gbInterpolation.PerformLayout();
             this.gbApproximation.ResumeLayout(false);
@@ -203,7 +203,7 @@
 
         #endregion
 
-        private System.Windows.Forms.DataGridView dgvInterpolacja;
+        private System.Windows.Forms.DataGridView dgvInterpolation;
         private System.Windows.Forms.DataGridViewTextBoxColumn x;
         private System.Windows.Forms.DataGridViewTextBoxColumn fx;
         private System.Windows.Forms.Button btnCompute;

@@ -6,128 +6,121 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Resources;
 
 namespace NumericalCalculator
 {
-    public partial class InterpolationForm : Form
+    public partial class InterpolationForm : LanguageForm
     {
-        private Form1 f1;
-        public InterpolationForm(Form1 f)
+        //Event
+        public delegate void FunctionAcceptedEventHandler(string function);
+        public event FunctionAcceptedEventHandler FunctionAccepted;
+
+        //Variables
+        string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
+
+        public InterpolationForm(string changeFrom, string changeTo, ResourceManager language, Settings settings)
         {
             InitializeComponent();
-            f1 = f;
-        }
 
-//btnOblicz
+            this.changeFrom = changeFrom;
+            this.changeTo = changeTo;
+
+            TranslateControl(language, settings);
+        }
 
         private void btnInterpoluj_Click(object sender, EventArgs e)
         {
-            //Interpolacja
-            if (rbInterpolation.Checked == true)
+            try
             {
-                try
+                //Interpolacja
+                if (rbInterpolation.Checked == true)
                 {
                     // ZMIENNE
-                    Interpolacja interpolacja = new Interpolacja();
-                    interpolacja.iloscPunktow = dgvInterpolacja.Rows.Count - 1;
-                    interpolacja.punkty = new double[2, interpolacja.iloscPunktow];
+                    Interpolation interpolation = new Interpolation();
+                    interpolation.iloscPunktow = dgvInterpolation.Rows.Count - 1;
+                    interpolation.points = new double[2, interpolation.iloscPunktow];
 
                     // WCZYTANIE PUNKTOW I SPRAWDZENIE BLEDOW
-                
+
                     // Wczytanie punktow do pamieci
-                    for (int i = 0; i < interpolacja.iloscPunktow; i++)
+                    for (int i = 0; i < interpolation.iloscPunktow; i++)
                     {
-                        interpolacja.punkty[0, i] = Convert.ToDouble(dgvInterpolacja[0, i].Value.ToString().Replace(f1.changeFrom, f1.changeTo));
-                        interpolacja.punkty[1, i] = Convert.ToDouble(dgvInterpolacja[1, i].Value.ToString().Replace(f1.changeFrom, f1.changeTo));
+                        interpolation.points[0, i] = Convert.ToDouble(dgvInterpolation[0, i].Value.ToString().Replace(changeFrom, changeTo));
+                        interpolation.points[1, i] = Convert.ToDouble(dgvInterpolation[1, i].Value.ToString().Replace(changeFrom, changeTo));
                     }
 
-                    txtFunction.Text = interpolacja.Oblicz();
+                    txtFunction.Text = interpolation.Oblicz();
                 }
-                catch (FunctionException excep)
+                //Aproksymacja
+                else if (rbApproximation.Checked == true)
                 {
-                    MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtFunction.Focus();
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Nie wszystkie komórki zostały wypełnione!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (System.FormatException)
-                {
-                    MessageBox.Show("Błędne wartości w komórkach!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception excep)
-                {
-                    MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Approximation approximation = new Approximation(dgvInterpolation, (int)nudLevel.Value, changeFrom, changeTo);
+
+                    txtFunction.Text = approximation.Oblicz();
+
+                    //TODO: Sprawdzenie czy wynik jest sensowny - komentarz po latach: nie wiem jak zamierzalem to zrobic (i po co)?
                 }
             }
-            //Regresja
-            else if (rbApproximation.Checked == true)
+            catch (WrongApproximationLevelException)
             {
-                try
-                {
-                    Aproksymacja aproksymacja = new Aproksymacja(dgvInterpolacja, (int)nudLevel.Value, f1.changeFrom, f1.changeTo);
-
-                    txtFunction.Text = aproksymacja.Oblicz();
-
-                    //Sprawdzenie czy wynik jest sensowny
-                    
-                }
-                catch (FunctionException excep)
-                {
-                    MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    txtFunction.Focus();
-                }
-                catch (NullReferenceException)
-                {
-                    MessageBox.Show("Nie wszystkie komórki zostały wypełnione!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (System.FormatException)
-                {
-                    MessageBox.Show("Błędne wartości w komórkach!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-                catch (Exception excep)
-                {
-                    if (excep.Message == "Układ sprzeczny!")
-                        MessageBox.Show("Nie mogę zaproksymować funkcji. Spróbuj aproksymacji innego stopnia.", "Bład!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    else
-                        MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                MessageBox.Show(language.GetString("InterpolationForm_WrongApproximationLevelException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (NoPointsProvidedException)
+            {
+                MessageBox.Show(language.GetString("InterpolationForm_NoPointsProvidedException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FunctionException excep)
+            {
+                MessageBox.Show(excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtFunction.Focus();
+            }
+            catch (InconsistentSystemOfEquationsException)
+            {
+                MessageBox.Show(language.GetString("InterpolationForm_InconsistentSystemOfEquationsException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (NullReferenceException)
+            {
+                MessageBox.Show(language.GetString("InterpolationForm_NullReferenceException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (FormatException)
+            {
+                MessageBox.Show(language.GetString("InterpolationForm_FormatException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-//btnZatwierdz
-
-        private void btnZatwierdz_Click(object sender, EventArgs e)
+        private void btnApply_Click(object sender, EventArgs e)
         {
             if (txtFunction.Text != string.Empty)
             {
-                f1.txtFunction.Text = txtFunction.Text;
+                FunctionAccepted(txtFunction.Text);
                 Close();
             }
             else
-                MessageBox.Show("Najpierw zinterpoluj lub zaaproksymuj funkcje.", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show(language.GetString("InterpolationForm_MessageBox_btnApply"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-//Radio Buttony
-
-        private void rbInterpolacja_CheckedChanged(object sender, EventArgs e)
+        private void rbInterpolation_CheckedChanged(object sender, EventArgs e)
         {
             if (rbInterpolation.Checked == true)
                 rbApproximation.Checked = false;
         }
 
-        private void rbRegresjaLiniowa_CheckedChanged(object sender, EventArgs e)
+        private void rbApproximation_CheckedChanged(object sender, EventArgs e)
         {
             if (rbApproximation.Checked == true)
                 rbInterpolation.Checked = false;
         }
 
-        private void InterpolacjaForm_Resize(object sender, EventArgs e)
+        private void InterpolationForm_Resize(object sender, EventArgs e)
         {
             int gain = Height - 440;
 
-            dgvInterpolacja.Height = 199 + gain;
+            dgvInterpolation.Height = 199 + gain;
             gbInterpolation.Top = 217 + gain;
             gbApproximation.Top = 273 + gain;
             lblResult.Top = 343 + gain;

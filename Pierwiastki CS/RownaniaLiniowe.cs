@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class RownaniaLiniowe
+    class LinearEquation
     {
     //ZMIENNE --------------------------
         private int iloscZmiennych;
@@ -44,7 +44,7 @@ namespace NumericalCalculator
                 niewiadome[i] = wspolczynniki[iloscZmiennych, i] / wspolczynniki[i, i];
 
                 if (double.IsNaN(niewiadome[i]))
-                    throw new FunctionException("Układ sprzeczny!");
+                    throw new InconsistentSystemOfEquationsException();
 
                 //Formatowanie niewiadomoej, żeby 4,0000000000001 wypluł jako 4
                 if (Math.Abs(niewiadome[i] - Math.Floor(niewiadome[i])) < 0.000000001)
@@ -70,7 +70,7 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR ----------------------
-        public RownaniaLiniowe(System.Windows.Forms.DataGridView dgvGauss, string zamienZ, string zamienNa)
+        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss, string zamienZ, string zamienNa)
         {
             iloscZmiennych = dgvGauss.Rows.Count;
 
@@ -83,7 +83,7 @@ namespace NumericalCalculator
             niewiadome = new double[iloscZmiennych];
         }
 
-        public RownaniaLiniowe(double[,] wspolczynniki)
+        public LinearEquation(double[,] wspolczynniki)
         {
             //to powinno byc odkreskowane, ale cos zle dziala :/
             //if (wspolczynniki.GetLength(0) != wspolczynniki.GetLength(1) - 1)

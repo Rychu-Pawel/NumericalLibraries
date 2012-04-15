@@ -168,7 +168,7 @@
   <data name="menuStrip_fileToolStripMenuItem" xml:space="preserve">
     <value>&amp;File</value>
   </data>
-  <data name="FunctionForm" xml:space="preserve">
+  <data name="FunctionForm_FunctionForm" xml:space="preserve">
     <value>Functions</value>
   </data>
   <data name="FunctionForm_lblBody" xml:space="preserve">
@@ -206,12 +206,13 @@ For example: E-05 = 10^(-5)
 
 Caution!
 
-In operation arguments in situations when E symbol is used incorrectly it will be treated as Euler's number (2.71828183).
-Thanks to that you can integrate from -E to 2/3*E
+In operation arguments in situations when E symbol is used incorrectly it will be treated as 
+Euler's number (2.71828183). Thanks to that you can integrate from -E to 2/3*E
 
 Application ignores spaces in formulas.
 
-Application can't compute imaginary numbers. If during computations Numrical Calculator encounter imaginary numbers it will return "not a number" result. 
+Application can't compute imaginary numbers. If during computations
+Numrical Calculator encounter imaginary numbers it will return "not a number" result. 
 
 You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   </data>
@@ -254,7 +255,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="menuStrip_interpolationApproximationToolStripMenuItem" xml:space="preserve">
     <value>&amp;Interpolation and approximation</value>
   </data>
-  <data name="InterpolationForm" xml:space="preserve">
+  <data name="InterpolationForm_InterpolationForm" xml:space="preserve">
     <value>Interpolation</value>
   </data>
   <data name="InterpolationForm_btnApply" xml:space="preserve">
@@ -287,14 +288,14 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="lblSampling" xml:space="preserve">
     <value>Sampling:</value>
   </data>
-  <data name="LinearEquationForm" xml:space="preserve">
+  <data name="LinearEquationForm_LinearEquationForm" xml:space="preserve">
     <value>Linear equation</value>
   </data>
   <data name="LinearEquationForm_btnCompute" xml:space="preserve">
     <value>Compute</value>
   </data>
   <data name="LinearEquationForm_lblNumberOfVariables" xml:space="preserve">
-    <value>Number of variables</value>
+    <value>Number of variables:</value>
   </data>
   <data name="LinearEquationForm_lblResults" xml:space="preserve">
     <value>Result:</value>
@@ -450,10 +451,10 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Incorrect cut-off value!</value>
   </data>
   <data name="lblFrom" xml:space="preserve">
-    <value>f (</value>
+    <value>from</value>
   </data>
   <data name="lblTo" xml:space="preserve">
-    <value>) =</value>
+    <value>to</value>
   </data>
   <data name="MessageBox_btnSpecialFunction_Click" xml:space="preserve">
     <value>Check Special Function in Operation section and insert x variable as one of its arguments.</value>
@@ -511,5 +512,35 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   </data>
   <data name="yToException" xml:space="preserve">
     <value>Incorrect y-asix "to" value</value>
+  </data>
+  <data name="InterpolationForm_FormatException" xml:space="preserve">
+    <value>Incorrect values in some cells!</value>
+  </data>
+  <data name="InterpolationForm_InconsistentSystemOfEquationsException" xml:space="preserve">
+    <value>Can't approximat function. Try other level of approximation.</value>
+  </data>
+  <data name="InterpolationForm_MessageBox_btnApply" xml:space="preserve">
+    <value>Run interpolation or approximation first.</value>
+  </data>
+  <data name="InterpolationForm_NoPointsProvidedException" xml:space="preserve">
+    <value>No points were provided!</value>
+  </data>
+  <data name="InterpolationForm_NullReferenceException" xml:space="preserve">
+    <value>Provide values for all cells!</value>
+  </data>
+  <data name="InterpolationForm_WrongApproximationLevelException" xml:space="preserve">
+    <value>Wrong approximation level - expected greater than zero!</value>
+  </data>
+  <data name="LinearEquation_FormatException" xml:space="preserve">
+    <value>Incorrect values in some cells!</value>
+  </data>
+  <data name="LinearEquation_NullReferenceException" xml:space="preserve">
+    <value>Provide values for all cells!</value>
+  </data>
+  <data name="NaNOccuredException" xml:space="preserve">
+    <value>There are no solutions in the real numbers set!</value>
+  </data>
+  <data name="NoneOrFewRootsOnGivenIntervalException" xml:space="preserve">
+    <value>None or few roots on given interval</value>
   </data>
 </root>

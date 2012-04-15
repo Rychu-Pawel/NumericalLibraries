@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Aproksymacja
+    class Approximation
     {
     //ZMIENNE ------------------------
         private int iloscPunktow, stopien;
@@ -120,7 +120,7 @@ namespace NumericalCalculator
                 wspolczynniki[stopien + 1, i] = Eyx[i];
 
             //Wyliczenie wspolczynnikow
-            RownaniaLiniowe Gauss = new RownaniaLiniowe(wspolczynniki);
+            LinearEquation Gauss = new LinearEquation(wspolczynniki);
             x = Gauss.Oblicz();
         }
 
@@ -212,17 +212,17 @@ namespace NumericalCalculator
         }
 
         private string FormatujWynik()
-        //UWAGA!!!!! WYŁĄCZONE (wykomentowane) JEST POMIJANIE MAŁYCH WSPÓŁCZYNNIKÓW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        {
-            int znak = 2;
-            string funkcja = string.Empty;
-
-            //Formatowanie wyjsciowego stringa
-            for (int i = stopien; i >= 0; i--)
-            {
-                if (znak++ % 2 == 0) // ZNAK DODATNI PRZY X
-                {
-                    //if (!(Math.Abs(x[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija
+        //UWAGA!!!!! WYŁĄCZONE (wykomentowane) JEST POMIJANIE MAŁYCH WSPÓŁCZYNNIKÓW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ---
+        {                          //                                                                                  \
+            int znak = 2;          //                                                                                   \   
+            string funkcja = string.Empty;                         //                                                    \
+                                                                   //                                                     \
+            //Formatowanie wyjsciowego stringa                                                                             \
+            for (int i = stopien; i >= 0; i--)                     //                                                       \
+            {                                                      //                                                       /
+                if (znak++ % 2 == 0) // ZNAK DODATNI PRZY X                                                                /
+                {                                                  //                                                     /
+                    //if (!(Math.Abs(x[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija   <------
                     //{
                         if (x[i] < 0 && x[i] != 1 && x[i] != -1) // + i - daje -
                         {
@@ -320,7 +320,7 @@ namespace NumericalCalculator
             else if (stopien == 2)
                 return ObliczRegresjeKwadratowa();
             else if (stopien < 1)
-                throw new FunctionException("Bledny stopien ekstrapolacji. Oczekiwano stopnia > 0");
+                throw new WrongApproximationLevelException();
             else
             {
                 Sprawdzenie();
@@ -337,7 +337,7 @@ namespace NumericalCalculator
         }
 
     //KONSTRUKTOR --------------------
-        public Aproksymacja(System.Windows.Forms.DataGridView dgvEkstrapolacja, int stopien, string zamienZ, string zamienNa)
+        public Approximation(System.Windows.Forms.DataGridView dgvEkstrapolacja, int stopien, string zamienZ, string zamienNa)
         {
             iloscPunktow = dgvEkstrapolacja.Rows.Count - 1;
             this.stopien = stopien;

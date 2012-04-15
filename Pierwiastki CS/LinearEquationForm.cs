@@ -6,19 +6,22 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Resources;
 
 namespace NumericalCalculator
 {
-    public partial class LinearEquationForm : Form
+    public partial class LinearEquationForm : LanguageForm
     {
         string zamienZ, zamienNa; //kropki i przecinki do zamieniania podczas konwersji string na double
 
-        public LinearEquationForm(string zamienZ, string zamienNa)
+        public LinearEquationForm(string zamienZ, string zamienNa, ResourceManager language, Settings settings)
         {
             InitializeComponent();
 
             this.zamienZ = zamienZ;
             this.zamienNa = zamienNa;
+
+            TranslateControl(language, settings);
         }
 
         private void numericUpDown1_ValueChanged(object sender, EventArgs e)
@@ -26,56 +29,56 @@ namespace NumericalCalculator
             //Zmiana liczby kolumn w dgvRownania i Wyniki
             try
             {
-                int iloscZmiennych = Convert.ToInt32(nudNumberOfVariables.Value);
+                int variablesNumber = Convert.ToInt32(nudNumberOfVariables.Value);
 
                 //zwiekszanie
-                if (iloscZmiennych > dgvEquations.Columns.Count - 1)
+                if (variablesNumber > dgvEquations.Columns.Count - 1)
                 {
                     //Przemienienie kolumny "r" na "xN"
                     dgvEquations.Columns["r"].HeaderText = "x" + Convert.ToString(dgvEquations.Columns.Count);
                     dgvEquations.Columns["r"].Name = "x" + Convert.ToString(dgvEquations.Columns.Count);
                     
                     //Dodadanie dodatkowych kolumn do rownan
-                    for (int i = dgvEquations.Columns.Count + 1; i <= iloscZmiennych; i++)
+                    for (int i = dgvEquations.Columns.Count + 1; i <= variablesNumber; i++)
                         dgvEquations.Columns.Add("x" + Convert.ToString(i), "x" + Convert.ToString(i));
 
                     //Dodadnie kolumny wyniki
                     dgvEquations.Columns.Add("r", "r");
 
                     //Dodanie dodatkowych rowkow do rownan
-                    for (int i = dgvEquations.Rows.Count; i < iloscZmiennych; i++)
+                    for (int i = dgvEquations.Rows.Count; i < variablesNumber; i++)
                         dgvEquations.Rows.Add();
 
                     //Dodawanie dodatkowych kolumn do wynikow
-                    for(int i = dgvResults.Columns.Count + 1; i <= iloscZmiennych; i++)
+                    for(int i = dgvResults.Columns.Count + 1; i <= variablesNumber; i++)
                         dgvResults.Columns.Add("x" + Convert.ToString(i), "x" + Convert.ToString(i));
                 }
                 //zmniejszanie
                 else
                 {
                     //Odejmowanie column od rownan
-                    for(int i = dgvEquations.Columns.Count; i > iloscZmiennych + 1; i--)
+                    for(int i = dgvEquations.Columns.Count; i > variablesNumber + 1; i--)
                         dgvEquations.Columns.Remove(dgvEquations.Columns[dgvEquations.Columns.Count - 1]);
 
                     dgvEquations.Columns[dgvEquations.Columns.Count - 1].HeaderText = "r";
                     dgvEquations.Columns[dgvEquations.Columns.Count - 1].Name = "r";
 
                     //odejmowanie rowkow od rownan
-                    for (int i = dgvEquations.Rows.Count; i > iloscZmiennych; i--)
+                    for (int i = dgvEquations.Rows.Count; i > variablesNumber; i--)
                         dgvEquations.Rows.Remove(dgvEquations.Rows[dgvEquations.Rows.Count - 1]);
 
                     //odejmowanie kolumn od wynikow
-                    for (int i = dgvResults.Columns.Count; i > iloscZmiennych; i--)
+                    for (int i = dgvResults.Columns.Count; i > variablesNumber; i--)
                         dgvResults.Columns.Remove(dgvResults.Columns[dgvResults.Columns.Count - 1]);
                 }
             }
-            catch (SystemException excep)
+            catch (Exception excep)
             {
-                MessageBox.Show(excep.Message, "Blad!", MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
+                MessageBox.Show(excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error, MessageBoxDefaultButton.Button1);
             }
         }
 
-        private void RownaniaLinioweForm_Load(object sender, EventArgs e)
+        private void LinearEquationForm_Load(object sender, EventArgs e)
         {
             dgvEquations.Rows.Add(2);
             dgvResults.Rows.Add();
@@ -86,7 +89,7 @@ namespace NumericalCalculator
         {
             try
             {
-                RownaniaLiniowe Gauss = new RownaniaLiniowe(dgvEquations, zamienZ, zamienNa);
+                LinearEquation Gauss = new LinearEquation(dgvEquations, zamienZ, zamienNa);
 
                 double[] niewiadome = Gauss.Oblicz();
 
@@ -95,28 +98,33 @@ namespace NumericalCalculator
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Nie wszystkie komorki zostaly wypelnione!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                for (int i = 0; i < dgvResults.Columns.Count; i++)
-                    dgvResults[i, 0].Value = string.Empty;
+                HandleException(language.GetString("LinearEquation_NullReferenceException"));
             }
-            catch (System.FormatException)
+            catch (FormatException)
             {
-                MessageBox.Show("Błędne wartosci w komórkach!", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                for (int i = 0; i < dgvResults.Columns.Count; i++)
-                    dgvResults[i, 0].Value = string.Empty;
+                HandleException(language.GetString("LinearEquation_FormatException"));
             }
             catch (SystemException excep)
             {
-                MessageBox.Show(excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                for (int i = 0; i < dgvResults.Columns.Count; i++)
-                    dgvResults[i, 0].Value = string.Empty;
+                HandleException(excep.Message);
             }
         }
 
-        private void RownaniaLinioweForm_Resize(object sender, EventArgs e)
+        private void HandleException(string message)
+        {
+            MessageBox.Show(message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            //Czyszczenie resultow
+            ClearResults();
+        }
+
+        private void ClearResults()
+        {
+            for (int i = 0; i < dgvResults.Columns.Count; i++)
+                dgvResults[i, 0].Value = string.Empty;
+        }
+
+        private void LinearEquationForm_Resize(object sender, EventArgs e)
         {
             int gainX = Width - 598;
             int gainY = Height - 404; //Height not found :O

@@ -11,20 +11,12 @@ using System.Resources;
 
 namespace NumericalCalculator
 {
-    public partial class AboutForm : Form
+    public partial class AboutForm : LanguageForm
     {
-        ResourceManager language;
-        Settings settings;
-
         public AboutForm(ResourceManager language, Settings settings)
         {
             InitializeComponent();
-
-            this.language = language;
-            this.settings = settings;
-
-            //Translacja
-            Language.TranslateControl(this, language, "AboutForm_");
+            TranslateControl(language, settings);
         }
 
         private void btnOK_Click(object sender, EventArgs e)

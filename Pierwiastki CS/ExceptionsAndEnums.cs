@@ -110,6 +110,21 @@ namespace NumericalCalculator
     class SamplingValueException : Exception
     { }
 
+    class InconsistentSystemOfEquationsException : Exception
+    { }
+
+    class NoPointsProvidedException : Exception
+    { }
+
+    class WrongApproximationLevelException : Exception
+    { }
+
+    class NaNOccuredException : Exception
+    { }
+
+    class NoneOrFewRootsOnGivenIntervalException : Exception
+    { }
+
     enum FunctionTypeEnum
     {
         Function,

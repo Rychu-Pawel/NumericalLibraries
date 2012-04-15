@@ -81,11 +81,11 @@
             this.lblNumberOfVariables.Name = "lblNumberOfVariables";
             this.lblNumberOfVariables.Size = new System.Drawing.Size(85, 13);
             this.lblNumberOfVariables.TabIndex = 1;
-            this.lblNumberOfVariables.Text = "Ilosc zmiennych:";
+            this.lblNumberOfVariables.Text = "Ilość zmiennych:";
             // 
             // nudNumberOfVariables
             // 
-            this.nudNumberOfVariables.Location = new System.Drawing.Point(103, 7);
+            this.nudNumberOfVariables.Location = new System.Drawing.Point(122, 7);
             this.nudNumberOfVariables.Minimum = new decimal(new int[] {
             2,
             0,
@@ -157,8 +157,8 @@
             this.MinimumSize = new System.Drawing.Size(598, 404);
             this.Name = "LinearEquationForm";
             this.Text = "Rownania Liniowe";
-            this.Load += new System.EventHandler(this.RownaniaLinioweForm_Load);
-            this.Resize += new System.EventHandler(this.RownaniaLinioweForm_Resize);
+            this.Load += new System.EventHandler(this.LinearEquationForm_Load);
+            this.Resize += new System.EventHandler(this.LinearEquationForm_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvEquations)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nudNumberOfVariables)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dgvResults)).EndInit();

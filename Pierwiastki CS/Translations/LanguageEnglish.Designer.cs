@@ -315,9 +315,9 @@ namespace NumericalCalculator.Translations {
         /// <summary>
         ///   Looks up a localized string similar to Functions.
         /// </summary>
-        internal static string FunctionForm {
+        internal static string FunctionForm_FunctionForm {
             get {
-                return ResourceManager.GetString("FunctionForm", resourceCulture);
+                return ResourceManager.GetString("FunctionForm_FunctionForm", resourceCulture);
             }
         }
         
@@ -487,15 +487,6 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Interpolation.
-        /// </summary>
-        internal static string InterpolationForm {
-            get {
-                return ResourceManager.GetString("InterpolationForm", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to Apply.
         /// </summary>
         internal static string InterpolationForm_btnApply {
@@ -510,6 +501,15 @@ namespace NumericalCalculator.Translations {
         internal static string InterpolationForm_btnCompute {
             get {
                 return ResourceManager.GetString("InterpolationForm_btnCompute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect values in some cells!.
+        /// </summary>
+        internal static string InterpolationForm_FormatException {
+            get {
+                return ResourceManager.GetString("InterpolationForm_FormatException", resourceCulture);
             }
         }
         
@@ -532,6 +532,51 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Can&apos;t approximat function. Try other level of approximation..
+        /// </summary>
+        internal static string InterpolationForm_InconsistentSystemOfEquationsException {
+            get {
+                return ResourceManager.GetString("InterpolationForm_InconsistentSystemOfEquationsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Interpolation.
+        /// </summary>
+        internal static string InterpolationForm_InterpolationForm {
+            get {
+                return ResourceManager.GetString("InterpolationForm_InterpolationForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Run interpolation or approximation first..
+        /// </summary>
+        internal static string InterpolationForm_MessageBox_btnApply {
+            get {
+                return ResourceManager.GetString("InterpolationForm_MessageBox_btnApply", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No points were provided!.
+        /// </summary>
+        internal static string InterpolationForm_NoPointsProvidedException {
+            get {
+                return ResourceManager.GetString("InterpolationForm_NoPointsProvidedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide values for all cells!.
+        /// </summary>
+        internal static string InterpolationForm_NullReferenceException {
+            get {
+                return ResourceManager.GetString("InterpolationForm_NullReferenceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Approximation level.
         /// </summary>
         internal static string InterpolationForm_rbApproximation {
@@ -546,6 +591,15 @@ namespace NumericalCalculator.Translations {
         internal static string InterpolationForm_rbInterpolation {
             get {
                 return ResourceManager.GetString("InterpolationForm_rbInterpolation", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wrong approximation level - expected greater than zero!.
+        /// </summary>
+        internal static string InterpolationForm_WrongApproximationLevelException {
+            get {
+                return ResourceManager.GetString("InterpolationForm_WrongApproximationLevelException", resourceCulture);
             }
         }
         
@@ -568,7 +622,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to f (.
+        ///   Looks up a localized string similar to from.
         /// </summary>
         internal static string lblFrom {
             get {
@@ -595,7 +649,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to ) =.
+        ///   Looks up a localized string similar to to.
         /// </summary>
         internal static string lblTo {
             get {
@@ -613,11 +667,20 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Linear equation.
+        ///   Looks up a localized string similar to Incorrect values in some cells!.
         /// </summary>
-        internal static string LinearEquationForm {
+        internal static string LinearEquation_FormatException {
             get {
-                return ResourceManager.GetString("LinearEquationForm", resourceCulture);
+                return ResourceManager.GetString("LinearEquation_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide values for all cells!.
+        /// </summary>
+        internal static string LinearEquation_NullReferenceException {
+            get {
+                return ResourceManager.GetString("LinearEquation_NullReferenceException", resourceCulture);
             }
         }
         
@@ -631,7 +694,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Number of variables.
+        ///   Looks up a localized string similar to Number of variables:.
         /// </summary>
         internal static string LinearEquationForm_lblNumberOfVariables {
             get {
@@ -645,6 +708,15 @@ namespace NumericalCalculator.Translations {
         internal static string LinearEquationForm_lblResults {
             get {
                 return ResourceManager.GetString("LinearEquationForm_lblResults", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Linear equation.
+        /// </summary>
+        internal static string LinearEquationForm_LinearEquationForm {
+            get {
+                return ResourceManager.GetString("LinearEquationForm_LinearEquationForm", resourceCulture);
             }
         }
         
@@ -901,11 +973,29 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There are no solutions in the real numbers set!.
+        /// </summary>
+        internal static string NaNOccuredException {
+            get {
+                return ResourceManager.GetString("NaNOccuredException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Please select at least one graph option..
         /// </summary>
         internal static string NoneGraphOptionCheckedException {
             get {
                 return ResourceManager.GetString("NoneGraphOptionCheckedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to None or few roots on given interval.
+        /// </summary>
+        internal static string NoneOrFewRootsOnGivenIntervalException {
+            get {
+                return ResourceManager.GetString("NoneOrFewRootsOnGivenIntervalException", resourceCulture);
             }
         }
         

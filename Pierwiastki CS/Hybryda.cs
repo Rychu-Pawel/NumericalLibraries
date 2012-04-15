@@ -26,7 +26,7 @@ namespace NumericalCalculator
 
             // SPRAWDZENIE CZY JEST TU PIERWIASTEK I CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
             if (a * b > 0)
-                throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                throw new NoneOrFewRootsOnGivenIntervalException();
             else if (a == 0)
                 return przedzialOd;
             else if (b == 0)
@@ -55,7 +55,7 @@ namespace NumericalCalculator
                         return x;
                 }
                 else
-                    throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                    throw new NoneOrFewRootsOnGivenIntervalException();
             }
         }
         
@@ -129,7 +129,7 @@ namespace NumericalCalculator
                 wynik = Newton();
 
                 if (double.IsNaN(wynik))
-                    throw new FunctionException("Brak, lub kilka pierwiastkow na zadanym obszarze");
+                    throw new NoneOrFewRootsOnGivenIntervalException();
                 else
                     return wynik;
             }

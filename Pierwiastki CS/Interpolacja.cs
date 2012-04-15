@@ -5,13 +5,13 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Interpolacja
+    class Interpolation
     {
 //ZMIENNE ------------------------------------
         public int iloscPunktow;
         private double[,] bazy;
         private double[] bazyMianownikow;
-        public double[,] punkty;
+        public double[,] points;
         private double[] wynik; // Wynik jako tablica współczynników
 
         private string strWynik; //Wynik jakos f(x)
@@ -23,8 +23,8 @@ namespace NumericalCalculator
             // Sprawdzenie czy punkty x sie nie powtarzaja
             for (int i = 0; i < iloscPunktow; i++)
                 for (int j = i + 1; j < iloscPunktow; j++)
-                    if (punkty[0, i] == punkty[0, j])
-                        throw new SystemException("Wartosci x = " + Convert.ToString(punkty[0, i]) + " wystepuja co najmniej dwukrotnie");
+                    if (points[0, i] == points[0, j])
+                        throw new SystemException("Wartosci x = " + Convert.ToString(points[0, i]) + " wystepuja co najmniej dwukrotnie");
         }
 
         private void StworzBaze(int j, int iteracja) // j - pomijany index we wzorze lagrange'a
@@ -34,9 +34,9 @@ namespace NumericalCalculator
             {
                 //Stwórz pierwsza iteracje
                 if (j == 1) // tworzymy l(j,2)
-                    bazy[j - 1, 0] = punkty[0, 1];
+                    bazy[j - 1, 0] = points[0, 1];
                 else
-                    bazy[j - 1, 0] = punkty[0, 0];
+                    bazy[j - 1, 0] = points[0, 0];
 
                 bazy[j - 1, 1] = 1;
 
@@ -56,10 +56,10 @@ namespace NumericalCalculator
                     mnoznik++;
 
                 for (int i = iteracja + 1; i > 0; i--)
-                        bazy[j - 1, i] = bazy[j - 1, i]*punkty[0, mnoznik] + bazy[j - 1, i - 1];
+                        bazy[j - 1, i] = bazy[j - 1, i]*points[0, mnoznik] + bazy[j - 1, i - 1];
 
                 //Stworz nowy ostatni (wolny) element
-                bazy[j - 1, 0] *= punkty[0, mnoznik];
+                bazy[j - 1, 0] *= points[0, mnoznik];
 
                 // Rekurencja //Jesli (iteracja < wielkosc bazy) => stworzBaze(baza, iteracja + 1)
                 if (iteracja < iloscPunktow - 3)
@@ -73,9 +73,9 @@ namespace NumericalCalculator
 
             for (int i = 1; i <= iloscPunktow; i++)
                 if (i != j)
-                    bazyMianownikow[j - 1] *= (punkty[0, j - 1] - punkty[0, i - 1]);
+                    bazyMianownikow[j - 1] *= (points[0, j - 1] - points[0, i - 1]);
 
-            bazyMianownikow[j - 1] = punkty[1, j - 1]/bazyMianownikow[j - 1];
+            bazyMianownikow[j - 1] = points[1, j - 1]/bazyMianownikow[j - 1];
         }
 
         private void Interpoluj()
@@ -203,9 +203,9 @@ namespace NumericalCalculator
             strWynik = string.Empty;
 
             if (iloscPunktow == 0) // Jezeli nie ma punktow, to blad, jak tylko 1, to zwraca funkcje stala, jak 2 lub wiecej to liczy
-                throw new SystemException("Nie podano zadnych punktow");
+                throw new NoPointsProvidedException();
             else if (iloscPunktow == 1)
-                return Convert.ToString(punkty[1, 0]);
+                return Convert.ToString(points[1, 0]);
             else if (iloscPunktow >= 2) //INTERPOLACJA !!!
             {
                 Interpoluj();

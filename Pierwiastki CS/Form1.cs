@@ -16,16 +16,13 @@ using System.Globalization;
 
 namespace NumericalCalculator
 {
-    public partial class Form1 : Form
+    public partial class Form1 : LanguageForm
     {
         bool IsFunctionDrawn = false;
         public string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
 
         readonly double max = 530000000.0;
         readonly double min = -530000000.0;
-
-        Settings settings;
-        ResourceManager language;
 
         PointF[] graphPoint;
 
@@ -172,10 +169,10 @@ namespace NumericalCalculator
 
                 pnlWarunki.Width = 332;
 
-                lblFrom.Left = 37;
+                lblFrom.Left = 33;
                 lblTo.Left = 169;
                 txtFrom.Left = 67;
-                txtTo.Left = 199;
+                txtTo.Left = 203;
             }
 
             if (rbDifferential.Checked)
@@ -219,10 +216,10 @@ namespace NumericalCalculator
 
                 gbConditions.Text = language.GetString(gbConditions.Name);
 
-                lblFrom.Left = 37;
+                lblFrom.Left = 33;
                 lblTo.Left = 169;
                 txtFrom.Left = 67;
-                txtTo.Left = 199;
+                txtTo.Left = 203;
             }
 
             if (rbSpecialFunction.Checked)
@@ -776,14 +773,14 @@ namespace NumericalCalculator
         //FUNKCJE FORM (opis dostepnych funkcji)
         private void ShowFunctionForm_Handler(object sender, EventArgs e)
         {
-            FunctionForm f = new FunctionForm();
+            FunctionForm f = new FunctionForm(language, settings);
             f.Show();
         }
 
         //RownaniaLinioweForm
         private void linearEquationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LinearEquationForm rownaniaForm = new LinearEquationForm(changeFrom, changeTo);
+            LinearEquationForm rownaniaForm = new LinearEquationForm(changeFrom, changeTo, language, settings);
 
             rownaniaForm.Show();
         }
@@ -1665,8 +1662,14 @@ namespace NumericalCalculator
 
         private void interpolationAproximationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            InterpolationForm interpolationForm = new InterpolationForm(this);
+            InterpolationForm interpolationForm = new InterpolationForm(changeFrom, changeTo, language, settings);
+            interpolationForm.FunctionAccepted += new InterpolationForm.FunctionAcceptedEventHandler(interpolationForm_FunctionAccepted);
             interpolationForm.Show();
+        }
+
+        void interpolationForm_FunctionAccepted(string function)
+        {
+            txtFunction.Text = function;
         }
 
         //Chowanie pokazywanie wykresu

@@ -246,7 +246,7 @@ namespace NumericalCalculator
 
             //Obliczenie f0
             if (double.IsNaN(y))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f0 = ComputeFunctionAtPoint();
 
@@ -255,7 +255,7 @@ namespace NumericalCalculator
             y = wartoscPoczatkowa + ((krok / 2) * f0);
 
             if (double.IsNaN(y))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f1 = ComputeFunctionAtPoint();
 
@@ -263,7 +263,7 @@ namespace NumericalCalculator
             y = wartoscPoczatkowa + ((krok / 2) * f1);
 
             if (double.IsNaN(y))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f2 = ComputeFunctionAtPoint();
 
@@ -272,7 +272,7 @@ namespace NumericalCalculator
             y = wartoscPoczatkowa + (krok * f2);
 
             if (double.IsNaN(y))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f3 = ComputeFunctionAtPoint();
         }
@@ -285,7 +285,7 @@ namespace NumericalCalculator
 
             //Obliczenie f0
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f0 = ComputeFunctionAtPoint();
 
@@ -307,7 +307,7 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok / 2) * f0II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f1 = ComputeFunctionAtPoint();
 
@@ -328,7 +328,7 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok / 2) * f1II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f2 = ComputeFunctionAtPoint();
 
@@ -350,7 +350,7 @@ namespace NumericalCalculator
             u = wartoscPoczatkowaII + ((krok) * f2II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
-                throw new FunctionException("Brak rozwiazan w zbiorze liczb rzeczywistych!");
+                throw new NaNOccuredException();
 
             f3 = ComputeFunctionAtPoint();
 

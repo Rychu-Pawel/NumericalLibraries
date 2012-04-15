@@ -61,7 +61,6 @@
             this.lblBody.Size = new System.Drawing.Size(470, 546);
             this.lblBody.TabIndex = 2;
             this.lblBody.Text = resources.GetString("lblBody.Text");
-            this.lblBody.Click += new System.EventHandler(this.label3_Click);
             // 
             // btnOK
             // 
@@ -84,6 +83,10 @@
             this.Controls.Add(this.lblBody);
             this.Controls.Add(this.lblOperators);
             this.Controls.Add(this.lblHeader);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(510, 717);
+            this.MinimumSize = new System.Drawing.Size(510, 717);
             this.Name = "FunctionForm";
             this.Text = "Funkcje";
             this.ResumeLayout(false);

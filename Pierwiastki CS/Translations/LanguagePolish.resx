@@ -168,7 +168,7 @@
   <data name="menuStrip_fileToolStripMenuItem" xml:space="preserve">
     <value>&amp;Plik</value>
   </data>
-  <data name="FunctionForm" xml:space="preserve">
+  <data name="FunctionForm_FunctionForm" xml:space="preserve">
     <value>Funkcje</value>
   </data>
   <data name="FunctionForm_lblBody" xml:space="preserve">
@@ -254,7 +254,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="menuStrip_interpolationApproximationToolStripMenuItem" xml:space="preserve">
     <value>&amp;Interpolacja i aproksymacja</value>
   </data>
-  <data name="InterpolationForm" xml:space="preserve">
+  <data name="InterpolationForm_InterpolationForm" xml:space="preserve">
     <value>Interpolacja</value>
   </data>
   <data name="InterpolationForm_btnApply" xml:space="preserve">
@@ -287,14 +287,14 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="lblSampling" xml:space="preserve">
     <value>Próbkowanie:</value>
   </data>
-  <data name="LinearEquationForm" xml:space="preserve">
+  <data name="LinearEquationForm_LinearEquationForm" xml:space="preserve">
     <value>Równania liniowe</value>
   </data>
   <data name="LinearEquationForm_btnCompute" xml:space="preserve">
     <value>Oblicz</value>
   </data>
   <data name="LinearEquationForm_lblNumberOfVariables" xml:space="preserve">
-    <value>Ilość zmiennych</value>
+    <value>Ilość zmiennych:</value>
   </data>
   <data name="LinearEquationForm_lblResults" xml:space="preserve">
     <value>Wyniki:</value>
@@ -468,10 +468,10 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Niepoprawnna wartość filtru!</value>
   </data>
   <data name="lblFrom" xml:space="preserve">
-    <value>f (</value>
+    <value>od</value>
   </data>
   <data name="lblTo" xml:space="preserve">
-    <value>) =</value>
+    <value>do</value>
   </data>
   <data name="MessageBox_btnSpecialFunction_Click" xml:space="preserve">
     <value>Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej argumentów wstawić zmienną x.</value>
@@ -511,5 +511,35 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   </data>
   <data name="yToException" xml:space="preserve">
     <value>Niepoprawna wartość do osi y</value>
+  </data>
+  <data name="InterpolationForm_FormatException" xml:space="preserve">
+    <value>Błędne wartosci w komórkach!</value>
+  </data>
+  <data name="InterpolationForm_InconsistentSystemOfEquationsException" xml:space="preserve">
+    <value>Nie mogę zaproksymować funkcji. Spróbuj aproksymacji innego stopnia.</value>
+  </data>
+  <data name="InterpolationForm_MessageBox_btnApply" xml:space="preserve">
+    <value>Najpierw zinterpoluj lub zaaproksymuj funkcje.</value>
+  </data>
+  <data name="InterpolationForm_NoPointsProvidedException" xml:space="preserve">
+    <value>Nie podano żadnych punktów!</value>
+  </data>
+  <data name="InterpolationForm_NullReferenceException" xml:space="preserve">
+    <value>Nie wszystkie komorki zostaly wypelnione!</value>
+  </data>
+  <data name="InterpolationForm_WrongApproximationLevelException" xml:space="preserve">
+    <value>Bledny stopien ekstrapolacji. Oczekiwano stopnia &gt; 0.</value>
+  </data>
+  <data name="LinearEquation_FormatException" xml:space="preserve">
+    <value>Błędne wartosci w komórkach!</value>
+  </data>
+  <data name="LinearEquation_NullReferenceException" xml:space="preserve">
+    <value>Nie wszystkie komorki zostaly wypelnione!</value>
+  </data>
+  <data name="NaNOccuredException" xml:space="preserve">
+    <value>Brak rozwiązań w zbiorze liczb rzeczywistych!</value>
+  </data>
+  <data name="NoneOrFewRootsOnGivenIntervalException" xml:space="preserve">
+    <value>Brak lub kilka pierwiastków na zadanym obszarze</value>
   </data>
 </root>
