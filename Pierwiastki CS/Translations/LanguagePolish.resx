@@ -542,4 +542,31 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="NoneOrFewRootsOnGivenIntervalException" xml:space="preserve">
     <value>Brak lub kilka pierwiastków na zadanym obszarze</value>
   </data>
+  <data name="EmptyFunctionStringException" xml:space="preserve">
+    <value>Wpisz funkcję!</value>
+  </data>
+  <data name="ForbiddenSignDetectedException" xml:space="preserve">
+    <value>Występuje niedozwolony znak</value>
+  </data>
+  <data name="IncorrectEOperatorOccurrenceException" xml:space="preserve">
+    <value>Niepoprawne wystąpienie operatora "E"</value>
+  </data>
+  <data name="IntegralInfinityRangeNotSupportedException" xml:space="preserve">
+    <value>Niestety nieskończoność nie jest jeszcze obsługiwana</value>
+  </data>
+  <data name="LeftAndRightBracketsAmountDoesNotMatchException" xml:space="preserve">
+    <value>Ilość lewych i prawych nawiasów nie zgadza się!</value>
+  </data>
+  <data name="OperatorAtTheBeginningOfTheExpressionException" xml:space="preserve">
+    <value>nie może stać na początku wyrażenia!</value>
+  </data>
+  <data name="OperatorAtTheEndOfTheExpressionException" xml:space="preserve">
+    <value>nie może stać na końcu wyrażenia!</value>
+  </data>
+  <data name="TwoFactorialsOccuredSideBySideException" xml:space="preserve">
+    <value>Dwie silnie występują obok siebie!</value>
+  </data>
+  <data name="TwoOperatorsOccurredSideBySideException" xml:space="preserve">
+    <value>Dwa operatory występują obok siebie!</value>
+  </data>
 </root>

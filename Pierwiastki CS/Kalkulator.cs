@@ -12,14 +12,14 @@ namespace NumericalCalculator
         {
             base.SprawdzenieOdBledow();
 
-            for (int i = 0; i < funkcja.Length; i++)
+            for (int i = 0; i < function.Length; i++)
             {
-                if (funkcja[i] == 'x')
+                if (function[i] == 'x')
                 {
-                    if (i == 0 || i == funkcja.Length - 1)
+                    if (i == 0 || i == function.Length - 1)
                         throw new VariableFoundException();
 
-                    if (funkcja[i - 1] != 'e' || funkcja[i + 1] != 'p')
+                    if (function[i - 1] != 'e' || function[i + 1] != 'p')
                         throw new VariableFoundException();
                 }
             }

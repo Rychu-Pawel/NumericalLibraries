@@ -125,6 +125,9 @@ namespace NumericalCalculator
     class NoneOrFewRootsOnGivenIntervalException : Exception
     { }
 
+    class IntegralInfinityRangeNotSupportedException : Exception
+    { }
+
     enum FunctionTypeEnum
     {
         Function,

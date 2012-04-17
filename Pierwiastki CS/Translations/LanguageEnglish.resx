@@ -543,4 +543,31 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="NoneOrFewRootsOnGivenIntervalException" xml:space="preserve">
     <value>None or few roots on given interval</value>
   </data>
+  <data name="EmptyFunctionStringException" xml:space="preserve">
+    <value>Enter the function!</value>
+  </data>
+  <data name="ForbiddenSignDetectedException" xml:space="preserve">
+    <value>Illega character</value>
+  </data>
+  <data name="IncorrectEOperatorOccurrenceException" xml:space="preserve">
+    <value>Incorrect occurance of the E operator!</value>
+  </data>
+  <data name="IntegralInfinityRangeNotSupportedException" xml:space="preserve">
+    <value>Infinity limit is not supported</value>
+  </data>
+  <data name="LeftAndRightBracketsAmountDoesNotMatchException" xml:space="preserve">
+    <value>Left and right brackets amount does not match!</value>
+  </data>
+  <data name="OperatorAtTheBeginningOfTheExpressionException" xml:space="preserve">
+    <value>occurred at the beginning of the expression!</value>
+  </data>
+  <data name="OperatorAtTheEndOfTheExpressionException" xml:space="preserve">
+    <value>occurred at the end of the expression!</value>
+  </data>
+  <data name="TwoFactorialsOccuredSideBySideException" xml:space="preserve">
+    <value>Two factorials occurred side by side!</value>
+  </data>
+  <data name="TwoOperatorsOccurredSideBySideException" xml:space="preserve">
+    <value>Two operators occurred side by side!</value>
+  </data>
 </root>

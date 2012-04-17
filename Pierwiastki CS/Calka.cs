@@ -23,45 +23,45 @@ namespace NumericalCalculator
             wyrazWolny = (xOd + xDo) / 2;
 
             //Zamiana x na np. (2*x+3)
-            if (funkcja.Length > 1)
+            if (function.Length > 1)
             {
                 //Przeszukanie funkcji w celu znalezienia 'x'
-                for (int i = 0; i < funkcja.Length; i++)
+                for (int i = 0; i < function.Length; i++)
                 {
                     //Zamienia x jesli nie jest on czescia 'exp' bo wychodzilo 'e(2*x+3)p
-                    if (funkcja[i] == 'x' && ((i > 0) ? (funkcja[i - 1] != 'e') : true))
+                    if (function[i] == 'x' && ((i > 0) ? (function[i - 1] != 'e') : true))
                     {
                         if (wyrazWolny > 0)
                         {
-                            int wielkoscStringPrzed = funkcja.Length;
-                            funkcja = funkcja.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny) + ")" + funkcja.Substring(i + 1, funkcja.Length - i - 1);
-                            i += funkcja.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            int wielkoscStringPrzed = function.Length;
+                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny) + ")" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
                         }
                         else if (wyrazWolny < 0)
                         {
-                            int wielkoscStringPrzed = funkcja.Length;
-                            funkcja = funkcja.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny) + ")" + funkcja.Substring(i + 1, funkcja.Length - i - 1);
-                            i += funkcja.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            int wielkoscStringPrzed = function.Length;
+                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny) + ")" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
                         }
                         else // Wyraz wolny == 0
                         {
-                            int wielkoscStringPrzed = funkcja.Length;
-                            funkcja = funkcja.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x)" + funkcja.Substring(i + 1, funkcja.Length - i - 1);
-                            i += funkcja.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            int wielkoscStringPrzed = function.Length;
+                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x)" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
                         }
                     }
                 }
             }
-            else if (funkcja == "x") // Funkcja nie jest stała
+            else if (function == "x") // Funkcja nie jest stała
             {
                 if (wyrazWolny > 0)
-                    funkcja = Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny);
+                    function = Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny);
                 else if (wyrazWolny < 0)
-                    funkcja = Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny);
+                    function = Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny);
             }
 
             //Dodanie z przodu wspolczynnika - np. 28*x^3+3*x => (32)*(28*x^3+3*x)
-            funkcja = "(" + Convert.ToString(wspolczynnik) + ")*(" + funkcja + ")";
+            function = "(" + Convert.ToString(wspolczynnik) + ")*(" + function + ")";
 
             SprawdzenieOdBledow();
             KonwertujNaTablice();
@@ -70,7 +70,7 @@ namespace NumericalCalculator
 
         private double ObliczPosrednie()
         {
-            string funkcjaWlasciwa = funkcja;
+            string funkcjaWlasciwa = function;
 
             //Zamienienie granic posrednich np. (-1, -0,9) => (-1, 1);
             ZamienGranice();
@@ -81,7 +81,7 @@ namespace NumericalCalculator
             for (int i = 0; i < 5; i++)
                 wynikPosredni += kwadratury[0, i] * (ObliczFunkcjeWPunkcie(kwadratury[1, i]) + ObliczFunkcjeWPunkcie(-kwadratury[1, i]));
 
-            funkcja = funkcjaWlasciwa;
+            function = funkcjaWlasciwa;
 
             return wynikPosredni;
         }
@@ -120,7 +120,7 @@ namespace NumericalCalculator
             this.xDo = xDo;
 
             if (double.IsInfinity(xOd) || double.IsInfinity(xDo))
-                throw new FunctionException("Niestety nieskończoność nie jest jeszcze obsługiwana");
+                throw new IntegralInfinityRangeNotSupportedException();
 
             kwadratury = new double[2, 5]; //calka dla 10 kwadratur
 

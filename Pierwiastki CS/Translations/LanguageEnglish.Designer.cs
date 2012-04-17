@@ -268,11 +268,29 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter the function!.
+        /// </summary>
+        internal static string EmptyFunctionStringException {
+            get {
+                return ResourceManager.GetString("EmptyFunctionStringException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Unhandled exception occured! Checked entered formula!.
         /// </summary>
         internal static string Exception {
             get {
                 return ResourceManager.GetString("Exception", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Illega character.
+        /// </summary>
+        internal static string ForbiddenSignDetectedException {
+            get {
+                return ResourceManager.GetString("ForbiddenSignDetectedException", resourceCulture);
             }
         }
         
@@ -478,6 +496,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Incorrect occurance of the E operator!.
+        /// </summary>
+        internal static string IncorrectEOperatorOccurrenceException {
+            get {
+                return ResourceManager.GetString("IncorrectEOperatorOccurrenceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Infinity limit is not supported.
+        /// </summary>
+        internal static string IntegralInfinityRangeNotSupportedException {
+            get {
+                return ResourceManager.GetString("IntegralInfinityRangeNotSupportedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Interpolation and approximation.
         /// </summary>
         internal static string interpolationApproximationToolStripMenuItem {
@@ -663,6 +699,15 @@ namespace NumericalCalculator.Translations {
         internal static string lblTo_Range {
             get {
                 return ResourceManager.GetString("lblTo_Range", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Left and right brackets amount does not match!.
+        /// </summary>
+        internal static string LeftAndRightBracketsAmountDoesNotMatchException {
+            get {
+                return ResourceManager.GetString("LeftAndRightBracketsAmountDoesNotMatchException", resourceCulture);
             }
         }
         
@@ -1000,6 +1045,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to occurred at the beginning of the expression!.
+        /// </summary>
+        internal static string OperatorAtTheBeginningOfTheExpressionException {
+            get {
+                return ResourceManager.GetString("OperatorAtTheBeginningOfTheExpressionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to occurred at the end of the expression!.
+        /// </summary>
+        internal static string OperatorAtTheEndOfTheExpressionException {
+            get {
+                return ResourceManager.GetString("OperatorAtTheEndOfTheExpressionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Can&apos;t draw this function in this interval..
         /// </summary>
         internal static string OverflowException {
@@ -1167,6 +1230,24 @@ namespace NumericalCalculator.Translations {
         internal static string ToIIConversionException {
             get {
                 return ResourceManager.GetString("ToIIConversionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two factorials occurred side by side!.
+        /// </summary>
+        internal static string TwoFactorialsOccuredSideBySideException {
+            get {
+                return ResourceManager.GetString("TwoFactorialsOccuredSideBySideException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Two operators occurred side by side!.
+        /// </summary>
+        internal static string TwoOperatorsOccurredSideBySideException {
+            get {
+                return ResourceManager.GetString("TwoOperatorsOccurredSideBySideException", resourceCulture);
             }
         }
         

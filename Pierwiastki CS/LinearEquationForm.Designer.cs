@@ -109,7 +109,7 @@
             this.btnCompute.TabIndex = 3;
             this.btnCompute.Text = "Oblicz";
             this.btnCompute.UseVisualStyleBackColor = true;
-            this.btnCompute.Click += new System.EventHandler(this.btnOblicz_Click);
+            this.btnCompute.Click += new System.EventHandler(this.btnCompute_Click);
             // 
             // dgvResults
             // 

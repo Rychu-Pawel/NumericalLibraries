@@ -120,26 +120,26 @@ namespace NumericalCalculator
             this.krok = krok;
 
             //Podstawienie
-            funkcjaII = funkcja.Replace("y'", "u");
-            funkcja = "u";
+            funkcjaII = function.Replace("y'", "u");
+            function = "u";
 
             //Obliczenie ONP dla I
             KonwertujNaTablice();
             KonwertujNaONP();
 
-            tablicaONPfunkcjiI = funkcjaONP;
+            tablicaONPfunkcjiI = functionONP;
 
             //Obliczenie ONP dla II
-            funkcja = funkcjaII;
+            function = funkcjaII;
 
             KonwertujNaTablice();
             KonwertujNaONP();
 
-            tablicaONPfunkcjiII = funkcjaONP;
+            tablicaONPfunkcjiII = functionONP;
 
             //Przywrocenie poprzedniej funkcji i ONP
-            funkcja = "u";
-            funkcjaONP = tablicaONPfunkcjiI;
+            function = "u";
+            functionONP = tablicaONPfunkcjiI;
 
             //Właściwe obliczenia
             f0 = f1 = f2 = f3 = f0II = f1II = f2II = f3II = 0;
@@ -290,17 +290,17 @@ namespace NumericalCalculator
             f0 = ComputeFunctionAtPoint();
 
             //Obliczenie f0II
-            string funkcjaTemp = funkcja;
-            funkcja = funkcjaII;
+            string funkcjaTemp = function;
+            function = funkcjaII;
 
-            funkcjaONP = tablicaONPfunkcjiII;
+            functionONP = tablicaONPfunkcjiII;
 
             f0II = ComputeFunctionAtPoint();
 
             //Obliczenie f1
-            funkcja = funkcjaTemp;
+            function = funkcjaTemp;
 
-            funkcjaONP = tablicaONPfunkcjiI;
+            functionONP = tablicaONPfunkcjiI;
 
             x += krok / 2;
             y = wartoscPoczatkowa + ((krok / 2) * f0);
@@ -312,17 +312,17 @@ namespace NumericalCalculator
             f1 = ComputeFunctionAtPoint();
 
             //Obliczenie f1II
-            funkcjaTemp = funkcja;
-            funkcja = funkcjaII;
+            funkcjaTemp = function;
+            function = funkcjaII;
 
-            funkcjaONP = tablicaONPfunkcjiII;
+            functionONP = tablicaONPfunkcjiII;
 
             f1II = ComputeFunctionAtPoint();
 
             //Obliczenie f2
-            funkcja = funkcjaTemp;
+            function = funkcjaTemp;
 
-            funkcjaONP = tablicaONPfunkcjiI;
+            functionONP = tablicaONPfunkcjiI;
 
             y = wartoscPoczatkowa + ((krok / 2) * f1);
             u = wartoscPoczatkowaII + ((krok / 2) * f1II);
@@ -333,17 +333,17 @@ namespace NumericalCalculator
             f2 = ComputeFunctionAtPoint();
 
             //Obliczenie f2II
-            funkcjaTemp = funkcja;
-            funkcja = funkcjaII;
+            funkcjaTemp = function;
+            function = funkcjaII;
 
-            funkcjaONP = tablicaONPfunkcjiII;
+            functionONP = tablicaONPfunkcjiII;
 
             f2II = ComputeFunctionAtPoint();
 
             //Oblicenie f3
-            funkcja = funkcjaTemp;
+            function = funkcjaTemp;
 
-            funkcjaONP = tablicaONPfunkcjiI;
+            functionONP = tablicaONPfunkcjiI;
 
             x += krok / 2;
             y = wartoscPoczatkowa + (krok * f2);
@@ -355,17 +355,17 @@ namespace NumericalCalculator
             f3 = ComputeFunctionAtPoint();
 
             //Obliczenie f3II
-            funkcjaTemp = funkcja;
-            funkcja = funkcjaII;
+            funkcjaTemp = function;
+            function = funkcjaII;
 
-            funkcjaONP = tablicaONPfunkcjiII;
+            functionONP = tablicaONPfunkcjiII;
 
             f3II = ComputeFunctionAtPoint();
 
             //Przywrocenie funkcji i ONP
-            funkcja = funkcjaTemp;
+            function = funkcjaTemp;
 
-            funkcjaONP = tablicaONPfunkcjiI;
+            functionONP = tablicaONPfunkcjiI;
         }
 
         //KONSTUKTOR --------------------------------

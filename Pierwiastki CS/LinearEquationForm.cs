@@ -85,13 +85,13 @@ namespace NumericalCalculator
             dgvResults.ClearSelection();
         }
 
-        private void btnOblicz_Click(object sender, EventArgs e)
+        private void btnCompute_Click(object sender, EventArgs e)
         {
             try
             {
-                LinearEquation Gauss = new LinearEquation(dgvEquations, zamienZ, zamienNa);
+                LinearEquation gauss = new LinearEquation(dgvEquations, zamienZ, zamienNa);
 
-                double[] niewiadome = Gauss.Oblicz();
+                double[] niewiadome = gauss.Oblicz();
 
                 for (int i = 0; i < dgvResults.Columns.Count; i++)
                     dgvResults[i, 0].Value = niewiadome[i];

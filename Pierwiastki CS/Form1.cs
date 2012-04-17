@@ -580,8 +580,11 @@ namespace NumericalCalculator
                 switch (type)
                 {
                     case "PointConversionException": txtPoint.Focus(); break;
+                    case "IntegralInfinityRangeNotSupportedException":
                     case "FunctionException":
                     case "VariableFoundException":
+                    case "NoneOrFewRootsOnGivenIntervalException":
+                    case "NaNOccuredException":
                     case "FunctionNullReferenceException": txtFunction.Focus(); break;
                     case "FromConversionException": txtFrom.Focus(); break;
                     case "FromIIConversionException": txtFromII.Focus(); break;

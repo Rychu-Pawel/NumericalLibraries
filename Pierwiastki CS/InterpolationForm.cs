@@ -65,6 +65,7 @@ namespace NumericalCalculator
             catch (WrongApproximationLevelException)
             {
                 MessageBox.Show(language.GetString("InterpolationForm_WrongApproximationLevelException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nudLevel.Focus();
             }
             catch (NoPointsProvidedException)
             {
@@ -78,6 +79,11 @@ namespace NumericalCalculator
             catch (InconsistentSystemOfEquationsException)
             {
                 MessageBox.Show(language.GetString("InterpolationForm_InconsistentSystemOfEquationsException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                nudLevel.Focus();
+            }
+            catch (NaNOccuredException)
+            {
+                MessageBox.Show(language.GetString("NaNOccuredException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException)
             {

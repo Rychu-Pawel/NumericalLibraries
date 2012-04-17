@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    class Interior : Funkcja
+    class Interior : Function
     {
     // ZMIENNE ------------------------------
         protected double x, u, y;
@@ -37,9 +37,9 @@ namespace NumericalCalculator
             // LICZENIE
             int j;
 
-            for (j = 0; j < funkcjaONP.Length; j++)
+            for (j = 0; j < functionONP.Length; j++)
             {
-                string i = funkcjaONP[j];
+                string i = functionONP[j];
                 double a, b, wynikAB = 0;
 
                 if (CzyLiczba(i) || i == "x" || i == "u" || i == "y") // JEŚLI CYFRA
