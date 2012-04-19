@@ -286,11 +286,20 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Illega character.
+        ///   Looks up a localized string similar to Illega character:.
         /// </summary>
         internal static string ForbiddenSignDetectedException {
             get {
                 return ResourceManager.GetString("ForbiddenSignDetectedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Scale change error!.
+        /// </summary>
+        internal static string Form1_MouseWheel_DefaultException {
+            get {
+                return ResourceManager.GetString("Form1_MouseWheel_DefaultException", resourceCulture);
             }
         }
         
@@ -1068,6 +1077,15 @@ namespace NumericalCalculator.Translations {
         internal static string OverflowException {
             get {
                 return ResourceManager.GetString("OverflowException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect X and Y values!.
+        /// </summary>
+        internal static string picGraph_MouseUp_CoordinatesException {
+            get {
+                return ResourceManager.GetString("picGraph_MouseUp_CoordinatesException", resourceCulture);
             }
         }
         

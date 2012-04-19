@@ -571,6 +571,18 @@ namespace NumericalCalculator
                     else
                         HandleException(stopWatch, language.GetString("FunctionNullReferenceException"));
                 }
+                else if (type == "OperatorAtTheBeginningOfTheExpressionException")
+                {
+                    HandleException(stopWatch, "Operator " + (excep as OperatorAtTheBeginningOfTheExpressionException).Operator + " " + language.GetString(type));
+                }
+                else if (type == "OperatorAtTheEndOfTheExpressionException")
+                {
+                    HandleException(stopWatch, "Operator " + (excep as OperatorAtTheEndOfTheExpressionException).Operator + " " + language.GetString(type));
+                }
+                else if (type == "ForbiddenSignDetectedException")
+                {
+                    HandleException(stopWatch, language.GetString(type) + " " + (excep as ForbiddenSignDetectedException).Sign);
+                }
                 else if (type == "FunctionException")
                     HandleException(stopWatch, excep.Message);
                 else
@@ -585,6 +597,13 @@ namespace NumericalCalculator
                     case "VariableFoundException":
                     case "NoneOrFewRootsOnGivenIntervalException":
                     case "NaNOccuredException":
+                    case "IncorrectEOperatorOccurrenceException":
+                    case "OperatorAtTheBeginningOfTheExpressionException":
+                    case "OperatorAtTheEndOfTheExpressionException":
+                    case "TwoOperatorsOccurredSideBySideException":
+                    case "TwoFactorialsOccuredSideBySideException":
+                    case "EmptyFunctionStringException":
+                    case "LeftAndRightBracketsAmountDoesNotMatchException":
                     case "FunctionNullReferenceException": txtFunction.Focus(); break;
                     case "FromConversionException": txtFrom.Focus(); break;
                     case "FromIIConversionException": txtFromII.Focus(); break;
@@ -1298,6 +1317,19 @@ namespace NumericalCalculator
             {
                 string type = excep.GetType().Name;
 
+                if (type == "OperatorAtTheBeginningOfTheExpressionException")
+                {
+                    HandleGraphException("Operator " + (excep as OperatorAtTheBeginningOfTheExpressionException).Operator + " " + language.GetString(type));
+                }
+                else if (type == "OperatorAtTheEndOfTheExpressionException")
+                {
+                    HandleGraphException("Operator " + (excep as OperatorAtTheEndOfTheExpressionException).Operator + " " + language.GetString(type));
+                }
+                else if (type == "ForbiddenSignDetectedException")
+                {
+                    HandleGraphException(language.GetString(type) + " " + (excep as ForbiddenSignDetectedException).Sign);
+                }
+
                 HandleGraphException(language.GetString(type));
 
                 switch (type)
@@ -1310,6 +1342,14 @@ namespace NumericalCalculator
                     case "yToException": txtYTo.Focus(); break;
                     case "CoordinatesXException": txtXFrom.Focus(); break;
                     case "CoordinatesYException": txtYFrom.Focus(); break;
+                    case "NaNOccuredException":
+                    case "IncorrectEOperatorOccurrenceException":
+                    case "OperatorAtTheBeginningOfTheExpressionException":
+                    case "OperatorAtTheEndOfTheExpressionException":
+                    case "TwoOperatorsOccurredSideBySideException":
+                    case "TwoFactorialsOccuredSideBySideException":
+                    case "EmptyFunctionStringException":
+                    case "LeftAndRightBracketsAmountDoesNotMatchException":
                     case "FunctionNullReferenceException": txtFunction.Focus(); break;
                     case "FromConversionException": txtFrom.Focus(); break;
                     case "FromIIConversionException": txtFromII.Focus(); break;
@@ -1361,9 +1401,9 @@ namespace NumericalCalculator
                         yFrom = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
                         yTo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
                     }
-                    catch (SystemException)
+                    catch
                     {
-                        MessageBox.Show("Bledne wartosci X i Y", "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(language.GetString("picGraph_MouseUp_CoordinatesException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
 
                     double factorX = 0, factorY = 0;
@@ -1435,9 +1475,10 @@ namespace NumericalCalculator
                         ClearGraph();
                 }
             }
-            catch
+            catch (Exception ex)
             {
-                //TODO: JAKAS OBSLUGA BLEDOW            
+                //TODO: Lepsza obsluga bledow        
+                MessageBox.Show(ex.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1626,33 +1667,30 @@ namespace NumericalCalculator
                     else
                         ClearGraph();
                 }
-                catch (xFromException)
-                {
-                    HandleException("Niepoprawna wartość od osi x");
-
-                    txtXFrom.Focus();
-                }
-                catch (xToException)
-                {
-                    HandleException("Niepoprawna wartość do osi x");
-
-                    txtXTo.Focus();
-                }
-                catch (yFromException)
-                {
-                    HandleException("Niepoprawna wartość od osi y");
-
-                    txtYFrom.Focus();
-                }
-                catch (yToException)
-                {
-                    HandleException("Niepoprawna wartość do osi y");
-
-                    txtYTo.Focus();
-                }
                 catch (Exception excep)
                 {
-                    MessageBox.Show("Błąd zmiany skali. " + excep.Message, "Błąd!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    string type = excep.GetType().Name;
+
+                    bool defaultException = false;
+
+                    switch (type)
+                    {
+                        case "XFromIsGreaterThenXToException": txtXFrom.Focus(); break;
+                        case "YFromIsGreaterThenYToException": txtYFrom.Focus(); break;
+                        case "xFromException": txtXFrom.Focus(); break;
+                        case "xToException": txtXTo.Focus(); break;
+                        case "yFromException": txtYFrom.Focus(); break;
+                        case "yToException": txtYTo.Focus(); break;
+                        case "CoordinatesXException": txtXFrom.Focus(); break;
+                        case "CoordinatesYException": txtYFrom.Focus(); break;
+                        default:
+                            MessageBox.Show(language.GetString("Form1_MouseWheel_DefaultException") + Environment.NewLine + excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            defaultException = true;
+                            break;
+                    }
+
+                    if (!defaultException)
+                        HandleGraphException(language.GetString(type));
                 }
             }
         }

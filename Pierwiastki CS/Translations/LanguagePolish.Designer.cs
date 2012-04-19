@@ -286,11 +286,20 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Występuje niedozwolony znak.
+        ///   Looks up a localized string similar to Występuje niedozwolony znak:.
         /// </summary>
         internal static string ForbiddenSignDetectedException {
             get {
                 return ResourceManager.GetString("ForbiddenSignDetectedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błąd zmiany skali!.
+        /// </summary>
+        internal static string Form1_MouseWheel_DefaultException {
+            get {
+                return ResourceManager.GetString("Form1_MouseWheel_DefaultException", resourceCulture);
             }
         }
         
@@ -1067,6 +1076,15 @@ namespace NumericalCalculator.Translations {
         internal static string OverflowException {
             get {
                 return ResourceManager.GetString("OverflowException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błędne wartości X i Y.
+        /// </summary>
+        internal static string picGraph_MouseUp_CoordinatesException {
+            get {
+                return ResourceManager.GetString("picGraph_MouseUp_CoordinatesException", resourceCulture);
             }
         }
         

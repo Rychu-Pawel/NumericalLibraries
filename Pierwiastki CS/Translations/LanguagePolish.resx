@@ -546,7 +546,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Wpisz funkcję!</value>
   </data>
   <data name="ForbiddenSignDetectedException" xml:space="preserve">
-    <value>Występuje niedozwolony znak</value>
+    <value>Występuje niedozwolony znak:</value>
   </data>
   <data name="IncorrectEOperatorOccurrenceException" xml:space="preserve">
     <value>Niepoprawne wystąpienie operatora "E"</value>
@@ -568,5 +568,11 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   </data>
   <data name="TwoOperatorsOccurredSideBySideException" xml:space="preserve">
     <value>Dwa operatory występują obok siebie!</value>
+  </data>
+  <data name="Form1_MouseWheel_DefaultException" xml:space="preserve">
+    <value>Błąd zmiany skali!</value>
+  </data>
+  <data name="picGraph_MouseUp_CoordinatesException" xml:space="preserve">
+    <value>Błędne wartości X i Y</value>
   </data>
 </root>

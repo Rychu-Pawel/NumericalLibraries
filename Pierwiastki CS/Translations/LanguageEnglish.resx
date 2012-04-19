@@ -547,7 +547,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Enter the function!</value>
   </data>
   <data name="ForbiddenSignDetectedException" xml:space="preserve">
-    <value>Illega character</value>
+    <value>Illega character:</value>
   </data>
   <data name="IncorrectEOperatorOccurrenceException" xml:space="preserve">
     <value>Incorrect occurance of the E operator!</value>
@@ -569,5 +569,11 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   </data>
   <data name="TwoOperatorsOccurredSideBySideException" xml:space="preserve">
     <value>Two operators occurred side by side!</value>
+  </data>
+  <data name="Form1_MouseWheel_DefaultException" xml:space="preserve">
+    <value>Scale change error!</value>
+  </data>
+  <data name="picGraph_MouseUp_CoordinatesException" xml:space="preserve">
+    <value>Incorrect X and Y values!</value>
   </data>
 </root>
