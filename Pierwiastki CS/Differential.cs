@@ -46,7 +46,7 @@ namespace NumericalCalculator
                 //Posuwam się do przodu
                 for (double i = pktPoczatkowy + krok; i < szukanyPunkt; i += krok)
                 {
-                    ObliczFy();
+                    ComputeFy();
 
                     wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
@@ -59,7 +59,7 @@ namespace NumericalCalculator
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
                 krok = szukanyPunkt - pktPoczatkowy;
-                ObliczFy();
+                ComputeFy();
                 wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (czyFormatowacWynik)
@@ -82,7 +82,7 @@ namespace NumericalCalculator
                 //Posuwam się do tyłu
                 for (double i = pktPoczatkowy + krok; i > szukanyPunkt; i += krok)
                 {
-                    ObliczFy();
+                    ComputeFy();
 
                     wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
@@ -95,7 +95,7 @@ namespace NumericalCalculator
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
                 krok = -(pktPoczatkowy - szukanyPunkt);
-                ObliczFy();
+                ComputeFy();
                 wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (czyFormatowacWynik)
@@ -115,7 +115,7 @@ namespace NumericalCalculator
                 return new List<PointD>() { new PointD(szukanyPunkt, wartoscFunkcjiWPunkciePoczatkowym) };
         }
 
-        internal List<PointD> ObliczRozniczkeII(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, double punktPoczatkowyII, double wartoscFunkcjiWPunkciePoczatkowymII, bool czyFormatowacWynik = true, double krok = 0.001)
+        internal List<PointD> ComputeDifferentialII(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, double punktPoczatkowyII, double wartoscFunkcjiWPunkciePoczatkowymII, bool czyFormatowacWynik = true, double krok = 0.001)
         {
             this.krok = krok;
 
@@ -161,7 +161,7 @@ namespace NumericalCalculator
                 //Posuwam się do przodu
                 for (double i = pktPoczatkowyII + krok; i < szukanyPunktII; i += krok)
                 {
-                    ObliczFyII();
+                    ComputeFyII();
 
                     wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
                     wynikII = wartoscPoczatkowaII + (krok / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
@@ -178,7 +178,7 @@ namespace NumericalCalculator
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
                 krok = szukanyPunktII - pktPoczatkowyII;
-                ObliczFyII();
+                ComputeFyII();
                 wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (czyFormatowacWynik)
@@ -202,7 +202,7 @@ namespace NumericalCalculator
                 //Posuwam się do przodu
                 for (double i = pktPoczatkowyII + krok; i > szukanyPunktII; i += krok)
                 {
-                    ObliczFyII();
+                    ComputeFyII();
 
                     wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
                     wynikII = wartoscPoczatkowaII + (krok / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
@@ -219,7 +219,7 @@ namespace NumericalCalculator
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
                 krok = szukanyPunktII - pktPoczatkowyII;
-                ObliczFyII();
+                ComputeFyII();
                 wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (czyFormatowacWynik)
@@ -239,7 +239,7 @@ namespace NumericalCalculator
                 return new List<PointD>() { new PointD(szukanyPunkt, wartoscFunkcjiWPunkciePoczatkowym) };
         }
 
-        private void ObliczFy()
+        private void ComputeFy()
         {
             y = wartoscPoczatkowa;
             x = pktPoczatkowy;
@@ -277,7 +277,7 @@ namespace NumericalCalculator
             f3 = ComputeFunctionAtPoint();
         }
 
-        private void ObliczFyII()
+        private void ComputeFyII()
         {
             u = wartoscPoczatkowaII;
             y = wartoscPoczatkowa;
@@ -369,8 +369,8 @@ namespace NumericalCalculator
         }
 
         //KONSTUKTOR --------------------------------
-        public Differential(string funkcja)
-            : base(funkcja)
+        public Differential(string function)
+            : base(function)
         { }
     }
 }

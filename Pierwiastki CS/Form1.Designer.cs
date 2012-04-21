@@ -34,6 +34,14 @@
             this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToTXTToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.rbDifferential = new System.Windows.Forms.RadioButton();
+            this.rbIntegral = new System.Windows.Forms.RadioButton();
+            this.btnHelp = new System.Windows.Forms.Button();
+            this.txtFunction = new System.Windows.Forms.TextBox();
+            this.chkIFT = new System.Windows.Forms.CheckBox();
+            this.chkFT = new System.Windows.Forms.CheckBox();
+            this.btnSpecialFunction = new System.Windows.Forms.Button();
+            this.chkSpecialFunction = new System.Windows.Forms.CheckBox();
             this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialogTXT = new System.Windows.Forms.SaveFileDialog();
             this.btnCompute = new System.Windows.Forms.Button();
@@ -42,8 +50,6 @@
             this.rbCalculator = new System.Windows.Forms.RadioButton();
             this.rbRoot = new System.Windows.Forms.RadioButton();
             this.rbSpecialFunction = new System.Windows.Forms.RadioButton();
-            this.rbDifferential = new System.Windows.Forms.RadioButton();
-            this.rbIntegral = new System.Windows.Forms.RadioButton();
             this.rbDerivativePointBis = new System.Windows.Forms.RadioButton();
             this.rbPoint = new System.Windows.Forms.RadioButton();
             this.rbDerivativePoint = new System.Windows.Forms.RadioButton();
@@ -72,9 +78,7 @@
             this.txtResult = new System.Windows.Forms.TextBox();
             this.gbFunction = new System.Windows.Forms.GroupBox();
             this.pnlFunkcja = new System.Windows.Forms.Panel();
-            this.btnHelp = new System.Windows.Forms.Button();
             this.lblFx = new System.Windows.Forms.Label();
-            this.txtFunction = new System.Windows.Forms.TextBox();
             this.pnlKomenda = new System.Windows.Forms.Panel();
             this.txtFourthCommandArgument = new System.Windows.Forms.TextBox();
             this.cmbSpecialFunction = new System.Windows.Forms.ComboBox();
@@ -100,12 +104,8 @@
             this.lblSampling = new System.Windows.Forms.Label();
             this.txtSampling = new System.Windows.Forms.TextBox();
             this.txtCutoff = new System.Windows.Forms.TextBox();
-            this.chkIFT = new System.Windows.Forms.CheckBox();
-            this.chkFT = new System.Windows.Forms.CheckBox();
             this.chkDifferentialII = new System.Windows.Forms.CheckBox();
             this.chkDifferential = new System.Windows.Forms.CheckBox();
-            this.btnSpecialFunction = new System.Windows.Forms.Button();
-            this.chkSpecialFunction = new System.Windows.Forms.CheckBox();
             this.chkSecondDerivative = new System.Windows.Forms.CheckBox();
             this.chkFirstDerivative = new System.Windows.Forms.CheckBox();
             this.chkFunction = new System.Windows.Forms.CheckBox();
@@ -167,6 +167,103 @@
             this.saveToTXTToolStripMenuItem.Size = new System.Drawing.Size(148, 22);
             this.saveToTXTToolStripMenuItem.Text = "Zapisz do TXT";
             this.saveToTXTToolStripMenuItem.Click += new System.EventHandler(this.saveToTXTToolStripMenuItem_Click);
+            // 
+            // rbDifferential
+            // 
+            this.rbDifferential.AutoSize = true;
+            this.rbDifferential.Location = new System.Drawing.Point(9, 88);
+            this.rbDifferential.Name = "rbDifferential";
+            this.rbDifferential.Size = new System.Drawing.Size(135, 17);
+            this.rbDifferential.TabIndex = 5;
+            this.rbDifferential.TabStop = true;
+            this.rbDifferential.Text = "Równanie różniczkowe";
+            this.toolTip.SetToolTip(this.rbDifferential, "Różniczka po zmiennej \'x\'");
+            this.rbDifferential.UseVisualStyleBackColor = true;
+            this.rbDifferential.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // rbIntegral
+            // 
+            this.rbIntegral.AutoSize = true;
+            this.rbIntegral.Location = new System.Drawing.Point(9, 65);
+            this.rbIntegral.Name = "rbIntegral";
+            this.rbIntegral.Size = new System.Drawing.Size(54, 17);
+            this.rbIntegral.TabIndex = 8;
+            this.rbIntegral.TabStop = true;
+            this.rbIntegral.Text = "Całka";
+            this.toolTip.SetToolTip(this.rbIntegral, "Całka pojedyncza po zmiennej \'x\'");
+            this.rbIntegral.UseVisualStyleBackColor = true;
+            this.rbIntegral.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            // 
+            // btnHelp
+            // 
+            this.btnHelp.Location = new System.Drawing.Point(293, 4);
+            this.btnHelp.Name = "btnHelp";
+            this.btnHelp.Size = new System.Drawing.Size(24, 23);
+            this.btnHelp.TabIndex = 5;
+            this.btnHelp.Text = "?";
+            this.toolTip.SetToolTip(this.btnHelp, "Podpowiedzi");
+            this.btnHelp.UseVisualStyleBackColor = true;
+            // 
+            // txtFunction
+            // 
+            this.txtFunction.Location = new System.Drawing.Point(9, 5);
+            this.txtFunction.Name = "txtFunction";
+            this.txtFunction.Size = new System.Drawing.Size(278, 20);
+            this.txtFunction.TabIndex = 4;
+            this.toolTip.SetToolTip(this.txtFunction, "(a)sin, (a)cos, (a)tg, (a)ctg, exp, E, ln, lg, log, sqrt, zmienna \'x\'");
+            this.txtFunction.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
+            // 
+            // chkIFT
+            // 
+            this.chkIFT.AutoSize = true;
+            this.chkIFT.ForeColor = System.Drawing.Color.Maroon;
+            this.chkIFT.Location = new System.Drawing.Point(6, 205);
+            this.chkIFT.Name = "chkIFT";
+            this.chkIFT.Size = new System.Drawing.Size(42, 17);
+            this.chkIFT.TabIndex = 24;
+            this.chkIFT.Text = "IFT";
+            this.toolTip.SetToolTip(this.chkIFT, "Inverse Fourier Transform");
+            this.chkIFT.UseVisualStyleBackColor = true;
+            this.chkIFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
+            // 
+            // chkFT
+            // 
+            this.chkFT.AutoSize = true;
+            this.chkFT.ForeColor = System.Drawing.Color.PaleVioletRed;
+            this.chkFT.Location = new System.Drawing.Point(6, 179);
+            this.chkFT.Name = "chkFT";
+            this.chkFT.Size = new System.Drawing.Size(39, 17);
+            this.chkFT.TabIndex = 23;
+            this.chkFT.Text = "FT";
+            this.toolTip.SetToolTip(this.chkFT, "Fourier Transform");
+            this.chkFT.UseVisualStyleBackColor = true;
+            this.chkFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
+            // 
+            // btnSpecialFunction
+            // 
+            this.btnSpecialFunction.Location = new System.Drawing.Point(124, 150);
+            this.btnSpecialFunction.Name = "btnSpecialFunction";
+            this.btnSpecialFunction.Size = new System.Drawing.Size(17, 21);
+            this.btnSpecialFunction.TabIndex = 19;
+            this.btnSpecialFunction.Text = "?";
+            this.toolTip.SetToolTip(this.btnSpecialFunction, "Podpowiedzi");
+            this.btnSpecialFunction.UseVisualStyleBackColor = true;
+            this.btnSpecialFunction.Click += new System.EventHandler(this.btnSpecialFunction_Click);
+            // 
+            // chkSpecialFunction
+            // 
+            this.chkSpecialFunction.AutoSize = true;
+            this.chkSpecialFunction.Enabled = false;
+            this.chkSpecialFunction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.chkSpecialFunction.Location = new System.Drawing.Point(6, 153);
+            this.chkSpecialFunction.Name = "chkSpecialFunction";
+            this.chkSpecialFunction.Size = new System.Drawing.Size(112, 17);
+            this.chkSpecialFunction.TabIndex = 18;
+            this.chkSpecialFunction.Text = "Funkcja specjalna";
+            this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
+        "argumentów wstawić zmienną x.\r\n");
+            this.chkSpecialFunction.UseVisualStyleBackColor = true;
+            this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // saveFileDialog
             // 
@@ -258,32 +355,6 @@
             this.rbSpecialFunction.Text = "Funkcje specjalne";
             this.rbSpecialFunction.UseVisualStyleBackColor = true;
             this.rbSpecialFunction.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
-            // rbDifferential
-            // 
-            this.rbDifferential.AutoSize = true;
-            this.rbDifferential.Location = new System.Drawing.Point(9, 88);
-            this.rbDifferential.Name = "rbDifferential";
-            this.rbDifferential.Size = new System.Drawing.Size(135, 17);
-            this.rbDifferential.TabIndex = 5;
-            this.rbDifferential.TabStop = true;
-            this.rbDifferential.Text = "Równanie różniczkowe";
-            this.toolTip.SetToolTip(this.rbDifferential, "Różniczka po zmiennej \'x\'");
-            this.rbDifferential.UseVisualStyleBackColor = true;
-            this.rbDifferential.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
-            // 
-            // rbIntegral
-            // 
-            this.rbIntegral.AutoSize = true;
-            this.rbIntegral.Location = new System.Drawing.Point(9, 65);
-            this.rbIntegral.Name = "rbIntegral";
-            this.rbIntegral.Size = new System.Drawing.Size(54, 17);
-            this.rbIntegral.TabIndex = 8;
-            this.rbIntegral.TabStop = true;
-            this.rbIntegral.Text = "Całka";
-            this.toolTip.SetToolTip(this.rbIntegral, "Całka pojedyncza po zmiennej \'x\'");
-            this.rbIntegral.UseVisualStyleBackColor = true;
-            this.rbIntegral.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
             // rbDerivativePointBis
             // 
@@ -550,16 +621,6 @@
             this.pnlFunkcja.Size = new System.Drawing.Size(329, 32);
             this.pnlFunkcja.TabIndex = 0;
             // 
-            // btnHelp
-            // 
-            this.btnHelp.Location = new System.Drawing.Point(293, 4);
-            this.btnHelp.Name = "btnHelp";
-            this.btnHelp.Size = new System.Drawing.Size(24, 23);
-            this.btnHelp.TabIndex = 5;
-            this.btnHelp.Text = "?";
-            this.toolTip.SetToolTip(this.btnHelp, "Podpowiedzi");
-            this.btnHelp.UseVisualStyleBackColor = true;
-            // 
             // lblFx
             // 
             this.lblFx.AutoSize = true;
@@ -568,15 +629,6 @@
             this.lblFx.Name = "lblFx";
             this.lblFx.Size = new System.Drawing.Size(0, 16);
             this.lblFx.TabIndex = 3;
-            // 
-            // txtFunction
-            // 
-            this.txtFunction.Location = new System.Drawing.Point(9, 5);
-            this.txtFunction.Name = "txtFunction";
-            this.txtFunction.Size = new System.Drawing.Size(278, 20);
-            this.txtFunction.TabIndex = 4;
-            this.toolTip.SetToolTip(this.txtFunction, "(a)sin, (a)cos, (a)tg, (a)ctg, exp, E, ln, lg, log, sqrt, zmienna \'x\'");
-            this.txtFunction.TextChanged += new System.EventHandler(this.TextBox_TextChanged);
             // 
             // pnlKomenda
             // 
@@ -665,6 +717,7 @@
             this.picGraph.TabIndex = 0;
             this.picGraph.TabStop = false;
             this.picGraph.MouseDown += new System.Windows.Forms.MouseEventHandler(this.picGraph_MouseDown);
+            this.picGraph.MouseMove += new System.Windows.Forms.MouseEventHandler(this.picGraph_MouseMove);
             this.picGraph.MouseUp += new System.Windows.Forms.MouseEventHandler(this.picGraph_MouseUp);
             // 
             // pnlWarunki
@@ -841,32 +894,6 @@
             this.txtCutoff.TabIndex = 25;
             this.txtCutoff.Text = "0";
             // 
-            // chkIFT
-            // 
-            this.chkIFT.AutoSize = true;
-            this.chkIFT.ForeColor = System.Drawing.Color.Maroon;
-            this.chkIFT.Location = new System.Drawing.Point(6, 205);
-            this.chkIFT.Name = "chkIFT";
-            this.chkIFT.Size = new System.Drawing.Size(42, 17);
-            this.chkIFT.TabIndex = 24;
-            this.chkIFT.Text = "IFT";
-            this.toolTip.SetToolTip(this.chkIFT, "Inverse Fourier Transform");
-            this.chkIFT.UseVisualStyleBackColor = true;
-            this.chkIFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
-            // 
-            // chkFT
-            // 
-            this.chkFT.AutoSize = true;
-            this.chkFT.ForeColor = System.Drawing.Color.PaleVioletRed;
-            this.chkFT.Location = new System.Drawing.Point(6, 179);
-            this.chkFT.Name = "chkFT";
-            this.chkFT.Size = new System.Drawing.Size(39, 17);
-            this.chkFT.TabIndex = 23;
-            this.chkFT.Text = "FT";
-            this.toolTip.SetToolTip(this.chkFT, "Fourier Transform");
-            this.chkFT.UseVisualStyleBackColor = true;
-            this.chkFT.CheckedChanged += new System.EventHandler(this.ChangeSettings);
-            // 
             // chkDifferentialII
             // 
             this.chkDifferentialII.AutoSize = true;
@@ -892,32 +919,6 @@
             this.chkDifferential.Text = "Równanie różniczkowe";
             this.chkDifferential.UseVisualStyleBackColor = true;
             this.chkDifferential.CheckedChanged += new System.EventHandler(this.ChangeSettings);
-            // 
-            // btnSpecialFunction
-            // 
-            this.btnSpecialFunction.Location = new System.Drawing.Point(124, 150);
-            this.btnSpecialFunction.Name = "btnSpecialFunction";
-            this.btnSpecialFunction.Size = new System.Drawing.Size(17, 21);
-            this.btnSpecialFunction.TabIndex = 19;
-            this.btnSpecialFunction.Text = "?";
-            this.toolTip.SetToolTip(this.btnSpecialFunction, "Podpowiedzi");
-            this.btnSpecialFunction.UseVisualStyleBackColor = true;
-            this.btnSpecialFunction.Click += new System.EventHandler(this.btnSpecialFunction_Click);
-            // 
-            // chkSpecialFunction
-            // 
-            this.chkSpecialFunction.AutoSize = true;
-            this.chkSpecialFunction.Enabled = false;
-            this.chkSpecialFunction.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
-            this.chkSpecialFunction.Location = new System.Drawing.Point(6, 153);
-            this.chkSpecialFunction.Name = "chkSpecialFunction";
-            this.chkSpecialFunction.Size = new System.Drawing.Size(112, 17);
-            this.chkSpecialFunction.TabIndex = 18;
-            this.chkSpecialFunction.Text = "Funkcja specjalna";
-            this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
-        "argumentów wstawić zmienną x.\r\n");
-            this.chkSpecialFunction.UseVisualStyleBackColor = true;
-            this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // chkSecondDerivative
             // 

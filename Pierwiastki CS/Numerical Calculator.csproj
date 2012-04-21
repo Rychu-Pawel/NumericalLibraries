@@ -91,33 +91,33 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Bessel.cs" />
-    <Compile Include="Calka.cs" />
-    <Compile Include="Aproksymacja.cs" />
+    <Compile Include="Integral.cs" />
+    <Compile Include="Approximation.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="ExceptionsAndEnums.cs" />
-    <Compile Include="FastFourierTransform.cs" />
+    <Compile Include="FourierTransform.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Funkcja.cs" />
+    <Compile Include="Function.cs" />
     <Compile Include="FunctionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FunctionsForm.Designer.cs">
       <DependentUpon>FunctionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hybryda.cs" />
-    <Compile Include="Interpolacja.cs" />
+    <Compile Include="Hybrid.cs" />
+    <Compile Include="Interpolation.cs" />
     <Compile Include="InterpolationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterpolationForm.Designer.cs">
       <DependentUpon>InterpolationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Kalkulator.cs" />
+    <Compile Include="Calculator.cs" />
     <Compile Include="LanguageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -131,7 +131,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LanguagePolish.resx</DependentUpon>
     </Compile>
-    <Compile Include="Pochodna.cs" />
+    <Compile Include="Derivative.cs" />
     <Compile Include="PointC.cs" />
     <Compile Include="PointD.cs" />
     <Compile Include="Program.cs" />
@@ -184,19 +184,19 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="RownaniaLiniowe.cs" />
+    <Compile Include="LinearEquation.cs" />
     <Compile Include="LinearEquationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LinearEquationForm.Designer.cs">
       <DependentUpon>LinearEquationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Rozniczka.cs" />
+    <Compile Include="Differential.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Silnia.cs" />
-    <Compile Include="Stos.cs" />
-    <Compile Include="Wnetrze.cs" />
-    <Compile Include="Wykres.cs" />
+    <Compile Include="Factorial.cs" />
+    <Compile Include="Stack.cs" />
+    <Compile Include="Interior.cs" />
+    <Compile Include="Graph.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">

@@ -95,7 +95,12 @@ namespace NumericalCalculator
             }
             catch (Exception excep)
             {
-                MessageBox.Show(excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                string message = language.GetString(excep.GetType().Name);
+
+                if (string.IsNullOrEmpty(message))
+                    message = excep.Message;
+
+                MessageBox.Show(message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

@@ -104,9 +104,14 @@ namespace NumericalCalculator
             {
                 HandleException(language.GetString("LinearEquation_FormatException"));
             }
-            catch (SystemException excep)
+            catch (Exception excep)
             {
-                HandleException(excep.Message);
+                string message = language.GetString(excep.GetType().Name);
+
+                if (string.IsNullOrEmpty(message))
+                    message = excep.Message;
+
+                HandleException(message);
             }
         }
 

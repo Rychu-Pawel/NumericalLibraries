@@ -481,7 +481,7 @@ namespace NumericalCalculator
                 else if (rbDifferentialII.Checked)
                 {
                     Differential derivative = new Differential(function);
-                    List<PointD> points = derivative.ObliczRozniczkeII(point, from, to, fromII, toII);
+                    List<PointD> points = derivative.ComputeDifferentialII(point, from, to, fromII, toII);
 
                     txtResult.Text = points.Last().Y.ToString();
                 }
@@ -542,7 +542,7 @@ namespace NumericalCalculator
                     stopWatch.Stop();
                     lblTime.Text = stopWatch.Elapsed.ToString().Substring(3, 13);
 
-                    btnDraw_Click(btnCompute, new EventArgs());
+                    DrawGraph();
 
                     txtResult.Text = language.GetString("VariableFoundException");
                 }
@@ -810,6 +810,11 @@ namespace NumericalCalculator
         // RYSOWANIE WYKRESU
         private void btnDraw_Click(object sender, EventArgs e)
         {
+            DrawGraph();
+        }
+
+        private void DrawGraph(bool rescaling = true)
+        {
             try
             {
                 //Sprawdzenie czy jakas opcja wykresu jest zacheckowana
@@ -844,89 +849,10 @@ namespace NumericalCalculator
 
                 double xFrom, xTo, yFrom, yTo;
 
-                try
-                {
-                    xFrom = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    //Sprawdzenie może da się oszacować
-                    try
-                    {
-                        Calculator calculator = new Calculator(txtXFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                        xFrom = calculator.ComputeInterior();
-
-                        if (txtXFrom.Text.Contains('E'))
-                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch
-                    {
-                        throw new xFromException();
-                    }
-                }
-
-                try
-                {
-                    xTo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    //Sprawdzenie może da się oszacować
-                    try
-                    {
-                        Calculator calculator = new Calculator(txtXTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                        xTo = calculator.ComputeInterior();
-
-                        if (txtXTo.Text.Contains('E'))
-                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch
-                    {
-                        throw new xToException();
-                    }
-                }
-
-                try
-                {
-                    yFrom = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    //Sprawdzenie może da się oszacować
-                    try
-                    {
-                        Calculator calculator = new Calculator(txtYFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                        yFrom = calculator.ComputeInterior();
-
-                        if (txtYFrom.Text.Contains('E'))
-                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch
-                    {
-                        throw new yFromException();
-                    }
-                }
-
-                try
-                {
-                    yTo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
-                }
-                catch (Exception)
-                {
-                    //Sprawdzenie może da się oszacować
-                    try
-                    {
-                        Calculator calculator = new Calculator(txtYTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                        yTo = calculator.ComputeInterior();
-
-                        if (txtYTo.Text.Contains('E'))
-                            MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
-                    catch
-                    {
-                        throw new yToException();
-                    }
-                }
+                xFrom = GetArgument(ArgumentTypeEnum.xFrom);
+                xTo = GetArgument(ArgumentTypeEnum.xTo);
+                yFrom = GetArgument(ArgumentTypeEnum.yFrom);
+                yTo = GetArgument(ArgumentTypeEnum.yTo);
 
                 //Sprawdzenie czy zakres jest OK
                 if (xFrom >= xTo)
@@ -945,106 +871,31 @@ namespace NumericalCalculator
 
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                 {
-                    try
-                    {
-                        if (txtFirstCommandArgument.Text == "x")
-                            first = double.NaN;
-                        else
-                            first = double.Parse(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtFirstCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            first = kalkulator.ComputeInterior();
 
-                            if (txtFirstCommandArgument.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new BesselFirstArgumentException();
-                        }
-                    }
+                    if (txtFirstCommandArgument.Text == "x")
+                        first = double.NaN;
+                    else
+                        first = GetArgument(ArgumentTypeEnum.BesselFirst);
 
-                    try
-                    {
-                        if (txtSecondCommandArgument.Text == "x")
-                            second = double.NaN;
-                        else
-                            second = double.Parse(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtSecondCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            second = kalkulator.ComputeInterior();
-
-                            if (txtSecondCommandArgument.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new BesseleSecondArgumentException();
-                        }
-                    }
+                    if (txtSecondCommandArgument.Text == "x")
+                        second = double.NaN;
+                    else
+                        second = GetArgument(ArgumentTypeEnum.BesselSecond);
 
                     if (cmbSpecialFunction.SelectedIndex == 7 || cmbSpecialFunction.SelectedIndex == 8)
                     {
-                        try
-                        {
-                            if (txtThirdCommandArgument.Text == "x")
-                                thrid = double.NaN;
-                            else
-                                thrid = double.Parse(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo));
-                        }
-                        catch (Exception)
-                        {
-                            //Sprawdzenie może da się oszacować
-                            try
-                            {
-                                Calculator kalkulator = new Calculator(txtThirdCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                                thrid = kalkulator.ComputeInterior();
-
-                                if (txtThirdCommandArgument.Text.Contains('E'))
-                                    MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            catch
-                            {
-                                throw new BesseleThirdArgumentException();
-                            }
-                        }
+                        if (txtThirdCommandArgument.Text == "x")
+                            thrid = double.NaN;
+                        else
+                            thrid = GetArgument(ArgumentTypeEnum.BesselThird);
                     }
 
                     if (cmbSpecialFunction.SelectedIndex == 8)
                     {
-                        try
-                        {
-                            if (txtFourthCommandArgument.Text == "x")
-                                fourth = double.NaN;
-                            else
-                                fourth = double.Parse(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo));
-                        }
-                        catch (Exception)
-                        {
-                            //Sprawdzenie może da się oszacować
-                            try
-                            {
-                                Calculator kalkulator = new Calculator(txtFourthCommandArgument.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                                fourth = kalkulator.ComputeInterior();
-
-                                if (txtFourthCommandArgument.Text.Contains('E'))
-                                    MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            }
-                            catch
-                            {
-                                throw new BesseleFourthArgumentException();
-                            }
-                        }
+                        if (txtFourthCommandArgument.Text == "x")
+                            fourth = double.NaN;
+                        else
+                            fourth = GetArgument(ArgumentTypeEnum.BesselFourth);
                     }
 
                     //znalezienie typu besselowego
@@ -1086,7 +937,7 @@ namespace NumericalCalculator
                 Graph graph = new Graph(function, picGraph, xFrom, xTo, yFrom, yTo);
 
                 //Reskalling
-                if (chkRescaling.Checked && chkRescaling.Enabled && sender is Button)
+                if (chkRescaling.Checked && chkRescaling.Enabled && rescaling)
                 {
                     //Zbudowanie listy typow funkcji
                     List<FunctionTypeEnum> functionType = new List<FunctionTypeEnum>();
@@ -1104,7 +955,7 @@ namespace NumericalCalculator
 
                     //Obliczenie maxów i minów do reskalingu
                     if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
-                        reskalling = graph.Reskalling(bft, first, second, thrid, fourth);
+                        reskalling = graph.Reskalling(bft, first, second, thrid, fourth); //bessele
                     else
                         reskalling = graph.Reskalling(functionType.ToArray()); //normlanych
 
@@ -1131,84 +982,29 @@ namespace NumericalCalculator
                 if (chkSecondDerivative.Checked && chkSecondDerivative.Enabled)
                     graph.Draw(FunctionTypeEnum.SecondDerivative);
 
-                //Rysowanie FFT
-                int sampling = 1000;
-                double cutoff = 0.0;
-
-                //probki
+                //Rysowanie FT
                 if ((chkFT.Checked && chkFT.Enabled) || (chkIFT.Checked && chkIFT.Enabled))
                 {
-                    string samplingString = txtSampling.Text;
-                    string cutoffString = txtCutoff.Text;
+                    int sampling = 1000;
+                    double cutoff = 0.0;
 
-                    if (!int.TryParse(samplingString, out sampling))
-                        throw new SamplingValueException();
+                    sampling = (int)Math.Round(GetArgument(ArgumentTypeEnum.Sampling), 0);
+                    cutoff = GetArgument(ArgumentTypeEnum.Cutoff);
 
-                    double temp;
+                    if (chkFT.Checked)
+                        graph.DrawFT(FunctionTypeEnum.FT, sampling, cutoff);
 
-                    if (string.IsNullOrEmpty(cutoffString))
-                        cutoff = 0.0;
-                    else
-                    {
-                        if (!double.TryParse(cutoffString, out temp))
-                            throw new CutoffValueException();
-                        else
-                            cutoff = temp;
-                    }
+                    if (chkIFT.Checked)
+                        graph.DrawFT(FunctionTypeEnum.IFT, sampling, cutoff);
                 }
-
-                if (chkFT.Checked && chkFT.Enabled)
-                    graph.DrawFT(FunctionTypeEnum.FT, sampling, cutoff);
-
-                if (chkIFT.Checked && chkIFT.Enabled)
-                    graph.DrawFT(FunctionTypeEnum.IFT, sampling, cutoff);
 
                 //Rysowanie rozniczek
                 if (chkDifferential.Checked && chkDifferential.Enabled)
                 {
                     double from, to;
 
-                    try
-                    {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ComputeInterior();
-
-                            if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        to = Convert.ToDouble(txtTo.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ComputeInterior();
-
-                            if (txtTo.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
+                    from = GetArgument(ArgumentTypeEnum.From);
+                    to = GetArgument(ArgumentTypeEnum.To);
 
                     graph.DrawDifferential(FunctionTypeEnum.Differential, from, to);
                 }
@@ -1217,98 +1013,21 @@ namespace NumericalCalculator
                 {
                     double from, to, fromII, toII;
 
-                    try
-                    {
-                        from = Convert.ToDouble(txtFrom.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtFrom.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            from = kalkulator.ComputeInterior();
-
-                            if (txtFrom.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        fromII = Convert.ToDouble(txtFromII.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtFromII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            fromII = kalkulator.ComputeInterior();
-
-                            if (txtFromII.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new FromConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        to = Convert.ToDouble(txtTo.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtTo.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            to = kalkulator.ComputeInterior();
-
-                            if (txtTo.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
-
-                    try
-                    {
-                        toII = Convert.ToDouble(txtToII.Text.Replace(changeFrom, changeTo));
-                    }
-                    catch (Exception)
-                    {
-                        //Sprawdzenie może da się oszacować
-                        try
-                        {
-                            Calculator kalkulator = new Calculator(txtToII.Text.Replace(changeFrom, changeTo).Replace("E", Math.E.ToString()));
-                            toII = kalkulator.ComputeInterior();
-
-                            if (txtToII.Text.Contains('E'))
-                                MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        }
-                        catch
-                        {
-                            throw new ToConversionException();
-                        }
-                    }
+                    from = GetArgument(ArgumentTypeEnum.From);
+                    to = GetArgument(ArgumentTypeEnum.To);
+                    fromII = GetArgument(ArgumentTypeEnum.FromII);
+                    toII = GetArgument(ArgumentTypeEnum.ToII);
 
                     graph.DrawDifferential(FunctionTypeEnum.DifferentialII, from, to, fromII, toII);
                 }
 
+                //Rysowanie Bessela
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                     graph.DrawBessel(bft, first, second, thrid, fourth);
 
                 //Zakończenie
                 IsFunctionDrawn = true;
+                picGraph.Refresh();
 
                 //Pobranie punktow wykresu
                 graphPoint = graph.GraphPoints;
@@ -1375,20 +1094,35 @@ namespace NumericalCalculator
         }
 
         //PRZESUWANIE WYKRESU
+        bool graphMovingStarted = false;
         Point startingPoint, endPoint;
 
         private void picGraph_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
+            {
                 startingPoint = e.Location;
+                graphMovingStarted = true;
+            }
         }
 
         private void picGraph_MouseUp(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left && graphMovingStarted && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked))
+            {
+                graphMovingStarted = false;
+                endPoint = e.Location;
+            }
+        }
+
+        private void picGraph_MouseMove(object sender, MouseEventArgs e)
+        {
             try
             {
-                if (e.Button == MouseButtons.Left && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked))
+                if (graphMovingStarted && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked))
                 {
+                    
+
                     //Zmienne
                     double xFrom, xTo, yFrom, yTo;
 
@@ -1396,10 +1130,10 @@ namespace NumericalCalculator
 
                     try
                     {
-                        xFrom = Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo));
-                        xTo = Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo));
-                        yFrom = Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo));
-                        yTo = Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo));
+                        xFrom = GetArgument(ArgumentTypeEnum.xFrom);
+                        xTo = GetArgument(ArgumentTypeEnum.xTo);
+                        yFrom = GetArgument(ArgumentTypeEnum.yFrom);
+                        yTo = GetArgument(ArgumentTypeEnum.yTo); ;
                     }
                     catch
                     {
@@ -1434,6 +1168,8 @@ namespace NumericalCalculator
                     xTo -= differenceX;
                     yFrom += differenceY;
                     yTo += differenceY;
+
+                    startingPoint = e.Location;
 
                     if (xFrom > max)
                         xFrom = max;
@@ -1470,7 +1206,7 @@ namespace NumericalCalculator
 
                     //Narysowanie nowego wykresu
                     if (IsFunctionDrawn)
-                        btnDraw_Click(this, new EventArgs());
+                        DrawGraph(false);
                     else
                         ClearGraph();
                 }
@@ -1492,127 +1228,81 @@ namespace NumericalCalculator
                     double xFrom, xTo, yFrom, yTo;
 
                     //Zmienienie nieskończoności w max
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
                         txtXFrom.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xTo)))
                         txtXTo.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
                         txtYFrom.Text = max.ToString();
-                    if (double.IsPositiveInfinity(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yTo)))
                         txtYTo.Text = max.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
                         txtXFrom.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xTo)))
                         txtXTo.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
                         txtYFrom.Text = min.ToString();
-                    if (double.IsNegativeInfinity(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo))))
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yTo)))
                         txtYTo.Text = min.ToString();
 
-                    try
-                    {
-                        xFrom = Math.Round(Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), 2);
-                    }
-                    catch (Exception)
-                    {
-                        throw new xFromException();
-                    }
-
-                    try
-                    {
-                        xTo = Math.Round(Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), 2);
-                    }
-                    catch (Exception)
-                    {
-                        throw new xToException();
-                    }
-
-                    try
-                    {
-                        yFrom = Math.Round(Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), 2);
-                    }
-                    catch (Exception)
-                    {
-                        throw new yFromException();
-                    }
-
-                    try
-                    {
-                        yTo = Math.Round(Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)), 2);
-                    }
-                    catch (Exception)
-                    {
-                        throw new yToException();
-                    }
+                    xFrom = Math.Round(GetArgument(ArgumentTypeEnum.xFrom), 2);
+                    xTo = Math.Round(GetArgument(ArgumentTypeEnum.xTo), 2);
+                    yFrom = Math.Round(GetArgument(ArgumentTypeEnum.yFrom), 2);
+                    yTo = Math.Round(GetArgument(ArgumentTypeEnum.yTo), 2);
 
                     //Obliczenie nowych wartosci
                     if (e.Delta > 0)
                     {
                         if (chkX.Checked)
                         {
-                            double skalaX = Math.Abs(xTo - xFrom);
-                            double zmianaX = skalaX / 4;
+                            double scaleX = Math.Abs(xTo - xFrom);
+                            double differenceX = scaleX / 4;
 
-                            xFrom += zmianaX;
-                            xTo -= zmianaX;
-                                
-                            //Obsluga błędu, że czasem wylicza takie same wartości :/
-                            if (xFrom == xTo)
-                            {
-                                xFrom -= 0.05;
-                                xTo += 0.05;
-                            }
+                            xFrom += differenceX;
+                            xTo -= differenceX;
                         }
 
                         if (chkY.Checked)
                         {
-                            double skalaY = Math.Abs(yTo - yFrom);
-                            double zmianaY = skalaY / 4;
+                            double scaleY = Math.Abs(yTo - yFrom);
+                            double differenceY = scaleY / 4;
 
-                            yFrom += zmianaY;
-                            yTo -= zmianaY;
-
-                            //Obsluga błędu, że czasem wylicza takie same wartości :/
-                            if (yFrom == yTo)
-                            {
-                                yFrom -= 0.05;
-                                yTo += 0.05;
-                            }
+                            yFrom += differenceY;
+                            yTo -= differenceY;
                         }
                     }
                     else if (e.Delta < 0)
                     {
                         if (chkX.Checked)
                         {
-                            double skalaX = Math.Abs(xTo - xFrom);
-                            double zmianaX = skalaX / 2;
+                            double scaleX = Math.Abs(xTo - xFrom);
+                            double differenceX = scaleX / 2;
 
-                            xFrom -= zmianaX;
-                            xTo += zmianaX;
-
-                            //Obsluga błędu, że czasem wylicza takie same wartości :/
-                            if (xFrom == xTo)
-                            {
-                                xFrom -= 0.05;
-                                xTo += 0.05;
-                            }
+                            xFrom -= differenceX;
+                            xTo += differenceX;
                         }
 
                         if (chkY.Checked)
                         {
-                            double skalaY = Math.Abs(yTo - yFrom);
-                            double zmianaY = skalaY / 2;
+                            double scaleY = Math.Abs(yTo - yFrom);
+                            double differenceY = scaleY / 2;
 
-                            yFrom -= zmianaY;
-                            yTo += zmianaY;
-
-                            //Obsluga błędu, że czasem wylicza takie same wartości :/
-                            if (yFrom == yTo)
-                            {
-                                yFrom -= 0.05;
-                                yTo += 0.05;
-                            }
+                            yFrom -= differenceY;
+                            yTo += differenceY;
                         }
+                    }
+
+                    //Obsluga błędu, że czasem wylicza takie same wartości :/
+                    if (xFrom == xTo)
+                    {
+                        xFrom -= 0.05;
+                        xTo += 0.05;
+                    }
+
+                    if (yFrom == yTo)
+                    {
+                        yFrom -= 0.05;
+                        yTo += 0.05;
                     }
 
                     //Sprawdzenie czy wartosci nie sa zbyt bliskie zeru
@@ -1663,7 +1353,7 @@ namespace NumericalCalculator
                     txtYTo.Text = Convert.ToString(yTo);
 
                     if (IsFunctionDrawn)
-                        btnDraw_Click(this, new EventArgs());
+                        DrawGraph(false);
                     else
                         ClearGraph();
                 }
@@ -1832,19 +1522,19 @@ namespace NumericalCalculator
         {
             if (this.Size.Width >= this.MinimumSize.Width && this.Size.Height >= this.MinimumSize.Height) //wiem ze if wyglada bzdurowato, ale jest false jak sie forma minimalizuje ...
             {
-                int gainH = Height - 435;
-                int gainW = Width - 998;
+                int gainH = Height - 453;
+                int gainW = Width - 1007;
 
-                picGraph.Height = 350 + gainH;
+                picGraph.Height = 368 + gainH;
                 picGraph.Width = 400 + gainW;
-                pnlWykres.Height = 350 + gainH;
+                pnlWykres.Height = 368 + gainH;
                 pnlWykres.Width = 400 + gainW;
-                gbDrawFunction.Left = 759 + gainW;
-                gbScale.Left = 759 + gainW;
-                btnDraw.Left = 824 + gainW;
+                gbDrawFunction.Left = 769 + gainW;
+                gbScale.Left = 769 + gainW;
+                btnDraw.Left = 836 + gainW;
 
                 if (IsFunctionDrawn && graphPreviewWhileWindowsScalingToolStripMenuItem.Checked)
-                    btnDraw_Click(this, new EventArgs());
+                    DrawGraph(false);
                 else
                     ClearGraph();
             }            

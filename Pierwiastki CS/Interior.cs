@@ -32,7 +32,7 @@ namespace NumericalCalculator
         protected double EvaluateWnetrze()
         {
             // PRZYGOTOWANIE ZMIENNYCH
-            stos.wyczysc();
+            stack.Clear();
 
             // LICZENIE
             int j;
@@ -43,7 +43,7 @@ namespace NumericalCalculator
                 double a, b, wynikAB = 0;
 
                 if (CzyLiczba(i) || i == "x" || i == "u" || i == "y") // JEŚLI CYFRA
-                    stos.doloz(i);
+                    stack.Add(i);
                 // funkcja 4 LITEROWA
                 else if (i.StartsWith("actg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("sqrt") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
                 {
@@ -77,7 +77,7 @@ namespace NumericalCalculator
                     else if (i.StartsWith("ctgh") || i.StartsWith("ctnh") || i.StartsWith("coth")) funkcjaPodstawowa = 1 / Math.Tanh(wnetrze);
                     else if (i.StartsWith("tanh")) funkcjaPodstawowa = Math.Tanh(wnetrze);
 
-                    stos.doloz(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(funkcjaPodstawowa));
                 }
                 // funkcja 3 literowa
                 else if (i.StartsWith("sin") || i.StartsWith("cos") || i.StartsWith("ctg") || i.StartsWith("atg") || i.StartsWith("exp") || i.StartsWith("log") || i.StartsWith("tgh") || i.StartsWith("tan") || i.StartsWith("ctn") || i.StartsWith("cot") || i.StartsWith("sec") || i.StartsWith("csc"))
@@ -114,7 +114,7 @@ namespace NumericalCalculator
                     else if (i.StartsWith("sec")) funkcjaPodstawowa = 1 / Math.Cos(wnetrze);
                     else if (i.StartsWith("csc")) funkcjaPodstawowa = 1 / Math.Sin(wnetrze);
 
-                    stos.doloz(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(funkcjaPodstawowa));
                 }
                 else if (i.StartsWith("tg") || i.StartsWith("ln") || i.StartsWith("lg")) // TANGENS, LG, LN
                 {
@@ -143,18 +143,18 @@ namespace NumericalCalculator
                     else if (i.StartsWith("lg")) funkcjaPodstawowa = Math.Log(wnetrze, 2);
                     else if (i.StartsWith("ln")) funkcjaPodstawowa = Math.Log(wnetrze, Math.E);
 
-                    stos.doloz(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(funkcjaPodstawowa));
                 }
                 else if (operatoryBezSilniString.Contains(i)) // OPERATOR
                 {
-                    string wartosc = stos.wartosc();
+                    string wartosc = stack.Value();
 
                     //a
                     if (wartosc != "x" && wartosc != "u" && wartosc != "y")
-                        a = Convert.ToDouble(stos.zdejmij());
+                        a = Convert.ToDouble(stack.Pull());
                     else
                     {
-                        stos.zdejmij();
+                        stack.Pull();
 
                         switch (wartosc)
                         {
@@ -174,13 +174,13 @@ namespace NumericalCalculator
                     }
 
                     //b
-                    wartosc = stos.wartosc();
+                    wartosc = stack.Value();
 
                     if (wartosc != "x" && wartosc != "u" && wartosc != "y")
-                        b = Convert.ToDouble(stos.zdejmij());
+                        b = Convert.ToDouble(stack.Pull());
                     else
                     {
-                        stos.zdejmij();
+                        stack.Pull();
 
                         switch (wartosc)
                         {
@@ -208,11 +208,11 @@ namespace NumericalCalculator
                         case "^": wynikAB = Math.Pow(b, a); break;
                     }
 
-                    stos.doloz(Convert.ToString(wynikAB));
+                    stack.Add(Convert.ToString(wynikAB));
                 }
                 else if (i == "!")
                 {
-                    string wartoscZeStosu = stos.zdejmij();
+                    string wartoscZeStosu = stack.Pull();
 
                     double c;
 
@@ -237,35 +237,35 @@ namespace NumericalCalculator
                         }  
                     }
 
-                    double wynik = Silnia.Oblicz(c);
+                    double wynik = Factorial.Compute(c);
 
-                    stos.doloz(Convert.ToString(wynik));
+                    stack.Add(Convert.ToString(wynik));
                 }
             }
 
-            string wartosc2 = stos.wartosc();
+            string wartosc2 = stack.Value();
             if (wartosc2 == "x" || wartosc2 == "u" || wartosc2 == "y")
             {
-                stos.zdejmij();
+                stack.Pull();
 
                 switch (wartosc2)
                 {
                     case "x":
-                        stos.doloz(Convert.ToString(x));
+                        stack.Add(Convert.ToString(x));
                         break;
                     case "u":
-                        stos.doloz(Convert.ToString(u));
+                        stack.Add(Convert.ToString(u));
                         break;
                     case "y":
-                        stos.doloz(Convert.ToString(y));
+                        stack.Add(Convert.ToString(y));
                         break;
                     default:
-                        stos.doloz(Convert.ToString(x));
+                        stack.Add(Convert.ToString(x));
                         break;
                 }
             }
 
-            return Convert.ToDouble(stos.zdejmij()); // WYNIK
+            return Convert.ToDouble(stack.Pull()); // WYNIK
         }
 
         public virtual double ComputeInterior()

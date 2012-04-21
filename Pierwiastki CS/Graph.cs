@@ -241,10 +241,10 @@ namespace NumericalCalculator
 
             Pen pen = null;
 
-            FastFourierTransform fft = new FastFourierTransform();
+            FourierTransform fft = new FourierTransform();
 
             //Obliczenie FFT
-            punktyC = fft.Oblicz(funkcja, probkowanie, xOd, xDo);
+            punktyC = fft.Compute(funkcja, probkowanie, xOd, xDo);
 
             //Przefiltrowanie
             for (int i = 0; i < punktyC.Count; i++)
@@ -259,7 +259,7 @@ namespace NumericalCalculator
 
             //Obliczenie Reverse FFT
             if (typFunkcji == FunctionTypeEnum.IFT)
-                punktyReversC = fft.ObliczOdwrocona(punktyC, probkowanie, xOd, xDo);
+                punktyReversC = fft.ComputeInverse(punktyC, probkowanie, xOd, xDo);
 
             //Nowe przygotowanie
             if (typFunkcji == FunctionTypeEnum.FT)
@@ -459,13 +459,13 @@ namespace NumericalCalculator
 
                     //W lewo
                     if (xOd < parametry[0])
-                        lewoII = rozniczkaII.ObliczRozniczkeII(xOd, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
+                        lewoII = rozniczkaII.ComputeDifferentialII(xOd, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
 
                     //W prawo
                     rozniczkaII = new Differential(funkcja);
 
                     if (xDo >= parametry[0])
-                        prawoII = rozniczkaII.ObliczRozniczkeII(xDo, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
+                        prawoII = rozniczkaII.ComputeDifferentialII(xDo, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
 
                     //ŁĄCZYMY
                     //odwracamy w lewo

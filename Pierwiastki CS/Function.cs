@@ -12,7 +12,7 @@ namespace NumericalCalculator
         protected string[] functionTable;
         protected string[] functionONP;
 
-        protected Stos stos = new Stos();
+        protected Stack stack = new Stack();
 
         protected HashSet<char> dozwoloneZnaki = new HashSet<char>() { 'E', ' ', ',', '.', 'l', 's', 'i', 'n', 'c', 'o', 't', 'g', 'q', 'r', 'e', 'x', 'p', 'a', '(', ')', '+', '-', '*', '/', '^', '!', 'y', 'h', 'u', 'y', '\'' };
         protected HashSet<char> operatory = new HashSet<char>() { '+', '-', '*', '/', '^', '!' };
@@ -336,7 +336,7 @@ namespace NumericalCalculator
 
             // PRZYGOTOWANIE ZMIENNYCH
             functionONP = new string[functionTable.Length - nn];
-            stos.wyczysc();
+            stack.Clear();
 
             // ZAMIANA NA ONP
             int j, k = 0;
@@ -359,92 +359,92 @@ namespace NumericalCalculator
                             if (j == 0 || functionTable[j - 1] == "(") // OBSŁUGA np. (-3)
                                 functionONP[k++] = "0";
 
-                            if (stos.wartosc() == "(" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Empty)
+                                stack.Add(i);
                             else
                             {
-                                while (stos.wartosc() == "+" || stos.wartosc() == "*" || stos.wartosc() == "/" || stos.wartosc() == "^" || stos.wartosc() == "-" || stos.wartosc() == "!")
-                                    functionONP[k++] = stos.zdejmij();
+                                while (stack.Value() == "+" || stack.Value() == "*" || stack.Value() == "/" || stack.Value() == "^" || stack.Value() == "-" || stack.Value() == "!")
+                                    functionONP[k++] = stack.Pull();
 
-                                stos.doloz(i);
+                                stack.Add(i);
                             }
                             break;
 
                         case "+":
 
-                            if (stos.wartosc() == "(" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Empty)
+                                stack.Add(i);
                             else
                             {
-                                while (stos.wartosc() == "-" || stos.wartosc() == "*" || stos.wartosc() == "/" || stos.wartosc() == "^" || stos.wartosc() == "+" || stos.wartosc() == "!")
-                                    functionONP[k++] = stos.zdejmij();
+                                while (stack.Value() == "-" || stack.Value() == "*" || stack.Value() == "/" || stack.Value() == "^" || stack.Value() == "+" || stack.Value() == "!")
+                                    functionONP[k++] = stack.Pull();
 
-                                stos.doloz(i);
+                                stack.Add(i);
                             }
                             break;
 
                         case "*":
 
-                            if (stos.wartosc() == "(" || stos.wartosc() == "+" || stos.wartosc() == "-" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Value() == "+" || stack.Value() == "-" || stack.Empty == true)
+                                stack.Add(i);
                             else
                             {
-                                while (stos.wartosc() == "/" || stos.wartosc() == "^" || stos.wartosc() == "*" || stos.wartosc() == "!")
-                                    functionONP[k++] = stos.zdejmij();
+                                while (stack.Value() == "/" || stack.Value() == "^" || stack.Value() == "*" || stack.Value() == "!")
+                                    functionONP[k++] = stack.Pull();
 
-                                stos.doloz(i);
+                                stack.Add(i);
                             }
                             break;
 
                         case "/":
 
-                            if (stos.wartosc() == "(" || stos.wartosc() == "+" || stos.wartosc() == "-" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Value() == "+" || stack.Value() == "-" || stack.Empty)
+                                stack.Add(i);
                             else
                             {
-                                while (stos.wartosc() == "*" || stos.wartosc() == "^" || stos.wartosc() == "/" || stos.wartosc() == "!")
-                                    functionONP[k++] = stos.zdejmij();
+                                while (stack.Value() == "*" || stack.Value() == "^" || stack.Value() == "/" || stack.Value() == "!")
+                                    functionONP[k++] = stack.Pull();
 
-                                stos.doloz(i);
+                                stack.Add(i);
                             }
                             break;
 
                         case "^":
 
-                            if (stos.wartosc() == "(" || stos.wartosc() == "+" || stos.wartosc() == "-" || stos.wartosc() == "*" || stos.wartosc() == "/" || stos.wartosc() == "!" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Value() == "+" || stack.Value() == "-" || stack.Value() == "*" || stack.Value() == "/" || stack.Value() == "!" || stack.Empty)
+                                stack.Add(i);
                             else
-                                stos.doloz(i);
+                                stack.Add(i);
 
                             break;
 
                         case "!":
 
-                            if (stos.wartosc() == "(" || stos.wartosc() == "+" || stos.wartosc() == "-" || stos.wartosc() == "*" || stos.wartosc() == "/" || stos.wartosc() == "^" || stos.pusty() == true)
-                                stos.doloz(i);
+                            if (stack.Value() == "(" || stack.Value() == "+" || stack.Value() == "-" || stack.Value() == "*" || stack.Value() == "/" || stack.Value() == "^" || stack.Empty)
+                                stack.Add(i);
                             else
-                                stos.doloz(i);
+                                stack.Add(i);
 
                             break;
 
                         case "(":
 
-                            stos.doloz(i);
+                            stack.Add(i);
                             break;
 
                         case ")":
 
-                            while (stos.wartosc() != "(")
-                                functionONP[k++] = stos.zdejmij();
+                            while (stack.Value() != "(")
+                                functionONP[k++] = stack.Pull();
 
-                            stos.zdejmij(); // ZDEJMUJE ZE STOSU TEZ NAWIAS
+                            stack.Pull(); // ZDEJMUJE ZE STOSU TEZ NAWIAS
                             break;
                     }
                 }
             }
 
-            while (stos.pusty() == false)  // ZDJECIE ZE STOSU POZOSTALOSCI
-                functionONP[k++] = stos.zdejmij();
+            while (!stack.Empty)  // ZDJECIE ZE STOSU POZOSTALOSCI
+                functionONP[k++] = stack.Pull();
         }
 
         // KONSTRUKTOR ----------------------------

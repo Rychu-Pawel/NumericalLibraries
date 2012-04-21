@@ -7,13 +7,13 @@ using System.Drawing;
 
 namespace NumericalCalculator
 {
-    class FastFourierTransform
+    class FourierTransform
     {
         Complex complexMinusDwa = new Complex(-2.0, 0);
         Complex complexDwa = new Complex(2.0, 0);
         Complex complexPi = new Complex(Math.PI, 0);
 
-        public List<PointC> Oblicz(string funkcja, int probkowanie, double poczatek, double koniec)
+        public List<PointC> Compute(string funkcja, int probkowanie, double poczatek, double koniec)
         {
             Derivative p = new Derivative(funkcja);
 
@@ -49,7 +49,7 @@ namespace NumericalCalculator
             return wyniki;
         }
 
-        public List<PointC> ObliczOdwrocona(List<PointC> punkty, int probkowanie, double poczatek, double koniec)
+        public List<PointC> ComputeInverse(List<PointC> punkty, int probkowanie, double poczatek, double koniec)
         {
             double krok = (koniec - poczatek) / probkowanie;
 
