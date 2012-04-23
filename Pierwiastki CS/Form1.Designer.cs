@@ -120,6 +120,7 @@
             this.chkX = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnDraw = new System.Windows.Forms.Button();
+            this.proportionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.gbOperation.SuspendLayout();
             this.gbPoint.SuspendLayout();
@@ -454,7 +455,8 @@
             this.extraComputationsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.linearEquationToolStripMenuItem,
             this.multipleIntegralToolStripMenuItem,
-            this.interpolationApproximationToolStripMenuItem});
+            this.interpolationApproximationToolStripMenuItem,
+            this.proportionsToolStripMenuItem});
             this.extraComputationsToolStripMenuItem.Name = "extraComputationsToolStripMenuItem";
             this.extraComputationsToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
             this.extraComputationsToolStripMenuItem.Text = "&Dodatkowe obliczenia";
@@ -1083,6 +1085,13 @@
             this.btnDraw.UseVisualStyleBackColor = true;
             this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // proportionsToolStripMenuItem
+            // 
+            this.proportionsToolStripMenuItem.Name = "proportionsToolStripMenuItem";
+            this.proportionsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.proportionsToolStripMenuItem.Text = "&Proporcje";
+            this.proportionsToolStripMenuItem.Click += new System.EventHandler(this.proportionsToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AcceptButton = this.btnCompute;
@@ -1231,6 +1240,7 @@
         private System.Windows.Forms.ToolStripMenuItem languageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polskiToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem proportionsToolStripMenuItem;
     }
 }
 

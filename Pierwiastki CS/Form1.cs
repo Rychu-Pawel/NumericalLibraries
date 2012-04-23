@@ -1702,5 +1702,11 @@ namespace NumericalCalculator
             Language.TranslateControl(this, language);
             Language.TranslateControl(contextMenuStrip, language);
         }
+
+        private void proportionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ProportionsForm pf = new ProportionsForm(changeFrom, changeTo, language, settings);
+            pf.Show();
+        }
     }
 }

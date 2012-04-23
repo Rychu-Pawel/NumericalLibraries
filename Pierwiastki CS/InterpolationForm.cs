@@ -71,11 +71,6 @@ namespace NumericalCalculator
             {
                 MessageBox.Show(language.GetString("InterpolationForm_NoPointsProvidedException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (FunctionException excep)
-            {
-                MessageBox.Show(excep.Message, language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-                txtFunction.Focus();
-            }
             catch (InconsistentSystemOfEquationsException)
             {
                 MessageBox.Show(language.GetString("InterpolationForm_InconsistentSystemOfEquationsException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
