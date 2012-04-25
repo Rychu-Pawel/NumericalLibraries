@@ -97,6 +97,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Mean.
+        /// </summary>
+        internal static string AveragesForm_AveragesForm {
+            get {
+                return ResourceManager.GetString("AveragesForm_AveragesForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect fourth argument!.
         /// </summary>
         internal static string BesseleFourthArgumentException {
@@ -793,6 +802,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to &amp;Mean.
+        /// </summary>
+        internal static string menuStrip_averageToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("menuStrip_averageToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;Close.
         /// </summary>
         internal static string menuStrip_closeToolStripMenuItem {
@@ -888,6 +906,15 @@ namespace NumericalCalculator.Translations {
         internal static string menuStrip_optionsToolStripMenuItem {
             get {
                 return ResourceManager.GetString("menuStrip_optionsToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proportions.
+        /// </summary>
+        internal static string menuStrip_proportionsToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("menuStrip_proportionsToolStripMenuItem", resourceCulture);
             }
         }
         
@@ -1099,6 +1126,87 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compute.
+        /// </summary>
+        internal static string ProportionsForm_btnCompute {
+            get {
+                return ResourceManager.GetString("ProportionsForm_btnCompute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        internal static string ProportionsForm_gbResult {
+            get {
+                return ResourceManager.GetString("ProportionsForm_gbResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Values.
+        /// </summary>
+        internal static string ProportionsForm_gbValues {
+            get {
+                return ResourceManager.GetString("ProportionsForm_gbValues", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Put x only in one field you want to compute:.
+        /// </summary>
+        internal static string ProportionsForm_lblDescription {
+            get {
+                return ResourceManager.GetString("ProportionsForm_lblDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Proportions.
+        /// </summary>
+        internal static string ProportionsForm_ProportionsForm {
+            get {
+                return ResourceManager.GetString("ProportionsForm_ProportionsForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect value in first field!.
+        /// </summary>
+        internal static string ProportionsForm_V1FormatException {
+            get {
+                return ResourceManager.GetString("ProportionsForm_V1FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect value in second field!.
+        /// </summary>
+        internal static string ProportionsForm_V2FormatException {
+            get {
+                return ResourceManager.GetString("ProportionsForm_V2FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect value in thrid field!.
+        /// </summary>
+        internal static string ProportionsForm_V3FormatException {
+            get {
+                return ResourceManager.GetString("ProportionsForm_V3FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect value in fourth field!.
+        /// </summary>
+        internal static string ProportionsForm_V4FormatException {
+            get {
+                return ResourceManager.GetString("ProportionsForm_V4FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Calculator.
         /// </summary>
         internal static string rbCalculator {
@@ -1216,6 +1324,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to There can be only one variable in the proportion!.
+        /// </summary>
+        internal static string ThereCanBeOnlyOneVariableInProportionException {
+            get {
+                return ResourceManager.GetString("ThereCanBeOnlyOneVariableInProportionException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect &quot;to&quot; point!.
         /// </summary>
         internal static string ToConversionException {
@@ -1275,6 +1392,15 @@ namespace NumericalCalculator.Translations {
         internal static string VariableFoundException {
             get {
                 return ResourceManager.GetString("VariableFoundException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Variable x was not found in the proportion!.
+        /// </summary>
+        internal static string VariableNotFoundException {
+            get {
+                return ResourceManager.GetString("VariableNotFoundException", resourceCulture);
             }
         }
         

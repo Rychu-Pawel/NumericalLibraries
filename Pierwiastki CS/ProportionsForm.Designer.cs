@@ -44,7 +44,7 @@
             // 
             // btnCompute
             // 
-            this.btnCompute.Location = new System.Drawing.Point(156, 19);
+            this.btnCompute.Location = new System.Drawing.Point(133, 18);
             this.btnCompute.Name = "btnCompute";
             this.btnCompute.Size = new System.Drawing.Size(75, 23);
             this.btnCompute.TabIndex = 0;
@@ -116,13 +116,14 @@
             // 
             // txtResult
             // 
-            this.txtResult.Location = new System.Drawing.Point(6, 21);
+            this.txtResult.Location = new System.Drawing.Point(15, 21);
             this.txtResult.Name = "txtResult";
-            this.txtResult.Size = new System.Drawing.Size(144, 20);
+            this.txtResult.Size = new System.Drawing.Size(100, 20);
             this.txtResult.TabIndex = 1;
             // 
             // btnClose
             // 
+            this.btnClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.btnClose.Location = new System.Drawing.Point(443, 108);
             this.btnClose.Name = "btnClose";
             this.btnClose.Size = new System.Drawing.Size(75, 23);

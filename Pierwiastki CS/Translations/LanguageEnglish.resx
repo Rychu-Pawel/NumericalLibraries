@@ -576,4 +576,46 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="picGraph_MouseUp_CoordinatesException" xml:space="preserve">
     <value>Incorrect X and Y values!</value>
   </data>
+  <data name="AveragesForm_AveragesForm" xml:space="preserve">
+    <value>Mean</value>
+  </data>
+  <data name="menuStrip_averageToolStripMenuItem" xml:space="preserve">
+    <value>&amp;Mean</value>
+  </data>
+  <data name="menuStrip_proportionsToolStripMenuItem" xml:space="preserve">
+    <value>Proportions</value>
+  </data>
+  <data name="ProportionsForm_btnCompute" xml:space="preserve">
+    <value>Compute</value>
+  </data>
+  <data name="ProportionsForm_gbResult" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="ProportionsForm_gbValues" xml:space="preserve">
+    <value>Values</value>
+  </data>
+  <data name="ProportionsForm_lblDescription" xml:space="preserve">
+    <value>Put x only in one field you want to compute:</value>
+  </data>
+  <data name="ProportionsForm_ProportionsForm" xml:space="preserve">
+    <value>Proportions</value>
+  </data>
+  <data name="ProportionsForm_V1FormatException" xml:space="preserve">
+    <value>Incorrect value in first field!</value>
+  </data>
+  <data name="ProportionsForm_V2FormatException" xml:space="preserve">
+    <value>Incorrect value in second field!</value>
+  </data>
+  <data name="ProportionsForm_V3FormatException" xml:space="preserve">
+    <value>Incorrect value in thrid field!</value>
+  </data>
+  <data name="ProportionsForm_V4FormatException" xml:space="preserve">
+    <value>Incorrect value in fourth field!</value>
+  </data>
+  <data name="ThereCanBeOnlyOneVariableInProportionException" xml:space="preserve">
+    <value>There can be only one variable in the proportion!</value>
+  </data>
+  <data name="VariableNotFoundException" xml:space="preserve">
+    <value>Variable x was not found in the proportion!</value>
+  </data>
 </root>

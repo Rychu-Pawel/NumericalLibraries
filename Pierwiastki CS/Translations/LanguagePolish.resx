@@ -575,4 +575,46 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="picGraph_MouseUp_CoordinatesException" xml:space="preserve">
     <value>Błędne wartości X i Y</value>
   </data>
+  <data name="AveragesForm_AveragesForm" xml:space="preserve">
+    <value>Średnie</value>
+  </data>
+  <data name="menuStrip_averageToolStripMenuItem" xml:space="preserve">
+    <value>Śr&amp;ednie</value>
+  </data>
+  <data name="menuStrip_proportionsToolStripMenuItem" xml:space="preserve">
+    <value>Proporcje</value>
+  </data>
+  <data name="ProportionsForm_btnCompute" xml:space="preserve">
+    <value>Oblicz</value>
+  </data>
+  <data name="ProportionsForm_gbResult" xml:space="preserve">
+    <value>Wynik</value>
+  </data>
+  <data name="ProportionsForm_gbValues" xml:space="preserve">
+    <value>Wartości</value>
+  </data>
+  <data name="ProportionsForm_lblDescription" xml:space="preserve">
+    <value>Umieść x w tylko jednym polu:</value>
+  </data>
+  <data name="ProportionsForm_ProportionsForm" xml:space="preserve">
+    <value>Proporcje</value>
+  </data>
+  <data name="ProportionsForm_V1FormatException" xml:space="preserve">
+    <value>Niepoprawna wartość w pierwszym polu!</value>
+  </data>
+  <data name="ProportionsForm_V2FormatException" xml:space="preserve">
+    <value>Niepoprawna wartość w drugim polu!</value>
+  </data>
+  <data name="ProportionsForm_V3FormatException" xml:space="preserve">
+    <value>Niepoprawna wartość w trzecim polu!</value>
+  </data>
+  <data name="ProportionsForm_V4FormatException" xml:space="preserve">
+    <value>Niepoprawna wartość w czwartym polu!</value>
+  </data>
+  <data name="ThereCanBeOnlyOneVariableInProportionException" xml:space="preserve">
+    <value>W proporcji może być tylko jedna niewiadomoa!</value>
+  </data>
+  <data name="VariableNotFoundException" xml:space="preserve">
+    <value>Nie znaleziono zmiennej x w proporcji!</value>
+  </data>
 </root>

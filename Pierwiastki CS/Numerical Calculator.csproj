@@ -90,6 +90,12 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="AveragesForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AveragesForm.Designer.cs">
+      <DependentUpon>AveragesForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Bessel.cs" />
     <Compile Include="Integral.cs" />
     <Compile Include="Approximation.cs" />
@@ -146,6 +152,9 @@
     <EmbeddedResource Include="AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AveragesForm.resx">
+      <DependentUpon>AveragesForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
