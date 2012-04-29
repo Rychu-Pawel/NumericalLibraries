@@ -575,10 +575,10 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="picGraph_MouseUp_CoordinatesException" xml:space="preserve">
     <value>Błędne wartości X i Y</value>
   </data>
-  <data name="AveragesForm_AveragesForm" xml:space="preserve">
+  <data name="MeanForm_MeanForm" xml:space="preserve">
     <value>Średnie</value>
   </data>
-  <data name="menuStrip_averageToolStripMenuItem" xml:space="preserve">
+  <data name="menuStrip_meanToolStripMenuItem" xml:space="preserve">
     <value>Śr&amp;ednie</value>
   </data>
   <data name="menuStrip_proportionsToolStripMenuItem" xml:space="preserve">

@@ -13,6 +13,8 @@ namespace NumericalCalculator
         protected ResourceManager language;
         protected Settings settings;
 
+        protected string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
+
         protected void TranslateControl(ResourceManager language, Settings settings)
         {
             this.language = language;

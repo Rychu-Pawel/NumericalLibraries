@@ -12,14 +12,12 @@ namespace NumericalCalculator
 {
     public partial class LinearEquationForm : LanguageForm
     {
-        string zamienZ, zamienNa; //kropki i przecinki do zamieniania podczas konwersji string na double
-
-        public LinearEquationForm(string zamienZ, string zamienNa, ResourceManager language, Settings settings)
+        public LinearEquationForm(string changeFrom, string changeTo, ResourceManager language, Settings settings)
         {
             InitializeComponent();
 
-            this.zamienZ = zamienZ;
-            this.zamienNa = zamienNa;
+            this.changeFrom = changeFrom;
+            this.changeTo = changeTo;
 
             TranslateControl(language, settings);
         }
@@ -89,7 +87,7 @@ namespace NumericalCalculator
         {
             try
             {
-                LinearEquation gauss = new LinearEquation(dgvEquations, zamienZ, zamienNa);
+                LinearEquation gauss = new LinearEquation(dgvEquations, changeFrom, changeTo);
 
                 double[] niewiadome = gauss.Oblicz();
 

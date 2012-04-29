@@ -1,6 +1,6 @@
 ﻿namespace NumericalCalculator
 {
-    partial class AveragesForm
+    partial class MeanForm
     {
         /// <summary>
         /// Required designer variable.
@@ -32,11 +32,11 @@
             this.rbWeighted = new System.Windows.Forms.RadioButton();
             this.rbArithmetic = new System.Windows.Forms.RadioButton();
             this.dgvValues = new System.Windows.Forms.DataGridView();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbResult = new System.Windows.Forms.GroupBox();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.btnCompute = new System.Windows.Forms.Button();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValues)).BeginInit();
             this.gbResult.SuspendLayout();
@@ -60,13 +60,13 @@
             this.rbWeighted.Name = "rbWeighted";
             this.rbWeighted.Size = new System.Drawing.Size(71, 17);
             this.rbWeighted.TabIndex = 1;
-            this.rbWeighted.TabStop = true;
             this.rbWeighted.Text = "Weighted";
             this.rbWeighted.UseVisualStyleBackColor = true;
             // 
             // rbArithmetic
             // 
             this.rbArithmetic.AutoSize = true;
+            this.rbArithmetic.Checked = true;
             this.rbArithmetic.Location = new System.Drawing.Point(36, 18);
             this.rbArithmetic.Name = "rbArithmetic";
             this.rbArithmetic.Size = new System.Drawing.Size(71, 17);
@@ -74,6 +74,7 @@
             this.rbArithmetic.TabStop = true;
             this.rbArithmetic.Text = "Arithmetic";
             this.rbArithmetic.UseVisualStyleBackColor = true;
+            this.rbArithmetic.CheckedChanged += new System.EventHandler(this.rbArithmetic_CheckedChanged);
             // 
             // dgvValues
             // 
@@ -85,16 +86,6 @@
             this.dgvValues.Name = "dgvValues";
             this.dgvValues.Size = new System.Drawing.Size(261, 353);
             this.dgvValues.TabIndex = 1;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            // 
-            // Weight
-            // 
-            this.Weight.HeaderText = "Weight";
-            this.Weight.Name = "Weight";
             // 
             // gbResult
             // 
@@ -123,7 +114,18 @@
             this.btnCompute.Text = "Compute";
             this.btnCompute.UseVisualStyleBackColor = true;
             // 
-            // AveragesForm
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // Weight
+            // 
+            this.Weight.HeaderText = "Weight";
+            this.Weight.Name = "Weight";
+            this.Weight.Visible = false;
+            // 
+            // MeanForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -133,8 +135,8 @@
             this.Controls.Add(this.gbType);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "AveragesForm";
-            this.Text = "Averages";
+            this.Name = "MeanForm";
+            this.Text = "Mean";
             this.gbType.ResumeLayout(false);
             this.gbType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValues)).EndInit();
@@ -150,10 +152,10 @@
         private System.Windows.Forms.RadioButton rbWeighted;
         private System.Windows.Forms.RadioButton rbArithmetic;
         private System.Windows.Forms.DataGridView dgvValues;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
         private System.Windows.Forms.GroupBox gbResult;
         private System.Windows.Forms.TextBox txtResult;
         private System.Windows.Forms.Button btnCompute;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Value;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Weight;
     }
 }

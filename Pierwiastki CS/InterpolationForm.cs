@@ -16,9 +16,6 @@ namespace NumericalCalculator
         public delegate void FunctionAcceptedEventHandler(string function);
         public event FunctionAcceptedEventHandler FunctionAccepted;
 
-        //Variables
-        string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
-
         public InterpolationForm(string changeFrom, string changeTo, ResourceManager language, Settings settings)
         {
             InitializeComponent();

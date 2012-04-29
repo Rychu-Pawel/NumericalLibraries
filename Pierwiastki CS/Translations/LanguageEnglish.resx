@@ -579,7 +579,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="AveragesForm_AveragesForm" xml:space="preserve">
     <value>Mean</value>
   </data>
-  <data name="menuStrip_averageToolStripMenuItem" xml:space="preserve">
+  <data name="menuStrip_meanToolStripMenuItem" xml:space="preserve">
     <value>&amp;Mean</value>
   </data>
   <data name="menuStrip_proportionsToolStripMenuItem" xml:space="preserve">

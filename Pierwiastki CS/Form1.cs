@@ -19,10 +19,9 @@ namespace NumericalCalculator
     public partial class Form1 : LanguageForm
     {
         bool IsFunctionDrawn = false;
-        public string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
 
-        readonly double max = 530000000.0;
-        readonly double min = -530000000.0;
+        readonly double graphMax = 530000000.0;
+        readonly double graphMin = -530000000.0;
 
         PointF[] graphPoint;
 
@@ -1171,25 +1170,25 @@ namespace NumericalCalculator
 
                     startingPoint = e.Location;
 
-                    if (xFrom > max)
-                        xFrom = max;
-                    else if (xFrom < min)
-                        xFrom = min;
+                    if (xFrom > graphMax)
+                        xFrom = graphMax;
+                    else if (xFrom < graphMin)
+                        xFrom = graphMin;
 
-                    if (xTo > max)
-                        xTo = max;
-                    else if (xTo < min)
-                        xTo = min;
+                    if (xTo > graphMax)
+                        xTo = graphMax;
+                    else if (xTo < graphMin)
+                        xTo = graphMin;
 
-                    if (yFrom > max)
-                        yFrom = max;
-                    else if (yFrom < min)
-                        yFrom = min;
+                    if (yFrom > graphMax)
+                        yFrom = graphMax;
+                    else if (yFrom < graphMin)
+                        yFrom = graphMin;
 
-                    if (yTo > max)
-                        yTo = max;
-                    else if (yTo < min)
-                        yTo = min;
+                    if (yTo > graphMax)
+                        yTo = graphMax;
+                    else if (yTo < graphMin)
+                        yTo = graphMin;
 
 
                     if (chkX.Checked)
@@ -1229,21 +1228,21 @@ namespace NumericalCalculator
 
                     //Zmienienie nieskończoności w max
                     if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
-                        txtXFrom.Text = max.ToString();
+                        txtXFrom.Text = graphMax.ToString();
                     if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xTo)))
-                        txtXTo.Text = max.ToString();
+                        txtXTo.Text = graphMax.ToString();
                     if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
-                        txtYFrom.Text = max.ToString();
+                        txtYFrom.Text = graphMax.ToString();
                     if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yTo)))
-                        txtYTo.Text = max.ToString();
+                        txtYTo.Text = graphMax.ToString();
                     if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
-                        txtXFrom.Text = min.ToString();
+                        txtXFrom.Text = graphMin.ToString();
                     if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xTo)))
-                        txtXTo.Text = min.ToString();
+                        txtXTo.Text = graphMin.ToString();
                     if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
-                        txtYFrom.Text = min.ToString();
+                        txtYFrom.Text = graphMin.ToString();
                     if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yTo)))
-                        txtYTo.Text = min.ToString();
+                        txtYTo.Text = graphMin.ToString();
 
                     xFrom = Math.Round(GetArgument(ArgumentTypeEnum.xFrom), 2);
                     xTo = Math.Round(GetArgument(ArgumentTypeEnum.xTo), 2);
@@ -1327,25 +1326,25 @@ namespace NumericalCalculator
                         yTo = -0.1;
 
                     //Sprawdzenie czy wartosci nie sa za duze
-                    if (xFrom > max)
-                        xFrom = max;
-                    else if (xFrom < min)
-                        xFrom = min;
+                    if (xFrom > graphMax)
+                        xFrom = graphMax;
+                    else if (xFrom < graphMin)
+                        xFrom = graphMin;
 
-                    if (xTo > max)
-                        xTo = max;
-                    else if (xTo < min)
-                        xTo = min;
+                    if (xTo > graphMax)
+                        xTo = graphMax;
+                    else if (xTo < graphMin)
+                        xTo = graphMin;
 
-                    if (yFrom > max)
-                        yFrom = max;
-                    else if (yFrom < min)
-                        yFrom = min;
+                    if (yFrom > graphMax)
+                        yFrom = graphMax;
+                    else if (yFrom < graphMin)
+                        yFrom = graphMin;
 
-                    if (yTo > max)
-                        yTo = max;
-                    else if (yTo < min)
-                        yTo = min;
+                    if (yTo > graphMax)
+                        yTo = graphMax;
+                    else if (yTo < graphMin)
+                        yTo = graphMin;
 
                     txtXFrom.Text = Convert.ToString(xFrom);
                     txtXTo.Text = Convert.ToString(xTo);
@@ -1707,6 +1706,12 @@ namespace NumericalCalculator
         {
             ProportionsForm pf = new ProportionsForm(changeFrom, changeTo, language, settings);
             pf.Show();
+        }
+
+        private void meanToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MeanForm mf = new MeanForm(changeFrom, changeTo, language, settings);
+            mf.Show();
         }
     }
 }

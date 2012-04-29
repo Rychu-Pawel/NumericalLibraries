@@ -12,8 +12,6 @@ namespace NumericalCalculator
 {
     public partial class ProportionsForm : LanguageForm
     {
-        string changeFrom, changeTo; //kropki i przecinki do zamieniania podczas konwersji string na double
-
         public ProportionsForm(string changeFrom, string changeTo, ResourceManager language, Settings settings)
         {
             InitializeComponent();

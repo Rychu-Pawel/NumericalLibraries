@@ -64,6 +64,7 @@
             this.multipleIntegralToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.interpolationApproximationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.proportionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.meanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphPreviewWhileWindowsScalingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -121,7 +122,6 @@
             this.chkX = new System.Windows.Forms.CheckBox();
             this.label7 = new System.Windows.Forms.Label();
             this.btnDraw = new System.Windows.Forms.Button();
-            this.averageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.contextMenuStrip.SuspendLayout();
             this.gbOperation.SuspendLayout();
             this.gbPoint.SuspendLayout();
@@ -458,7 +458,7 @@
             this.multipleIntegralToolStripMenuItem,
             this.interpolationApproximationToolStripMenuItem,
             this.proportionsToolStripMenuItem,
-            this.averageToolStripMenuItem});
+            this.meanToolStripMenuItem});
             this.extraComputationsToolStripMenuItem.Name = "extraComputationsToolStripMenuItem";
             this.extraComputationsToolStripMenuItem.Size = new System.Drawing.Size(135, 20);
             this.extraComputationsToolStripMenuItem.Text = "&Dodatkowe obliczenia";
@@ -491,6 +491,13 @@
             this.proportionsToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
             this.proportionsToolStripMenuItem.Text = "&Proporcje";
             this.proportionsToolStripMenuItem.Click += new System.EventHandler(this.proportionsToolStripMenuItem_Click);
+            // 
+            // meanToolStripMenuItem
+            // 
+            this.meanToolStripMenuItem.Name = "meanToolStripMenuItem";
+            this.meanToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
+            this.meanToolStripMenuItem.Text = "Śr&ednia";
+            this.meanToolStripMenuItem.Click += new System.EventHandler(this.meanToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -534,7 +541,7 @@
             // 
             this.englishToolStripMenuItem.CheckOnClick = true;
             this.englishToolStripMenuItem.Name = "englishToolStripMenuItem";
-            this.englishToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.englishToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.englishToolStripMenuItem.Text = "&English";
             this.englishToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -542,7 +549,7 @@
             // 
             this.polskiToolStripMenuItem.CheckOnClick = true;
             this.polskiToolStripMenuItem.Name = "polskiToolStripMenuItem";
-            this.polskiToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.polskiToolStripMenuItem.Size = new System.Drawing.Size(112, 22);
             this.polskiToolStripMenuItem.Text = "&Polski";
             this.polskiToolStripMenuItem.Click += new System.EventHandler(this.languageToolStripMenuItem_Click);
             // 
@@ -558,14 +565,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.aboutToolStripMenuItem.Text = "&O programie";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // functionsToolStripMenuItem
             // 
             this.functionsToolStripMenuItem.Name = "functionsToolStripMenuItem";
-            this.functionsToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.functionsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.functionsToolStripMenuItem.Text = "&Funkcje";
             this.functionsToolStripMenuItem.Click += new System.EventHandler(this.ShowFunctionForm_Handler);
             // 
@@ -1094,12 +1101,6 @@
             this.btnDraw.UseVisualStyleBackColor = true;
             this.btnDraw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
-            // averageToolStripMenuItem
-            // 
-            this.averageToolStripMenuItem.Name = "averageToolStripMenuItem";
-            this.averageToolStripMenuItem.Size = new System.Drawing.Size(218, 22);
-            this.averageToolStripMenuItem.Text = "Śr&ednia";
-            // 
             // Form1
             // 
             this.AcceptButton = this.btnCompute;
@@ -1249,7 +1250,7 @@
         private System.Windows.Forms.ToolStripMenuItem englishToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem polskiToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem proportionsToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem averageToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem meanToolStripMenuItem;
     }
 }
 
