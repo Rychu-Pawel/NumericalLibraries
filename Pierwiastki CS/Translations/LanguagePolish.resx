@@ -513,7 +513,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Niepoprawna wartość do osi y</value>
   </data>
   <data name="InterpolationForm_FormatException" xml:space="preserve">
-    <value>Błędne wartosci w komórkach!</value>
+    <value>Błędne wartości w komórkach!</value>
   </data>
   <data name="InterpolationForm_InconsistentSystemOfEquationsException" xml:space="preserve">
     <value>Nie mogę zaproksymować funkcji. Spróbuj aproksymacji innego stopnia.</value>
@@ -616,5 +616,29 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   </data>
   <data name="VariableNotFoundException" xml:space="preserve">
     <value>Nie znaleziono zmiennej x w proporcji!</value>
+  </data>
+  <data name="MeanForm_btnCompute" xml:space="preserve">
+    <value>Oblicz</value>
+  </data>
+  <data name="MeanForm_FormatException" xml:space="preserve">
+    <value>Błędne wartości w komórkach!</value>
+  </data>
+  <data name="MeanForm_gbResult" xml:space="preserve">
+    <value>Wynik</value>
+  </data>
+  <data name="MeanForm_gbType" xml:space="preserve">
+    <value>Typ</value>
+  </data>
+  <data name="MeanForm_NoValuesProvidedException" xml:space="preserve">
+    <value>Nie wprowadzono żadnych wartości!</value>
+  </data>
+  <data name="MeanForm_NullReferenceException" xml:space="preserve">
+    <value>Nie wszystkie pola zostały uzupełnione!</value>
+  </data>
+  <data name="MeanForm_rbArithmetic" xml:space="preserve">
+    <value>Arytmetyczna</value>
+  </data>
+  <data name="MeanForm_rbWeighted" xml:space="preserve">
+    <value>Ważona</value>
   </data>
 </root>

@@ -549,7 +549,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Błędne wartosci w komórkach!.
+        ///   Looks up a localized string similar to Błędne wartości w komórkach!.
         /// </summary>
         internal static string InterpolationForm_FormatException {
             get {
@@ -774,11 +774,83 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Oblicz.
+        /// </summary>
+        internal static string MeanForm_btnCompute {
+            get {
+                return ResourceManager.GetString("MeanForm_btnCompute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Błędne wartości w komórkach!.
+        /// </summary>
+        internal static string MeanForm_FormatException {
+            get {
+                return ResourceManager.GetString("MeanForm_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Wynik.
+        /// </summary>
+        internal static string MeanForm_gbResult {
+            get {
+                return ResourceManager.GetString("MeanForm_gbResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Typ.
+        /// </summary>
+        internal static string MeanForm_gbType {
+            get {
+                return ResourceManager.GetString("MeanForm_gbType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Średnie.
         /// </summary>
         internal static string MeanForm_MeanForm {
             get {
                 return ResourceManager.GetString("MeanForm_MeanForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie wprowadzono żadnych wartości!.
+        /// </summary>
+        internal static string MeanForm_NoValuesProvidedException {
+            get {
+                return ResourceManager.GetString("MeanForm_NoValuesProvidedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Nie wszystkie pola zostały uzupełnione!.
+        /// </summary>
+        internal static string MeanForm_NullReferenceException {
+            get {
+                return ResourceManager.GetString("MeanForm_NullReferenceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arytmetyczna.
+        /// </summary>
+        internal static string MeanForm_rbArithmetic {
+            get {
+                return ResourceManager.GetString("MeanForm_rbArithmetic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ważona.
+        /// </summary>
+        internal static string MeanForm_rbWeighted {
+            get {
+                return ResourceManager.GetString("MeanForm_rbWeighted", resourceCulture);
             }
         }
         

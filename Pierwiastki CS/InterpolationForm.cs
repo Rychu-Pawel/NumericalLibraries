@@ -73,10 +73,6 @@ namespace NumericalCalculator
                 MessageBox.Show(language.GetString("InterpolationForm_InconsistentSystemOfEquationsException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
                 nudLevel.Focus();
             }
-            catch (NaNOccuredException)
-            {
-                MessageBox.Show(language.GetString("NaNOccuredException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
             catch (NullReferenceException)
             {
                 MessageBox.Show(language.GetString("InterpolationForm_NullReferenceException"), language.GetString("MessageBox_Caption_Error"), MessageBoxButtons.OK, MessageBoxIcon.Error);

@@ -618,4 +618,28 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="VariableNotFoundException" xml:space="preserve">
     <value>Variable x was not found in the proportion!</value>
   </data>
+  <data name="MeanForm_btnCompute" xml:space="preserve">
+    <value>Compute</value>
+  </data>
+  <data name="MeanForm_FormatException" xml:space="preserve">
+    <value>Incorrect values in some cells!</value>
+  </data>
+  <data name="MeanForm_gbResult" xml:space="preserve">
+    <value>Result</value>
+  </data>
+  <data name="MeanForm_gbType" xml:space="preserve">
+    <value>Type</value>
+  </data>
+  <data name="MeanForm_NoValuesProvidedException" xml:space="preserve">
+    <value>No values provided!</value>
+  </data>
+  <data name="MeanForm_NullReferenceException" xml:space="preserve">
+    <value>Provide values for all cells!</value>
+  </data>
+  <data name="MeanForm_rbArithmetic" xml:space="preserve">
+    <value>Arithmetic</value>
+  </data>
+  <data name="MeanForm_rbWeighted" xml:space="preserve">
+    <value>Weighted</value>
+  </data>
 </root>

@@ -32,11 +32,11 @@
             this.rbWeighted = new System.Windows.Forms.RadioButton();
             this.rbArithmetic = new System.Windows.Forms.RadioButton();
             this.dgvValues = new System.Windows.Forms.DataGridView();
+            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbResult = new System.Windows.Forms.GroupBox();
             this.txtResult = new System.Windows.Forms.TextBox();
             this.btnCompute = new System.Windows.Forms.Button();
-            this.Value = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Weight = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.gbType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvValues)).BeginInit();
             this.gbResult.SuspendLayout();
@@ -87,6 +87,17 @@
             this.dgvValues.Size = new System.Drawing.Size(261, 353);
             this.dgvValues.TabIndex = 1;
             // 
+            // Value
+            // 
+            this.Value.HeaderText = "Value";
+            this.Value.Name = "Value";
+            // 
+            // Weight
+            // 
+            this.Weight.HeaderText = "Weight";
+            this.Weight.Name = "Weight";
+            this.Weight.Visible = false;
+            // 
             // gbResult
             // 
             this.gbResult.Controls.Add(this.txtResult);
@@ -113,17 +124,7 @@
             this.btnCompute.TabIndex = 2;
             this.btnCompute.Text = "Compute";
             this.btnCompute.UseVisualStyleBackColor = true;
-            // 
-            // Value
-            // 
-            this.Value.HeaderText = "Value";
-            this.Value.Name = "Value";
-            // 
-            // Weight
-            // 
-            this.Weight.HeaderText = "Weight";
-            this.Weight.Name = "Weight";
-            this.Weight.Visible = false;
+            this.btnCompute.Click += new System.EventHandler(this.btnCompute_Click);
             // 
             // MeanForm
             // 

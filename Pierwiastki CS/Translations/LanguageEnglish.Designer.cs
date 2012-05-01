@@ -784,6 +784,78 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Compute.
+        /// </summary>
+        internal static string MeanForm_btnCompute {
+            get {
+                return ResourceManager.GetString("MeanForm_btnCompute", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Incorrect values in some cells!.
+        /// </summary>
+        internal static string MeanForm_FormatException {
+            get {
+                return ResourceManager.GetString("MeanForm_FormatException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Result.
+        /// </summary>
+        internal static string MeanForm_gbResult {
+            get {
+                return ResourceManager.GetString("MeanForm_gbResult", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        internal static string MeanForm_gbType {
+            get {
+                return ResourceManager.GetString("MeanForm_gbType", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No values provided!.
+        /// </summary>
+        internal static string MeanForm_NoValuesProvidedException {
+            get {
+                return ResourceManager.GetString("MeanForm_NoValuesProvidedException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Provide values for all cells!.
+        /// </summary>
+        internal static string MeanForm_NullReferenceException {
+            get {
+                return ResourceManager.GetString("MeanForm_NullReferenceException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Arithmetic.
+        /// </summary>
+        internal static string MeanForm_rbArithmetic {
+            get {
+                return ResourceManager.GetString("MeanForm_rbArithmetic", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weighted.
+        /// </summary>
+        internal static string MeanForm_rbWeighted {
+            get {
+                return ResourceManager.GetString("MeanForm_rbWeighted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to &amp;About.
         /// </summary>
         internal static string menuStrip_aboutToolStripMenuItem {
