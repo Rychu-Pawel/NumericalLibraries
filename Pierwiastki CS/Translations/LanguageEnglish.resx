@@ -642,4 +642,10 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="MeanForm_rbWeighted" xml:space="preserve">
     <value>Weighted</value>
   </data>
+  <data name="MeanForm_dgvValues_Value" xml:space="preserve">
+    <value>Value</value>
+  </data>
+  <data name="MeanForm_dgvValues_Weight" xml:space="preserve">
+    <value>Weight</value>
+  </data>
 </root>

@@ -38,6 +38,18 @@ namespace NumericalCalculator
                 foreach (ToolStripItem item in (control as ToolStrip).Items)
                     TranslateToolStripItems(item, language, control.Name + "_" + prefix);
             }
+
+            //Przetlumaczenie kolumn DataGridView
+            if (control is DataGridView)
+            {
+                foreach (DataGridViewColumn column in (control as DataGridView).Columns)
+                {
+                    text = language.GetString(prefix + control.Name + "_" + column.Name);
+
+                    if (!string.IsNullOrEmpty(text))
+                        column.HeaderText = text;
+                }
+            }
         }
 
         public static void TranslateToolStripItems(ToolStripItem item, ResourceManager language, string prefix)

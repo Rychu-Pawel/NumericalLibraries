@@ -41,19 +41,22 @@ namespace NumericalCalculator
 
         private void Zapisz()
         {
-            if (stream != null)
-                stream.Close();
-            
-            stream = storage.OpenFile(fileName, FileMode.Create);
+            OpenStream();
 
             serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
             serializer.Serialize(stream, settings);
+
+            CloseStream();
         }
 
         private void Odczytaj()
         {
+            OpenStream();
+
             serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
             settings = (SerializableDictionary<SettingEnum, object>)serializer.Deserialize(stream);
+
+            CloseStream();
         }
 
         public Settings()
@@ -70,9 +73,6 @@ namespace NumericalCalculator
             //Czy plik istnieje
             if (storage.FileExists(fileName))
             {
-                //Pobieramy stream
-                stream = storage.OpenFile(fileName, FileMode.Open);
-
                 try
                 {
                     //Deserializujemy
@@ -112,6 +112,20 @@ namespace NumericalCalculator
             }
 
             Zapisz();
+        }
+
+        private void OpenStream()
+        {
+            stream = storage.OpenFile(fileName, FileMode.Open);
+        }
+
+        private void CloseStream()
+        {
+            if (stream != null)
+            {
+                stream.Flush();
+                stream.Close();
+            }
         }
     }
 

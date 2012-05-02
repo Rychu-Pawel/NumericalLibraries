@@ -38,6 +38,12 @@ namespace NumericalCalculator
 
             foreach (double[] item in values)
             {
+                if (item.GetLowerBound(0) != 0)
+                    throw new ValueArrayLowerBoundDifferentThenZeroException();
+
+                if (item.GetUpperBound(0) != 1)
+                    throw new ValueArrayUpperBoundDifferentThenOneException();
+
                 result += item[0] * item[1];
                 weight += item[1];
             }
@@ -47,5 +53,11 @@ namespace NumericalCalculator
     }
 
     public class NoValuesProvidedException : Exception
+    { }
+
+    public class ValueArrayLowerBoundDifferentThenZeroException : Exception
+    { }
+
+    public class ValueArrayUpperBoundDifferentThenOneException : Exception
     { }
 }

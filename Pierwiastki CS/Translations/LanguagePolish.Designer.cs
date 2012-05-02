@@ -783,6 +783,24 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Wartość.
+        /// </summary>
+        internal static string MeanForm_dgvValues_Value {
+            get {
+                return ResourceManager.GetString("MeanForm_dgvValues_Value", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Waga.
+        /// </summary>
+        internal static string MeanForm_dgvValues_Weight {
+            get {
+                return ResourceManager.GetString("MeanForm_dgvValues_Weight", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Błędne wartości w komórkach!.
         /// </summary>
         internal static string MeanForm_FormatException {
