@@ -27,60 +27,67 @@ namespace NumericalCalculator
 
         public Form1()
         {
-            InitializeComponent();
-
-            //Sprawdzenie czy system przyjmuje kropkę czy przecinek
-            string test = "1.1";
-            double testDouble;
-
-            if (double.TryParse(test, out testDouble))
-            {
-                changeFrom = ",";
-                changeTo = ".";
-            }
-            else
-            {
-                changeFrom = ".";
-                changeTo = ",";
-            }
-
-            cmbSpecialFunction.SelectedIndex = 0;
-
-            //Ustawienia
-            settings = new Settings();
-
             try
             {
-                LoadLanguage();
-                SetSettings();
-                Language.TranslateControl(this, language);
-                Language.TranslateControl(contextMenuStrip, language);
-            }
-            catch (SettingNullReferenceException)
-            {
+                InitializeComponent();
+
+                //Sprawdzenie czy system przyjmuje kropkę czy przecinek
+                string test = "1.1";
+                double testDouble;
+
+                if (double.TryParse(test, out testDouble))
+                {
+                    changeFrom = ",";
+                    changeTo = ".";
+                }
+                else
+                {
+                    changeFrom = ".";
+                    changeTo = ",";
+                }
+
+                cmbSpecialFunction.SelectedIndex = 0;
+
+                //Ustawienia
+                settings = new Settings();
+
                 try
                 {
-                    settings.RestoreDefaults();
-
                     LoadLanguage();
                     SetSettings();
                     Language.TranslateControl(this, language);
                     Language.TranslateControl(contextMenuStrip, language);
                 }
-                catch
+                catch (SettingNullReferenceException)
                 {
-                    MessageBox.Show(language.GetString("MessageBox_InstallationCorrupted"), language.GetString("MessageBox_InstallationCorrupted_Caption"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    try
+                    {
+                        settings.RestoreDefaults();
+
+                        LoadLanguage();
+                        SetSettings();
+                        Language.TranslateControl(this, language);
+                        Language.TranslateControl(contextMenuStrip, language);
+                    }
+                    catch
+                    {
+                        MessageBox.Show(language.GetString("MessageBox_InstallationCorrupted"), language.GetString("MessageBox_InstallationCorrupted_Caption"), MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
                 }
+
+                //Dodatkowe zdarzenia
+                this.graphToolStripMenuItem.Click += new System.EventHandler(this.ChangeSettings);
+                this.btnHelp.Click += new EventHandler(ShowFunctionForm_Handler);
+                this.chkFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+                this.chkIFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
+
+                //Zrobienie gui
+                SetRadioButtons();
             }
-
-            //Dodatkowe zdarzenia
-            this.graphToolStripMenuItem.Click += new System.EventHandler(this.ChangeSettings);
-            this.btnHelp.Click += new EventHandler(ShowFunctionForm_Handler);
-            this.chkFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
-            this.chkIFT.CheckedChanged += new EventHandler(radioButton_CheckedChanged);
-
-            //Zrobienie gui
-            SetRadioButtons();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
         }
 
         private void LoadLanguage()

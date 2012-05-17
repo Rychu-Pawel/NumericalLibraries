@@ -116,7 +116,7 @@ namespace NumericalCalculator
 
         private void OpenStream()
         {
-            stream = storage.OpenFile(fileName, FileMode.Open);
+            stream = storage.OpenFile(fileName, FileMode.OpenOrCreate);
         }
 
         private void CloseStream()
