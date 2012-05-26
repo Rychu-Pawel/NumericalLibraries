@@ -29,7 +29,7 @@ namespace NumericalCalculator
         }
 
     // METODY -------------------------------
-        protected double EvaluateWnetrze()
+        protected double EvaluateInterior()
         {
             // PRZYGOTOWANIE ZMIENNYCH
             stack.Clear();
@@ -63,7 +63,7 @@ namespace NumericalCalculator
                     while (n != 0);
 
                     Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateWnetrze();
+                    double wnetrze = Wnetrze.EvaluateInterior();
 
                     // obliczenie funkcji
                     double funkcjaPodstawowa = 0;
@@ -98,7 +98,7 @@ namespace NumericalCalculator
                     while (n != 0);
 
                     Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateWnetrze();
+                    double wnetrze = Wnetrze.EvaluateInterior();
 
                     // obliczenie funkcji
                     double funkcjaPodstawowa = 0;
@@ -134,7 +134,7 @@ namespace NumericalCalculator
                     while (n != 0);
 
                     Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateWnetrze();
+                    double wnetrze = Wnetrze.EvaluateInterior();
 
                     // obliczenie funkcji
                     double funkcjaPodstawowa = 0;
@@ -270,7 +270,7 @@ namespace NumericalCalculator
 
         public virtual double ComputeInterior()
         {
-            double wynik = EvaluateWnetrze();
+            double wynik = EvaluateInterior();
 
             //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
             if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -288,9 +288,9 @@ namespace NumericalCalculator
             this.y = y;
             this.u = u;
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
     }
 }

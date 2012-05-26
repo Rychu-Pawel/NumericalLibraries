@@ -13,7 +13,7 @@ namespace NumericalCalculator
     // METODY -------------------------------
         public double ComputeFunctionAtPoint() // Obliczanie wartosci funkcji w punkcie
         {
-            double wynik = EvaluateWnetrze();
+            double wynik = EvaluateInterior();
 
             //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
             if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -31,16 +31,16 @@ namespace NumericalCalculator
             double originalX = x; //zachowanie oryginalnego x
 
             x = originalX - 2 * h;
-            fx1 = EvaluateWnetrze();
+            fx1 = EvaluateInterior();
 
             x = originalX - h;
-            fx2 = EvaluateWnetrze();
+            fx2 = EvaluateInterior();
 
             x = originalX + h;
-            fx3 = EvaluateWnetrze();
+            fx3 = EvaluateInterior();
 
             x = originalX + 2 * h;
-            fx4 = EvaluateWnetrze();
+            fx4 = EvaluateInterior();
 
             wynik = (fx1 - 8 * fx2 + 8 * fx3 - fx4) / (12 * h);
 
@@ -62,19 +62,19 @@ namespace NumericalCalculator
             double fx, fx1, fx2, fx3, fx4;
             double originalX = x; //zachowanie oryginalnego x
 
-            fx = EvaluateWnetrze();
+            fx = EvaluateInterior();
 
             x = originalX - 2 * h;
-            fx1 = EvaluateWnetrze();
+            fx1 = EvaluateInterior();
 
             x = originalX - h;
-            fx2 = EvaluateWnetrze();
+            fx2 = EvaluateInterior();
 
             x = originalX + h;
-            fx3 = EvaluateWnetrze();
+            fx3 = EvaluateInterior();
 
             x = originalX + 2 * h;
-            fx4 = EvaluateWnetrze();
+            fx4 = EvaluateInterior();
 
             wynik = (-fx1 + 16 * fx2 - 30 * fx + 16 * fx3 - fx4) / (12 * h * h);
 
@@ -147,18 +147,18 @@ namespace NumericalCalculator
 
             h = 0.0001;
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
 
         public Derivative(string funkcja) : base(funkcja, 0.0)
         {
             h = 0.0001;
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
     }
 }

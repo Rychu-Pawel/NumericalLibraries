@@ -29,7 +29,7 @@ namespace NumericalCalculator
             return double.TryParse(mayBeANum, out number);
         }
 
-        protected virtual void SprawdzenieOdBledow() // SPRAWDZA POPRAWNOSC WPROWADZONYCH DANYCH
+        protected virtual void ErrorCheck() // SPRAWDZA POPRAWNOSC WPROWADZONYCH DANYCH
         {
             string cache;
 
@@ -113,7 +113,7 @@ namespace NumericalCalculator
                 throw new EmptyFunctionStringException();//FunctionException("Wpisz funkcję!");
         }
 
-        protected void KonwertujNaTablice()// Konwertuje string funkcja na string[] funkcja
+        protected void ConvertToTable()// Konwertuje string funkcja na string[] funkcja
         {
             // DEKLARACJA funkcjaTablica
             int i, cache = 0; // CACHE - ILE TRZEBA UCIAC funkcja.Length ŻEBY ZADEKLAROWAC DOBRA WIELKOSC TABLICY
@@ -309,7 +309,7 @@ namespace NumericalCalculator
             }
         }
 
-        protected void KonwertujNaONP() // Konwertuje funkcja na ONP
+        protected void ConvertToONP() // Konwertuje funkcja na ONP
         {
             // SPRAWDZENIE NAWIASÓW - jakos glupio ten kod napisalem
             int l, n, nn; // nn - zlicza ilosc nawiasow i ile miejsc w tablicy bedzie potrzebne na "dodatkowe" zera w przypadku np. (-3)

@@ -113,6 +113,7 @@ namespace NumericalCalculator
             {
                 przedzialOd = przedzialOdPrzedNewtonem;
                 przedzialDo = przedzialDoPrzedNewtonem;
+
                 return Bisekcja(); // Dokonczenie bisekcja
             }
             else
@@ -155,9 +156,9 @@ namespace NumericalCalculator
             //iloscIteracjiBisekcji = 0;
             przedzialOdPrzedNewtonem = przedzialDoPrzedNewtonem = 0;
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
     }
 }

@@ -124,16 +124,16 @@ namespace NumericalCalculator
             function = "u";
 
             //Obliczenie ONP dla I
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ConvertToTable();
+            ConvertToONP();
 
             tablicaONPfunkcjiI = functionONP;
 
             //Obliczenie ONP dla II
             function = funkcjaII;
 
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ConvertToTable();
+            ConvertToONP();
 
             tablicaONPfunkcjiII = functionONP;
 

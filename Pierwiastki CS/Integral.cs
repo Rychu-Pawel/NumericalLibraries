@@ -63,9 +63,9 @@ namespace NumericalCalculator
             //Dodanie z przodu wspolczynnika - np. 28*x^3+3*x => (32)*(28*x^3+3*x)
             function = "(" + Convert.ToString(wspolczynnik) + ")*(" + function + ")";
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
 
         private double ObliczPosrednie()
@@ -101,8 +101,8 @@ namespace NumericalCalculator
             }
 
             //Przywrocenie z powrotem ustawien dla oryginalnej funkcji
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ConvertToTable();
+            ConvertToONP();
 
             //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
             if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -138,9 +138,9 @@ namespace NumericalCalculator
 
             wynik = 0;
 
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
     }
 }

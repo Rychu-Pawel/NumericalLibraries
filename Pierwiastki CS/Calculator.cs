@@ -8,9 +8,9 @@ namespace NumericalCalculator
     class Calculator: Interior
     {
     // METODY ---------------------------------
-        new void SprawdzenieOdBledow() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
+        new void ErrorCheck() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
         {
-            base.SprawdzenieOdBledow();
+            base.ErrorCheck();
 
             for (int i = 0; i < function.Length; i++)
             {
@@ -27,15 +27,15 @@ namespace NumericalCalculator
 
         override public double ComputeInterior()
         {
-            return EvaluateWnetrze();
+            return EvaluateInterior();
         }
 
     // KONSTRUKTOR --------------------------
         public Calculator(string funkcja) : base(funkcja, 0.0)
         {
-            SprawdzenieOdBledow();
-            KonwertujNaTablice();
-            KonwertujNaONP();
+            ErrorCheck();
+            ConvertToTable();
+            ConvertToONP();
         }
     }
 }
