@@ -63,7 +63,6 @@ namespace NumericalCalculator
                     try
                     {
                         settings.RestoreDefaults();
-
                         LoadLanguage();
                         SetSettings();
                         Language.TranslateControl(this, language);

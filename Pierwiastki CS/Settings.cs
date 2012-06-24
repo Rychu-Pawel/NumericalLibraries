@@ -43,20 +43,30 @@ namespace NumericalCalculator
         {
             OpenStream();
 
-            serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
-            serializer.Serialize(stream, settings);
-
-            CloseStream();
+            try
+            {
+                serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
+                serializer.Serialize(stream, settings);
+            }
+            finally
+            {
+                CloseStream();
+            }
         }
 
         private void Odczytaj()
         {
             OpenStream();
 
-            serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
-            settings = (SerializableDictionary<SettingEnum, object>)serializer.Deserialize(stream);
-
-            CloseStream();
+            try
+            {
+                serializer = new XmlSerializer(typeof(SerializableDictionary<SettingEnum, object>));
+                settings = (SerializableDictionary<SettingEnum, object>)serializer.Deserialize(stream);
+            }
+            finally
+            {
+                CloseStream();
+            }
         }
 
         public Settings()
@@ -64,7 +74,7 @@ namespace NumericalCalculator
             settings = new SerializableDictionary<SettingEnum, object>();
 
             storage = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Domain | IsolatedStorageScope.Assembly, null, null);
-            
+
             ReadSettings();
         }
 
@@ -78,7 +88,7 @@ namespace NumericalCalculator
                     //Deserializujemy
                     Odczytaj();
                 }
-                catch
+                catch (Exception ex)
                 {
                     //Ustawiamy defaultowe ustawienia
                     RestoreDefaults();

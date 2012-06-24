@@ -90,6 +90,7 @@
     <Compile Include="AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logger.cs" />
     <Compile Include="Mean.cs" />
     <Compile Include="MeanForm.cs">
       <SubType>Form</SubType>
