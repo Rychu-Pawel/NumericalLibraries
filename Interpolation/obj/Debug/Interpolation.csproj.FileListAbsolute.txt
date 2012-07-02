@@ -1,6 +1,0 @@
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\bin\Debug\Interpolation.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\bin\Debug\Interpolation.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\bin\Debug\NumericalCalculatorCommon.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\bin\Debug\NumericalCalculatorCommon.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\obj\Debug\Interpolation.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Interpolation\obj\Debug\Interpolation.pdb

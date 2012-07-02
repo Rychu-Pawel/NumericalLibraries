@@ -1,9 +1,0 @@
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\obj\Debug\Derivative.csprojResolveAssemblyReference.cache
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\Derivative.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\Derivative.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\Calculator.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\Calculator.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\obj\Debug\Derivative.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\obj\Debug\Derivative.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\NumericalCalculatorCommon.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Derivative\bin\Debug\NumericalCalculatorCommon.pdb

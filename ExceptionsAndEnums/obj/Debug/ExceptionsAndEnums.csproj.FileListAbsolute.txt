@@ -1,4 +1,0 @@
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\ExceptionsAndEnums\bin\Debug\ExceptionsAndEnums.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\ExceptionsAndEnums\bin\Debug\ExceptionsAndEnums.pdb
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\ExceptionsAndEnums\obj\Debug\ExceptionsAndEnums.dll
-C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\ExceptionsAndEnums\obj\Debug\ExceptionsAndEnums.pdb
