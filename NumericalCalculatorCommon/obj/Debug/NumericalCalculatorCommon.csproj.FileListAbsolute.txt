@@ -1,0 +1,4 @@
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\NumericalCalculatorCommon\bin\Debug\NumericalCalculatorCommon.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\NumericalCalculatorCommon\bin\Debug\NumericalCalculatorCommon.pdb
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\NumericalCalculatorCommon\obj\Debug\NumericalCalculatorCommon.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\NumericalCalculatorCommon\obj\Debug\NumericalCalculatorCommon.pdb

@@ -1,0 +1,4 @@
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Bessel\bin\Debug\Bessel.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Bessel\bin\Debug\Bessel.pdb
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Bessel\obj\Debug\Bessel.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\Bessel\obj\Debug\Bessel.pdb

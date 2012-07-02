@@ -88,7 +88,7 @@ namespace NumericalCalculator
                     //Deserializujemy
                     Odczytaj();
                 }
-                catch (Exception ex)
+                catch
                 {
                     //Ustawiamy defaultowe ustawienia
                     RestoreDefaults();

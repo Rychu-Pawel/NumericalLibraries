@@ -91,41 +91,32 @@
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Logger.cs" />
-    <Compile Include="Mean.cs" />
     <Compile Include="MeanForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MeanForm.Designer.cs">
       <DependentUpon>MeanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Bessel.cs" />
-    <Compile Include="Integral.cs" />
     <Compile Include="Approximation.cs" />
     <Compile Include="Language.cs" />
-    <Compile Include="ExceptionsAndEnums.cs" />
-    <Compile Include="FourierTransform.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
-    <Compile Include="Function.cs" />
     <Compile Include="FunctionsForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="FunctionsForm.Designer.cs">
       <DependentUpon>FunctionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Hybrid.cs" />
-    <Compile Include="Interpolation.cs" />
     <Compile Include="InterpolationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="InterpolationForm.Designer.cs">
       <DependentUpon>InterpolationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Calculator.cs" />
     <Compile Include="LanguageForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -135,7 +126,6 @@
     <Compile Include="ProportionsForm.Designer.cs">
       <DependentUpon>ProportionsForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Proportions.cs" />
     <Compile Include="Translations\LanguageEnglish.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -146,9 +136,6 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LanguagePolish.resx</DependentUpon>
     </Compile>
-    <Compile Include="Derivative.cs" />
-    <Compile Include="PointC.cs" />
-    <Compile Include="PointD.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AboutForm.resx">
@@ -205,18 +192,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="LinearEquation.cs" />
     <Compile Include="LinearEquationForm.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="LinearEquationForm.Designer.cs">
       <DependentUpon>LinearEquationForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Differential.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Factorial.cs" />
-    <Compile Include="Stack.cs" />
-    <Compile Include="Interior.cs" />
     <Compile Include="Graph.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -258,7 +240,48 @@
   <ItemGroup>
     <Content Include="calc.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Bessel\Bessel.csproj">
+      <Project>{B1AE7CE0-9D40-4294-99B3-3DB1C6FD7AAD}</Project>
+      <Name>Bessel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Calculator\Calculator.csproj">
+      <Project>{ABCF2024-B9ED-4BF1-B19F-336BB94CEFB2}</Project>
+      <Name>Calculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Derivative\Derivative.csproj">
+      <Project>{26084897-09EC-4255-A641-BED2A36FDB99}</Project>
+      <Name>Derivative</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Differential\Differential.csproj">
+      <Project>{160A2F87-45D9-4603-BE1A-A1815F3FC034}</Project>
+      <Name>Differential</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FourierTransform\FourierTransform.csproj">
+      <Project>{45489865-42D0-47B9-B401-E6F2B7B29A90}</Project>
+      <Name>FourierTransform</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Hybrid\Hybrid.csproj">
+      <Project>{E042347C-874C-490F-9185-D3F140FE51F0}</Project>
+      <Name>Hybrid</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Integral\Integral.csproj">
+      <Project>{7E62C4FF-E2E8-4AA1-B3F1-1A22F12D743C}</Project>
+      <Name>Integral</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Interpolation\Interpolation.csproj">
+      <Project>{AAA136B6-9A62-4BDE-88E0-50A0DC9E2215}</Project>
+      <Name>Interpolation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinearEquation\LinearEquation.csproj">
+      <Project>{990923CB-10A0-46EC-B76E-ED28B12EDEDC}</Project>
+      <Name>LinearEquation</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
+      <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
+      <Name>NumericalCalculatorCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

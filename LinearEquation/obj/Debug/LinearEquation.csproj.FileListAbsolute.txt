@@ -1,0 +1,6 @@
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\bin\Debug\LinearEquation.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\bin\Debug\LinearEquation.pdb
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\bin\Debug\NumericalCalculatorCommon.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\bin\Debug\NumericalCalculatorCommon.pdb
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\obj\Debug\LinearEquation.dll
+C:\Users\Paweł\Desktop\Programowanie\Numerical Calculator\trunk\LinearEquation\obj\Debug\LinearEquation.pdb

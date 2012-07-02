@@ -485,8 +485,8 @@ namespace NumericalCalculator
                 }
                 else if (rbDifferentialII.Checked)
                 {
-                    Differential derivative = new Differential(function);
-                    List<PointD> points = derivative.ComputeDifferentialII(point, from, to, fromII, toII);
+                    Differential differential = new Differential(function);
+                    List<PointD> points = differential.ComputeDifferentialII(point, from, to, fromII, toII);
 
                     txtResult.Text = points.Last().Y.ToString();
                 }
