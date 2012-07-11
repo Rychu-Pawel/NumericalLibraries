@@ -89,7 +89,7 @@ namespace NumericalCalculator
             {
                 LinearEquation gauss = new LinearEquation(dgvEquations, changeFrom, changeTo);
 
-                double[] niewiadome = gauss.Oblicz();
+                double[] niewiadome = gauss.Compute();
 
                 for (int i = 0; i < dgvResults.Columns.Count; i++)
                     dgvResults[i, 0].Value = niewiadome[i];

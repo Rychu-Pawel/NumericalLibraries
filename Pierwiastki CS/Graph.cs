@@ -152,7 +152,7 @@ namespace NumericalCalculator
             punktyWykresu = new List<PointF>();
         }
 
-        public void Draw(FunctionTypeEnum typFunkcji)
+        public void Draw(FunctionTypeEnum functionType)
         {
             punktyWykresu.Clear();
 
@@ -169,16 +169,16 @@ namespace NumericalCalculator
                 float fx = 0;
                 double x = (i - zeroX) / wspX;
 
-                switch (typFunkcji)
+                switch (functionType)
                 {
                     case FunctionTypeEnum.Function:
-                        fx = (float)(funkcjaWPunkcie.ObliczFunkcjeWPunkcie(x) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ComputeFunctionAtPoint(x) * wspY);
                         break;
                     case FunctionTypeEnum.Derivative:
-                        fx = (float)(funkcjaWPunkcie.ObliczPochodna(x) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ComputeDerivative(x) * wspY);
                         break;
                     case FunctionTypeEnum.SecondDerivative:
-                        fx = (float)(funkcjaWPunkcie.ObliczPochodnaBis(x) * wspY);
+                        fx = (float)(funkcjaWPunkcie.ComputeDerivativeBis(x) * wspY);
                         break;
                     default:
                         throw new NoneGraphOptionCheckedException(); //not reachable code?
@@ -196,7 +196,7 @@ namespace NumericalCalculator
             //Wypisanie wzoru funkcji
             g.DrawString("f(x) = " + funkcja, font2, Brushes.Black, 3, 3);
 
-            switch (typFunkcji)
+            switch (functionType)
             {
                 case FunctionTypeEnum.Function:
                     pen = Pens.Blue;
@@ -227,7 +227,7 @@ namespace NumericalCalculator
             }           
         }
 
-        public void DrawFT(FunctionTypeEnum typFunkcji, int probkowanie, double odciecie = 0.0)
+        public void DrawFT(FunctionTypeEnum functionType, int sampling, double cutoff = 0.0)
         {
             punktyWykresu.Clear();
 
@@ -244,29 +244,29 @@ namespace NumericalCalculator
             FourierTransform fft = new FourierTransform();
 
             //Obliczenie FFT
-            punktyC = fft.Compute(funkcja, probkowanie, xOd, xDo);
+            punktyC = fft.Compute(funkcja, sampling, xOd, xDo);
 
             //Przefiltrowanie
             for (int i = 0; i < punktyC.Count; i++)
             {
                 PointC pc = punktyC[i];
 
-                if (Math.Abs(pc.Y.Real) < odciecie)
+                if (Math.Abs(pc.Y.Real) < cutoff)
                     pc.Y = 0;
 
                 punktyC[i] = pc;
             }
 
             //Obliczenie Reverse FFT
-            if (typFunkcji == FunctionTypeEnum.IFT)
-                punktyReversC = fft.ComputeInverse(punktyC, probkowanie, xOd, xDo);
+            if (functionType == FunctionTypeEnum.IFT)
+                punktyReversC = fft.ComputeInverse(punktyC, sampling, xOd, xDo);
 
             //Nowe przygotowanie
-            if (typFunkcji == FunctionTypeEnum.FT)
-                Initialize(funkcja, pWykres, 0, probkowanie + 3, yOd, yDo);
+            if (functionType == FunctionTypeEnum.FT)
+                Initialize(funkcja, pWykres, 0, sampling + 3, yOd, yDo);
 
             //Przeskalowanie pkt-ow
-            if (typFunkcji == FunctionTypeEnum.FT)
+            if (functionType == FunctionTypeEnum.FT)
             {
                 for (int i = 0; i < punktyC.Count; i++)
                 {
@@ -288,7 +288,7 @@ namespace NumericalCalculator
                 }
             }
 
-            if (typFunkcji == FunctionTypeEnum.IFT)
+            if (functionType == FunctionTypeEnum.IFT)
             {
                 //Przeskalowanie pkt-ow Reverse
                 for (int i = 0; i < punktyReversC.Count; i++)
@@ -315,12 +315,12 @@ namespace NumericalCalculator
             }
 
             //Wypisanie wzoru funkcji
-            if (typFunkcji == FunctionTypeEnum.FT)
+            if (functionType == FunctionTypeEnum.FT)
                 g.DrawString("FFT(" + '\u03C9' + ") = " + funkcja, font2, Brushes.Black, 3, 16);
             else
                 g.DrawString("RFFT(x) = " + funkcja, font2, Brushes.Black, 3, 16);
 
-            switch (typFunkcji)
+            switch (functionType)
             {
                 case FunctionTypeEnum.FT:
                     pen = Pens.PaleVioletRed;
@@ -336,7 +336,7 @@ namespace NumericalCalculator
             //RYSOWANIE WYKRESU
             try
             {
-                if (typFunkcji == FunctionTypeEnum.FT)
+                if (functionType == FunctionTypeEnum.FT)
                     g.DrawLines(pen, punkty.ToArray());
                 else
                     g.DrawLines(pen, punktyRevers.ToArray());
@@ -344,14 +344,14 @@ namespace NumericalCalculator
             catch (Exception)
             {
                 //Pozbycie sie NaN - może pomoże
-                if (typFunkcji == FunctionTypeEnum.FT)
+                if (functionType == FunctionTypeEnum.FT)
                     punkty = punkty.Where(p => !double.IsNaN(p.Y)).ToList();
                 else
                     punktyRevers = punktyRevers.Where(p => !double.IsNaN(p.Y)).ToList();
 
                 try
                 {
-                    if (typFunkcji == FunctionTypeEnum.FT)
+                    if (functionType == FunctionTypeEnum.FT)
                         g.DrawLines(pen, punkty.ToArray());
                     else
                         g.DrawLines(pen, punktyRevers.ToArray());
@@ -360,7 +360,7 @@ namespace NumericalCalculator
             }
         }
 
-        public void DrawDifferential(FunctionTypeEnum typFunkcji, params double[] parametry)
+        public void DrawDifferential(FunctionTypeEnum functionType, params double[] parameters)
         {
             punktyWykresu.Clear();
 
@@ -386,7 +386,7 @@ namespace NumericalCalculator
                 krok = 0.05;
 
             //Idziemy od naszego punktu brzegowego w lewo, a potem w prawo
-            switch (typFunkcji)
+            switch (functionType)
             {
                 case FunctionTypeEnum.Differential:
 
@@ -396,14 +396,14 @@ namespace NumericalCalculator
                     List<PointD> prawo = new List<PointD>();
 
                     //W lewo
-                    if (xOd < parametry[0])
-                        lewo = rozniczka.ComputeDifferential(xOd, parametry[0], parametry[1], false, krok);
+                    if (xOd < parameters[0])
+                        lewo = rozniczka.ComputeDifferential(xOd, parameters[0], parameters[1], false, krok);
 
                     //W prawo
                     rozniczka = new Differential(funkcja);
 
-                    if (xDo >= parametry[0])
-                        prawo = rozniczka.ComputeDifferential(xDo, parametry[0], parametry[1], false, krok);
+                    if (xDo >= parameters[0])
+                        prawo = rozniczka.ComputeDifferential(xDo, parameters[0], parameters[1], false, krok);
 
                     //ŁĄCZYMY
                     //odwracamy w lewo
@@ -458,14 +458,14 @@ namespace NumericalCalculator
                     List<PointD> prawoII = new List<PointD>();
 
                     //W lewo
-                    if (xOd < parametry[0])
-                        lewoII = rozniczkaII.ComputeDifferentialII(xOd, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
+                    if (xOd < parameters[0])
+                        lewoII = rozniczkaII.ComputeDifferentialII(xOd, parameters[0], parameters[1], parameters[2], parameters[3], false, krok);
 
                     //W prawo
                     rozniczkaII = new Differential(funkcja);
 
-                    if (xDo >= parametry[0])
-                        prawoII = rozniczkaII.ComputeDifferentialII(xDo, parametry[0], parametry[1], parametry[2], parametry[3], false, krok);
+                    if (xDo >= parameters[0])
+                        prawoII = rozniczkaII.ComputeDifferentialII(xDo, parameters[0], parameters[1], parameters[2], parameters[3], false, krok);
 
                     //ŁĄCZYMY
                     //odwracamy w lewo
@@ -520,7 +520,7 @@ namespace NumericalCalculator
             //Wypisanie wzoru funkcji
             g.DrawString("f(x) = " + funkcja, font2, Brushes.Black, 3, 3);
 
-            switch (typFunkcji)
+            switch (functionType)
             {
                 case FunctionTypeEnum.Differential:
                     pen = Pens.PaleVioletRed;
@@ -548,11 +548,11 @@ namespace NumericalCalculator
             }
         }
 
-        public void DrawBessel(BesselFunctionType typFunkcji, params double[] parametry)
+        public void DrawBessel(BesselFunctionType functionType, params double[] parameters)
         {
             punktyWykresu.Clear();
 
-            int indexZmiennej = ZnajdzIndexZmiennej(typFunkcji, parametry);
+            int indexZmiennej = ZnajdzIndexZmiennej(functionType, parameters);
 
             BesselNeumanHyper bnh = new BesselNeumanHyper();
             List<PointF> punkty = new List<PointF>();
@@ -563,36 +563,36 @@ namespace NumericalCalculator
                 for (double i = 0; i < picWidth; i += (double)picWidth / 1000.0)
                 {
                     float fx = 0;
-                    parametry[indexZmiennej] = (i - zeroX) / wspX;
+                    parameters[indexZmiennej] = (i - zeroX) / wspX;
 
-                    switch (typFunkcji)
+                    switch (functionType)
                     {
                         case BesselFunctionType.Bessel:
-                            fx = (float)(bnh.Bessel(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.Bessel(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.BesselSphere:
-                            fx = (float)(bnh.SphBessel(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.SphBessel(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.BesselSphereDerivative:
-                            fx = (float)(bnh.SphBesselPrim(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.SphBesselPrim(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.Neumann:
-                            fx = (float)(bnh.Neumann(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.Neumann(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.NeumannSphere:
-                            fx = (float)(bnh.SphNeuman(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.SphNeuman(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.NeumannSphereDerivative:
-                            fx = (float)(bnh.SphNeumanPrim(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.SphNeumanPrim(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.Hypergeometric01:
-                            fx = (float)(bnh.Hyperg_0F_1(parametry[0], parametry[1]) * wspY);
+                            fx = (float)(bnh.Hyperg_0F_1(parameters[0], parameters[1]) * wspY);
                             break;
                         case BesselFunctionType.Hypergeometric11:
-                            fx = (float)(bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]) * wspY);
+                            fx = (float)(bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]) * wspY);
                             break;
                         case BesselFunctionType.Hypergeometric21:
-                            fx = (float)(bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]) * wspY);
+                            fx = (float)(bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]) * wspY);
                             break;
                         default:
                             throw new Exception("Nie wybrano funkcji!"); //not reachable code?
@@ -604,41 +604,41 @@ namespace NumericalCalculator
                         fx = (float)min;
 
                     punkty.Add(new PointF((float)(i), (float)(zeroY - fx)));
-                    punktyWykresu.Add(new PointF((float)parametry[indexZmiennej], (float)(fx / wspY)));
+                    punktyWykresu.Add(new PointF((float)parameters[indexZmiennej], (float)(fx / wspY)));
                 }
             }
             else //Dodanie dwóch punktów - funkcja stała
             {
                 float fx = 0;
 
-                switch (typFunkcji)
+                switch (functionType)
                 {
                     case BesselFunctionType.Bessel:
-                        fx = (float)(bnh.Bessel(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.Bessel(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.BesselSphere:
-                        fx = (float)(bnh.SphBessel(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.SphBessel(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.BesselSphereDerivative:
-                        fx = (float)(bnh.SphBesselPrim(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.SphBesselPrim(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.Neumann:
-                        fx = (float)(bnh.Neumann(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.Neumann(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.NeumannSphere:
-                        fx = (float)(bnh.SphNeuman(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.SphNeuman(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.NeumannSphereDerivative:
-                        fx = (float)(bnh.SphNeumanPrim(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.SphNeumanPrim(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.Hypergeometric01:
-                        fx = (float)(bnh.Hyperg_0F_1(parametry[0], parametry[1]) * wspY);
+                        fx = (float)(bnh.Hyperg_0F_1(parameters[0], parameters[1]) * wspY);
                         break;
                     case BesselFunctionType.Hypergeometric11:
-                        fx = (float)(bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]) * wspY);
+                        fx = (float)(bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]) * wspY);
                         break;
                     case BesselFunctionType.Hypergeometric21:
-                        fx = (float)(bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]) * wspY);
+                        fx = (float)(bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]) * wspY);
                         break;
                     default:
                         throw new Exception("Nie wybrano funkcji!"); //not reachable code?
@@ -671,7 +671,7 @@ namespace NumericalCalculator
             }            
         }
 
-        public double[] Reskalling(params FunctionTypeEnum[] typFunkcji)
+        public double[] Reskalling(params FunctionTypeEnum[] functionType)
         {
             Derivative funkcjaWPunkcie = new Derivative(funkcja); // Do obliczania wartosci funkcji w punkcie
             List<PointF> punkty = new List<PointF>();
@@ -682,9 +682,9 @@ namespace NumericalCalculator
                 float fx = 0;
                 double punkt = (i - zeroX) / wspX;
 
-                if (typFunkcji.Contains(FunctionTypeEnum.Function))
+                if (functionType.Contains(FunctionTypeEnum.Function))
                 {
-                    fx = (float)funkcjaWPunkcie.ObliczFunkcjeWPunkcie(punkt);
+                    fx = (float)funkcjaWPunkcie.ComputeFunctionAtPoint(punkt);
 
                     if (fx > max)
                         fx = (float)max;
@@ -694,9 +694,9 @@ namespace NumericalCalculator
                     punkty.Add(new PointF((float)punkt, fx));
                 }
 
-                if (typFunkcji.Contains(FunctionTypeEnum.Derivative))
+                if (functionType.Contains(FunctionTypeEnum.Derivative))
                 {
-                    fx = (float)funkcjaWPunkcie.ObliczPochodna(punkt);
+                    fx = (float)funkcjaWPunkcie.ComputeDerivative(punkt);
 
                     if (fx > max)
                         fx = (float)max;
@@ -706,9 +706,9 @@ namespace NumericalCalculator
                     punkty.Add(new PointF((float)punkt, fx));
                 }
 
-                if (typFunkcji.Contains(FunctionTypeEnum.SecondDerivative))
+                if (functionType.Contains(FunctionTypeEnum.SecondDerivative))
                 {
-                    fx = (float)funkcjaWPunkcie.ObliczPochodnaBis(punkt);
+                    fx = (float)funkcjaWPunkcie.ComputeDerivativeBis(punkt);
 
                     if (fx > max)
                         fx = (float)max;
@@ -744,7 +744,7 @@ namespace NumericalCalculator
 
                 Graph wykres = new Graph(funkcja, pWykres, minX, maxX, yOd, yDo);
 
-                return wykres.Reskalling(typFunkcji);
+                return wykres.Reskalling(functionType);
             }
 
             double maxY = nowePunkty.Select(p => p.Y).Max();
@@ -780,9 +780,9 @@ namespace NumericalCalculator
             return f;
         }
 
-        public double[] Reskalling(BesselFunctionType typFunkcji, params double[] parametry)
+        public double[] Reskalling(BesselFunctionType functionType, params double[] parameters)
         {
-            int indexZmiennej = ZnajdzIndexZmiennej(typFunkcji, parametry);
+            int indexZmiennej = ZnajdzIndexZmiennej(functionType, parameters);
 
             BesselNeumanHyper bnh = new BesselNeumanHyper();
             List<PointF> punkty = new List<PointF>();
@@ -793,36 +793,36 @@ namespace NumericalCalculator
                 for (double i = 0; i < picWidth; i += (double)picWidth / 100.0)
                 {
                     float fx = 0;
-                    parametry[indexZmiennej] = (i - zeroX) / wspX;
+                    parameters[indexZmiennej] = (i - zeroX) / wspX;
 
-                    switch (typFunkcji)
+                    switch (functionType)
                     {
                         case BesselFunctionType.Bessel:
-                            fx = (float)bnh.Bessel(parametry[0], parametry[1]);
+                            fx = (float)bnh.Bessel(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.BesselSphere:
-                            fx = (float)bnh.SphBessel(parametry[0], parametry[1]);
+                            fx = (float)bnh.SphBessel(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.BesselSphereDerivative:
-                            fx = (float)bnh.SphBesselPrim(parametry[0], parametry[1]);
+                            fx = (float)bnh.SphBesselPrim(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.Neumann:
-                            fx = (float)bnh.Neumann(parametry[0], parametry[1]);
+                            fx = (float)bnh.Neumann(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.NeumannSphere:
-                            fx = (float)bnh.SphNeuman(parametry[0], parametry[1]);
+                            fx = (float)bnh.SphNeuman(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.NeumannSphereDerivative:
-                            fx = (float)bnh.SphNeumanPrim(parametry[0], parametry[1]);
+                            fx = (float)bnh.SphNeumanPrim(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.Hypergeometric01:
-                            fx = (float)bnh.Hyperg_0F_1(parametry[0], parametry[1]);
+                            fx = (float)bnh.Hyperg_0F_1(parameters[0], parameters[1]);
                             break;
                         case BesselFunctionType.Hypergeometric11:
-                            fx = (float)bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]);
+                            fx = (float)bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]);
                             break;
                         case BesselFunctionType.Hypergeometric21:
-                            fx = (float)bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]);
+                            fx = (float)bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]);
                             break;
                         default:
                             throw new Exception("Nie wybrano funkcji!"); //not reachable code?
@@ -833,41 +833,41 @@ namespace NumericalCalculator
                     else if (fx < min)
                         fx = (float)min;
 
-                    punkty.Add(new PointF((float)(parametry[indexZmiennej]), fx));
+                    punkty.Add(new PointF((float)(parameters[indexZmiennej]), fx));
                 }
             }
             else //Dodanie dwóch punktów - funkcja stała
             {
                 float fx = 0;
 
-                switch (typFunkcji)
+                switch (functionType)
                 {
                     case BesselFunctionType.Bessel:
-                        fx = (float)bnh.Bessel(parametry[0], parametry[1]);
+                        fx = (float)bnh.Bessel(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.BesselSphere:
-                        fx = (float)bnh.SphBessel(parametry[0], parametry[1]);
+                        fx = (float)bnh.SphBessel(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.BesselSphereDerivative:
-                        fx = (float)bnh.SphBesselPrim(parametry[0], parametry[1]);
+                        fx = (float)bnh.SphBesselPrim(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.Neumann:
-                        fx = (float)bnh.Neumann(parametry[0], parametry[1]);
+                        fx = (float)bnh.Neumann(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.NeumannSphere:
-                        fx = (float)bnh.SphNeuman(parametry[0], parametry[1]);
+                        fx = (float)bnh.SphNeuman(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.NeumannSphereDerivative:
-                        fx = (float)bnh.SphNeumanPrim(parametry[0], parametry[1]);
+                        fx = (float)bnh.SphNeumanPrim(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.Hypergeometric01:
-                        fx = (float)bnh.Hyperg_0F_1(parametry[0], parametry[1]);
+                        fx = (float)bnh.Hyperg_0F_1(parameters[0], parameters[1]);
                         break;
                     case BesselFunctionType.Hypergeometric11:
-                        fx = (float)bnh.Hyperg_1F_1(parametry[0], parametry[1], parametry[2]);
+                        fx = (float)bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]);
                         break;
                     case BesselFunctionType.Hypergeometric21:
-                        fx = (float)bnh.Hyperg_2F_1(parametry[0], parametry[1], parametry[2], parametry[3]);
+                        fx = (float)bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]);
                         break;
                     default:
                         throw new Exception("Nie wybrano funkcji!"); //not reachable code?
@@ -907,9 +907,9 @@ namespace NumericalCalculator
 
                 Graph wykres = new Graph(funkcja, pWykres, minX, maxX, yOd, yDo);
 
-                parametry[indexZmiennej] = double.NaN;
+                parameters[indexZmiennej] = double.NaN;
 
-                return wykres.Reskalling(typFunkcji, parametry);
+                return wykres.Reskalling(functionType, parameters);
             }
 
             double maxY = nowePunkty.Select(p => p.Y).Max();
@@ -1190,9 +1190,9 @@ namespace NumericalCalculator
 
 
     // Konstruktor ------------------------
-        public Graph(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
+        public Graph(string function, PictureBox picGraph, double xFrom, double xTo, double yFrom, double yTo)
         {
-            Initialize(funk, picWykres, xOd, xDo, yOd, yDo);
+            Initialize(function, picGraph, xFrom, xTo, yFrom, yTo);
         }
 
         private void Initialize(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)

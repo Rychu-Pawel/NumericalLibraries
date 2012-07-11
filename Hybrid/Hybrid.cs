@@ -21,8 +21,8 @@ namespace NumericalCalculator
 
             licznik++;
 
-            double a = ObliczFunkcjeWPunkcie(przedzialOd); // f(x1)
-            double b = ObliczFunkcjeWPunkcie(przedzialDo); // f(x2)
+            double a = ComputeFunctionAtPoint(przedzialOd); // f(x1)
+            double b = ComputeFunctionAtPoint(przedzialDo); // f(x2)
 
             // SPRAWDZENIE CZY JEST TU PIERWIASTEK I CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
             if (a * b > 0)
@@ -34,7 +34,7 @@ namespace NumericalCalculator
             else // JAK NIE TO REKURENCJA Z NOWYM PRZEDZIAŁEM
             {
                 double x = (przedzialOd + przedzialDo) / 2; // NOWY PRZEDZIAL (X1 + X2) / 2
-                double fx = ObliczFunkcjeWPunkcie(x); // f(x)
+                double fx = ComputeFunctionAtPoint(x); // f(x)
 
                 if (a * fx <= 0) // F(X1)*F(X) <= 0
                 {
@@ -66,8 +66,8 @@ namespace NumericalCalculator
             if (licznik > 28)
                 return double.NaN;
 
-            double a = ObliczFunkcjeWPunkcie(przedzialOd); // f(x1)
-            double b = ObliczFunkcjeWPunkcie(przedzialDo); // f(x2)
+            double a = ComputeFunctionAtPoint(przedzialOd); // f(x1)
+            double b = ComputeFunctionAtPoint(przedzialDo); // f(x2)
 
             // SPRAWDZENIE CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
             if (a == 0)
@@ -76,11 +76,11 @@ namespace NumericalCalculator
                 return przedzialDo;
             else // JAK NIE TO REKURENCJA Z NOWYM PRZEDZIAŁEM
             {
-                double x = przedzialOd - a / ObliczPochodna(przedzialOd); // NOWY PRZEDZIAL = (przedzialOd - f(x)/f'(x)
+                double x = przedzialOd - a / ComputeDerivative(przedzialOd); // NOWY PRZEDZIAL = (przedzialOd - f(x)/f'(x)
                 if (double.IsNaN(x))
                     return double.NaN;
 
-                double fx = ObliczFunkcjeWPunkcie(x); // f(x)
+                double fx = ComputeFunctionAtPoint(x); // f(x)
 
                 if (Math.Abs(a) <= 0.00000000000001 || Math.Abs(przedzialOd - x) <= 0.00000000000001 || fx == 0) // DOKLADNOSC OBLICZEN
                     return x;
@@ -94,22 +94,22 @@ namespace NumericalCalculator
 
         double HybrydaOblicz()
         {
-            double wynik;
+            double result;
 
             licznik = 0;
             
-            wynik = Bisekcja(); // 8 ITERACJI BISEKCJI
+            result = Bisekcja(); // 8 ITERACJI BISEKCJI
 
-            if (!(double.IsNaN(wynik)))
-                return wynik; // bisekcja znalazla wynik
+            if (!(double.IsNaN(result)))
+                return result; // bisekcja znalazla wynik
 
             //Zachowanie przedzialow w razie niepowodzenia Newtona, bo Newton psuje przedzial
             przedzialDoPrzedNewtonem = przedzialDo;
             przedzialOdPrzedNewtonem = przedzialOd;
 
-            wynik = Newton(); // NEWTON
+            result = Newton(); // NEWTON
 
-            if (double.IsNaN(wynik)) // Czy newton zawiodl, jak tak to przywracam przedzial sprzed Newtona i dokanczam bisekcja
+            if (double.IsNaN(result)) // Czy newton zawiodl, jak tak to przywracam przedzial sprzed Newtona i dokanczam bisekcja
             {
                 przedzialOd = przedzialOdPrzedNewtonem;
                 przedzialDo = przedzialDoPrzedNewtonem;
@@ -117,43 +117,43 @@ namespace NumericalCalculator
                 return Bisekcja(); // Dokonczenie bisekcja
             }
             else
-                return wynik;                
+                return result;                
         }
 
-        public override double ComputeInterior()
+        public double ComputeHybrid()
         {
-            double wynik;
+            double result;
 
             //Spawdzenie czy w przedziale jest pierwiastek, jeśli nie to próbujemy uruchomić tylko newtona i jak zawiedzie to walimy błąd
-            if (ObliczFunkcjeWPunkcie(przedzialOd) * ObliczFunkcjeWPunkcie(przedzialDo) > 0)
+            if (ComputeFunctionAtPoint(przedzialOd) * ComputeFunctionAtPoint(przedzialDo) > 0)
             {
-                wynik = Newton();
+                result = Newton();
 
-                if (double.IsNaN(wynik))
+                if (double.IsNaN(result))
                     throw new NoneOrFewRootsOnGivenIntervalException();
                 else
-                    return wynik;
+                    return result;
             }
 
-            wynik = HybrydaOblicz();
+            result = HybrydaOblicz();
 
             //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-            if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                wynik = Math.Floor(wynik);
-            else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                wynik = Math.Ceiling(wynik);            
+            if (Math.Abs(result - Math.Floor(result)) < 0.000000001)
+                result = Math.Floor(result);
+            else if (Math.Abs(result - Math.Ceiling(result)) < 0.000000001)
+                result = Math.Ceiling(result);
 
-            return wynik;
+            return result;
         }
 
 
     // KONSTRUKTOR ----------------
-        public Hybrid(string funkcja, double przedzialOd, double przedzialDo): base(funkcja)
+        public Hybrid(string function, double intervalFrom, double intervalTo): base(function)
         {
-            this.przedzialOd = przedzialOd;
-            this.przedzialDo = przedzialDo;
+            this.przedzialOd = intervalFrom;
+            this.przedzialDo = intervalTo;
             licznik = 0;
-            //iloscIteracjiBisekcji = 0;
+            
             przedzialOdPrzedNewtonem = przedzialDoPrzedNewtonem = 0;
 
             ErrorCheck();

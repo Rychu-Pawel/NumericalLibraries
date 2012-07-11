@@ -26,9 +26,9 @@ namespace NumericalCalculator
         double wynikII;
 
         //METODY ------------------------------------
-        public List<PointD> ComputeDifferential(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, bool czyFormatowacWynik = true, double krok = 0.001)
+        public List<PointD> ComputeDifferential(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
         {
-            this.krok = krok;
+            this.krok = step;
 
             f0 = f1 = f2 = f3 = 0;
             wynik = 0;
@@ -36,19 +36,19 @@ namespace NumericalCalculator
             List<PointD> punkty = new List<PointD>();
 
             //Przygotowanie
-            szukanyPunkt = punktWKtorymSzukamyWartosciFunkcji;
-            pktPoczatkowy = punktPoczatkowy;
-            wartoscPoczatkowa = wartoscFunkcjiWPunkciePoczatkowym;
+            szukanyPunkt = valueLookingPoint;
+            pktPoczatkowy = startingPoint;
+            wartoscPoczatkowa = startingPointFunctionValue;
 
             //sprawdzenie czy mam sie posuwać do przodu czy do tyłu
             if (szukanyPunkt > pktPoczatkowy)
             {
                 //Posuwam się do przodu
-                for (double i = pktPoczatkowy + krok; i < szukanyPunkt; i += krok)
+                for (double i = pktPoczatkowy + step; i < szukanyPunkt; i += step)
                 {
                     ComputeFy();
 
-                    wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                     //Ustawienie nowych wartosci startowych dla kolejnej iteracji
                     wartoscPoczatkowa = wynik;
@@ -58,11 +58,11 @@ namespace NumericalCalculator
                 }
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                krok = szukanyPunkt - pktPoczatkowy;
+                step = szukanyPunkt - pktPoczatkowy;
                 ComputeFy();
-                wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (czyFormatowacWynik)
+                if (applyResultFormatting)
                 {
                     //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
                     if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -77,14 +77,14 @@ namespace NumericalCalculator
             }
             else if (szukanyPunkt < pktPoczatkowy)
             {
-                krok = -krok;
+                step = -step;
 
                 //Posuwam się do tyłu
-                for (double i = pktPoczatkowy + krok; i > szukanyPunkt; i += krok)
+                for (double i = pktPoczatkowy + step; i > szukanyPunkt; i += step)
                 {
                     ComputeFy();
 
-                    wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                     //Ustawienie nowych wartosci startowych dla kolejnej iteracji
                     wartoscPoczatkowa = wynik;
@@ -94,11 +94,11 @@ namespace NumericalCalculator
                 }
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                krok = -(pktPoczatkowy - szukanyPunkt);
+                step = -(pktPoczatkowy - szukanyPunkt);
                 ComputeFy();
-                wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (czyFormatowacWynik)
+                if (applyResultFormatting)
                 {
                     //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
                     if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -112,12 +112,12 @@ namespace NumericalCalculator
                 return punkty;
             }
             else //Szukany pkt jest == zadanemu punktowi
-                return new List<PointD>() { new PointD(szukanyPunkt, wartoscFunkcjiWPunkciePoczatkowym) };
+                return new List<PointD>() { new PointD(szukanyPunkt, startingPointFunctionValue) };
         }
 
-        public List<PointD> ComputeDifferentialII(double punktWKtorymSzukamyWartosciFunkcji, double punktPoczatkowy, double wartoscFunkcjiWPunkciePoczatkowym, double punktPoczatkowyII, double wartoscFunkcjiWPunkciePoczatkowymII, bool czyFormatowacWynik = true, double krok = 0.001)
+        public List<PointD> ComputeDifferentialII(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointII, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
         {
-            this.krok = krok;
+            this.krok = step;
 
             //Podstawienie
             funkcjaII = function.Replace("y'", "u");
@@ -149,22 +149,22 @@ namespace NumericalCalculator
             List<PointD> punktyII = new List<PointD>();
 
             //Przygotowanie
-            szukanyPunktII = punktWKtorymSzukamyWartosciFunkcji;
-            pktPoczatkowy = punktPoczatkowy;
-            pktPoczatkowyII = punktPoczatkowyII;
-            wartoscPoczatkowa = wartoscFunkcjiWPunkciePoczatkowym;
-            wartoscPoczatkowaII = wartoscFunkcjiWPunkciePoczatkowymII;
+            szukanyPunktII = valueLookingPoint;
+            pktPoczatkowy = startingPoint;
+            pktPoczatkowyII = startingPointII;
+            wartoscPoczatkowa = startingPointFunctionValue;
+            wartoscPoczatkowaII = startingPointFunctionValueII;
 
             //sprawdzenie czy mam sie posuwać do przodu czy do tyłu
             if (szukanyPunktII > pktPoczatkowyII)
             {
                 //Posuwam się do przodu
-                for (double i = pktPoczatkowyII + krok; i < szukanyPunktII; i += krok)
+                for (double i = pktPoczatkowyII + step; i < szukanyPunktII; i += step)
                 {
                     ComputeFyII();
 
-                    wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
-                    wynikII = wartoscPoczatkowaII + (krok / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
+                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    wynikII = wartoscPoczatkowaII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
 
                     //Ustawienie nowych wartosci startowych dla kolejnej iteracji
                     wartoscPoczatkowa = wynik;
@@ -177,11 +177,11 @@ namespace NumericalCalculator
                 }
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                krok = szukanyPunktII - pktPoczatkowyII;
+                step = szukanyPunktII - pktPoczatkowyII;
                 ComputeFyII();
-                wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (czyFormatowacWynik)
+                if (applyResultFormatting)
                 {
                     //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
                     if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -196,16 +196,16 @@ namespace NumericalCalculator
             }
             else if (szukanyPunktII < pktPoczatkowyII)
             {
-                krok = -krok;
+                step = -step;
 
                 //Posuwam się do tyłu
                 //Posuwam się do przodu
-                for (double i = pktPoczatkowyII + krok; i > szukanyPunktII; i += krok)
+                for (double i = pktPoczatkowyII + step; i > szukanyPunktII; i += step)
                 {
                     ComputeFyII();
 
-                    wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
-                    wynikII = wartoscPoczatkowaII + (krok / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
+                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    wynikII = wartoscPoczatkowaII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
 
                     //Ustawienie nowych wartosci startowych dla kolejnej iteracji
                     wartoscPoczatkowa = wynik;
@@ -218,11 +218,11 @@ namespace NumericalCalculator
                 }
 
                 //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                krok = szukanyPunktII - pktPoczatkowyII;
+                step = szukanyPunktII - pktPoczatkowyII;
                 ComputeFyII();
-                wynik = wartoscPoczatkowa + (krok / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (czyFormatowacWynik)
+                if (applyResultFormatting)
                 {
                     //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
                     if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
@@ -236,7 +236,7 @@ namespace NumericalCalculator
                 return punkty;
             }
             else //Szukany pkt jest == zadanemu punktowi
-                return new List<PointD>() { new PointD(szukanyPunkt, wartoscFunkcjiWPunkciePoczatkowym) };
+                return new List<PointD>() { new PointD(szukanyPunkt, startingPointFunctionValue) };
         }
 
         private void ComputeFy()

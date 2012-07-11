@@ -47,7 +47,7 @@ namespace NumericalCalculator
                         interpolation.points[1, i] = Convert.ToDouble(dgvInterpolation[1, i].Value.ToString().Replace(changeFrom, changeTo));
                     }
 
-                    txtFunction.Text = interpolation.Oblicz();
+                    txtFunction.Text = interpolation.Compute();
                 }
                 //Aproksymacja
                 else if (rbApproximation.Checked == true)

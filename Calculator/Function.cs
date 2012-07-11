@@ -5,7 +5,7 @@ using System.Text;
 
 namespace NumericalCalculator
 {
-    public class Function
+    public abstract class Function
     {
         // ZMIENNE --------------------------------
         protected string function;
@@ -448,9 +448,9 @@ namespace NumericalCalculator
         }
 
         // KONSTRUKTOR ----------------------------
-        public Function(string funk) // KONSTRUKTOR
+        public Function(string function) // KONSTRUKTOR
         {
-            function = funk;
+            this.function = function;
         }
     }
 

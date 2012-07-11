@@ -14,11 +14,11 @@ namespace NumericalCalculator
         public double[,] points;
         private double[] wynik; // Wynik jako tablica współczynników
 
-        private string strWynik; //Wynik jakos f(x)
+        private string strResult; //Wynik jakos f(x)
 
 //METODY -------------------------------------
 
-        private void Sprawdzenie()
+        private void ErrorCheck()
         {
             // Sprawdzenie czy punkty x sie nie powtarzaja
             for (int i = 0; i < iloscPunktow; i++)
@@ -112,37 +112,37 @@ namespace NumericalCalculator
                         if (wynik[i] < 0 && wynik[i] != 1 && wynik[i] != -1) // + i - daje -
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += (Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
+                                strResult += (Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += (Convert.ToString(wynik[i]) + "*x");
+                                strResult += (Convert.ToString(wynik[i]) + "*x");
                             else if (i == 0)
-                                strWynik += (Convert.ToString(wynik[i]));
+                                strResult += (Convert.ToString(wynik[i]));
                         }
                         else if (wynik[i] > 0 && wynik[i] != 1 && wynik[i] != -1) // Po prostu liczba dodatnia
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("+" + Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
+                                strResult += ("+" + Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("+" + Convert.ToString(wynik[i]) + "*x");
+                                strResult += ("+" + Convert.ToString(wynik[i]) + "*x");
                             else if (i == 0)
-                                strWynik += ("+" + Convert.ToString(wynik[i]));
+                                strResult += ("+" + Convert.ToString(wynik[i]));
                         }
                         else if (wynik[i] == 1) // Pomijamy 1* przy x
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("+x^" + Convert.ToString(i));
+                                strResult += ("+x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("+x");
+                                strResult += ("+x");
                             else if (i == 0)
-                                strWynik += ("+1");
+                                strResult += ("+1");
                         }
                         else if (wynik[i] == -1) // Pomijamy 1* przy x, dodajac -
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("-x^" + Convert.ToString(i));
+                                strResult += ("-x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("-x");
+                                strResult += ("-x");
                             else if (i == 0)
-                                strWynik += ("-1");
+                                strResult += ("-1");
                     }
                 }
                 else // ZNAK UJEMNY PRZY X
@@ -152,55 +152,55 @@ namespace NumericalCalculator
                         if (wynik[i] < 0 && wynik[i] != 1 && wynik[i] != -1) // + i - daje -
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
+                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
+                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
                             else if (i == 0)
-                                strWynik += ("+" + Convert.ToString(Math.Abs(wynik[i])));
+                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])));
                         }
                         else if (wynik[i] > 0 && wynik[i] != 1 && wynik[i] != -1) // Po prostu liczba dodatnia
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
+                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
+                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
                             else if (i == 0)
-                                strWynik += ("-" + Convert.ToString(Math.Abs(wynik[i])));
+                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])));
                         }
                         else if (wynik[i] == 1) // Pomijamy 1* przy x
                         {
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("-x^" + Convert.ToString(i));
+                                strResult += ("-x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("-x");
+                                strResult += ("-x");
                             else if (i == 0)
-                                strWynik += ("-1");
+                                strResult += ("-1");
                         }
                         else if (wynik[i] == -1) // Pomijamy 1* przy x, dodajac -
                             if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strWynik += ("+x^" + Convert.ToString(i));
+                                strResult += ("+x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strWynik += ("+x");
+                                strResult += ("+x");
                             else if (i == 0)
-                                strWynik += ("+1");
+                                strResult += ("+1");
                     }
                 }
             }
 
             //Usuwanie "+" z przodu
-            if (strWynik.StartsWith("+"))
-                strWynik = strWynik.Substring(1);
+            if (strResult.StartsWith("+"))
+                strResult = strResult.Substring(1);
 
             //Usuwanie "1*" z przodu
-            if (strWynik.StartsWith("1*"))
-                strWynik = strWynik.Substring(2);
+            if (strResult.StartsWith("1*"))
+                strResult = strResult.Substring(2);
         }
 
-        public string Oblicz()
+        public string Compute()
         {
-            Sprawdzenie(); //Wykonanie sprawdzenia
+            ErrorCheck(); //Wykonanie sprawdzenia
 
-            strWynik = string.Empty;
+            strResult = string.Empty;
 
             if (iloscPunktow == 0) // Jezeli nie ma punktow, to blad, jak tylko 1, to zwraca funkcje stala, jak 2 lub wiecej to liczy
                 throw new NoPointsProvidedException();
@@ -213,11 +213,10 @@ namespace NumericalCalculator
                 FormatujWynik();
             }
 
-            if (strWynik == string.Empty) // To znaczy ze funkcja jest stala = 0
-                strWynik = "0";
+            if (strResult == string.Empty) // To znaczy ze funkcja jest stala = 0
+                strResult = "0";
 
-            return strWynik;
-
+            return strResult;
         }
     }
 }

@@ -405,21 +405,21 @@ namespace NumericalCalculator
                 if (rbPoint.Checked || rbDerivativePoint.Checked || rbDerivativePointBis.Checked || rbDifferential.Checked || rbDifferentialII.Checked)
                 {
                     //Pobranie punktu
-                        point = GetArgument(ArgumentTypeEnum.Point);
+                    point = GetArgument(ArgumentTypeEnum.Point);
                 }
 
                 if (rbRoot.Checked || rbIntegral.Checked || rbDifferential.Checked || rbDifferentialII.Checked)
                 {
                     //Pobranie from i to
-                        from = GetArgument(ArgumentTypeEnum.From);
-                        to = GetArgument(ArgumentTypeEnum.To);
+                    from = GetArgument(ArgumentTypeEnum.From);
+                    to = GetArgument(ArgumentTypeEnum.To);
                 }
 
                 if (rbDifferentialII.Checked)
                 {
                     //Pobranie fromII i toII
-                        fromII = GetArgument(ArgumentTypeEnum.FromII);
-                        toII = GetArgument(ArgumentTypeEnum.ToII);
+                    fromII = GetArgument(ArgumentTypeEnum.FromII);
+                    toII = GetArgument(ArgumentTypeEnum.ToII);
                 }
 
                 if (rbSpecialFunction.Checked)
@@ -443,7 +443,7 @@ namespace NumericalCalculator
                     {
                         throw new FunctionNullReferenceException();
                     }
-                }   
+                }
 
                 //Obliczenia
                 if (rbCalculator.Checked)
@@ -457,7 +457,7 @@ namespace NumericalCalculator
                     txtResult.Text = derivative.ComputeFunctionAtPoint().ToString();
                 }
                 else if (rbDerivativePoint.Checked)
-                {              
+                {
                     Derivative derivative = new Derivative(function, point);
                     txtResult.Text = derivative.ComputeDerivative().ToString();
                 }
@@ -469,18 +469,18 @@ namespace NumericalCalculator
                 else if (rbRoot.Checked)
                 {
                     Hybrid hybrid = new Hybrid(function, from, to);
-                    txtResult.Text = hybrid.ComputeInterior().ToString();
+                    txtResult.Text = hybrid.ComputeHybrid().ToString();
                 }
                 else if (rbIntegral.Checked)
                 {
                     Integral integral = new Integral(function, from, to);
-                    txtResult.Text = integral.ComputeInterior().ToString();
+                    txtResult.Text = integral.ComputeIntegral().ToString();
                 }
                 else if (rbDifferential.Checked)
                 {
-                    Differential derivative = new Differential(function);
-                    List<PointD> points = derivative.ComputeDifferential(point, from, to);
-
+                    Differential differential = new Differential(function);
+                    List<PointD> points = differential.ComputeDifferential(point, from, to);
+                    
                     txtResult.Text = points.Last().Y.ToString();
                 }
                 else if (rbDifferentialII.Checked)
@@ -493,43 +493,43 @@ namespace NumericalCalculator
                 else if (rbSpecialFunction.Checked)
                 {
                     BesselNeumanHyper bessel = new BesselNeumanHyper();
-
-                    double wynik = 0.0d;
+                    
+                    double result = 0.0d;
 
                     switch (cmbSpecialFunction.SelectedIndex)
                     {
                         case 0:
-                            wynik = bessel.Bessel(firstBesselArgument, secondBesselArgument);
+                            result = bessel.Bessel(firstBesselArgument, secondBesselArgument);
                             break;
                         case 1:
-                            wynik = bessel.SphBessel(firstBesselArgument, secondBesselArgument);
+                            result = bessel.SphBessel(firstBesselArgument, secondBesselArgument);
                             break;
                         case 2:
-                            wynik = bessel.SphBesselPrim(firstBesselArgument, secondBesselArgument);
+                            result = bessel.SphBesselPrim(firstBesselArgument, secondBesselArgument);
                             break;
                         case 3:
-                            wynik = bessel.Neumann(firstBesselArgument, secondBesselArgument);
+                            result = bessel.Neumann(firstBesselArgument, secondBesselArgument);
                             break;
                         case 4:
-                            wynik = bessel.SphNeuman(firstBesselArgument, secondBesselArgument);
+                            result = bessel.SphNeuman(firstBesselArgument, secondBesselArgument);
                             break;
                         case 5:
-                            wynik = bessel.SphNeumanPrim(firstBesselArgument, secondBesselArgument);
+                            result = bessel.SphNeumanPrim(firstBesselArgument, secondBesselArgument);
                             break;
                         case 6:
-                            wynik = bessel.Hyperg_0F_1(firstBesselArgument, secondBesselArgument);
+                            result = bessel.Hyperg_0F_1(firstBesselArgument, secondBesselArgument);
                             break;
                         case 7:
-                            wynik = bessel.Hyperg_1F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument);
+                            result = bessel.Hyperg_1F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument);
                             break;
                         case 8:
-                            wynik = bessel.Hyperg_2F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument, fourthBesselArgument);
+                            result = bessel.Hyperg_2F_1(firstBesselArgument, secondBesselArgument, thirdBesselArgument, fourthBesselArgument);
                             break;
                         default:
                             break;
                     }
 
-                    txtResult.Text = wynik.ToString();
+                    txtResult.Text = result.ToString();
                 }
 
                 stopWatch.Stop();
@@ -940,7 +940,7 @@ namespace NumericalCalculator
 
                 //Utworzenie klasy
                 Graph graph = new Graph(function, picGraph, xFrom, xTo, yFrom, yTo);
-
+                
                 //Reskalling
                 if (chkRescaling.Checked && chkRescaling.Enabled && rescaling)
                 {
@@ -1126,7 +1126,7 @@ namespace NumericalCalculator
             {
                 if (graphMovingStarted && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.Checked))
                 {
-                    
+
 
                     //Zmienne
                     double xFrom, xTo, yFrom, yTo;
@@ -1428,7 +1428,7 @@ namespace NumericalCalculator
             else
             {
                 this.Resize -= new System.EventHandler(this.Form1_Resize);
-                
+
                 oldSize = this.Size;
 
                 this.MinimumSize = new Size(365, 435);
@@ -1436,7 +1436,7 @@ namespace NumericalCalculator
 
                 this.MaximizeBox = false;
                 this.FormBorderStyle = FormBorderStyle.FixedSingle;
-                
+
                 Width = 365;
             }
         }
@@ -1542,7 +1542,7 @@ namespace NumericalCalculator
                     DrawGraph(false);
                 else
                     ClearGraph();
-            }            
+            }
         }
 
         private void TextBox_TextChanged(object sender, EventArgs e)

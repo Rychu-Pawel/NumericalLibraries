@@ -121,7 +121,7 @@ namespace NumericalCalculator
 
             //Wyliczenie wspolczynnikow
             LinearEquation Gauss = new LinearEquation(wspolczynniki);
-            x = Gauss.Oblicz();
+            x = Gauss.Compute();
         }
 
         private string ObliczRegresjeLiniowa()

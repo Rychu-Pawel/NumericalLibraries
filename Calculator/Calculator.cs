@@ -31,7 +31,7 @@ namespace NumericalCalculator
         }
 
     // KONSTRUKTOR --------------------------
-        public Calculator(string funkcja) : base(funkcja, 0.0)
+        public Calculator(string function) : base(function, 0.0)
         {
             ErrorCheck();
             ConvertToTable();

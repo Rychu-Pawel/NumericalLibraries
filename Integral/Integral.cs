@@ -79,14 +79,14 @@ namespace NumericalCalculator
 
             //Obliczenie całki kwadraturą Gaussa-Legendre'a
             for (int i = 0; i < 5; i++)
-                wynikPosredni += kwadratury[0, i] * (ObliczFunkcjeWPunkcie(kwadratury[1, i]) + ObliczFunkcjeWPunkcie(-kwadratury[1, i]));
+                wynikPosredni += kwadratury[0, i] * (ComputeFunctionAtPoint(kwadratury[1, i]) + ComputeFunctionAtPoint(-kwadratury[1, i]));
 
             function = funkcjaWlasciwa;
 
             return wynikPosredni;
         }
 
-        public override double ComputeInterior()
+        public double ComputeIntegral()
         {
             //Zamiana granic
             if (xOd != -1 || xDo != 1)
@@ -114,12 +114,12 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR -----------------------------------
-        public Integral(string funkcja, double xOd, double xDo) : base(funkcja)
+        public Integral(string function, double xFrom, double xTo) : base(function)
         {
-            this.xOd = xOd;
-            this.xDo = xDo;
+            this.xOd = xFrom;
+            this.xDo = xTo;
 
-            if (double.IsInfinity(xOd) || double.IsInfinity(xDo))
+            if (double.IsInfinity(xFrom) || double.IsInfinity(xTo))
                 throw new IntegralInfinityRangeNotSupportedException();
 
             kwadratury = new double[2, 5]; //calka dla 10 kwadratur

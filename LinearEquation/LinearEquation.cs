@@ -54,7 +54,7 @@ namespace NumericalCalculator
             }
         }
 
-        public double[] Oblicz()
+        public double[] Compute()
         {
             //Eliminacja Gaussa (otrzymujemy zera pod diagonala)
             for (int i = 1; i < iloscZmiennych; i++)
@@ -70,7 +70,7 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR ----------------------
-        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss, string zamienZ, string zamienNa)
+        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss, string changeFrom, string changeTo)
         {
             iloscZmiennych = dgvGauss.Rows.Count;
 
@@ -78,20 +78,20 @@ namespace NumericalCalculator
 
             for (int i = 0; i <= iloscZmiennych; i++)
                 for (int j = 0; j < iloscZmiennych; j++)
-                    wspolczynniki[i, j] = Convert.ToDouble(dgvGauss[i, j].Value.ToString().Replace(zamienZ, zamienNa));
+                    wspolczynniki[i, j] = Convert.ToDouble(dgvGauss[i, j].Value.ToString().Replace(changeFrom, changeTo));
 
             niewiadome = new double[iloscZmiennych];
         }
 
-        public LinearEquation(double[,] wspolczynniki)
+        public LinearEquation(double[,] coefficients) //wspolczynniki
         {
             //to powinno byc odkreskowane, ale cos zle dziala :/
             //if (wspolczynniki.GetLength(0) != wspolczynniki.GetLength(1) - 1)
             //    throw new SystemException("Wielkosc tablicy jest niepoprawna. Oczekwiana wielkosc => [n, n-1].");
 
-            this.wspolczynniki = wspolczynniki;
+            this.wspolczynniki = coefficients;
 
-            iloscZmiennych = wspolczynniki.GetLength(1);
+            iloscZmiennych = coefficients.GetLength(1);
 
             niewiadome = new double[iloscZmiennych];
         }

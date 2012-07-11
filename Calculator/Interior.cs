@@ -282,7 +282,7 @@ namespace NumericalCalculator
         }
 
     // KONSTRUKTOR --------------------------
-        public Interior(string funkcja, double x, double y = 0, double u = 0) : base(funkcja)
+        public Interior(string function, double x, double y = 0, double u = 0) : base(function)
         {
             this.x = x;
             this.y = y;

@@ -92,21 +92,21 @@ namespace NumericalCalculator
         }
 
     // METODY PRZECIAZONE -------------------------------
-        public double ObliczFunkcjeWPunkcie(double x) // Obliczanie wartosci funkcji w punkcie
+        public double ComputeFunctionAtPoint(double x) // Obliczanie wartosci funkcji w punkcie
         {
             this.x = x;
 
             return this.ComputeFunctionAtPoint();
         }
 
-        public double ObliczPochodna(double x) //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
+        public double ComputeDerivative(double x) //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
         {
             this.x = x;
 
             return this.ComputeDerivative();
         }
 
-        public double ObliczPochodnaBis(double x)
+        public double ComputeDerivativeBis(double x)
         {
             this.x = x;
 
@@ -114,7 +114,7 @@ namespace NumericalCalculator
         }
 
     // KONSTRUKTOR --------------------------
-        public Derivative(string funkcja, double x) : base(funkcja, x)
+        public Derivative(string function, double x) : base(function, x)
         {
             //bool czySaLiczbyZmiennoprzecinkowe = false;
 

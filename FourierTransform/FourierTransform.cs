@@ -13,21 +13,21 @@ namespace NumericalCalculator
         Complex complexDwa = new Complex(2.0, 0);
         Complex complexPi = new Complex(Math.PI, 0);
 
-        public List<PointC> Compute(string funkcja, int probkowanie, double poczatek, double koniec)
+        public List<PointC> Compute(string function, int sampling, double start, double end)
         {
-            Derivative p = new Derivative(funkcja);
+            Derivative p = new Derivative(function);
 
             List<PointC> wyniki = new List<PointC>();
 
-            double krok = (koniec - poczatek) / probkowanie;
+            double krok = (end - start) / sampling;
 
             int n = 0;
-            double k = poczatek;
-            Complex[] wartosciFunkcji = new Complex[probkowanie + 1];
+            double k = start;
+            Complex[] wartosciFunkcji = new Complex[sampling + 1];
 
             while (n < wartosciFunkcji.Length)
             {
-                wartosciFunkcji[n] = p.ObliczFunkcjeWPunkcie(k);
+                wartosciFunkcji[n] = p.ComputeFunctionAtPoint(k);
 
                 n++;
                 k += krok;
@@ -49,22 +49,22 @@ namespace NumericalCalculator
             return wyniki;
         }
 
-        public List<PointC> ComputeInverse(List<PointC> punkty, int probkowanie, double poczatek, double koniec)
+        public List<PointC> ComputeInverse(List<PointC> points, int sampling, double start, double end)
         {
-            double krok = (koniec - poczatek) / probkowanie;
+            double krok = (end - start) / sampling;
 
             List<PointC> wyniki = new List<PointC>();
 
-            Complex complexIloscPunktow = new Complex(punkty.Count, 0);
+            Complex complexIloscPunktow = new Complex(points.Count, 0);
 
-            for (int k = 0; k < punkty.Count; k++)
+            for (int k = 0; k < points.Count; k++)
             {
                 Complex suma = new Complex();
 
-                for (int n = 0; n < punkty.Count; n++)
-                    suma += punkty[n].Y * Complex.Exp((complexDwa * complexPi * Complex.ImaginaryOne * n * k) / complexIloscPunktow);
+                for (int n = 0; n < points.Count; n++)
+                    suma += points[n].Y * Complex.Exp((complexDwa * complexPi * Complex.ImaginaryOne * n * k) / complexIloscPunktow);
 
-                wyniki.Add(new PointC(poczatek + (punkty[k].X + 1) * krok, suma / complexIloscPunktow));
+                wyniki.Add(new PointC(start + (points[k].X + 1) * krok, suma / complexIloscPunktow));
             }
 
             return wyniki;
