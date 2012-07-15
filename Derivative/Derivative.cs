@@ -11,6 +11,10 @@ namespace NumericalCalculator
         double h;
         
     // METODY -------------------------------
+        /// <summary>
+        /// Compute function value at given point
+        /// </summary>
+        /// <returns></returns>
         public double ComputeFunctionAtPoint() // Obliczanie wartosci funkcji w punkcie
         {
             double wynik = EvaluateInterior();
@@ -24,6 +28,10 @@ namespace NumericalCalculator
             return wynik;
         }            
 
+        /// <summary>
+        /// Compute first order derivative
+        /// </summary>
+        /// <returns></returns>
         public double ComputeDerivative() //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
         {
             double fx1, fx2, fx3, fx4;
@@ -56,6 +64,10 @@ namespace NumericalCalculator
             return wynik;
         }
 
+        /// <summary>
+        /// Compute second order derivative
+        /// </summary>
+        /// <returns></returns>
         public double ComputeDerivativeBis()
         {
             double wynik;
@@ -92,6 +104,11 @@ namespace NumericalCalculator
         }
 
     // METODY PRZECIAZONE -------------------------------
+        /// <summary>
+        /// Compute function value at given point
+        /// </summary>
+        /// <param name="x">Point in which you want to compute the value</param>
+        /// <returns></returns>
         public double ComputeFunctionAtPoint(double x) // Obliczanie wartosci funkcji w punkcie
         {
             this.x = x;
@@ -99,6 +116,11 @@ namespace NumericalCalculator
             return this.ComputeFunctionAtPoint();
         }
 
+        /// <summary>
+        /// Compute first order derivative
+        /// </summary>
+        /// <param name="x">Point in which you want to compute the derivative</param>
+        /// <returns></returns>
         public double ComputeDerivative(double x) //Obliczanie pochodnej pierwszego rzedu z dokladnoscia h^4
         {
             this.x = x;
@@ -106,6 +128,11 @@ namespace NumericalCalculator
             return this.ComputeDerivative();
         }
 
+        /// <summary>
+        /// Compute second order derivative
+        /// </summary>
+        /// <param name="x">Point in which you want to compute the derivative</param>
+        /// <returns></returns>
         public double ComputeDerivativeBis(double x)
         {
             this.x = x;
@@ -152,7 +179,7 @@ namespace NumericalCalculator
             ConvertToONP();
         }
 
-        public Derivative(string funkcja) : base(funkcja, 0.0)
+        public Derivative(string function) : base(function, 0.0)
         {
             h = 0.0001;
 

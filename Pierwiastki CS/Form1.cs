@@ -479,16 +479,12 @@ namespace NumericalCalculator
                 else if (rbDifferential.Checked)
                 {
                     Differential differential = new Differential(function);
-                    List<PointD> points = differential.ComputeDifferential(point, from, to);
-                    
-                    txtResult.Text = points.Last().Y.ToString();
+                    txtResult.Text = differential.ComputeDifferential(point, from, to).ToString();
                 }
                 else if (rbDifferentialII.Checked)
                 {
                     Differential differential = new Differential(function);
-                    List<PointD> points = differential.ComputeDifferentialII(point, from, to, fromII, toII);
-
-                    txtResult.Text = points.Last().Y.ToString();
+                    txtResult.Text = differential.ComputeDifferentialII(point, from, to, toII).ToString();
                 }
                 else if (rbSpecialFunction.Checked)
                 {
@@ -1023,7 +1019,7 @@ namespace NumericalCalculator
                     fromII = GetArgument(ArgumentTypeEnum.FromII);
                     toII = GetArgument(ArgumentTypeEnum.ToII);
 
-                    graph.DrawDifferential(FunctionTypeEnum.DifferentialII, from, to, fromII, toII);
+                    graph.DrawDifferential(FunctionTypeEnum.DifferentialII, from, to, toII);
                 }
 
                 //Rysowanie Bessela

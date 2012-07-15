@@ -12,7 +12,7 @@ namespace NumericalCalculator
         protected string[] functionTable;
         protected string[] functionONP;
 
-        protected Stack stack = new Stack();
+        internal Stack stack = new Stack();
 
         protected HashSet<char> dozwoloneZnaki = new HashSet<char>() { 'E', ' ', ',', '.', 'l', 's', 'i', 'n', 'c', 'o', 't', 'g', 'q', 'r', 'e', 'x', 'p', 'a', '(', ')', '+', '-', '*', '/', '^', '!', 'y', 'h', 'u', 'y', '\'' };
         protected HashSet<char> operatory = new HashSet<char>() { '+', '-', '*', '/', '^', '!' };

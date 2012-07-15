@@ -114,6 +114,12 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR -----------------------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function">Formula</param>
+        /// <param name="xFrom">Lower limit</param>
+        /// <param name="xTo">Upper limit</param>
         public Integral(string function, double xFrom, double xTo) : base(function)
         {
             this.xOd = xFrom;

@@ -35,18 +35,22 @@ namespace NumericalCalculator
                 {
                     // ZMIENNE
                     Interpolation interpolation = new Interpolation();
-                    interpolation.iloscPunktow = dgvInterpolation.Rows.Count - 1;
-                    interpolation.points = new double[2, interpolation.iloscPunktow];
+                    List<PointD> points = new List<PointD>();
 
                     // WCZYTANIE PUNKTOW I SPRAWDZENIE BLEDOW
 
                     // Wczytanie punktow do pamieci
-                    for (int i = 0; i < interpolation.iloscPunktow; i++)
+                    double x, y;
+
+                    for (int i = 0; i < dgvInterpolation.Rows.Count - 1; i++)
                     {
-                        interpolation.points[0, i] = Convert.ToDouble(dgvInterpolation[0, i].Value.ToString().Replace(changeFrom, changeTo));
-                        interpolation.points[1, i] = Convert.ToDouble(dgvInterpolation[1, i].Value.ToString().Replace(changeFrom, changeTo));
+                        x = Convert.ToDouble(dgvInterpolation[0, i].Value.ToString().Replace(changeFrom, changeTo));
+                        y = Convert.ToDouble(dgvInterpolation[1, i].Value.ToString().Replace(changeFrom, changeTo));
+
+                        points.Add(new PointD() { X = x, Y = y });
                     }
 
+                    interpolation.Points = points;
                     txtFunction.Text = interpolation.Compute();
                 }
                 //Aproksymacja

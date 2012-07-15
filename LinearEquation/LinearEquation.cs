@@ -95,6 +95,5 @@ namespace NumericalCalculator
 
             niewiadome = new double[iloscZmiennych];
         }
-
     }
 }

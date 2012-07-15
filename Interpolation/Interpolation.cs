@@ -1,20 +1,38 @@
 ﻿using System;
 using System.Collections.Generic;
-////using System.Linq;
 using System.Text;
+using System.Drawing;
 
 namespace NumericalCalculator
 {
     public class Interpolation
     {
 //ZMIENNE ------------------------------------
-        public int iloscPunktow;
+        private int iloscPunktow;
         private double[,] bazy;
         private double[] bazyMianownikow;
-        public double[,] points;
+        private List<PointD> points;
+
         private double[] wynik; // Wynik jako tablica współczynników
 
         private string strResult; //Wynik jakos f(x)
+
+        /// <summary>
+        /// Points list for interpolation
+        /// </summary>
+        public List<PointD> Points
+        {
+            get { return points; }
+            set
+            {
+                points = value; 
+
+                if (points != null)
+                    iloscPunktow = points.Count;
+                else
+                    iloscPunktow = 0;
+            }
+        }
 
 //METODY -------------------------------------
 
@@ -23,8 +41,8 @@ namespace NumericalCalculator
             // Sprawdzenie czy punkty x sie nie powtarzaja
             for (int i = 0; i < iloscPunktow; i++)
                 for (int j = i + 1; j < iloscPunktow; j++)
-                    if (points[0, i] == points[0, j])
-                        throw new SystemException("Wartosci x = " + Convert.ToString(points[0, i]) + " wystepuja co najmniej dwukrotnie");
+                    if (points[i].X == points[j].X)
+                        throw new SystemException("x = " + Convert.ToString(points[i].X) + " appears at least twice");
         }
 
         private void StworzBaze(int j, int iteracja) // j - pomijany index we wzorze lagrange'a
@@ -34,9 +52,9 @@ namespace NumericalCalculator
             {
                 //Stwórz pierwsza iteracje
                 if (j == 1) // tworzymy l(j,2)
-                    bazy[j - 1, 0] = points[0, 1];
+                    bazy[j - 1, 0] = points[1].X;
                 else
-                    bazy[j - 1, 0] = points[0, 0];
+                    bazy[j - 1, 0] = points[0].X;
 
                 bazy[j - 1, 1] = 1;
 
@@ -56,10 +74,10 @@ namespace NumericalCalculator
                     mnoznik++;
 
                 for (int i = iteracja + 1; i > 0; i--)
-                        bazy[j - 1, i] = bazy[j - 1, i]*points[0, mnoznik] + bazy[j - 1, i - 1];
+                        bazy[j - 1, i] = bazy[j - 1, i]*points[mnoznik].X + bazy[j - 1, i - 1];
 
                 //Stworz nowy ostatni (wolny) element
-                bazy[j - 1, 0] *= points[0, mnoznik];
+                bazy[j - 1, 0] *= points[mnoznik].X;
 
                 // Rekurencja //Jesli (iteracja < wielkosc bazy) => stworzBaze(baza, iteracja + 1)
                 if (iteracja < iloscPunktow - 3)
@@ -73,9 +91,9 @@ namespace NumericalCalculator
 
             for (int i = 1; i <= iloscPunktow; i++)
                 if (i != j)
-                    bazyMianownikow[j - 1] *= (points[0, j - 1] - points[0, i - 1]);
+                    bazyMianownikow[j - 1] *= (points[j - 1].X - points[i - 1].X);
 
-            bazyMianownikow[j - 1] = points[1, j - 1]/bazyMianownikow[j - 1];
+            bazyMianownikow[j - 1] = points[j - 1].Y/bazyMianownikow[j - 1];
         }
 
         private void Interpoluj()
@@ -196,6 +214,10 @@ namespace NumericalCalculator
                 strResult = strResult.Substring(2);
         }
 
+        /// <summary>
+        /// Interpolate function from given points
+        /// </summary>
+        /// <returns>Interpolated function</returns>
         public string Compute()
         {
             ErrorCheck(); //Wykonanie sprawdzenia
@@ -205,7 +227,7 @@ namespace NumericalCalculator
             if (iloscPunktow == 0) // Jezeli nie ma punktow, to blad, jak tylko 1, to zwraca funkcje stala, jak 2 lub wiecej to liczy
                 throw new NoPointsProvidedException();
             else if (iloscPunktow == 1)
-                return Convert.ToString(points[1, 0]);
+                return Convert.ToString(points[0].Y);
             else if (iloscPunktow >= 2) //INTERPOLACJA !!!
             {
                 Interpoluj();

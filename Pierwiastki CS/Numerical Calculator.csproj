@@ -120,6 +120,7 @@
     <Compile Include="LanguageForm.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Miscellaneous.cs" />
     <Compile Include="ProportionsForm.cs">
       <SubType>Form</SubType>
     </Compile>

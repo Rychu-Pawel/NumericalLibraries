@@ -120,6 +120,10 @@ namespace NumericalCalculator
                 return result;                
         }
 
+        /// <summary>
+        /// Compute function root
+        /// </summary>
+        /// <returns></returns>
         public double ComputeHybrid()
         {
             double result;
@@ -148,6 +152,12 @@ namespace NumericalCalculator
 
 
     // KONSTRUKTOR ----------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function">Formula</param>
+        /// <param name="intervalFrom">Point at which you want to start looking for function root</param>
+        /// <param name="intervalTo">Point at which you want to stop looking for function root</param>
         public Hybrid(string function, double intervalFrom, double intervalTo): base(function)
         {
             this.przedzialOd = intervalFrom;

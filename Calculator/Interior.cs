@@ -7,28 +7,39 @@ namespace NumericalCalculator
 {
     public class Interior : Function
     {
-    // ZMIENNE ------------------------------
+        // ZMIENNE ------------------------------
         protected double x, u, y;
 
+        /// <summary>
+        /// Variable value
+        /// </summary>
         public double X
         {
             get { return x; }
             set { x = value; }
         }
 
+        /// <summary>
+        /// Second order differential starting value.
+        /// Used only for computing second order differential.
+        /// </summary>
         public double U
         {
             get { return u; }
             set { u = value; }
         }
 
+        /// <summary>
+        /// First order differential starting value.
+        /// Used only for computing differentials.
+        /// </summary>
         public double Y
         {
             get { return y; }
             set { y = value; }
         }
 
-    // METODY -------------------------------
+        // METODY -------------------------------
         protected double EvaluateInterior()
         {
             // PRZYGOTOWANIE ZMIENNYCH
@@ -170,7 +181,7 @@ namespace NumericalCalculator
                             default:
                                 a = x;
                                 break;
-                        }                        
+                        }
                     }
 
                     //b
@@ -196,7 +207,7 @@ namespace NumericalCalculator
                             default:
                                 b = x;
                                 break;
-                        }  
+                        }
                     }
 
                     switch (i) // WYKONANIE DZIAŁAŃ
@@ -234,7 +245,7 @@ namespace NumericalCalculator
                             default:
                                 c = x;
                                 break;
-                        }  
+                        }
                     }
 
                     double wynik = Factorial.Compute(c);
@@ -268,6 +279,10 @@ namespace NumericalCalculator
             return Convert.ToDouble(stack.Pull()); // WYNIK
         }
 
+        /// <summary>
+        /// Compute given formula
+        /// </summary>
+        /// <returns></returns>
         public virtual double ComputeInterior()
         {
             double wynik = EvaluateInterior();
@@ -281,8 +296,16 @@ namespace NumericalCalculator
             return wynik;
         }
 
-    // KONSTRUKTOR --------------------------
-        public Interior(string function, double x, double y = 0, double u = 0) : base(function)
+        // KONSTRUKTOR --------------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="function">Formula</param>
+        /// <param name="x">Variable value</param>
+        /// <param name="y">First order differential starting value. Used only for computing differentials.</param>
+        /// <param name="u">Second order differential starting value. Used only for computing second order differential.</param>
+        public Interior(string function, double x, double y = 0, double u = 0)
+            : base(function)
         {
             this.x = x;
             this.y = y;

@@ -160,23 +160,4 @@ namespace NumericalCalculator
         Hypergeometric11,
         Hypergeometric21,
     }
-
-    public enum ArgumentTypeEnum
-    {
-        Point,
-        From,
-        To,
-        FromII,
-        ToII,
-        BesselFirst,
-        BesselSecond,
-        BesselThird,
-        BesselFourth,
-        Sampling,
-        Cutoff,
-        xFrom,
-        xTo,
-        yFrom,
-        yTo,
-    }
 }

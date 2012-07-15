@@ -7,6 +7,14 @@ namespace NumericalCalculator
 {
     public class Proportions
     {
+        /// <summary>
+        /// Compute proportion
+        /// </summary>
+        /// <param name="v1">First value. Put here double.NaN if this is your unknown value.</param>
+        /// <param name="v2">Second value. Put here double.NaN if this is your unknown value.</param>
+        /// <param name="v3">Third value. Put here double.NaN if this is your unknown value.</param>
+        /// <param name="v4">Fourth value. Put here double.NaN if this is your unknown value.</param>
+        /// <returns></returns>
         public double Compute(double v1, double v2, double v3, double v4)
         {
             //Sprawdzenie czy jest i czy tylko jedna zmienna

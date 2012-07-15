@@ -6,14 +6,14 @@ using System.Text;
 namespace NumericalCalculator
 {
 // ELEMENT STOSU
-    public class StackElement
+    internal class StackElement
     {
         public StackElement previous;
         public string value;
     }
 
 // STOS
-    public class Stack
+    internal class Stack
     {
         StackElement head = null; // GLOWA STOSU
 

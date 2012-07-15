@@ -13,6 +13,14 @@ namespace NumericalCalculator
         Complex complexDwa = new Complex(2.0, 0);
         Complex complexPi = new Complex(Math.PI, 0);
 
+        /// <summary>
+        /// Compute Fourier Transform
+        /// </summary>
+        /// <param name="function">Function for generating samples</param>
+        /// <param name="sampling">Sampling rate</param>
+        /// <param name="start">Starting point</param>
+        /// <param name="end">Last point</param>
+        /// <returns></returns>
         public List<PointC> Compute(string function, int sampling, double start, double end)
         {
             Derivative p = new Derivative(function);
@@ -49,6 +57,14 @@ namespace NumericalCalculator
             return wyniki;
         }
 
+        /// <summary>
+        /// Compute Inverse Fourier Transform
+        /// </summary>
+        /// <param name="points">Fourier Transform points</param>
+        /// <param name="sampling">Sampling rate of given points</param>
+        /// <param name="start">Fourier Transform starting point used to generate samples</param>
+        /// <param name="end">Fourier Transform end point used to generate samples</param>
+        /// <returns></returns>
         public List<PointC> ComputeInverse(List<PointC> points, int sampling, double start, double end)
         {
             double krok = (end - start) / sampling;

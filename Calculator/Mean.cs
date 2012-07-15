@@ -7,6 +7,11 @@ namespace NumericalCalculator
 {
     public class Mean
     {
+        /// <summary>
+        /// Compute arithmetic mean
+        /// </summary>
+        /// <param name="values">Values for arithmetic mean computation</param>
+        /// <returns></returns>
         public double ComputeArithmetic(IEnumerable<double> values)
         {
             //Walidacja ilosci punktow
@@ -24,6 +29,11 @@ namespace NumericalCalculator
             return result / count;
         }
 
+        /// <summary>
+        /// Compute weighted mean
+        /// </summary>
+        /// <param name="values">List of one tables with two values. First is value, second is this value weight.</param>
+        /// <returns></returns>
         public double ComputeWeighted(IEnumerable<double[]> values)
         {
             //Walidacja ilosci punktow

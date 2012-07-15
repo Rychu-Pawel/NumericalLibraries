@@ -26,7 +26,33 @@ namespace NumericalCalculator
         double wynikII;
 
         //METODY ------------------------------------
-        public List<PointD> ComputeDifferential(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
+
+        /// <summary>
+        /// Compute differential
+        /// </summary>
+        /// <param name="valueLookingPoint">Point at which return the value</param>
+        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPointFunctionValue">Function value at starting point</param>
+        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public double ComputeDifferential(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
+        {
+            List<PointD> points = ComputeDifferentialPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue, applyResultFormatting, step);
+
+            return points.Last().Y;
+        }
+
+        /// <summary>
+        /// Compute all function values from starting point to valueLookingPoint
+        /// </summary>
+        /// <param name="valueLookingPoint">Ending point</param>
+        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPointFunctionValue">Function value at starting point</param>
+        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public List<PointD> ComputeDifferentialPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
         {
             this.krok = step;
 
@@ -115,7 +141,34 @@ namespace NumericalCalculator
                 return new List<PointD>() { new PointD(szukanyPunkt, startingPointFunctionValue) };
         }
 
-        public List<PointD> ComputeDifferentialII(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointII, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
+        /// <summary>
+        /// Compute second order differential
+        /// </summary>
+        /// <param name="valueLookingPoint">Ending point</param>
+        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPointFunctionValue">Function value at starting point</param>
+        /// <param name="startingPointFunctionValueII">Derivative value at starting point</param>
+        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public double ComputeDifferentialII(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
+        {
+            List<PointD> points = ComputeDifferentialIIPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue, startingPointFunctionValueII, applyResultFormatting, step);
+
+            return points.Last().Y;
+        }
+
+        /// <summary>
+        /// Compute all function values from starting point to valueLookingPoint
+        /// </summary>
+        /// <param name="valueLookingPoint">Ending point</param>
+        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPointFunctionValue">Function value at starting point</param>
+        /// <param name="startingPointFunctionValueII">Derivative value at starting point</param>
+        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
+        /// <param name="step"></param>
+        /// <returns></returns>
+        public List<PointD> ComputeDifferentialIIPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
         {
             this.krok = step;
 
@@ -151,7 +204,7 @@ namespace NumericalCalculator
             //Przygotowanie
             szukanyPunktII = valueLookingPoint;
             pktPoczatkowy = startingPoint;
-            pktPoczatkowyII = startingPointII;
+            pktPoczatkowyII = startingPoint; //pkt poczatkowy II jest chyba do wyrzucenia, ale trzeba to sprawdzic w algorytmie czy moze sie zdazyc ze pktPocztkowy != pktPoczatkowyII
             wartoscPoczatkowa = startingPointFunctionValue;
             wartoscPoczatkowaII = startingPointFunctionValueII;
 

@@ -397,13 +397,13 @@ namespace NumericalCalculator
 
                     //W lewo
                     if (xOd < parameters[0])
-                        lewo = rozniczka.ComputeDifferential(xOd, parameters[0], parameters[1], false, krok);
+                        lewo = rozniczka.ComputeDifferentialPointsList(xOd, parameters[0], parameters[1], false, krok);
 
                     //W prawo
                     rozniczka = new Differential(funkcja);
 
                     if (xDo >= parameters[0])
-                        prawo = rozniczka.ComputeDifferential(xDo, parameters[0], parameters[1], false, krok);
+                        prawo = rozniczka.ComputeDifferentialPointsList(xDo, parameters[0], parameters[1], false, krok);
 
                     //ŁĄCZYMY
                     //odwracamy w lewo
@@ -459,13 +459,13 @@ namespace NumericalCalculator
 
                     //W lewo
                     if (xOd < parameters[0])
-                        lewoII = rozniczkaII.ComputeDifferentialII(xOd, parameters[0], parameters[1], parameters[2], parameters[3], false, krok);
+                        lewoII = rozniczkaII.ComputeDifferentialIIPointsList(xOd, parameters[0], parameters[1], parameters[2], false, krok);
 
                     //W prawo
                     rozniczkaII = new Differential(funkcja);
 
                     if (xDo >= parameters[0])
-                        prawoII = rozniczkaII.ComputeDifferentialII(xDo, parameters[0], parameters[1], parameters[2], parameters[3], false, krok);
+                        prawoII = rozniczkaII.ComputeDifferentialIIPointsList(xDo, parameters[0], parameters[1], parameters[2], false, krok);
 
                     //ŁĄCZYMY
                     //odwracamy w lewo
