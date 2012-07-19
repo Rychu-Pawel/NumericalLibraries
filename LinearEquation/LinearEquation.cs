@@ -54,6 +54,10 @@ namespace NumericalCalculator
             }
         }
 
+        /// <summary>
+        /// Compute variables
+        /// </summary>
+        /// <returns></returns>
         public double[] Compute()
         {
             //Eliminacja Gaussa (otrzymujemy zera pod diagonala)
@@ -70,30 +74,50 @@ namespace NumericalCalculator
         }
 
         //KONSTRUKTOR ----------------------
-        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss, string changeFrom, string changeTo)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dgvGauss">Data grid view with coefficients standing by the variables</param>
+        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss)
         {
+            if (dgvGauss.Rows.Count + 1 != dgvGauss.Columns.Count)
+                throw new RowsNumberMustBeOneLessThenColumnsNumberException();
+
             iloscZmiennych = dgvGauss.Rows.Count;
 
             wspolczynniki = new double[iloscZmiennych + 1, iloscZmiennych];
 
             for (int i = 0; i <= iloscZmiennych; i++)
                 for (int j = 0; j < iloscZmiennych; j++)
-                    wspolczynniki[i, j] = Convert.ToDouble(dgvGauss[i, j].Value.ToString().Replace(changeFrom, changeTo));
+                    wspolczynniki[i, j] = Convert.ToDouble(dgvGauss[i, j].Value);
 
             niewiadome = new double[iloscZmiennych];
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="coefficients">Coefficients standing by the variables. Double[rows, rows + 1]</param>
         public LinearEquation(double[,] coefficients) //wspolczynniki
         {
-            //to powinno byc odkreskowane, ale cos zle dziala :/
-            //if (wspolczynniki.GetLength(0) != wspolczynniki.GetLength(1) - 1)
-            //    throw new SystemException("Wielkosc tablicy jest niepoprawna. Oczekwiana wielkosc => [n, n-1].");
+            //Sprawdzenie rozmiaru tablicy
+            if (coefficients.GetLength(0) + 1 != coefficients.GetLength(1))
+                throw new RowsNumberMustBeOneLessThenColumnsNumberException();
 
-            this.wspolczynniki = coefficients;
+            //niestety algorytm zostal napisany źle i trzeba przepisać tablice
+            this.wspolczynniki = new double[coefficients.GetLength(1), coefficients.GetLength(0)];
 
-            iloscZmiennych = coefficients.GetLength(1);
+            for (int i = 0; i < coefficients.GetLength(0); i++)
+                for (int j = 0; j < coefficients.GetLength(1); j++)
+                    wspolczynniki[j, i] = coefficients[i, j];
+
+            iloscZmiennych = wspolczynniki.GetLength(1);
 
             niewiadome = new double[iloscZmiennych];
         }
+    }
+
+    class RowsNumberMustBeOneLessThenColumnsNumberException : Exception
+    {
     }
 }

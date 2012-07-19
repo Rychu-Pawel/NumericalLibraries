@@ -7,3 +7,5 @@
 -Obs³uga b³êdu - podane punktu jako 2E nie wywala b³êdu
 -Operacje na liczbach urojonych
 -zastosowaæ do ró¿niczek metodê Adamsa-Bashfortha <- powinno daæ spore przyspieszenie i zwiêkszenie dok³adnoœci
+-Osobna biblioteka dla wykresu przyjmuj¹ca te¿ wartoœci punktowe
+-Fourier przyjmuje wartoœci punktowe

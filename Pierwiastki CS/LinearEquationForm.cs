@@ -87,7 +87,11 @@ namespace NumericalCalculator
         {
             try
             {
-                LinearEquation gauss = new LinearEquation(dgvEquations, changeFrom, changeTo);
+                for (int i = 0; i <= dgvEquations.Rows.Count; i++)
+                    for (int j = 0; j < dgvEquations.Rows.Count; j++)
+                        dgvEquations[i, j].Value = dgvEquations[i, j].Value.ToString().Replace(changeFrom, changeTo);
+
+                LinearEquation gauss = new LinearEquation(dgvEquations);
 
                 double[] niewiadome = gauss.Compute();
 
