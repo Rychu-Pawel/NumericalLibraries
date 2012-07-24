@@ -29,7 +29,7 @@ namespace NumericalCalculator
         /// Calculate given math
         /// </summary>
         /// <returns></returns>
-        override public double ComputeInterior()
+        public double Compute()
         {
             return EvaluateInterior();
         }

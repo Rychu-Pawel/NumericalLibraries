@@ -449,7 +449,7 @@ namespace NumericalCalculator
                 if (rbCalculator.Checked)
                 {
                     Calculator calculator = new Calculator(function);
-                    txtResult.Text = calculator.ComputeInterior().ToString();
+                    txtResult.Text = calculator.Compute().ToString();
                 }
                 else if (rbPoint.Checked)
                 {
@@ -687,7 +687,7 @@ namespace NumericalCalculator
                 try
                 {
                     Calculator calculator = new Calculator(argument.Replace("E", Math.E.ToString()));
-                    double result = calculator.ComputeInterior();
+                    double result = calculator.Compute();
 
                     if (argument.Contains('E'))
                         MessageBox.Show(language.GetString("MessageBox_EulerWarning"), language.GetString("MessageBox_Caption_Warning"), MessageBoxButtons.OK, MessageBoxIcon.Information);

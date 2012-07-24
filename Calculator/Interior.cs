@@ -283,7 +283,7 @@ namespace NumericalCalculator
         /// Compute given formula
         /// </summary>
         /// <returns></returns>
-        public virtual double ComputeInterior()
+        protected virtual double ComputeInterior()
         {
             double wynik = EvaluateInterior();
 
