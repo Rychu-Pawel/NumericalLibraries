@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -61,7 +62,10 @@ namespace NumericalCalculator
             return result / weight;
         }
     }
+}
 
+namespace NumericalCalculator.Exceptions
+{
     public class NoValuesProvidedException : Exception
     { }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -453,7 +454,10 @@ namespace NumericalCalculator
             this.function = function;
         }
     }
+}
 
+namespace NumericalCalculator.Exceptions
+{
     public class IncorrectEOperatorOccurrenceException : Exception
     { }
 

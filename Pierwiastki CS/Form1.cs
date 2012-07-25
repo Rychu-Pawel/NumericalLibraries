@@ -13,6 +13,7 @@ using NumericalCalculator.Properties;
 using System.Resources;
 using System.Reflection;
 using System.Globalization;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -868,7 +869,7 @@ namespace NumericalCalculator
 
                 //Pobranie Besselowych wartosci i znalezienie typu besselowego
                 double first = 0.0, second = 0.0, thrid = 0.0, fourth = 0.0;
-                BesselFunctionType bft = BesselFunctionType.Bessel;
+                BesselFunctionTypeEnum bft = BesselFunctionTypeEnum.Bessel;
 
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
                 {
@@ -903,31 +904,31 @@ namespace NumericalCalculator
                     switch (cmbSpecialFunction.SelectedIndex)
                     {
                         case 0:
-                            bft = BesselFunctionType.Bessel;
+                            bft = BesselFunctionTypeEnum.Bessel;
                             break;
                         case 1:
-                            bft = BesselFunctionType.BesselSphere;
+                            bft = BesselFunctionTypeEnum.BesselSphere;
                             break;
                         case 2:
-                            bft = BesselFunctionType.BesselSphereDerivative;
+                            bft = BesselFunctionTypeEnum.BesselSphereDerivative;
                             break;
                         case 3:
-                            bft = BesselFunctionType.Neumann;
+                            bft = BesselFunctionTypeEnum.Neumann;
                             break;
                         case 4:
-                            bft = BesselFunctionType.NeumannSphere;
+                            bft = BesselFunctionTypeEnum.NeumannSphere;
                             break;
                         case 5:
-                            bft = BesselFunctionType.NeumannSphereDerivative;
+                            bft = BesselFunctionTypeEnum.NeumannSphereDerivative;
                             break;
                         case 6:
-                            bft = BesselFunctionType.Hypergeometric01;
+                            bft = BesselFunctionTypeEnum.Hypergeometric01;
                             break;
                         case 7:
-                            bft = BesselFunctionType.Hypergeometric11;
+                            bft = BesselFunctionTypeEnum.Hypergeometric11;
                             break;
                         case 8:
-                            bft = BesselFunctionType.Hypergeometric21;
+                            bft = BesselFunctionTypeEnum.Hypergeometric21;
                             break;
                         default:
                             break;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -48,7 +49,10 @@ namespace NumericalCalculator
                 return v2 * v3 / v1;
         }
     }
+}
 
+namespace NumericalCalculator.Exceptions
+{
     public class ThereCanBeOnlyOneVariableInProportionException : Exception
     { }
 

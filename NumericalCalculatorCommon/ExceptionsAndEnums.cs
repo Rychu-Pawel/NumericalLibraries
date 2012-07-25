@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NumericalCalculator
+namespace NumericalCalculator.Exceptions
 {
     public class FunctionNullReferenceException : Exception
     { }
@@ -127,7 +127,10 @@ namespace NumericalCalculator
 
     public class IntegralInfinityRangeNotSupportedException : Exception
     { }
+}
 
+namespace NumericalCalculator
+{
     public enum FunctionTypeEnum
     {
         Function,
@@ -148,7 +151,7 @@ namespace NumericalCalculator
         Hypergeometric21,
     }
 
-    public enum BesselFunctionType
+    public enum BesselFunctionTypeEnum
     {
         Bessel,
         BesselSphere,

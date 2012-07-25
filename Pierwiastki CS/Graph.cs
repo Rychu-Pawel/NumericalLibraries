@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -548,7 +549,7 @@ namespace NumericalCalculator
             }
         }
 
-        public void DrawBessel(BesselFunctionType functionType, params double[] parameters)
+        public void DrawBessel(BesselFunctionTypeEnum functionType, params double[] parameters)
         {
             punktyWykresu.Clear();
 
@@ -567,31 +568,31 @@ namespace NumericalCalculator
 
                     switch (functionType)
                     {
-                        case BesselFunctionType.Bessel:
+                        case BesselFunctionTypeEnum.Bessel:
                             fx = (float)(bnh.Bessel(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.BesselSphere:
+                        case BesselFunctionTypeEnum.BesselSphere:
                             fx = (float)(bnh.SphBessel(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.BesselSphereDerivative:
+                        case BesselFunctionTypeEnum.BesselSphereDerivative:
                             fx = (float)(bnh.SphBesselPrim(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.Neumann:
+                        case BesselFunctionTypeEnum.Neumann:
                             fx = (float)(bnh.Neumann(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.NeumannSphere:
+                        case BesselFunctionTypeEnum.NeumannSphere:
                             fx = (float)(bnh.SphNeuman(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.NeumannSphereDerivative:
+                        case BesselFunctionTypeEnum.NeumannSphereDerivative:
                             fx = (float)(bnh.SphNeumanPrim(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.Hypergeometric01:
+                        case BesselFunctionTypeEnum.Hypergeometric01:
                             fx = (float)(bnh.Hyperg_0F_1(parameters[0], parameters[1]) * wspY);
                             break;
-                        case BesselFunctionType.Hypergeometric11:
+                        case BesselFunctionTypeEnum.Hypergeometric11:
                             fx = (float)(bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]) * wspY);
                             break;
-                        case BesselFunctionType.Hypergeometric21:
+                        case BesselFunctionTypeEnum.Hypergeometric21:
                             fx = (float)(bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]) * wspY);
                             break;
                         default:
@@ -613,31 +614,31 @@ namespace NumericalCalculator
 
                 switch (functionType)
                 {
-                    case BesselFunctionType.Bessel:
+                    case BesselFunctionTypeEnum.Bessel:
                         fx = (float)(bnh.Bessel(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.BesselSphere:
+                    case BesselFunctionTypeEnum.BesselSphere:
                         fx = (float)(bnh.SphBessel(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.BesselSphereDerivative:
+                    case BesselFunctionTypeEnum.BesselSphereDerivative:
                         fx = (float)(bnh.SphBesselPrim(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.Neumann:
+                    case BesselFunctionTypeEnum.Neumann:
                         fx = (float)(bnh.Neumann(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.NeumannSphere:
+                    case BesselFunctionTypeEnum.NeumannSphere:
                         fx = (float)(bnh.SphNeuman(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.NeumannSphereDerivative:
+                    case BesselFunctionTypeEnum.NeumannSphereDerivative:
                         fx = (float)(bnh.SphNeumanPrim(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.Hypergeometric01:
+                    case BesselFunctionTypeEnum.Hypergeometric01:
                         fx = (float)(bnh.Hyperg_0F_1(parameters[0], parameters[1]) * wspY);
                         break;
-                    case BesselFunctionType.Hypergeometric11:
+                    case BesselFunctionTypeEnum.Hypergeometric11:
                         fx = (float)(bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]) * wspY);
                         break;
-                    case BesselFunctionType.Hypergeometric21:
+                    case BesselFunctionTypeEnum.Hypergeometric21:
                         fx = (float)(bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]) * wspY);
                         break;
                     default:
@@ -780,7 +781,7 @@ namespace NumericalCalculator
             return f;
         }
 
-        public double[] Reskalling(BesselFunctionType functionType, params double[] parameters)
+        public double[] Reskalling(BesselFunctionTypeEnum functionType, params double[] parameters)
         {
             int indexZmiennej = ZnajdzIndexZmiennej(functionType, parameters);
 
@@ -797,31 +798,31 @@ namespace NumericalCalculator
 
                     switch (functionType)
                     {
-                        case BesselFunctionType.Bessel:
+                        case BesselFunctionTypeEnum.Bessel:
                             fx = (float)bnh.Bessel(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.BesselSphere:
+                        case BesselFunctionTypeEnum.BesselSphere:
                             fx = (float)bnh.SphBessel(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.BesselSphereDerivative:
+                        case BesselFunctionTypeEnum.BesselSphereDerivative:
                             fx = (float)bnh.SphBesselPrim(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.Neumann:
+                        case BesselFunctionTypeEnum.Neumann:
                             fx = (float)bnh.Neumann(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.NeumannSphere:
+                        case BesselFunctionTypeEnum.NeumannSphere:
                             fx = (float)bnh.SphNeuman(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.NeumannSphereDerivative:
+                        case BesselFunctionTypeEnum.NeumannSphereDerivative:
                             fx = (float)bnh.SphNeumanPrim(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.Hypergeometric01:
+                        case BesselFunctionTypeEnum.Hypergeometric01:
                             fx = (float)bnh.Hyperg_0F_1(parameters[0], parameters[1]);
                             break;
-                        case BesselFunctionType.Hypergeometric11:
+                        case BesselFunctionTypeEnum.Hypergeometric11:
                             fx = (float)bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]);
                             break;
-                        case BesselFunctionType.Hypergeometric21:
+                        case BesselFunctionTypeEnum.Hypergeometric21:
                             fx = (float)bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]);
                             break;
                         default:
@@ -842,31 +843,31 @@ namespace NumericalCalculator
 
                 switch (functionType)
                 {
-                    case BesselFunctionType.Bessel:
+                    case BesselFunctionTypeEnum.Bessel:
                         fx = (float)bnh.Bessel(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.BesselSphere:
+                    case BesselFunctionTypeEnum.BesselSphere:
                         fx = (float)bnh.SphBessel(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.BesselSphereDerivative:
+                    case BesselFunctionTypeEnum.BesselSphereDerivative:
                         fx = (float)bnh.SphBesselPrim(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.Neumann:
+                    case BesselFunctionTypeEnum.Neumann:
                         fx = (float)bnh.Neumann(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.NeumannSphere:
+                    case BesselFunctionTypeEnum.NeumannSphere:
                         fx = (float)bnh.SphNeuman(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.NeumannSphereDerivative:
+                    case BesselFunctionTypeEnum.NeumannSphereDerivative:
                         fx = (float)bnh.SphNeumanPrim(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.Hypergeometric01:
+                    case BesselFunctionTypeEnum.Hypergeometric01:
                         fx = (float)bnh.Hyperg_0F_1(parameters[0], parameters[1]);
                         break;
-                    case BesselFunctionType.Hypergeometric11:
+                    case BesselFunctionTypeEnum.Hypergeometric11:
                         fx = (float)bnh.Hyperg_1F_1(parameters[0], parameters[1], parameters[2]);
                         break;
-                    case BesselFunctionType.Hypergeometric21:
+                    case BesselFunctionTypeEnum.Hypergeometric21:
                         fx = (float)bnh.Hyperg_2F_1(parameters[0], parameters[1], parameters[2], parameters[3]);
                         break;
                     default:
@@ -945,14 +946,14 @@ namespace NumericalCalculator
             return f;
         }
 
-        private void NapiszWzorFunkcjiBesselowej(BesselFunctionType typFunkcji, double[] parametry, int indexZmiennej)
+        private void NapiszWzorFunkcjiBesselowej(BesselFunctionTypeEnum typFunkcji, double[] parametry, int indexZmiennej)
         {
             Font font = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
             string parametryString = string.Empty;
 
             //Zbudowanie stringu parametrow
-            if (typFunkcji == BesselFunctionType.Hypergeometric21)
+            if (typFunkcji == BesselFunctionTypeEnum.Hypergeometric21)
             {
                 parametryString += (indexZmiennej != 0) ? parametry[0].ToString() : "x";
                 parametryString += ", ";
@@ -962,7 +963,7 @@ namespace NumericalCalculator
                 parametryString += ", ";
                 parametryString += (indexZmiennej != 3) ? parametry[3].ToString() : "x";
             }
-            else if (typFunkcji == BesselFunctionType.Hypergeometric11)
+            else if (typFunkcji == BesselFunctionTypeEnum.Hypergeometric11)
             {
                 parametryString += (indexZmiennej != 0) ? parametry[0].ToString() : "x";
                 parametryString += ", ";
@@ -980,31 +981,31 @@ namespace NumericalCalculator
             //Wypisanie nazw
             switch (typFunkcji)
             {
-                case BesselFunctionType.Bessel:
+                case BesselFunctionTypeEnum.Bessel:
                     g.DrawString("Bessel(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.BesselSphere:
+                case BesselFunctionTypeEnum.BesselSphere:
                     g.DrawString("Sferyczna f. Bessela(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.BesselSphereDerivative:
+                case BesselFunctionTypeEnum.BesselSphereDerivative:
                     g.DrawString("Poch. sfer. f. Bessela(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.Neumann:
+                case BesselFunctionTypeEnum.Neumann:
                     g.DrawString("Neumann(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.NeumannSphere:
+                case BesselFunctionTypeEnum.NeumannSphere:
                     g.DrawString("Sferyczna f. Neumanna(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.NeumannSphereDerivative:
+                case BesselFunctionTypeEnum.NeumannSphereDerivative:
                     g.DrawString("Poch. sfer. f. Neumanna(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.Hypergeometric01:
+                case BesselFunctionTypeEnum.Hypergeometric01:
                     g.DrawString("Hipergeometryczna0F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.Hypergeometric11:
+                case BesselFunctionTypeEnum.Hypergeometric11:
                     g.DrawString("Hipergeometryczna1F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
-                case BesselFunctionType.Hypergeometric21:
+                case BesselFunctionTypeEnum.Hypergeometric21:
                     g.DrawString("Hipergeometryczna2F1(" + parametryString + ")", font, Brushes.Orange, 3, 3);
                     break;
                 default:
@@ -1115,12 +1116,12 @@ namespace NumericalCalculator
         //    return punkty;
         //}
 
-        private int ZnajdzIndexZmiennej(BesselFunctionType typFunkcji, double[] parametry)
+        private int ZnajdzIndexZmiennej(BesselFunctionTypeEnum typFunkcji, double[] parametry)
         {
             int indexZmiennej = -1;
 
             //Znalezienie indexu zmiennej
-            if (typFunkcji == BesselFunctionType.Bessel || typFunkcji == BesselFunctionType.BesselSphere || typFunkcji == BesselFunctionType.BesselSphereDerivative || typFunkcji == BesselFunctionType.Neumann || typFunkcji == BesselFunctionType.NeumannSphere || typFunkcji == BesselFunctionType.NeumannSphereDerivative || typFunkcji == BesselFunctionType.Hypergeometric01)
+            if (typFunkcji == BesselFunctionTypeEnum.Bessel || typFunkcji == BesselFunctionTypeEnum.BesselSphere || typFunkcji == BesselFunctionTypeEnum.BesselSphereDerivative || typFunkcji == BesselFunctionTypeEnum.Neumann || typFunkcji == BesselFunctionTypeEnum.NeumannSphere || typFunkcji == BesselFunctionTypeEnum.NeumannSphereDerivative || typFunkcji == BesselFunctionTypeEnum.Hypergeometric01)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;
@@ -1133,7 +1134,7 @@ namespace NumericalCalculator
                         throw new BesseleSecondArgumentException("Zmienna x może występować tylko jako jeden argument!");
                 }
             }
-            else if (typFunkcji == BesselFunctionType.Hypergeometric11)
+            else if (typFunkcji == BesselFunctionTypeEnum.Hypergeometric11)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;
@@ -1154,7 +1155,7 @@ namespace NumericalCalculator
                         throw new BesseleThirdArgumentException("Zmienna x może występować tylko jako jeden argument!");
                 }
             }
-            else if (typFunkcji == BesselFunctionType.Hypergeometric21)
+            else if (typFunkcji == BesselFunctionTypeEnum.Hypergeometric21)
             {
                 if (double.IsNaN(parametry[0]))
                     indexZmiennej = 0;

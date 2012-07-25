@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NumericalCalculator.Exceptions;
 
 namespace NumericalCalculator
 {
@@ -116,7 +117,10 @@ namespace NumericalCalculator
             niewiadome = new double[iloscZmiennych];
         }
     }
+}
 
+namespace NumericalCalculator.Exceptions
+{
     class RowsNumberMustBeOneLessThenColumnsNumberException : Exception
     {
     }
