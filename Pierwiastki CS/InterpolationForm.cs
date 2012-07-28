@@ -59,7 +59,7 @@ namespace NumericalCalculator
                 {
                     Approximation approximation = new Approximation(dgvInterpolation, (int)nudLevel.Value, changeFrom, changeTo);
 
-                    txtFunction.Text = approximation.Oblicz();
+                    txtFunction.Text = approximation.Compute();
 
                     //TODO: Sprawdzenie czy wynik jest sensowny - komentarz po latach: nie wiem jak zamierzalem to zrobic (i po co)?
                 }

@@ -517,7 +517,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Incorrect values in some cells!</value>
   </data>
   <data name="InterpolationForm_InconsistentSystemOfEquationsException" xml:space="preserve">
-    <value>Can't approximat function. Try other level of approximation.</value>
+    <value>Can't approximate function. Try other level of approximation.</value>
   </data>
   <data name="InterpolationForm_MessageBox_btnApply" xml:space="preserve">
     <value>Run interpolation or approximation first.</value>

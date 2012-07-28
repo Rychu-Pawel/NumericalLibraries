@@ -97,7 +97,6 @@
     <Compile Include="MeanForm.Designer.cs">
       <DependentUpon>MeanForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Approximation.cs" />
     <Compile Include="Language.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>

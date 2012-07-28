@@ -936,7 +936,7 @@ namespace NumericalCalculator
                 }
 
                 //Utworzenie klasy
-                Chart graph = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
+                Chart chart = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
                 
                 //Reskalling
                 if (chkRescaling.Checked && chkRescaling.Enabled && rescaling)
@@ -957,9 +957,9 @@ namespace NumericalCalculator
 
                     //Obliczenie maxów i minów do reskalingu
                     if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
-                        reskalling = graph.Reskalling(bft, first, second, thrid, fourth); //bessele
+                        reskalling = chart.Reskalling(bft, first, second, thrid, fourth); //bessele
                     else
-                        reskalling = graph.Reskalling(functionType.ToArray()); //normlanych
+                        reskalling = chart.Reskalling(functionType.ToArray()); //normlanych
 
                     xFrom = reskalling[0];
                     xTo = reskalling[1];
@@ -971,18 +971,18 @@ namespace NumericalCalculator
                     txtYFrom.Text = yFrom.ToString();
                     txtYTo.Text = yTo.ToString();
 
-                    graph = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
+                    chart = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
                 }
 
                 //Rysowanie funkcji i pochodnych
                 if (chkFunction.Checked && chkFunction.Enabled)
-                    graph.Draw(FunctionTypeEnum.Function);
+                    chart.Draw(FunctionTypeEnum.Function);
 
                 if (chkFirstDerivative.Checked && chkFirstDerivative.Enabled)
-                    graph.Draw(FunctionTypeEnum.Derivative);
+                    chart.Draw(FunctionTypeEnum.Derivative);
 
                 if (chkSecondDerivative.Checked && chkSecondDerivative.Enabled)
-                    graph.Draw(FunctionTypeEnum.SecondDerivative);
+                    chart.Draw(FunctionTypeEnum.SecondDerivative);
 
                 //Rysowanie FT
                 if ((chkFT.Checked && chkFT.Enabled) || (chkIFT.Checked && chkIFT.Enabled))
@@ -994,10 +994,10 @@ namespace NumericalCalculator
                     cutoff = GetArgument(ArgumentTypeEnum.Cutoff);
 
                     if (chkFT.Checked)
-                        graph.DrawFT(FunctionTypeEnum.FT, sampling, cutoff);
+                        chart.DrawFT(FunctionTypeEnum.FT, sampling, cutoff);
 
                     if (chkIFT.Checked)
-                        graph.DrawFT(FunctionTypeEnum.IFT, sampling, cutoff);
+                        chart.DrawFT(FunctionTypeEnum.IFT, sampling, cutoff);
                 }
 
                 //Rysowanie rozniczek
@@ -1008,7 +1008,7 @@ namespace NumericalCalculator
                     from = GetArgument(ArgumentTypeEnum.From);
                     to = GetArgument(ArgumentTypeEnum.To);
 
-                    graph.DrawDifferential(FunctionTypeEnum.Differential, from, to);
+                    chart.DrawDifferential(FunctionTypeEnum.Differential, from, to);
                 }
 
                 if (chkDifferentialII.Checked && chkDifferentialII.Enabled)
@@ -1020,19 +1020,19 @@ namespace NumericalCalculator
                     fromII = GetArgument(ArgumentTypeEnum.FromII);
                     toII = GetArgument(ArgumentTypeEnum.ToII);
 
-                    graph.DrawDifferential(FunctionTypeEnum.DifferentialII, from, to, toII);
+                    chart.DrawDifferential(FunctionTypeEnum.DifferentialII, from, to, toII);
                 }
 
                 //Rysowanie Bessela
                 if (chkSpecialFunction.Checked && chkSpecialFunction.Enabled)
-                    graph.DrawBessel(bft, first, second, thrid, fourth);
+                    chart.DrawBessel(bft, first, second, thrid, fourth);
 
                 //Zakończenie
                 IsFunctionDrawn = true;
                 picGraph.Refresh();
 
                 //Pobranie punktow wykresu
-                graphPoint = graph.GraphPoints;
+                graphPoint = chart.GraphPoints;
             }
             catch (Exception excep)
             {

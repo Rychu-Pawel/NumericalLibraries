@@ -36,6 +36,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -43,10 +44,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Approximation.cs" />
     <Compile Include="Interpolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\LinearEquation\LinearEquation.csproj">
+      <Project>{990923CB-10A0-46EC-B76E-ED28B12EDEDC}</Project>
+      <Name>LinearEquation</Name>
+    </ProjectReference>
     <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
       <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
       <Name>NumericalCalculatorCommon</Name>
