@@ -263,23 +263,23 @@
             this.chkSpecialFunction.TabIndex = 18;
             this.chkSpecialFunction.Text = "Funkcja specjalna";
             this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
-        "argumentów wstawić zmienną x.\r\n");
+                    "argumentów wstawić zmienną x.\r\n");
             this.chkSpecialFunction.UseVisualStyleBackColor = true;
             this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 
             // saveFileDialog
             // 
             this.saveFileDialog.DefaultExt = "jpg";
-            this.saveFileDialog.FileName = "Wykres";
+            this.saveFileDialog.FileName = "Graph";
             this.saveFileDialog.Filter = "JPEG|*.jpg";
-            this.saveFileDialog.Title = "PierwiastkiCS";
+            this.saveFileDialog.Title = "NumericalCalculator";
             // 
             // saveFileDialogTXT
             // 
             this.saveFileDialogTXT.DefaultExt = "txt";
-            this.saveFileDialogTXT.FileName = "Wykres";
+            this.saveFileDialogTXT.FileName = "Graph";
             this.saveFileDialogTXT.Filter = "TXT|*.txt";
-            this.saveFileDialogTXT.Title = "PierwiastkiCS";
+            this.saveFileDialogTXT.Title = "NumericalCalculator";
             // 
             // btnCompute
             // 

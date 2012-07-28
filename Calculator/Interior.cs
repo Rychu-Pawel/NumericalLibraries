@@ -10,34 +10,34 @@ namespace NumericalCalculator
         // ZMIENNE ------------------------------
         protected double x, u, y;
 
-        /// <summary>
-        /// Variable value
-        /// </summary>
-        public double X
-        {
-            get { return x; }
-            set { x = value; }
-        }
+        ///// <summary>
+        ///// Variable value
+        ///// </summary>
+        //public double X
+        //{
+        //    get { return x; }
+        //    set { x = value; }
+        //}
 
-        /// <summary>
-        /// Second order differential starting value.
-        /// Used only for computing second order differential.
-        /// </summary>
-        public double U
-        {
-            get { return u; }
-            set { u = value; }
-        }
+        ///// <summary>
+        ///// Second order differential starting value.
+        ///// Used only for computing second order differential.
+        ///// </summary>
+        //public double U
+        //{
+        //    get { return u; }
+        //    set { u = value; }
+        //}
 
-        /// <summary>
-        /// First order differential starting value.
-        /// Used only for computing differentials.
-        /// </summary>
-        public double Y
-        {
-            get { return y; }
-            set { y = value; }
-        }
+        ///// <summary>
+        ///// First order differential starting value.
+        ///// Used only for computing differentials.
+        ///// </summary>
+        //public double Y
+        //{
+        //    get { return y; }
+        //    set { y = value; }
+        //}
 
         // METODY -------------------------------
         protected double EvaluateInterior()

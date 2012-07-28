@@ -1,0 +1,15 @@
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Chart.XML
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Chart.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Bessel.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Calculator.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Derivative.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Differential.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\FourierTransform.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\NumericalCalculatorCommon.dll
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Calculator.xml
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Derivative.xml
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\Differential.xml
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\FourierTransform.xml
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\bin\Release\NumericalCalculatorCommon.xml
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\obj\Release\ResolveAssemblyReference.cache
+C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\Chart\obj\Release\Chart.dll

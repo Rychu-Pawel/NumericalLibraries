@@ -785,7 +785,7 @@ namespace NumericalCalculator
         {
             try
             {
-                Graph graph = new Graph(txtFunction.Text, picGraph, Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)));
+                Chart graph = new Chart(txtFunction.Text, picGraph, Convert.ToDouble(txtXFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtXTo.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYFrom.Text.Replace(changeFrom, changeTo)), Convert.ToDouble(txtYTo.Text.Replace(changeFrom, changeTo)));
                 graph.Clear();
             }
             catch (Exception excep)
@@ -936,7 +936,7 @@ namespace NumericalCalculator
                 }
 
                 //Utworzenie klasy
-                Graph graph = new Graph(function, picGraph, xFrom, xTo, yFrom, yTo);
+                Chart graph = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
                 
                 //Reskalling
                 if (chkRescaling.Checked && chkRescaling.Enabled && rescaling)
@@ -971,7 +971,7 @@ namespace NumericalCalculator
                     txtYFrom.Text = yFrom.ToString();
                     txtYTo.Text = yTo.ToString();
 
-                    graph = new Graph(function, picGraph, xFrom, xTo, yFrom, yTo);
+                    graph = new Chart(function, picGraph, xFrom, xTo, yFrom, yTo);
                 }
 
                 //Rysowanie funkcji i pochodnych

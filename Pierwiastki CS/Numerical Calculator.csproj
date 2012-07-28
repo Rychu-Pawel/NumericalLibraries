@@ -200,7 +200,6 @@
       <DependentUpon>LinearEquationForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Settings.cs" />
-    <Compile Include="Graph.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -249,6 +248,10 @@
     <ProjectReference Include="..\Calculator\Calculator.csproj">
       <Project>{ABCF2024-B9ED-4BF1-B19F-336BB94CEFB2}</Project>
       <Name>Calculator</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Chart\Chart.csproj">
+      <Project>{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}</Project>
+      <Name>Chart</Name>
     </ProjectReference>
     <ProjectReference Include="..\Derivative\Derivative.csproj">
       <Project>{26084897-09EC-4255-A641-BED2A36FDB99}</Project>
