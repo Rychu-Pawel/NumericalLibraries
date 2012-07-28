@@ -11,7 +11,7 @@ namespace NumericalCalculator
     {
     //ZMIENNE ------------------------
         private int iloscPunktow, stopien;
-        private double[,] points;
+        private List<PointD> points;
         private double[] Eyx, Ex, x;
         private double[,] wspolczynniki;
 
@@ -22,21 +22,21 @@ namespace NumericalCalculator
         private double x3;
 
         /// <summary>
-        /// Points list for interpolation
+        /// Points list for approximation
         /// </summary>
-        //public List<PointD> Points
-        //{
-        //    get { return points; }
-        //    set
-        //    {
-        //        points = value;
+        public List<PointD> Points
+        {
+            get { return points; }
+            set
+            {
+                points = value;
 
-        //        if (points != null)
-        //            iloscPunktow = points.Count;
-        //        else
-        //            iloscPunktow = 0;
-        //    }
-        //}
+                if (points != null)
+                    iloscPunktow = points.Count;
+                else
+                    iloscPunktow = 0;
+            }
+        }
 
     //METODY -------------------------
         private void Sprawdzenie()
@@ -44,8 +44,8 @@ namespace NumericalCalculator
             // Sprawdzenie czy punkty x sie nie powtarzaja
             for (int i = 0; i < iloscPunktow; i++)
                 for (int j = i + 1; j < iloscPunktow; j++)
-                    if (points[0, i] == points[0, j])
-                        throw new SystemException("Wartosci x = " + Convert.ToString(points[0, i]) + " wystepuja co najmniej dwukrotnie");
+                    if (points[i].X == points[j].X)
+                        throw new SystemException("Wartosci x = " + Convert.ToString(points[i].X) + " wystepuja co najmniej dwukrotnie");
         }
 
         private void ObliczSumyLiniowe()
@@ -54,10 +54,10 @@ namespace NumericalCalculator
 
             for (int i = 0; i < iloscPunktow; i++)
             {
-                Ex1 += points[0, i];
-                Ey += points[1, i];
-                Ex2 += Math.Pow(points[0, i], 2.0);
-                Ex1y += points[0, i] * points[1, i];
+                Ex1 += points[i].X;
+                Ey += points[i].Y;
+                Ex2 += Math.Pow(points[i].X, 2.0);
+                Ex1y += points[i].X * points[i].Y;
             }
         }
 
@@ -67,13 +67,13 @@ namespace NumericalCalculator
 
             for (int i = 0; i < iloscPunktow; i++)
             {
-                Ex1 += points[0, i];
-                Ey += points[1, i];
-                Ex2 += Math.Pow(points[0, i], 2.0);
-                Ex1y += points[0, i] * points[1, i];
-                Ex3 += Math.Pow(points[0, i], 3.0);
-                Ex4 += Math.Pow(points[0, i], 4.0);
-                Ex2y += Math.Pow(points[0, i], 2.0) * points[1, i];
+                Ex1 += points[i].X;
+                Ey += points[i].Y;
+                Ex2 += Math.Pow(points[i].X, 2.0);
+                Ex1y += points[i].X * points[i].Y;
+                Ex3 += Math.Pow(points[i].X, 3.0);
+                Ex4 += Math.Pow(points[i].X, 4.0);
+                Ex2y += Math.Pow(points[i].X, 2.0) * points[i].Y;
             }
         }
 
@@ -84,17 +84,17 @@ namespace NumericalCalculator
             
             //Eyx[0]
             for (int i = 0; i < iloscPunktow; i++)
-                Eyx[0] += points[1, i];
+                Eyx[0] += points[i].Y;
 
             for (int i = 0; i < iloscPunktow; i++)
             {
                 //Ex
                 for (int j = 1; j < stopien * 2 + 1; j++)
-                        Ex[j] += Math.Pow(points[0, i], j);
+                        Ex[j] += Math.Pow(points[i].X, j);
 
                 //Eyx
                 for (int j = 1; j < stopien + 1; j++)
-                        Eyx[j] += points[1, i] * Math.Pow(points[0, i], j);
+                        Eyx[j] += points[i].Y * Math.Pow(points[i].X, j);
             }
         }
 
@@ -132,11 +132,11 @@ namespace NumericalCalculator
             //Uzupelnienie macierzy dla gaussa
             for (int i = 0; i < stopien + 1; i++)
                 for (int j = 0; j < stopien + 1; j++)
-                        wspolczynniki[i, j] = Ex[i + j];
+                        wspolczynniki[j, i] = Ex[i + j];
 
             //Rozszerzenie macierzy wspolczynnikow o wyniki
             for (int i = 0; i < stopien + 1; i++)
-                wspolczynniki[stopien + 1, i] = Eyx[i];
+                wspolczynniki[i, stopien + 1] = Eyx[i];
 
             //Wyliczenie wspolczynnikow
             LinearEquation Gauss = new LinearEquation(wspolczynniki);
@@ -209,7 +209,7 @@ namespace NumericalCalculator
                 funkcja += Convert.ToString(x1);
             else if (x1 > 0)
             {
-                if (x2 != 0) // Jak jest funkcja stala to zeby nie bylo np. "+2" tylko samo "2"
+                if (x2 != 0 || x3 != 0) // Jak jest funkcja stala to zeby nie bylo np. "+2" tylko samo "2"
                     funkcja += "+" + Convert.ToString(x1);
                 else
                     funkcja += Convert.ToString(x1);
@@ -233,7 +233,7 @@ namespace NumericalCalculator
         private string FormatujWynik()
         //UWAGA!!!!! WYŁĄCZONE (wykomentowane) JEST POMIJANIE MAŁYCH WSPÓŁCZYNNIKÓW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ---
         {                          //                                                                                  \
-            int znak = 2;          //                                                                                   \   
+            int znak = stopien;          //                                                                                   \   
             string funkcja = string.Empty;                         //                                                    \
                                                                    //                                                     \
             //Formatowanie wyjsciowego stringa                                                                             \
@@ -332,6 +332,10 @@ namespace NumericalCalculator
             return funkcja;
         }
 
+        /// <summary>
+        /// Approximates function from given points
+        /// </summary>
+        /// <returns>Approximated function</returns>
         public string Compute()
         {
             if (stopien == 1)
@@ -356,20 +360,16 @@ namespace NumericalCalculator
         }
 
     //KONSTRUKTOR --------------------
-        public Approximation(DataGridView dgvEkstrapolacja, int level, string zamienZ, string zamienNa)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="level">Approximation level</param>
+        public Approximation(int level)
         {
-            iloscPunktow = dgvEkstrapolacja.Rows.Count - 1;
+            iloscPunktow = 0;
             this.stopien = level;
 
             //Dla Ekstrapolacji liniowej i kwadratowej
-            points = new double[2, iloscPunktow];
-
-            for (int i = 0; i < iloscPunktow; i++)
-            {
-                points[0, i] = Convert.ToDouble(dgvEkstrapolacja[0, i].Value.ToString().Replace(zamienZ, zamienNa));
-                points[1, i] = Convert.ToDouble(dgvEkstrapolacja[1, i].Value.ToString().Replace(zamienZ, zamienNa));
-            }
-
             Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = x1 = x2 = x3 = 0;
 
             //Dla ekstrapolacji dowolnego stopnia
@@ -377,7 +377,7 @@ namespace NumericalCalculator
             Ex = new double[2 * level + 1];
             x = new double[level + 1];
 
-            wspolczynniki = new double[level + 2, level + 1];
+            wspolczynniki = new double[level + 1, level + 2];
         }
     }
 }

@@ -57,11 +57,24 @@ namespace NumericalCalculator
                 //Aproksymacja
                 else if (rbApproximation.Checked == true)
                 {
-                    Approximation approximation = new Approximation(dgvInterpolation, (int)nudLevel.Value, changeFrom, changeTo);
+                    // ZMIENNE
+                    Approximation approximation = new Approximation((int)nudLevel.Value);
+                    List<PointD> points = new List<PointD>();
 
+                    // Wczytanie punktow do pamieci
+                    double x, y;
+
+                    for (int i = 0; i < dgvInterpolation.Rows.Count - 1; i++)
+                    {
+                        x = Convert.ToDouble(dgvInterpolation[0, i].Value.ToString().Replace(changeFrom, changeTo));
+                        y = Convert.ToDouble(dgvInterpolation[1, i].Value.ToString().Replace(changeFrom, changeTo));
+
+                        points.Add(new PointD() { X = x, Y = y });
+                    }
+
+                    //Aproksymacja
+                    approximation.Points = points;
                     txtFunction.Text = approximation.Compute();
-
-                    //TODO: Sprawdzenie czy wynik jest sensowny - komentarz po latach: nie wiem jak zamierzalem to zrobic (i po co)?
                 }
             }
             catch (WrongApproximationLevelException)
