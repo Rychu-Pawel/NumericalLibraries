@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Derivative</name>
+    </assembly>
+    <members>
+        <member name="M:NumericalCalculator.Derivative.ComputeFunctionAtPoint">
+            <summary>
+            Compute function value at given point
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NumericalCalculator.Derivative.ComputeDerivative">
+            <summary>
+            Compute first order derivative
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NumericalCalculator.Derivative.ComputeDerivativeBis">
+            <summary>
+            Compute second order derivative
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:NumericalCalculator.Derivative.ComputeFunctionAtPoint(System.Double)">
+            <summary>
+            Compute function value at given point
+            </summary>
+            <param name="x">Point in which you want to compute the value</param>
+            <returns></returns>
+        </member>
+        <member name="M:NumericalCalculator.Derivative.ComputeDerivative(System.Double)">
+            <summary>
+            Compute first order derivative
+            </summary>
+            <param name="x">Point in which you want to compute the derivative</param>
+            <returns></returns>
+        </member>
+        <member name="M:NumericalCalculator.Derivative.ComputeDerivativeBis(System.Double)">
+            <summary>
+            Compute second order derivative
+            </summary>
+            <param name="x">Point in which you want to compute the derivative</param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

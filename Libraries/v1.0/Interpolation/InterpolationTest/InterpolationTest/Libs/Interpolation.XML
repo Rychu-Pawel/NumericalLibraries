@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Interpolation</name>
+    </assembly>
+    <members>
+        <member name="M:NumericalCalculator.Approximation.Compute">
+            <summary>
+            Approximates function from given points
+            </summary>
+            <returns>Approximated function</returns>
+        </member>
+        <member name="M:NumericalCalculator.Approximation.#ctor(System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="level">Approximation level</param>
+        </member>
+        <member name="P:NumericalCalculator.Approximation.Points">
+            <summary>
+            Points list for approximation
+            </summary>
+        </member>
+        <member name="M:NumericalCalculator.Interpolation.Compute">
+            <summary>
+            Interpolate function from given points
+            </summary>
+            <returns>Interpolated function</returns>
+        </member>
+        <member name="P:NumericalCalculator.Interpolation.Points">
+            <summary>
+            Points list for interpolation
+            </summary>
+        </member>
+    </members>
+</doc>

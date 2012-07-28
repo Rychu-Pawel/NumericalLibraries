@@ -739,7 +739,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Provide values for all cells!.
+        ///   Looks up a localized string similar to Provide value for all cells!.
         /// </summary>
         internal static string LinearEquation_NullReferenceException {
             get {

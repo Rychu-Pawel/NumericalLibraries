@@ -1,0 +1,17 @@
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\HybridTest.exe
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\HybridTest.pdb
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Calculator.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Derivative.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Hybrid.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\NumericalCalculatorCommon.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Calculator.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Derivative.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\Hybrid.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\bin\Debug\NumericalCalculatorCommon.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\HybridTest.Form1.resources
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\HybridTest.Properties.Resources.resources
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\HybridTest.exe
+C:\Users\Rychu\Desktop\Libraries\v1.0\Hybrid\HybridTest\HybridTest\obj\x86\Debug\HybridTest.pdb

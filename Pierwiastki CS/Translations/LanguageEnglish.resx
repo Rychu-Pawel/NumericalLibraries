@@ -535,7 +535,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Incorrect values in some cells!</value>
   </data>
   <data name="LinearEquation_NullReferenceException" xml:space="preserve">
-    <value>Provide values for all cells!</value>
+    <value>Provide value for all cells!</value>
   </data>
   <data name="NaNOccuredException" xml:space="preserve">
     <value>There are no solutions in the real numbers set!</value>

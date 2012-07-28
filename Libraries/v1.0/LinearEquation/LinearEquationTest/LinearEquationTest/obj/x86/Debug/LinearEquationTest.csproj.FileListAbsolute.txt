@@ -1,0 +1,13 @@
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\LinearEquationTest.LinearEquationForm.resources
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\LinearEquationTest.Properties.Resources.resources
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\GenerateResource.read.1.tlog
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\GenerateResource.write.1.tlog
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\LinearEquationTest.exe
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\LinearEquationTest.pdb
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\LinearEquation.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\NumericalCalculatorCommon.dll
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\LinearEquation.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\bin\Debug\NumericalCalculatorCommon.xml
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\LinearEquationTest.exe
+C:\Users\Rychu\Desktop\Libraries\v1.0\LinearEquation\LinearEquationTest\LinearEquationTest\obj\x86\Debug\LinearEquationTest.pdb
