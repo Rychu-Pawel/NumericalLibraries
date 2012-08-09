@@ -27,6 +27,13 @@ namespace NumericalCalculator
 
         string funkcja;
 
+        Image img;
+
+        public Image Image
+        {
+          get { return img; }
+        }
+
         List<PointF> punktyWykresu;
 
         /// <summary>
@@ -56,7 +63,7 @@ namespace NumericalCalculator
                 {
                     if (i > (xOd * wspX) + zeroX && i < (xDo * wspX) + zeroX)
                     {
-                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), pWykres.Height); // OŚ -X
+                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), img.Height); // OŚ -X
                         g.DrawString(Convert.ToString(Math.Round(xOd + i / wspX, 3)), font, Brushes.DarkGray, (float)(i), picHeight - 15);
                     }
                 }
@@ -65,7 +72,7 @@ namespace NumericalCalculator
                 {
                     if (i > (xOd * wspX) + zeroX && i < (xDo * wspX) + zeroX)
                     {
-                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), pWykres.Height); // OŚ +X
+                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), img.Height); // OŚ +X
                         g.DrawString(Convert.ToString(Math.Round(xOd + i / wspX, 3)), font, Brushes.DarkGray, (float)(i), picHeight - 15);
                     }
                 }
@@ -76,7 +83,7 @@ namespace NumericalCalculator
                 {
                     if (i > (xOd * wspX) + zeroX && i < (xDo * wspX) + zeroX)
                     {
-                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), pWykres.Height); // OŚ -X
+                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), img.Height); // OŚ -X
                         g.DrawString(Convert.ToString(Math.Round(xOd + i / wspX, 3)), font, Brushes.DarkGray, (float)(i), picHeight - 15);
                     }
                 }
@@ -87,7 +94,7 @@ namespace NumericalCalculator
                 {
                     if (i > (xOd * wspX) + zeroX && i < (xDo * wspX) + zeroX)
                     {
-                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), pWykres.Height); // OŚ +X
+                        g.DrawLine(Pens.LightGray, (float)(i), 0, (float)(i), img.Height); // OŚ +X
                         g.DrawString(Convert.ToString(Math.Round(xOd + i / wspX, 3)), font, Brushes.DarkGray, (float)(i), picHeight - 15);
                     }
                 }
@@ -102,7 +109,7 @@ namespace NumericalCalculator
                 {
                     if (i < (-yOd * wspY) + zeroY && i > (-yDo * wspY) + zeroY)
                     {
-                        g.DrawLine(Pens.LightGray, pWykres.Width, (float)(i), 0, (float)(i)); // OŚ -Y
+                        g.DrawLine(Pens.LightGray, img.Width, (float)(i), 0, (float)(i)); // OŚ -Y
                         g.DrawString(Convert.ToString(Math.Round(yDo - i / wspY, 3)), font, Brushes.DarkGray, 1, (float)(i));
                     }
                 }
@@ -111,7 +118,7 @@ namespace NumericalCalculator
                 {
                     if (i < (-yOd * wspY) + zeroY && i > (-yDo * wspY) + zeroY)
                     {
-                        g.DrawLine(Pens.LightGray, pWykres.Width, (float)(i), 0, (float)(i)); // OŚ +Y
+                        g.DrawLine(Pens.LightGray, img.Width, (float)(i), 0, (float)(i)); // OŚ +Y
                         g.DrawString(Convert.ToString(Math.Round(yDo - i / wspY, 3)), font, Brushes.DarkGray, 1, (float)(i));
                     }
                 }
@@ -122,7 +129,7 @@ namespace NumericalCalculator
                 {
                     if (i < (-yOd * wspY) + zeroY && i > (-yDo * wspY) + zeroY)
                     {
-                        g.DrawLine(Pens.LightGray, pWykres.Width, (float)(i), 0, (float)(i)); // OŚ -Y
+                        g.DrawLine(Pens.LightGray, img.Width, (float)(i), 0, (float)(i)); // OŚ -Y
                         g.DrawString(Convert.ToString(Math.Round(yDo - i / wspY, 3)), font, Brushes.DarkGray, 1, (float)(i));
                     }
                 }
@@ -133,22 +140,22 @@ namespace NumericalCalculator
                 {
                     if (i < (-yOd * wspY) + zeroY && i > (-yDo * wspY) + zeroY)
                     {
-                        g.DrawLine(Pens.LightGray, pWykres.Width, (float)(i), 0, (float)(i)); // OŚ +Y
+                        g.DrawLine(Pens.LightGray, img.Width, (float)(i), 0, (float)(i)); // OŚ +Y
                         g.DrawString(Convert.ToString(Math.Round(yDo - i / wspY, 3)), font, Brushes.DarkGray, 1, (float)(i));
                     }
                 }
             }
 
             //RYSOWANIE OSI OX i OY
-            g.DrawLine(Pens.Black, 0, (float)zeroY, pWykres.Width, (float)zeroY); // OŚ X
-            g.DrawLine(Pens.Black, (float)zeroX, 0, (float)zeroX, pWykres.Height); // OŚ Y
+            g.DrawLine(Pens.Black, 0, (float)zeroY, img.Width, (float)zeroY); // OŚ X
+            g.DrawLine(Pens.Black, (float)zeroX, 0, (float)zeroX, img.Height); // OŚ Y
 
             font = new Font("Aria", 8);
 
             //STRZAŁKI I OPIS OSI OX
-            g.DrawLine(Pens.Black, (float)pWykres.Width - 12f, (float)zeroY - 5f, (float)pWykres.Width - 2f, (float)zeroY);
-            g.DrawLine(Pens.Black, (float)pWykres.Width - 12f, (float)zeroY + 5f, (float)pWykres.Width - 2f, (float)zeroY);
-            g.DrawString("x", font, Brushes.Black, (float)pWykres.Width - 13f, (float)zeroY + 3f);
+            g.DrawLine(Pens.Black, (float)img.Width - 12f, (float)zeroY - 5f, (float)img.Width - 2f, (float)zeroY);
+            g.DrawLine(Pens.Black, (float)img.Width - 12f, (float)zeroY + 5f, (float)img.Width - 2f, (float)zeroY);
+            g.DrawString("x", font, Brushes.Black, (float)img.Width - 13f, (float)zeroY + 3f);
 
             //STRZAŁKI I OPIS OSI OY
             g.DrawLine(Pens.Black, (float)zeroX - 6f, 10f, (float)zeroX - 1, 2);
@@ -280,7 +287,7 @@ namespace NumericalCalculator
 
             //Nowe przygotowanie
             if (functionType == FunctionTypeEnum.FT)
-                Initialize(funkcja, pWykres, 0, sampling + 3, yOd, yDo);
+                Initialize(funkcja, img.Width, img.Height, 0, sampling + 3, yOd, yDo);
 
             //Przeskalowanie pkt-ow
             if (functionType == FunctionTypeEnum.FT)
@@ -1156,10 +1163,21 @@ namespace NumericalCalculator
         /// <param name="yTo">Chart ordinate to</param>
         public Chart(string function, PictureBox picGraph, double xFrom, double xTo, double yFrom, double yTo)
         {
-            Initialize(function, picGraph, xFrom, xTo, yFrom, yTo);
+            this.pWykres = picGraph;
+
+            Initialize(function, picGraph.Width, picGraph.Height, xFrom, xTo, yFrom, yTo);
         }
 
-        private void Initialize(string funk, PictureBox picWykres, double xOd, double xDo, double yOd, double yDo)
+        public Chart(string function, int width, int height, double xFrom, double xTo, double yFrom, double yTo)
+        {
+            this.pWykres = new PictureBox(); //TODO: to jest bez sensu ale bez tego bedzie exception w Initialize
+            pWykres.Width = width;
+            pWykres.Height = height;
+
+            Initialize(function, width, height, xFrom, xTo, yFrom, yTo);
+        }
+
+        private void Initialize(string funk, int width, int height, double xOd, double xDo, double yOd, double yDo)
         {
             if (xDo == xOd)
                 throw new CoordinatesXException();
@@ -1168,12 +1186,12 @@ namespace NumericalCalculator
                 throw new CoordinatesYException();
 
             funkcja = funk;
-            this.pWykres = picWykres;
-            picWidth = picWykres.Width;
-            picHeight = picWykres.Height;
+            picWidth = width;
+            picHeight = height;
 
-            pWykres.Image = new Bitmap(picWidth, picHeight);
-            g = Graphics.FromImage(pWykres.Image);
+            img = new Bitmap(picWidth, picHeight);
+            pWykres.Image = img;
+            g = Graphics.FromImage(img);
 
             //Zabezpieczenie przed za duzymi granicami wykresu
             if (xOd > max)
