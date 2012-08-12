@@ -22,7 +22,7 @@ namespace NumericalCalculator
                 number = number * (-1.0);
             }
 
-            //Sprawdzenie czy mozna zrzutowac na int i czy jest on
+            //Sprawdzenie czy mozna bezpośrednio zrzutowac na int i czy jest on
             //odpowiednio maly by mozna bylo obliczyc w tradycyjny sposob
             int numberInt;
             
