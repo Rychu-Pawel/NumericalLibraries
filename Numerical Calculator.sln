@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LinearEquation", "LinearEqu
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Chart", "Chart\Chart.csproj", "{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalCalculator", "NumericalCalculator\NumericalCalculator.csproj", "{CE084B9D-19B1-4670-8AF1-59C41799A930}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -168,6 +170,16 @@ Global
 		{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}.Release|x86.ActiveCfg = Release|Any CPU
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Debug|x86.ActiveCfg = Debug|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Debug|x86.Build.0 = Debug|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Release|Any CPU.ActiveCfg = Release|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Release|Mixed Platforms.Build.0 = Release|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Release|x86.ActiveCfg = Release|x86
+		{CE084B9D-19B1-4670-8AF1-59C41799A930}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

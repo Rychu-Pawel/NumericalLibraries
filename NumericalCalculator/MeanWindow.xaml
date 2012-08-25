@@ -1,0 +1,8 @@
+﻿<Window x:Class="NumericalCalculator.MeanWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Mean" Height="410" Width="431">
+    <Grid>
+        
+    </Grid>
+</Window>
