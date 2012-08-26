@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Rychu\Desktop\Programowanie\Numerical Calculator\trunk\NumericalCalculator\App.xaml
-4-414969620
+9241222651
 
-12-1722029476
+20523573790
 12-1381780322
-MainWindow.xaml;MeanWindow.xaml;Resources.xaml;Theme.xaml;
+AboutWindow.xaml;FunctionsWindow.xaml;InterpolationWindow.xaml;LinearEquationWindow.xaml;MainWindow.xaml;MeanWindow.xaml;ProportionWindow.xaml;Resources.xaml;Theme.xaml;
 
 True
 

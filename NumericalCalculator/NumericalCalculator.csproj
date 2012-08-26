@@ -55,8 +55,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AboutWindow.xaml.cs">
+      <DependentUpon>AboutWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="FunctionsWindow.xaml.cs">
+      <DependentUpon>FunctionsWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="InterpolationWindow.xaml.cs">
+      <DependentUpon>InterpolationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="LinearEquationWindow.xaml.cs">
+      <DependentUpon>LinearEquationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Logic\InterpolationWindowLogic.cs" />
+    <Compile Include="Logic\LinearEquationWindowLogic.cs" />
     <Compile Include="Logic\MainWindowLogic.cs" />
     <Compile Include="Logic\MeanWindowLogic.cs" />
+    <Compile Include="Logic\ProportionWindowLogic.cs" />
+    <Compile Include="ProportionWindow.xaml.cs">
+      <DependentUpon>ProportionWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Translations\Language.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +86,22 @@
       <DependentUpon>Language.pl-PL.resx</DependentUpon>
     </Compile>
     <Compile Include="Translations\Translation.cs" />
+    <Page Include="AboutWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="FunctionsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="InterpolationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="LinearEquationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -81,6 +115,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="MeanWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ProportionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

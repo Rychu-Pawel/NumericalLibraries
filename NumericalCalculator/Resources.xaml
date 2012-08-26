@@ -1,7 +1,9 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:lang="clr-namespace:NumericalCalculator.Translations">
+                    xmlns:lang="clr-namespace:NumericalCalculator.Translations"
+                    xmlns:prop="clr-namespace:NumericalCalculator.Properties">
 
     <ObjectDataProvider x:Key="Language" ObjectType="{x:Type lang:Translation}" MethodName="GetResourceInstance" />
+    <ObjectDataProvider x:Key="Settings" ObjectType="{x:Type prop:Settings}" />
 
 </ResourceDictionary>

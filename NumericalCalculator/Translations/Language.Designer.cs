@@ -604,6 +604,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Level:.
+        /// </summary>
+        public static string InterpolationForm_lblApproximationLevel {
+            get {
+                return ResourceManager.GetString("InterpolationForm_lblApproximationLevel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Run interpolation or approximation first..
         /// </summary>
         public static string InterpolationForm_MessageBox_btnApply {
@@ -631,7 +640,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Approximation level.
+        ///   Looks up a localized string similar to Approximation.
         /// </summary>
         public static string InterpolationForm_rbApproximation {
             get {
@@ -928,7 +937,16 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Graph _preview while window scaling.
+        ///   Looks up a localized string similar to Chart preview while moving it.
+        /// </summary>
+        public static string menuStrip_graphPreviewWhileMovingToolStripMenuItem {
+            get {
+                return ResourceManager.GetString("menuStrip_graphPreviewWhileMovingToolStripMenuItem", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Chart _preview while window scaling.
         /// </summary>
         public static string menuStrip_graphPreviewWhileWindowsScalingToolStripMenuItem {
             get {
@@ -937,7 +955,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to _Graph.
+        ///   Looks up a localized string similar to _Chart.
         /// </summary>
         public static string menuStrip_graphToolStripMenuItem {
             get {

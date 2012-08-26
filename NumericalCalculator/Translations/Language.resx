@@ -343,7 +343,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Provide values for all cells!</value>
   </data>
   <data name="InterpolationForm_rbApproximation" xml:space="preserve">
-    <value>Approximation level</value>
+    <value>Approximation</value>
   </data>
   <data name="InterpolationForm_rbInterpolation" xml:space="preserve">
     <value>Lagrange interpolation</value>
@@ -442,10 +442,10 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>_Functions</value>
   </data>
   <data name="menuStrip_graphPreviewWhileWindowsScalingToolStripMenuItem" xml:space="preserve">
-    <value>Graph _preview while window scaling</value>
+    <value>Chart _preview while window scaling</value>
   </data>
   <data name="menuStrip_graphToolStripMenuItem" xml:space="preserve">
-    <value>_Graph</value>
+    <value>_Chart</value>
   </data>
   <data name="menuStrip_interpolationApproximationToolStripMenuItem" xml:space="preserve">
     <value>_Interpolation and approximation</value>
@@ -647,5 +647,11 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   </data>
   <data name="yToException" xml:space="preserve">
     <value>Incorrect y-asix "to" value</value>
+  </data>
+  <data name="menuStrip_graphPreviewWhileMovingToolStripMenuItem" xml:space="preserve">
+    <value>Chart preview while moving it</value>
+  </data>
+  <data name="InterpolationForm_lblApproximationLevel" xml:space="preserve">
+    <value>Level:</value>
   </data>
 </root>

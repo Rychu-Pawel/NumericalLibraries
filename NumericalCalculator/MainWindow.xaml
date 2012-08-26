@@ -9,19 +9,32 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
+
+        <!--  ***************  -->
+        <!--  DEKLARACJA MENU  -->
+        <!--  ***************  -->
         <Menu IsMainMenu="True" VerticalAlignment="Top">
             <MenuItem Name="miFile" Header="{Binding Source={StaticResource Language}, Path=menuStrip_fileToolStripMenuItem}">
                 <MenuItem Header="{Binding Source={StaticResource Language}, Path=menuStrip_closeToolStripMenuItem}" Name="miClose" Click="miClose_Click"></MenuItem>
             </MenuItem>
             <MenuItem Name="miExtraComputations" Header="{Binding Source={StaticResource Language}, Path=menuStrip_extraComputationsToolStripMenuItem}">
-                <MenuItem Header="{Binding Source={StaticResource Language}, Path=menuStrip_meanToolStripMenuItem}" Name="miMean" Click="miMean_Click"></MenuItem>
+                <MenuItem Name="miLinearEquations" Header="{Binding Source={StaticResource Language}, Path=menuStrip_linearEquationToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
+                <MenuItem Name="miInterpolation" Header="{Binding Source={StaticResource Language}, Path=menuStrip_interpolationApproximationToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
+                <MenuItem Name="miProportion" Header="{Binding Source={StaticResource Language}, Path=menuStrip_proportionsToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
+                <MenuItem Name="miMean" Header="{Binding Source={StaticResource Language}, Path=menuStrip_meanToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
             </MenuItem>
             <MenuItem Name="miSettings" Header="{Binding Source={StaticResource Language}, Path=menuStrip_optionsToolStripMenuItem}">
-                <MenuItem Name="miGraph" Header="{Binding Source={StaticResource Language}, Path=menuStrip_graphToolStripMenuItem}" Click="miGraph_Click"></MenuItem>
+                <MenuItem Name="miGraph" Header="{Binding Source={StaticResource Language}, Path=menuStrip_graphToolStripMenuItem}" Click="miGraph_Click" IsCheckable="True" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.chkMiGraph_Checked}"></MenuItem>
+                <MenuItem Name="miGraphPreviewWhileScaling" Header="{Binding Source={StaticResource Language}, Path=menuStrip_graphPreviewWhileWindowsScalingToolStripMenuItem}" IsCheckable="True" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.chkMiGraphPreviewScaling_Checked}"></MenuItem>
+                <MenuItem Name="miGraphPreviewWhileMoving" Header="{Binding Source={StaticResource Language}, Path=menuStrip_graphPreviewWhileMovingToolStripMenuItem}" IsCheckable="True" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.chkMiGraphPreviewMoving_Checked}"></MenuItem>
             </MenuItem>
             <MenuItem Name="miLanguage" Header="{Binding Source={StaticResource Language}, Path=menuStrip_languageToolStripMenuItem}">
-                <MenuItem Name="miPolski" Header="Polski" Click="miLanguage_Click" IsCheckable="True" IsChecked="{Binding Source={StaticResource Language}, Path=chkMiPolish_Checked}"></MenuItem>
-                <MenuItem Name="miEnglish" Header="English" Click="miLanguage_Click" IsCheckable="True" IsChecked="{Binding Source={StaticResource Language}, Path=chkMiEnglish_Checked}"></MenuItem>
+                <MenuItem Name="miPolski" Header="Polski" Click="miLanguage_Click" IsCheckable="True" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.chkMiPolish_Checked}"></MenuItem>
+                <MenuItem Name="miEnglish" Header="English" Click="miLanguage_Click" IsCheckable="True" IsChecked="{Binding Source={StaticResource Settings}, Path=Default.chkMiEnglish_Checked}"></MenuItem>
+            </MenuItem>
+            <MenuItem Name="miProgram" Header="{Binding Source={StaticResource Language}, Path=menuStrip_applicationToolStripMenuItem}">
+                <MenuItem Name="miAbout" Header="{Binding Source={StaticResource Language}, Path=menuStrip_aboutToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
+                <MenuItem Name="miFunctions" Header="{Binding Source={StaticResource Language}, Path=menuStrip_functionsToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
             </MenuItem>
         </Menu>
     </Grid>

@@ -25,7 +25,7 @@ namespace NumericalCalculator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool FirstRun {
             get {
                 return ((bool)(this["FirstRun"]));
@@ -37,7 +37,7 @@ namespace NumericalCalculator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        [global::System.Configuration.DefaultSettingValueAttribute("en-GB")]
         public string Culture {
             get {
                 return ((string)(this["Culture"]));
@@ -61,13 +61,49 @@ namespace NumericalCalculator.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
         public bool chkMiEnglish_Checked {
             get {
                 return ((bool)(this["chkMiEnglish_Checked"]));
             }
             set {
                 this["chkMiEnglish_Checked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chkMiGraph_Checked {
+            get {
+                return ((bool)(this["chkMiGraph_Checked"]));
+            }
+            set {
+                this["chkMiGraph_Checked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chkMiGraphPreviewScaling_Checked {
+            get {
+                return ((bool)(this["chkMiGraphPreviewScaling_Checked"]));
+            }
+            set {
+                this["chkMiGraphPreviewScaling_Checked"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool chkMiGraphPreviewMoving_Checked {
+            get {
+                return ((bool)(this["chkMiGraphPreviewMoving_Checked"]));
+            }
+            set {
+                this["chkMiGraphPreviewMoving_Checked"] = value;
             }
         }
     }

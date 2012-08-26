@@ -50,5 +50,30 @@ namespace NumericalCalculator
         {
             Translation.ToggleLanguage();
         }
+
+        private void miClick_OpenWindow(object sender, RoutedEventArgs e)
+        {
+            MenuItem mi = sender as MenuItem;
+
+            //Wybranie okna
+            Window window = null;
+
+            if (mi.Name == miLinearEquations.Name)
+                window = new LinearEquationWindow();
+            else if (mi.Name == miInterpolation.Name)
+                window = new InterpolationWindow();
+            else if (mi.Name == miProportion.Name)
+                window = new ProportionWindow();
+            else if (mi.Name == miMean.Name)
+                window = new MeanWindow();
+            else if (mi.Name == miAbout.Name)
+                window = new AboutWindow();
+            else if (mi.Name == miFunctions.Name)
+                window = new FunctionsWindow();
+
+            //Pokazanie okna
+            if (window != null)
+                window.Show();
+        }
     }
 }

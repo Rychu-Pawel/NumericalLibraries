@@ -339,7 +339,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Nie wszystkie komorki zostaly wypelnione!</value>
   </data>
   <data name="InterpolationForm_rbApproximation" xml:space="preserve">
-    <value>Aproksymacja stopnia</value>
+    <value>Aproksymacja</value>
   </data>
   <data name="InterpolationForm_rbInterpolation" xml:space="preserve">
     <value>Interpolacja Lagrange'a</value>
@@ -646,5 +646,11 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   </data>
   <data name="yToException" xml:space="preserve">
     <value>Niepoprawna wartość do osi y</value>
+  </data>
+  <data name="menuStrip_graphPreviewWhileMovingToolStripMenuItem" xml:space="preserve">
+    <value>Podgląd wykresu podczas jego przesuwania</value>
+  </data>
+  <data name="InterpolationForm_lblApproximationLevel" xml:space="preserve">
+    <value>Stopień:</value>
   </data>
 </root>
