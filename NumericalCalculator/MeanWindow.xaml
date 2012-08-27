@@ -1,8 +1,39 @@
 ﻿<Window x:Class="NumericalCalculator.MeanWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="Mean" Height="410" Width="431">
-    <Grid>
-        
+        xmlns:lang="clr-namespace:NumericalCalculator.Translations"
+        Title="Mean" Height="414" Width="270" MinHeight="250" MinWidth="210">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <GroupBox Header="{Binding Source={StaticResource Language}, Path=MeanForm_gbType}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <RadioButton Name="rbArithmetic" Content="{Binding Source={StaticResource Language}, Path=MeanForm_rbArithmetic}" HorizontalAlignment="Center" GroupName="rbGroupType" IsChecked="True"></RadioButton>
+                <RadioButton Name="rbWeighted" Content="{Binding Source={StaticResource Language}, Path=MeanForm_rbWeighted}" Grid.Column="1" HorizontalAlignment="Center" GroupName="rbGroupType"></RadioButton>
+            </Grid>
+        </GroupBox>
+        <DataGrid Name="dgValues" Grid.Row="1" Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="{Binding Source={StaticResource Language}, Path=MeanForm_dgvValues_Value}" Width="*" />
+                <DataGridTextColumn Header="{Binding Source={StaticResource Language}, Path=MeanForm_dgvValues_Weight}" Width="*" Visibility="Hidden"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <GroupBox Header="{Binding Source={StaticResource Language}, Path=MeanForm_gbResult}" Grid.Row="2" Margin="0,10,0,0">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="Auto"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <TextBox Name="txtResult" Margin="0,0,10,0"></TextBox>
+                <Button Name="btnCompute" Grid.Column="1" Content="{Binding Source={StaticResource Language}, Path=MeanForm_btnCompute}"></Button>
+            </Grid>
+        </GroupBox>
     </Grid>
 </Window>

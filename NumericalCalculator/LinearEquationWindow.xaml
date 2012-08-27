@@ -1,0 +1,34 @@
+﻿<Window x:Class="NumericalCalculator.LinearEquationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lang="clr-namespace:NumericalCalculator.Translations"
+        Title="Linear Equation" Height="396" Width="304" MinHeight="290" MinWidth="198">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>        
+        <WrapPanel>
+            <Label Content="{Binding Source={StaticResource Language}, Path=LinearEquationForm_lblNumberOfVariables}"></Label>
+            <TextBox Name="txtNumberOfVariables" Text="2" Width="35"></TextBox>
+        </WrapPanel>
+        <DataGrid Name="dgEquations" Grid.Row="1" Margin="0,10,0,0">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="x1" Width="*" />
+                <DataGridTextColumn Header="x2" Width="*"/>
+                <DataGridTextColumn Header="r" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Label Content="{Binding Source={StaticResource Language}, Path=LinearEquationForm_lblResults}" Grid.Row="2" Margin="0,10,0,0"></Label>
+        <DataGrid Name="dgResults" Margin="0,2,0,0" Grid.Row="3" Height="55">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="x1" Width="*" />
+                <DataGridTextColumn Header="x2" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Name="btnCompute" Content="{Binding Source={StaticResource Language}, Path=MeanForm_btnCompute}" Click="btnCompute_Click" Margin="0,20,0,0" Grid.Row="4" HorizontalAlignment="Center"></Button>
+    </Grid>
+</Window>

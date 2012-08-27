@@ -4,5 +4,9 @@
     <Style TargetType="{x:Type Button}">
         <Setter Property="Padding" Value="10,2,10,2"></Setter>
     </Style>
+    
+    <Style TargetType="{x:Type TextBox}">
+        <Setter Property="Height" Value="22"></Setter>
+    </Style>
         
 </ResourceDictionary>

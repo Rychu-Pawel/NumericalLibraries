@@ -1,0 +1,12 @@
+﻿<Window x:Class="NumericalCalculator.FunctionsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:lang="clr-namespace:NumericalCalculator.Translations"
+        Title="Functions" Height="300" Width="300" SizeToContent="WidthAndHeight" ResizeMode="CanMinimize">
+    <StackPanel>
+        <Label Content="{Binding Source={StaticResource Language}, Path=FunctionForm_lblHeader}" Margin="5,5,5,0"></Label>
+        <Label Content="{Binding Source={StaticResource Language}, Path=FunctionForm_lblOperators}" Margin="5,5,5,0"></Label>
+        <Label Content="{Binding Source={StaticResource Language}, Path=FunctionForm_lblBody}" Margin="5,5,5,0"></Label>
+        <Button Name="btnOk" HorizontalAlignment="Center" Click="btnOk_Click" Content="OK" Margin="0,20,0,15" Width="50"></Button>
+    </StackPanel>
+</Window>
