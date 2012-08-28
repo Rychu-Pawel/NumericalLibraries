@@ -547,7 +547,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
     <value>Values</value>
   </data>
   <data name="ProportionsForm_lblDescription" xml:space="preserve">
-    <value>Put x only in one field you want to compute:</value>
+    <value>Put "x" in only one field you want to compute:</value>
   </data>
   <data name="ProportionsForm_ProportionsForm" xml:space="preserve">
     <value>Proportions</value>

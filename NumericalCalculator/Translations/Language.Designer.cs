@@ -1261,7 +1261,7 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Put x only in one field you want to compute:.
+        ///   Looks up a localized string similar to Put &quot;x&quot; in only one field you want to compute:.
         /// </summary>
         public static string ProportionsForm_lblDescription {
             get {

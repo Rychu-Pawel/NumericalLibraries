@@ -37,5 +37,139 @@
                 <MenuItem Name="miFunctions" Header="{Binding Source={StaticResource Language}, Path=menuStrip_functionsToolStripMenuItem}" Click="miClick_OpenWindow"></MenuItem>
             </MenuItem>
         </Menu>
+
+        <!--  ********  -->
+        <!--  FORMATKA  -->
+        <!--  ********  -->
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="Auto"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <!--  LEWY PANEL  -->
+            <Grid MaxWidth="300">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="*" MaxHeight="90"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+
+                <!--funkcja input-->
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbFunction}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                            <ColumnDefinition Width="Auto"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Label Name="lblFx" Content="f(x)" Visibility="Collapsed"></Label>
+                        <ComboBox Name="cmbSpecialFunction" Grid.Column="1" Visibility="Collapsed">
+                            <ComboBoxItem Content="Funkcja Bessela" IsSelected="True" />
+                            <ComboBoxItem Content="Sferyczna funkcja B." />
+                            <ComboBoxItem Content="Pochodna sfer. f. B." />
+                            <ComboBoxItem Content="Funkcja Neumana" />
+                            <ComboBoxItem Content="Sferyczna funkcja N." />
+                            <ComboBoxItem Content="Pochodna sfer. f. N." />
+                            <ComboBoxItem Content="F. hipergeometryczna 0F 1" />
+                            <ComboBoxItem Content="F. hipergeometryczna 1F 1" />
+                            <ComboBoxItem Content="F. hipergeometryczna 2F 1" />
+                        </ComboBox>
+                        <TextBox Name="txtFunction" Grid.Column="2"></TextBox>
+                        <TextBox Name="txtFirstCommandArgument" Grid.Column="3" Visibility="Collapsed"></TextBox>
+                        <TextBox Name="txtSecondCommandArgument" Grid.Column="4" Visibility="Collapsed"></TextBox>
+                        <TextBox Name="txtThirdCommandArgument" Grid.Column="5" Visibility="Collapsed"></TextBox>
+                        <TextBox Name="txtFourthCommandArgument" Grid.Column="6" Visibility="Collapsed"></TextBox>
+                        <Button Name="btnHelp" Content="?" Grid.Column="7" Margin="5,0,0,0"></Button>
+                    </Grid>
+                </GroupBox>
+
+                <!--Radie operacji-->
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbOperation}" Grid.Row="1" Margin="0,5,0,0">
+                    <WrapPanel>
+                        <WrapPanel.Resources>
+                            <Style TargetType="{x:Type RadioButton}">
+                                <Setter Property="Margin" Value="3"></Setter>
+                            </Style>
+                        </WrapPanel.Resources>
+                        <RadioButton Name="rbCalculator" Content="{Binding Source={StaticResource Language}, Path=rbCalculator}"></RadioButton>
+                        <RadioButton Name="rbRoot" Content="{Binding Source={StaticResource Language}, Path=rbRoot}"></RadioButton>
+                        <RadioButton Name="rbSpecialFunction" Content="{Binding Source={StaticResource Language}, Path=rbSpecialFunction}"></RadioButton>
+                        <RadioButton Name="rbDerivativePoint" Content="{Binding Source={StaticResource Language}, Path=rbDerivativePoint}"></RadioButton>
+                        <RadioButton Name="rbDerivativePointBis" Content="{Binding Source={StaticResource Language}, Path=rbDerivativePointBis}"></RadioButton>
+                        <RadioButton Name="rbIntegral" Content="{Binding Source={StaticResource Language}, Path=rbIntegral}"></RadioButton>
+                        <RadioButton Name="rbDifferential" Content="{Binding Source={StaticResource Language}, Path=rbDifferential}"></RadioButton>
+                        <RadioButton Name="rbDifferentialII" Content="{Binding Source={StaticResource Language}, Path=rbDifferentialII}"></RadioButton>
+                        <RadioButton Name="rbPoint" Content="{Binding Source={StaticResource Language}, Path=rbPoint}"></RadioButton>
+                    </WrapPanel>
+                </GroupBox>
+
+                <!--Punkt i warunki-->
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbPoint}" Grid.Row="2" Margin="0,5,0,0">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label Content="x = "></Label>
+                        <TextBox Name="txtPoint" Width="100"></TextBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbConditions}" Grid.Row="3" Margin="0,5,0,0">
+                    <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                        <Label Name="lblFrom" Content="f ( "></Label>
+                        <TextBox Name="txtFrom" Width="60"></TextBox>
+                        <Label Name="lblTo" Content=" ) = "></Label>
+                        <TextBox Name="txtTo" Width="60"></TextBox>
+                    </StackPanel>
+                </GroupBox>
+
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbConditionsII}" Grid.Row="4" Margin="0,5,0,0" Visibility="Collapsed">
+                    <WrapPanel HorizontalAlignment="Center">
+                        <Label Content="f ( "></Label>
+                        <TextBox Name="txtFromII" Width="60"></TextBox>
+                        <Label Content=" ) = "></Label>
+                        <TextBox Name="txtToII" Width="60"></TextBox>
+                    </WrapPanel>
+                </GroupBox>
+
+                <!--Wynik-->
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbResult}" Grid.Row="5" Margin="0,5,0,0">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBox Name="txtResult" Width="200" Margin="0,10,0,0"></TextBox>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                            <Label Content="{Binding Source={StaticResource Language}, Path=lblCalculationTime}"></Label>
+                            <Label Name="lblTime" Content="00:00.000000"></Label>
+                        </StackPanel>
+                        <Button Name="btnCompute" Content="{Binding Source={StaticResource Language}, Path=btnCompute}" HorizontalAlignment="Center"></Button>
+                    </StackPanel>
+                </GroupBox>
+
+            </Grid>
+
+            <!--  ŚRODKOWY PANEL  -->
+            <ContentControl Grid.Column="1" Margin="5,9,5,15">
+                <Border BorderBrush="DarkGray" BorderThickness="2,2,0,0">
+                    <Border BorderBrush="#D0D0D0" BorderThickness="0,0,2,2">
+                        <Image Name="picGraph"></Image>
+                    </Border>
+                </Border>
+            </ContentControl>
+
+
+            <!--  PRAWY PANEL  -->
+            <StackPanel Grid.Column="2">
+                <GroupBox Header="{Binding Source={StaticResource Language}, Path=gbDrawFunction}">
+                    
+                </GroupBox>
+            </StackPanel>
+        </Grid>
+        
     </Grid>
 </Window>

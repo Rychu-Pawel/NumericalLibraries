@@ -546,7 +546,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Wartości</value>
   </data>
   <data name="ProportionsForm_lblDescription" xml:space="preserve">
-    <value>Umieść x w tylko jednym polu:</value>
+    <value>Umieść "x" w tylko jednym polu:</value>
   </data>
   <data name="ProportionsForm_ProportionsForm" xml:space="preserve">
     <value>Proporcje</value>
