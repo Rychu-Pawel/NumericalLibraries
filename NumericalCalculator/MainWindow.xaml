@@ -2,7 +2,7 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:NumericalCalculator.Translations"
-        Title="{Binding Source={StaticResource Language}, Path=ApplicationName}" Height="510" Width="868">
+        Title="{Binding Source={StaticResource Language}, Path=ApplicationName}" Height="450" MinHeight="450" MinWidth="900" Width="948">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -154,7 +154,7 @@
             </Grid>
 
             <!--  ŚRODKOWY PANEL  -->
-            <ContentControl Grid.Column="1" Margin="5,9,5,15">
+            <ContentControl Grid.Column="1" Margin="5,9,5,7">
                 <Border BorderBrush="DarkGray" BorderThickness="2,2,0,0">
                     <Border BorderBrush="#D0D0D0" BorderThickness="0,0,2,2">
                         <Image Name="picGraph"></Image>
@@ -169,7 +169,7 @@
                     <StackPanel>
                         <StackPanel.Resources>
                             <Style TargetType="{x:Type CheckBox}">
-                                <Setter Property="Margin" Value="0,9,0,9"></Setter>
+                                <Setter Property="Margin" Value="0,5,0,5"></Setter>
                             </Style>
                         </StackPanel.Resources>
                         <CheckBox Name="chkFunction" Content="{Binding Source={StaticResource Language}, Path=chkFunction}" Foreground="Blue"></CheckBox>
@@ -179,7 +179,7 @@
                         <CheckBox Name="chkDifferentialII" Content="{Binding Source={StaticResource Language}, Path=chkDifferentialII}" Foreground="Maroon"></CheckBox>
                         <StackPanel Orientation="Horizontal">
                             <CheckBox Name="chkSpecialFunction" Content="{Binding Source={StaticResource Language}, Path=chkSpecialFunction}" VerticalAlignment="Center" Foreground="#FFFF7F00"></CheckBox>
-                            <Button Name="btnSpecialFunction" Content="?" Margin="5"></Button>
+                            <Button Name="btnSpecialFunction" Content="?" Margin="5,0,0,0" Height="22" Width="29"></Button>
                         </StackPanel>
                         <Grid>
                             <Grid.RowDefinitions>
@@ -209,22 +209,18 @@
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
-                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="Auto"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
                         <Label Content="x:"></Label>
-                        <TextBox Text="-18.75" Name="txtXFrom" Grid.Column="1" Margin="5,0,5,0"></TextBox>
-                        <TextBox Text="18.75" Name="txtXTo" Grid.Column="2" Margin="0,0,5,0"></TextBox>
-                        <CheckBox Name="chkX" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image></Image>
-                        </CheckBox>
+                        <TextBox Text="-18.75" Name="txtXFrom" Grid.Column="1" Margin="5,0,2.5,0"></TextBox>
+                        <TextBox Text="18.75" Name="txtXTo" Grid.Column="2" Margin="2.5,0,5,0"></TextBox>
+                        <CheckBox Name="chkX" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource GraphCheckBox}"></CheckBox>
                         <Label Content="y:" Grid.Row="1"></Label>
-                        <TextBox Text="-16.25" Name="txtYFrom" Grid.Column="1" Grid.Row="1" Margin="5,0,5,0"></TextBox>
-                        <TextBox Text="16.25" Name="txtYTo" Grid.Column="2" Grid.Row="1" Margin="0,0,5,0"></TextBox>
-                        <CheckBox Name="chkY" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Image></Image>
-                        </CheckBox>
+                        <TextBox Text="-16.25" Name="txtYFrom" Grid.Column="1" Grid.Row="1" Margin="5,0,2.5,0"></TextBox>
+                        <TextBox Text="16.25" Name="txtYTo" Grid.Column="2" Grid.Row="1" Margin="2.5,0,5,0"></TextBox>
+                        <CheckBox Name="chkY" Grid.Column="3" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Template="{StaticResource GraphCheckBox}"></CheckBox>
                         <CheckBox Name="chkRescaling" Content="{Binding Source={StaticResource Language}, Path=chkRescaling}" Grid.Row="2" Grid.ColumnSpan="4" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,5,0,0"></CheckBox>
                     </Grid>
                 </GroupBox>

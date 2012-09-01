@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Threading;
 using System.Globalization;
 using Settings = NumericalCalculator.Properties.Settings;
+using System.Reflection;
 
 namespace NumericalCalculator.Translations
 {
@@ -52,6 +53,22 @@ namespace NumericalCalculator.Translations
 
             //Odświeżenie gui
             RefreshGUI();
+        }
+
+        public static string GetString(string property)
+        {
+            Type language = typeof(Language);
+            PropertyInfo pi = language.GetProperty(property);
+
+            if (pi == null)
+                return string.Empty;
+
+            object value = pi.GetValue(language, null);
+
+            if (value == null)
+                return string.Empty;
+
+            return value.ToString();
         }
 
         public static void RefreshGUI()

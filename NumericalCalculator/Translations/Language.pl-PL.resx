@@ -603,7 +603,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
     <value>Wystąpił nieoczekiwany wyjątek. Sprawdź poprawność wprowadzonej formuły!</value>
   </data>
   <data name="ThereCanBeOnlyOneVariableInProportionException" xml:space="preserve">
-    <value>W proporcji może być tylko jedna niewiadomoa!</value>
+    <value>W proporcji może być tylko jedna niewiadoma!</value>
   </data>
   <data name="ToConversionException" xml:space="preserve">
     <value>Niepoprawny punkt do!</value>

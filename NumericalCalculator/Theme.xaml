@@ -8,5 +8,14 @@
     <Style TargetType="{x:Type TextBox}">
         <Setter Property="Height" Value="22"></Setter>
     </Style>
+    
+    <ControlTemplate x:Key="GraphCheckBox" TargetType="CheckBox">
+        <Image Name="TickImage" Source="Resources/unlock.gif"></Image>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter TargetName="TickImage" Property="Source" Value="Resources/lock.gif"></Setter>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
         
 </ResourceDictionary>
