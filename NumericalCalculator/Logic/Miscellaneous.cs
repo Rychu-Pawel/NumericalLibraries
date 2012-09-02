@@ -31,6 +31,7 @@ namespace NumericalCalculator
 
         string text = string.Empty;
         double value = double.NaN;
+        bool boolValue = false;
 
         public string Text
         {
@@ -48,6 +49,14 @@ namespace NumericalCalculator
                 else
                     this.value = double.NaN;
 
+                //Zrzutowanie na bool
+                bool b;
+
+                if (bool.TryParse(text, out b))
+                    boolValue = b;
+                else
+                    b = false;
+
                 //Powiadomienie
                 Notify();
             }
@@ -64,11 +73,34 @@ namespace NumericalCalculator
                 //Zrzutowanie na string
                 text = value.ToString();
 
+                //Zrzutowanie na bool
+                boolValue = value > 0;
+
                 //Powiadomienie
                 Notify();
             }
         }
 
+        public bool Bool
+        {
+            get { return boolValue; }
+            set
+            {
+                //Przypisanie wartosci
+                this.boolValue = value;
+
+                //Zrzutowanie na string
+                text = value.ToString();
+
+                //Zrzutowanie na double
+                this.value = value ? 1 : 0;
+
+                //Powiadomienie
+                Notify();
+            }
+        }
+
+        //Konstruktor
         public Property()
         {
             //Sprawdzenie czy system przyjmuje kropkę czy przecinek
@@ -87,6 +119,22 @@ namespace NumericalCalculator
             }
         }
 
+        //Operatory
+        static public implicit operator double(Property property)
+        {
+            return property.value;
+        }
+
+        static public implicit operator string(Property property)
+        {
+            return (property.text);
+        }
+
+        static public implicit operator bool(Property property)
+        {
+            return property.boolValue;
+        }
+
         //INotifyPropertyChanged
         public event PropertyChangedEventHandler PropertyChanged;
 
@@ -96,6 +144,7 @@ namespace NumericalCalculator
             {
                 PropertyChanged(this, new PropertyChangedEventArgs("Value"));
                 PropertyChanged(this, new PropertyChangedEventArgs("Text"));
+                PropertyChanged(this, new PropertyChangedEventArgs("Bool"));
             }
         }
     }

@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:NumericalCalculator.Translations"
         Title="Interpolation" Height="420" Width="300" MinWidth="260" MinHeight="270">
-    <Grid Margin="10">
+    <Grid Margin="10" Name="pnlInterpolation">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -11,14 +11,14 @@
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
         </Grid.RowDefinitions>
-        <DataGrid Name="dgInterpolation" Grid.Row="0">
+        <DataGrid Name="dgInterpolation" Grid.Row="0" AutoGenerateColumns="False" CanUserDeleteRows="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="x" Width="*" />
-                <DataGridTextColumn Header="f(x)" Width="*"/>
+                <DataGridTextColumn Binding="{Binding Path=X}"  Header="x" Width="*" />
+                <DataGridTextColumn Binding="{Binding Path=Y}"  Header="f(x)" Width="*"/>
             </DataGrid.Columns>
         </DataGrid>
         <GroupBox Grid.Row="1" Header="{Binding Source={StaticResource Language}, Path=InterpolationForm_gbInterpolation}" Margin="0,10,0,0">
-            <RadioButton Content="{Binding Source={StaticResource Language}, Path=InterpolationForm_rbInterpolation}" Name="rbInterpolation" HorizontalAlignment="Center" GroupName="RBGroup" IsChecked="True" Margin="0,5,0,5"></RadioButton>
+            <RadioButton Content="{Binding Source={StaticResource Language}, Path=InterpolationForm_rbInterpolation}" Name="rbInterpolation" HorizontalAlignment="Center" GroupName="RBGroup" IsChecked="{Binding Interpolation.Bool}" Margin="0,5,0,5"></RadioButton>
         </GroupBox>
         <GroupBox Grid.Row="2" Header="{Binding Source={StaticResource Language}, Path=InterpolationForm_gbApproximation}" Margin="0,10,0,0">
             <Grid>
@@ -26,10 +26,10 @@
                     <ColumnDefinition></ColumnDefinition>
                     <ColumnDefinition></ColumnDefinition>
                 </Grid.ColumnDefinitions>
-                <RadioButton Content="{Binding Source={StaticResource Language}, Path=InterpolationForm_rbApproximation}" Name="rbApproximation" HorizontalAlignment="Right" VerticalAlignment="Center" GroupName="RBGroup" Margin="0,0,5,0"></RadioButton>
+                <RadioButton Content="{Binding Source={StaticResource Language}, Path=InterpolationForm_rbApproximation}" Name="rbApproximation" HorizontalAlignment="Right" VerticalAlignment="Center" GroupName="RBGroup" Margin="0,0,5,0" IsChecked="{Binding Approximation.Bool}"></RadioButton>
                 <WrapPanel Grid.Column="1" Margin="5,0,0,0">
                     <Label Content="{Binding Source={StaticResource Language}, Path=InterpolationForm_lblApproximationLevel}"></Label>
-                    <TextBox Name="txtLevel" Text="2" Width="30" VerticalAlignment="Center"></TextBox>
+                    <TextBox Text="{Binding Level.Text}" Name="txtLevel" Width="30" VerticalAlignment="Center"></TextBox>
                 </WrapPanel>                
             </Grid>
         </GroupBox>
@@ -39,7 +39,7 @@
                 <ColumnDefinition Width="*"></ColumnDefinition>
             </Grid.ColumnDefinitions>
             <Label Content="f(x) = " Grid.Column="0" VerticalAlignment="Center"></Label>
-            <TextBox Name="txtFunction" Grid.Column="1" VerticalAlignment="Center"></TextBox>
+            <TextBox Text="{Binding Result.Text}" Name="txtFunction" Grid.Column="1" VerticalAlignment="Center"></TextBox>
         </Grid>
         <Grid Grid.Row="4" Margin="0,20,0,0">
             <Grid.ColumnDefinitions>

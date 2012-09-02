@@ -61,7 +61,10 @@ namespace NumericalCalculator
             if (mi.Name == miLinearEquations.Name)
                 window = new LinearEquationWindow();
             else if (mi.Name == miInterpolation.Name)
+            {
                 window = new InterpolationWindow();
+                (window as InterpolationWindow).FunctionAccepted += new InterpolationWindow.FunctionAcceptedEventHandler(MainWindow_FunctionAccepted);
+            }
             else if (mi.Name == miProportion.Name)
                 window = new ProportionWindow();
             else if (mi.Name == miMean.Name)
@@ -74,6 +77,11 @@ namespace NumericalCalculator
             //Pokazanie okna
             if (window != null)
                 window.Show();
+        }
+
+        void MainWindow_FunctionAccepted(string function)
+        {
+            txtFunction.Text = function;
         }
     }
 }

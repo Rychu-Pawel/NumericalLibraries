@@ -49,8 +49,8 @@ namespace NumericalCalculator
 
         public PointD()
         {
-            x = double.NaN;
-            y = double.NaN;
+            x = 0.0;
+            y = 0.0;
 
             isEmpty = true;
         }

@@ -10,6 +10,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using NumericalCalculator.Logic;
 
 namespace NumericalCalculator
 {
@@ -18,9 +19,19 @@ namespace NumericalCalculator
     /// </summary>
     public partial class LinearEquationWindow : Window
     {
+        LinearEquationWindowLogic logic;
+
         public LinearEquationWindow()
         {
             InitializeComponent();
+
+            logic = new LinearEquationWindowLogic(this);
+            logic.VariablesCount = "2";
+
+            pnlLinearEquation.DataContext = logic;
+
+            dgEquations.ItemsSource = logic.LinearEquationCoefficients;
+            dgResults.ItemsSource = logic.LinearEquationResults;
         }
 
         private void btnCompute_Click(object sender, RoutedEventArgs e)
