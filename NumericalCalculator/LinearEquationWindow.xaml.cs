@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using NumericalCalculator.Logic;
+using NumericalCalculator.Translations;
 
 namespace NumericalCalculator
 {
@@ -36,7 +37,40 @@ namespace NumericalCalculator
 
         private void btnCompute_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                double[,] coefficients = logic.GetCoefficients();
 
+                LinearEquation gauss = new LinearEquation(coefficients);
+                logic.LinearEquationResults[0].Values = gauss.Compute();
+
+                dgResults.Items.Refresh();
+            }
+            catch (NullReferenceException)
+            {
+                HandleException(Translation.GetString("LinearEquation_NullReferenceException"));
+            }
+            catch (FormatException)
+            {
+                HandleException(Translation.GetString("LinearEquation_FormatException"));
+            }
+            catch (Exception excep)
+            {
+                string message = Translation.GetString(excep.GetType().Name);
+
+                if (string.IsNullOrEmpty(message))
+                    message = excep.Message;
+
+                HandleException(message);
+            }
+        }
+
+        private void HandleException(string message)
+        {
+            MessageBox.Show(message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+
+            //Czyszczenie resultow
+            logic.ClearResults();
         }
     }
 }

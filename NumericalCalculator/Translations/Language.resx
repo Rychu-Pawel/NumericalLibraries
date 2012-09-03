@@ -654,4 +654,7 @@ You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))</value>
   <data name="InterpolationForm_lblApproximationLevel" xml:space="preserve">
     <value>Level:</value>
   </data>
+  <data name="InconsistentSystemOfEquationsException" xml:space="preserve">
+    <value>Inconsistent system of equations</value>
+  </data>
 </root>

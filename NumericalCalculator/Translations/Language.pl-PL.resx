@@ -653,4 +653,7 @@ Program POTRAFI liczyć wyrażenia zagnieżdżone typu sin(cos(30)+tg(sqrt(0,4))
   <data name="InterpolationForm_lblApproximationLevel" xml:space="preserve">
     <value>Stopień:</value>
   </data>
+  <data name="InconsistentSystemOfEquationsException" xml:space="preserve">
+    <value>Układ równań jest sprzeczny!</value>
+  </data>
 </root>

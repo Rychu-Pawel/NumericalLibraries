@@ -514,6 +514,15 @@ namespace NumericalCalculator.Translations {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Inconsistent system of equations.
+        /// </summary>
+        public static string InconsistentSystemOfEquationsException {
+            get {
+                return ResourceManager.GetString("InconsistentSystemOfEquationsException", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Incorrect occurance of the E operator!.
         /// </summary>
         public static string IncorrectEOperatorOccurrenceException {

@@ -16,18 +16,9 @@
             <TextBox Name="txtNumberOfVariables" Text="{Binding VariablesCount}" Width="35"></TextBox>
         </WrapPanel>
         <DataGrid Name="dgEquations" Grid.Row="1" Margin="0,10,0,0" AutoGenerateColumns="False">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="x1" Width="*" />
-                <DataGridTextColumn Header="x2" Width="*"/>
-                <DataGridTextColumn Header="r" Width="*"/>
-            </DataGrid.Columns>-->
         </DataGrid>
         <Label Content="{Binding Source={StaticResource Language}, Path=LinearEquationForm_lblResults}" Grid.Row="2" Margin="0,10,0,0"></Label>
         <DataGrid Name="dgResults" Margin="0,2,0,0" Grid.Row="3" Height="44" AutoGenerateColumns="False" CanUserAddRows="False" CanUserDeleteRows="False" IsReadOnly="True">
-            <!--<DataGrid.Columns>
-                <DataGridTextColumn Header="x1" Width="*" />
-                <DataGridTextColumn Header="x2" Width="*"/>
-            </DataGrid.Columns>-->
         </DataGrid>
         <Button Name="btnCompute" Content="{Binding Source={StaticResource Language}, Path=MeanForm_btnCompute}" Click="btnCompute_Click" Margin="0,20,0,0" Grid.Row="4" HorizontalAlignment="Center"></Button>
     </Grid>

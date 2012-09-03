@@ -11,6 +11,9 @@ namespace NumericalCalculator.Logic
     {
         LinearEquationWindow window;
 
+        public LinearEquationBinding[] LinearEquationCoefficients { get; set; }
+        public LinearEquationBinding[] LinearEquationResults { get; set; }
+
         private string variablesCount;
 
         public string VariablesCount
@@ -45,6 +48,21 @@ namespace NumericalCalculator.Logic
                         window.dgEquations.Columns.Add(col);
                     }
 
+                    //Przepisanie wspolczynnikow do nowego datasource
+                    LinearEquationBinding[] oldCoefficients = (LinearEquationBinding[])window.dgEquations.ItemsSource;
+
+                    if (oldCoefficients != null)
+                    {
+                        for (int j = 0; j < oldCoefficients.Length && j < LinearEquationCoefficients.Length; j++)
+                        {
+                            LinearEquationBinding oldCoef = oldCoefficients[j];
+                            LinearEquationBinding newCoef = LinearEquationCoefficients[j];
+
+                            for (int k = 0; k < oldCoef.Values.Length && k < newCoef.Values.Length; k++)
+                                newCoef.Values[k] = oldCoef.Values[k];
+                        }
+                    }
+
                     window.dgEquations.ItemsSource = LinearEquationCoefficients;
 
                     //Wyniki
@@ -65,9 +83,6 @@ namespace NumericalCalculator.Logic
             }
         }
 
-        public LinearEquationBinding[] LinearEquationCoefficients { get; set; }
-        public LinearEquationBinding[] LinearEquationResults { get; set; }
-
         public LinearEquationWindowLogic(LinearEquationWindow lew)
         {
             window = lew;
@@ -76,6 +91,30 @@ namespace NumericalCalculator.Logic
             {
                 Text = "2"
             };
+        }
+
+        internal void ClearResults()
+        {
+            if (LinearEquationResults == null || LinearEquationResults[0] == null || LinearEquationResults[0].Values == null)
+                return;
+
+            for (int i = 0; i < LinearEquationResults[0].Values.Length; i++)
+                LinearEquationResults[0].Values[i] = 0.0d;
+        }
+
+        internal double[,] GetCoefficients()
+        {
+            int variablesCount = LinearEquationCoefficients.Length;
+
+            double[,] coefficients = new double[variablesCount, variablesCount + 1];
+
+            for (int i = 0; i < variablesCount; i++)
+            {
+                for (int j = 0; j < variablesCount + 1; j++)
+                    coefficients[i, j] = LinearEquationCoefficients[i].Values[j];
+            }
+
+            return coefficients;
         }
     }
 
