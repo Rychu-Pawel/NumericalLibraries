@@ -23,11 +23,15 @@ namespace NumericalCalculator
     /// </summary>
     public partial class MainWindow : Window
     {
-        MainWindowLogic logic = new MainWindowLogic();
+        MainWindowLogic logic;
 
         public MainWindow()
         {
             InitializeComponent();
+
+            logic = new MainWindowLogic(this);
+
+            pnlMainWindow.DataContext = logic;
         }
 
         private void miClose_Click(object sender, RoutedEventArgs e)
@@ -82,6 +86,29 @@ namespace NumericalCalculator
         void MainWindow_FunctionAccepted(string function)
         {
             txtFunction.Text = function;
+        }
+
+        private void btnSpecialFunction_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show(Translation.GetString("MessageBox_btnSpecialFunction_Click"), Translation.GetString("MessageBox_btnSpecialFunction_Click_Caption"), MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+
+        private void btnHelp_Click(object sender, RoutedEventArgs e)
+        {
+            FunctionsWindow fw = new FunctionsWindow();
+            fw.Show();
+        }
+
+        private void rb_Clicked(object sender, RoutedEventArgs e)
+        {
+            if (logic != null)
+                logic.RadioButtonChanged();
+        }
+
+        private void cmbSpecialFunction_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (logic != null)
+                logic.ComboSpecialChanged();
         }
     }
 }
