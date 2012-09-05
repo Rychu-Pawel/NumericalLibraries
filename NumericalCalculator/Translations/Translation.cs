@@ -14,7 +14,7 @@ namespace NumericalCalculator.Translations
     {
         private static ObjectDataProvider languageResource;
 
-        public Language GetResourceInstance()
+        public static Language GetResourceInstance()
         {
             return new Language();
         }

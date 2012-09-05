@@ -6,24 +6,24 @@ using System.ComponentModel;
 
 namespace NumericalCalculator
 {
-    //public enum ArgumentTypeEnum
-    //{
-    //    Point,
-    //    From,
-    //    To,
-    //    FromII,
-    //    ToII,
-    //    BesselFirst,
-    //    BesselThird,
-    //    BesselSecond,
-    //    BesselFourth,
-    //    Sampling,
-    //    Cutoff,
-    //    xFrom,
-    //    xTo,
-    //    yFrom,
-    //    yTo,
-    //}
+    public enum ArgumentTypeEnum
+    {
+        Point,
+        From,
+        To,
+        FromII,
+        ToII,
+        BesselFirst,
+        BesselThird,
+        BesselSecond,
+        BesselFourth,
+        Sampling,
+        Cutoff,
+        xFrom,
+        xTo,
+        yFrom,
+        yTo,
+    }
 
     class Property : INotifyPropertyChanged
     {
@@ -59,6 +59,14 @@ namespace NumericalCalculator
 
                 //Powiadomienie
                 Notify();
+            }
+        }
+
+        public string TextWithReplacedCommasAndDots
+        {
+            get
+            {
+                return text.Replace(changeFrom, changeTo);
             }
         }
 
