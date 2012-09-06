@@ -404,7 +404,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Interpolation, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Interpolation, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_0AF61AF36D17187C5E517F163B994356"
@@ -435,7 +435,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Integral, Version=1.0.4632.38863, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Integral, Version=1.0.4632.41857, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_3315D6E372472546D24C1209086D76A2"
@@ -466,7 +466,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Chart, Version=1.0.4632.38863, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Chart, Version=1.0.4632.41857, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_42DBF80968B367DECAC3DBC09A3C5F2F"
@@ -497,7 +497,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:FourierTransform, Version=1.0.4632.38863, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:FourierTransform, Version=1.0.4632.41857, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_43B7332455AC35EFDA229B8D4D0F74BF"
@@ -528,7 +528,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Hybrid, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Hybrid, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_5227FEDEB9FEA33795F7AFD81CBDA629"
@@ -559,7 +559,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Bessel, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Bessel, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_969B2B9E508E63724F0BFED3F189CCEC"
@@ -590,7 +590,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:LinearEquation, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:LinearEquation, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9B59F43D427E4DCD089858254689B382"
@@ -621,7 +621,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Differential, Version=1.0.4632.38863, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Differential, Version=1.0.4632.41857, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_B6A63D4F2F2ED6DD0D8A7EA2D67133B7"
@@ -652,7 +652,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Calculator, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Calculator, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C565EED539D4200A50FB9F4285D8CF0A"
@@ -683,7 +683,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Derivative, Version=1.0.4632.38862, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Derivative, Version=1.0.4632.41856, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_C78548525548CB6CB232DB1280050AB6"
@@ -734,7 +734,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:NumericalCalculatorCommon, Version=1.0.4632.38861, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:NumericalCalculatorCommon, Version=1.0.4632.41855, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F25EDA8EC96EF561CFF53C0F07A9C28E"
@@ -849,7 +849,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Numerical Calculator"
         "ProductCode" = "8:{4738F191-6976-4FC1-B2B3-B802F4BCE6FD}"
-        "PackageCode" = "8:{0F1627B8-5CFD-41FC-B23C-89774701485B}"
+        "PackageCode" = "8:{C155054E-3067-42B7-AF23-3A87CF1007F0}"
         "UpgradeCode" = "8:{FB2A48FC-B6E9-4970-8BCF-8C362E0548EF}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -1418,6 +1418,34 @@
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{CE084B9D-19B1-4670-8AF1-59C41799A930}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_609EA51DEB264CECAFA74EF580BD035A"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_540795CEC201495D8C93EBAAAB4CF228"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:LocalizedResourceDlls"
             "OutputProjectGuid" = "8:{CE084B9D-19B1-4670-8AF1-59C41799A930}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
