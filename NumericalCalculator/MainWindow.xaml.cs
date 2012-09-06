@@ -25,10 +25,6 @@ namespace NumericalCalculator
     {
         MainWindowLogic logic;
 
-        //PRZESUWANIE WYKRESU
-        bool graphMovingStarted = false;
-        Point startingPoint, endPoint;
-
         public MainWindow()
         {
             InitializeComponent();
@@ -143,121 +139,76 @@ namespace NumericalCalculator
         //Przesuwanie wykresu
         private void picGraph_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left)
+            if (e.ChangedButton == MouseButton.Left && (!string.IsNullOrEmpty(logic.Function) || rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
             {
-                startingPoint = e.GetPosition(picGraph);
-                graphMovingStarted = true;
+                logic.startingPoint = e.GetPosition(picGraph);
+                logic.graphMovingStarted = true;
             }
         }
 
         private void picGraph_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            if (e.ChangedButton == MouseButton.Left && graphMovingStarted && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
+            if (e.ChangedButton == MouseButton.Left && logic.graphMovingStarted && (!string.IsNullOrEmpty(logic.Function) || rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
             {
-                graphMovingStarted = false;
-                endPoint = e.GetPosition(picGraph);
+                if (!NumericalCalculator.Properties.Settings.Default.chkMiGraphPreviewMoving_Checked)
+                    logic.ChartMouseMove(e.GetPosition(picGraph));
+
+                logic.graphMovingStarted = false;
+                logic.endPoint = e.GetPosition(picGraph);
             }
         }
 
         private void picGraph_MouseMove(object sender, MouseEventArgs e)
         {
-            try
+            if (NumericalCalculator.Properties.Settings.Default.chkMiGraphPreviewMoving_Checked)
+                logic.ChartMouseMove(e.GetPosition(picGraph));
+        }
+
+        private void picGraph_MouseWheel(object sender, MouseWheelEventArgs e)
+        {
+            logic.ChartMouseWheel(e.Delta);
+        }
+
+        private void picGraph_MouseLeave(object sender, MouseEventArgs e)
+        {
+            if (logic.graphMovingStarted && (!string.IsNullOrEmpty(logic.Function) || rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
             {
-                if (graphMovingStarted && (!string.IsNullOrEmpty(txtFunction.Text) || rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
-                {
-                    //Zmienne
-                    double xFrom, xTo, yFrom, yTo;
-
-                    xFrom = xTo = yFrom = yTo = 0d;
-
-                    try
-                    {
-                        xFrom = logic.GetArgument(ArgumentTypeEnum.xFrom);
-                        xTo = logic.GetArgument(ArgumentTypeEnum.xTo);
-                        yFrom = logic.GetArgument(ArgumentTypeEnum.yFrom);
-                        yTo = logic.GetArgument(ArgumentTypeEnum.yTo); ;
-                    }
-                    catch
-                    {
-                        MessageBox.Show(Translation.GetString("picGraph_MouseUp_CoordinatesException"), Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
-                    }
-
-                    double factorX = 0, factorY = 0;
-                    endPoint = e.GetPosition(chartContainer);
-
-                    // Obliczanie wspolczynnikow X
-                    if (xFrom * xTo <= 0)
-                        factorX = chartContainer.ActualWidth / (-xFrom + xTo);
-                    else if (xFrom < 0)
-                        factorX = chartContainer.ActualWidth / (-xFrom + xTo);
-                    else
-                        factorX = chartContainer.ActualWidth / (xTo - xFrom);
-
-                    // Obliczanie wspolczynnikow Y
-                    if (yFrom * yTo <= 0)
-                        factorY = chartContainer.ActualHeight / (-yFrom + yTo);
-                    else if (yFrom < 0 && yTo < 0)
-                        factorY = chartContainer.ActualHeight / (-yFrom + yTo);
-                    else
-                        factorY = chartContainer.ActualHeight / (yTo - yFrom);
-
-                    //Ustalenie przesuniecia
-                    double differenceX = (endPoint.X - startingPoint.X) / factorX;
-                    double differenceY = ((endPoint.Y - chartContainer.ActualWidth) - (startingPoint.Y - chartContainer.ActualWidth)) / factorY;
-
-                    //Zapisanie przesuniec
-                    xFrom -= differenceX;
-                    xTo -= differenceX;
-                    yFrom += differenceY;
-                    yTo += differenceY;
-
-                    startingPoint = e.GetPosition(chartContainer);
-
-                    if (xFrom > logic.graphMax)
-                        xFrom = logic.graphMax;
-                    else if (xFrom < logic.graphMin)
-                        xFrom = logic.graphMin;
-
-                    if (xTo > logic.graphMax)
-                        xTo = logic.graphMax;
-                    else if (xTo < logic.graphMin)
-                        xTo = logic.graphMin;
-
-                    if (yFrom > logic.graphMax)
-                        yFrom = logic.graphMax;
-                    else if (yFrom < logic.graphMin)
-                        yFrom = logic.graphMin;
-
-                    if (yTo > logic.graphMax)
-                        yTo = logic.graphMax;
-                    else if (yTo < logic.graphMin)
-                        yTo = logic.graphMin;
-
-
-                    if (!chkX.IsChecked.GetValueOrDefault(false))
-                    {
-                        txtXFrom.Text = Convert.ToString(xFrom);
-                        txtXTo.Text = Convert.ToString(xTo);
-                    }
-
-                    if (!chkY.IsChecked.GetValueOrDefault(false))
-                    {
-                        txtYFrom.Text = Convert.ToString(yFrom);
-                        txtYTo.Text = Convert.ToString(yTo);
-                    }
-
-                    //Narysowanie nowego wykresu
-                    if (logic.IsFunctionDrawn)
-                        logic.DrawGraph(false);
-                    else
-                        logic.ClearGraph();
-                }
+                logic.graphMovingStarted = false;
+                logic.endPoint = e.GetPosition(picGraph);
             }
-            catch (Exception ex)
-            {
-                //TODO: Lepsza obsluga bledow        
-                MessageBox.Show(ex.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        }
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (logic.IsFunctionDrawn && NumericalCalculator.Properties.Settings.Default.chkMiGraphPreviewScaling_Checked)
+                logic.DrawGraph(false);
+            else
+                logic.ClearGraph();
+        }
+
+        private void txtFunction_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            logic.IsFunctionDrawn = false;
+        }
+
+        private void txtFrom_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            logic.ConditionIIPoint.Text = logic.ConditionPoint.Text;
+        }
+
+        private void cmClick_SaveAsText(object sender, RoutedEventArgs e)
+        {
+            logic.ChartToText();
+        }
+
+        private void cmClick_Save(object sender, RoutedEventArgs e)
+        {
+            logic.ChartToFile();
+        }
+
+        private void cmClick_Copy(object sender, RoutedEventArgs e)
+        {
+            logic.ChartToClipboard();
         }
     }
 }

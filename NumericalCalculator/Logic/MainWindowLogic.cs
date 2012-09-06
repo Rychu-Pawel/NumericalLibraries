@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.IO;
 using System.Drawing;
+using Microsoft.Win32;
 
 namespace NumericalCalculator.Logic
 {
@@ -19,6 +20,10 @@ namespace NumericalCalculator.Logic
     {
         MainWindow window;
         ObjectDataProvider objectDataProvider;
+
+        //PRZESUWANIE WYKRESU
+        public bool graphMovingStarted = false;
+        public System.Windows.Point startingPoint, endPoint;
 
         public bool IsFunctionDrawn { get; set; }
 
@@ -474,7 +479,7 @@ namespace NumericalCalculator.Logic
         private void HandleException(Stopwatch stopWatch, string message)
         {
             stopWatch.Stop();
-            window.lblTime.Content = stopWatch.Elapsed.ToString().Substring(3, 13);
+            window.lblTime.Content = stopWatch.ElapsedTicks == 0 ? stopWatch.Elapsed.ToString() : stopWatch.Elapsed.ToString().Substring(3, 13);
             Result.Text = "";
 
             MessageBox.Show(message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
@@ -521,25 +526,19 @@ namespace NumericalCalculator.Logic
             return new Chart(Function.TextWithReplacedCommasAndDots, (int)window.chartContainer.ActualWidth, (int)window.chartContainer.ActualHeight, GetArgument(ArgumentTypeEnum.xFrom), GetArgument(ArgumentTypeEnum.xTo), GetArgument(ArgumentTypeEnum.yFrom), GetArgument(ArgumentTypeEnum.yTo));
         }
 
-        public BitmapImage GetChartImage(Chart chart)
+        public BitmapSource GetChartImage(Chart chart)
         {
-            // ImageSource ...
-            BitmapImage bi = new BitmapImage();
-            bi.BeginInit();
-
-            MemoryStream ms = new MemoryStream();
-
             // Save to a memory stream...
+            MemoryStream ms = new MemoryStream();
             chart.Image.Save(ms, System.Drawing.Imaging.ImageFormat.Bmp);
 
             // Rewind the stream...
             ms.Seek(0, SeekOrigin.Begin);
 
-            // Tell the WPF image to use this stream...
-            bi.StreamSource = ms;
-            bi.EndInit();
+            //Make source
+            BmpBitmapDecoder decoder = new BmpBitmapDecoder(ms, BitmapCreateOptions.PreservePixelFormat, BitmapCacheOption.Default);
 
-            return bi;
+            return decoder.Frames[0];
         }
 
         public void Compute()
@@ -1042,6 +1041,356 @@ namespace NumericalCalculator.Logic
                     default:
                         break;
                 }
+            }
+        }
+
+        public void ChartMouseMove(System.Windows.Point point)
+        {
+            try
+            {
+                if (graphMovingStarted && (!string.IsNullOrEmpty(Function) || window.rbSpecialFunction.IsChecked.GetValueOrDefault(false)))
+                {
+                    //Zmienne
+                    double xFrom, xTo, yFrom, yTo;
+
+                    xFrom = xTo = yFrom = yTo = 0d;
+
+                    try
+                    {
+                        xFrom = GetArgument(ArgumentTypeEnum.xFrom);
+                        xTo = GetArgument(ArgumentTypeEnum.xTo);
+                        yFrom = GetArgument(ArgumentTypeEnum.yFrom);
+                        yTo = GetArgument(ArgumentTypeEnum.yTo); ;
+                    }
+                    catch
+                    {
+                        MessageBox.Show(Translation.GetString("picGraph_MouseUp_CoordinatesException"), Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                    }
+
+                    double factorX = 0, factorY = 0;
+                    endPoint = point;
+
+                    // Obliczanie wspolczynnikow X
+                    if (xFrom * xTo <= 0)
+                        factorX = window.chartContainer.ActualWidth / (-xFrom + xTo);
+                    else if (xFrom < 0)
+                        factorX = window.chartContainer.ActualWidth / (-xFrom + xTo);
+                    else
+                        factorX = window.chartContainer.ActualWidth / (xTo - xFrom);
+
+                    // Obliczanie wspolczynnikow Y
+                    if (yFrom * yTo <= 0)
+                        factorY = window.chartContainer.ActualHeight / (-yFrom + yTo);
+                    else if (yFrom < 0 && yTo < 0)
+                        factorY = window.chartContainer.ActualHeight / (-yFrom + yTo);
+                    else
+                        factorY = window.chartContainer.ActualHeight / (yTo - yFrom);
+
+                    //Ustalenie przesuniecia
+                    double differenceX = (endPoint.X - startingPoint.X) / factorX;
+                    double differenceY = ((endPoint.Y - window.chartContainer.ActualWidth) - (startingPoint.Y - window.chartContainer.ActualWidth)) / factorY;
+
+                    //Zapisanie przesuniec
+                    xFrom -= differenceX;
+                    xTo -= differenceX;
+                    yFrom += differenceY;
+                    yTo += differenceY;
+
+                    startingPoint = point;
+
+                    if (xFrom > graphMax)
+                        xFrom = graphMax;
+                    else if (xFrom < graphMin)
+                        xFrom = graphMin;
+
+                    if (xTo > graphMax)
+                        xTo = graphMax;
+                    else if (xTo < graphMin)
+                        xTo = graphMin;
+
+                    if (yFrom > graphMax)
+                        yFrom = graphMax;
+                    else if (yFrom < graphMin)
+                        yFrom = graphMin;
+
+                    if (yTo > graphMax)
+                        yTo = graphMax;
+                    else if (yTo < graphMin)
+                        yTo = graphMin;
+
+                    if (!window.chkX.IsChecked.GetValueOrDefault(false))
+                    {
+                        this.xFrom.Value = xFrom;
+                        this.xTo.Value = xTo;
+                    }
+
+                    if (!window.chkY.IsChecked.GetValueOrDefault(false))
+                    {
+                        this.yFrom.Value = yFrom;
+                        this.yTo.Value = yTo;
+                    }
+
+                    //Narysowanie nowego wykresu
+                    if (IsFunctionDrawn)
+                        DrawGraph(false);
+                    else
+                        ClearGraph();
+                }
+            }
+            catch (Exception ex)
+            {
+                //TODO: Lepsza obsluga bledow        
+                MessageBox.Show(ex.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        public void ChartMouseWheel(int delta)
+        {
+            if (!string.IsNullOrEmpty(Function) || window.rbSpecialFunction.IsChecked.GetValueOrDefault(false))
+            {
+                try
+                {
+                    double xFrom, xTo, yFrom, yTo;
+
+                    //Zmienienie nieskończoności w max
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
+                        this.xFrom.Text = graphMax.ToString();
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.xTo)))
+                        this.xTo.Text = graphMax.ToString();
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
+                        this.yFrom.Text = graphMax.ToString();
+                    if (double.IsPositiveInfinity(GetArgument(ArgumentTypeEnum.yTo)))
+                        this.yTo.Text = graphMax.ToString();
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xFrom)))
+                        this.xFrom.Text = graphMin.ToString();
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.xTo)))
+                        this.xTo.Text = graphMin.ToString();
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yFrom)))
+                        this.yFrom.Text = graphMin.ToString();
+                    if (double.IsNegativeInfinity(GetArgument(ArgumentTypeEnum.yTo)))
+                        this.yTo.Text = graphMin.ToString();
+
+                    xFrom = Math.Round(GetArgument(ArgumentTypeEnum.xFrom), 2);
+                    xTo = Math.Round(GetArgument(ArgumentTypeEnum.xTo), 2);
+                    yFrom = Math.Round(GetArgument(ArgumentTypeEnum.yFrom), 2);
+                    yTo = Math.Round(GetArgument(ArgumentTypeEnum.yTo), 2);
+
+                    //Obliczenie nowych wartosci
+                    if (delta > 0)
+                    {
+                        if (!window.chkX.IsChecked.GetValueOrDefault(false))
+                        {
+                            double scaleX = Math.Abs(xTo - xFrom);
+                            double differenceX = scaleX / 4;
+
+                            xFrom += differenceX;
+                            xTo -= differenceX;
+                        }
+
+                        if (!window.chkY.IsChecked.GetValueOrDefault(false))
+                        {
+                            double scaleY = Math.Abs(yTo - yFrom);
+                            double differenceY = scaleY / 4;
+
+                            yFrom += differenceY;
+                            yTo -= differenceY;
+                        }
+                    }
+                    else if (delta < 0)
+                    {
+                        if (!window.chkX.IsChecked.GetValueOrDefault(false))
+                        {
+                            double scaleX = Math.Abs(xTo - xFrom);
+                            double differenceX = scaleX / 2;
+
+                            xFrom -= differenceX;
+                            xTo += differenceX;
+                        }
+
+                        if (!window.chkY.IsChecked.GetValueOrDefault(false))
+                        {
+                            double scaleY = Math.Abs(yTo - yFrom);
+                            double differenceY = scaleY / 2;
+
+                            yFrom -= differenceY;
+                            yTo += differenceY;
+                        }
+                    }
+
+                    //Obsluga błędu, że czasem wylicza takie same wartości :/
+                    if (xFrom == xTo)
+                    {
+                        xFrom -= 0.05;
+                        xTo += 0.05;
+                    }
+
+                    if (yFrom == yTo)
+                    {
+                        yFrom -= 0.05;
+                        yTo += 0.05;
+                    }
+
+                    //Sprawdzenie czy wartosci nie sa zbyt bliskie zeru
+                    if (xFrom < 0.1 && xFrom > 0)
+                        xFrom = 0.1;
+                    if (xFrom > -0.1 && xFrom < 0)
+                        xFrom = -0.1;
+
+                    if (xTo < 0.1 && xTo > 0)
+                        xTo = 0.1;
+                    if (xTo > -0.1 && xTo < 0)
+                        xTo = -0.1;
+
+                    if (yFrom < 0.1 && yFrom > 0)
+                        yFrom = 0.1;
+                    if (yFrom > -0.1 && yFrom < 0)
+                        yFrom = -0.1;
+
+                    if (yTo < 0.1 && yTo > 0)
+                        yTo = 0.1;
+                    if (yTo > -0.1 && yTo < 0)
+                        yTo = -0.1;
+
+                    //Sprawdzenie czy wartosci nie sa za duze
+                    if (xFrom > graphMax)
+                        xFrom = graphMax;
+                    else if (xFrom < graphMin)
+                        xFrom = graphMin;
+
+                    if (xTo > graphMax)
+                        xTo = graphMax;
+                    else if (xTo < graphMin)
+                        xTo = graphMin;
+
+                    if (yFrom > graphMax)
+                        yFrom = graphMax;
+                    else if (yFrom < graphMin)
+                        yFrom = graphMin;
+
+                    if (yTo > graphMax)
+                        yTo = graphMax;
+                    else if (yTo < graphMin)
+                        yTo = graphMin;
+
+                    this.xFrom.Value = xFrom;
+                    this.xTo.Value = xTo;
+                    this.yFrom.Value = yFrom;
+                    this.yTo.Value = yTo;
+
+                    if (IsFunctionDrawn)
+                        DrawGraph(false);
+                    else
+                        ClearGraph();
+                }
+                catch (Exception excep)
+                {
+                    string type = excep.GetType().Name;
+
+                    bool defaultException = false;
+
+                    switch (type)
+                    {
+                        case "XFromIsGreaterThenXToException": window.txtXFrom.Focus(); break;
+                        case "YFromIsGreaterThenYToException": window.txtYFrom.Focus(); break;
+                        case "xFromException": window.txtXFrom.Focus(); break;
+                        case "xToException": window.txtXTo.Focus(); break;
+                        case "yFromException": window.txtYFrom.Focus(); break;
+                        case "yToException": window.txtYTo.Focus(); break;
+                        case "CoordinatesXException": window.txtXFrom.Focus(); break;
+                        case "CoordinatesYException": window.txtYFrom.Focus(); break;
+                        default:
+                            MessageBox.Show(Translation.GetString("Form1_MouseWheel_DefaultException") + Environment.NewLine + excep.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                            defaultException = true;
+                            break;
+                    }
+
+                    if (!defaultException)
+                        HandleGraphException(Translation.GetString(type));
+                }
+            }
+        }
+
+        internal void ChartToText()
+        {
+            if (graphPoint != null && graphPoint.Length > 0)
+            {
+                try
+                {
+                    SaveFileDialog saveFileDialog = new SaveFileDialog();
+                    saveFileDialog.DefaultExt = "txt";
+                    saveFileDialog.Filter = "TXT|*.txt";
+                    saveFileDialog.Title = "Numerical Calculator";
+                    saveFileDialog.FileName = Translation.GetString("saveFileDialog_FileName");
+                    saveFileDialog.Title = Translation.GetString("ApplicationName");
+                    bool? ok = saveFileDialog.ShowDialog();
+
+                    if (ok.HasValue && ok.Value)
+                    {
+                        string fileName = saveFileDialog.FileName;
+
+                        //Otworzenie pliku
+                        StreamWriter sw = File.CreateText(fileName);
+
+                        //Zapisanie do pliku
+                        foreach (PointF p in graphPoint)
+                            sw.WriteLine(p.X + " " + p.Y);
+
+                        //Zamkniecie i komunikat ze ok
+                        sw.Flush();
+                        sw.Close();
+
+                        MessageBox.Show(Translation.GetString("MessageBox_SaveToTXT_Success"), Translation.GetString("ApplicationName"), MessageBoxButton.OK, MessageBoxImage.Information);
+                    }
+                }
+                catch (Exception excep)
+                {
+                    MessageBox.Show(Translation.GetString("MessageBox_SaveToTXT_Failure") + Environment.NewLine + excep.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+            }
+            else
+                MessageBox.Show(Translation.GetString("MessageBox_SaveToTXT_Failure_LackPoints"), Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+
+        internal void ChartToFile()
+        {
+            try
+            {
+                SaveFileDialog saveFileDialog = new SaveFileDialog();
+                saveFileDialog.DefaultExt = "bmp";
+                saveFileDialog.Filter = "BMP|*.bmp";
+                saveFileDialog.Title = "Numerical Calculator";
+                saveFileDialog.FileName = Translation.GetString("saveFileDialog_FileName");
+                saveFileDialog.Title = Translation.GetString("ApplicationName");
+                bool? ok = saveFileDialog.ShowDialog();
+
+                //if (dr == DialogResult.OK)
+                if (ok.HasValue && ok.Value)
+                {
+                    BmpBitmapEncoder bmp = new BmpBitmapEncoder();
+                    bmp.Frames.Add(BitmapFrame.Create((BitmapSource)window.picGraph.Source));
+
+                    bmp.Save(new FileStream(saveFileDialog.FileName, FileMode.Create));
+
+                    MessageBox.Show(Translation.GetString("MessageBox_SaveToFile_Success"), Translation.GetString("ApplicationName"), MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(Translation.GetString("MessageBox_SaveToFile_Failure") + Environment.NewLine + excep.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
+        internal void ChartToClipboard()
+        {
+            try
+            {
+                Clipboard.SetImage((BitmapSource)window.picGraph.Source);
+
+                MessageBox.Show(Translation.GetString("MessageBox_CopyToClipboard_Success"), Translation.GetString("ApplicationName"), MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception excep)
+            {
+                MessageBox.Show(Translation.GetString("MessageBox_CopyToClipboard_Failure") + Environment.NewLine + excep.Message, Translation.GetString("MessageBox_Caption_Error"), MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }

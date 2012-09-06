@@ -263,7 +263,7 @@
             this.chkSpecialFunction.TabIndex = 18;
             this.chkSpecialFunction.Text = "Funkcja specjalna";
             this.toolTip.SetToolTip(this.chkSpecialFunction, "\"Wystarczy zaznaczyć funkcję specjalną w sekcji wyboru operacji i za jeden z jej " +
-                    "argumentów wstawić zmienną x.\r\n");
+        "argumentów wstawić zmienną x.\r\n");
             this.chkSpecialFunction.UseVisualStyleBackColor = true;
             this.chkSpecialFunction.CheckedChanged += new System.EventHandler(this.ChangeSettings);
             // 

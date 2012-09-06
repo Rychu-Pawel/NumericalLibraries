@@ -3,7 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:lang="clr-namespace:NumericalCalculator.Translations"
         Title="About" Height="300" Width="300"
-        SizeToContent="WidthAndHeight" ResizeMode="CanMinimize">
+        SizeToContent="WidthAndHeight" ResizeMode="CanMinimize" Icon="/NumericalCalculator;component/calc.ico">
     <StackPanel>
         <Label Content="{Binding Source={StaticResource Language}, Path=AboutForm_lblAppTitle}" Margin="5,5,5,0"></Label>
         <WrapPanel Margin="5,5,5,0">
