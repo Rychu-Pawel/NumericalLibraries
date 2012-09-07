@@ -30,7 +30,6 @@ namespace NumericalCalculator.Translations
         public static void SetLanguage(string culture)
         {
             //Ustawienie języka
-            Thread.CurrentThread.CurrentCulture = new CultureInfo(culture);
             Thread.CurrentThread.CurrentUICulture = new CultureInfo(culture);
             Language.Culture = new CultureInfo(culture);
 
