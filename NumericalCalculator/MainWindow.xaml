@@ -134,7 +134,7 @@
 
                 <GroupBox Name="gbConditionsII" Header="{Binding Source={StaticResource Language}, Path=gbConditionsII}" Grid.Row="4" Margin="0,5,0,0" Visibility="Collapsed">
                     <WrapPanel HorizontalAlignment="Center">
-                        <Label Content="f ("></Label>
+                        <Label Content="f' ("></Label>
                         <TextBox Name="txtFromII" IsEnabled="False" Width="60" Text="{Binding ConditionIIPoint.Text, UpdateSourceTrigger=PropertyChanged}"></TextBox>
                         <Label Content=") ="></Label>
                         <TextBox Name="txtToII" Width="60" Text="{Binding ConditionIIPointValue.Text, UpdateSourceTrigger=PropertyChanged}"></TextBox>
