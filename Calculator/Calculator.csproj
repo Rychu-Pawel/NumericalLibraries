@@ -57,9 +57,6 @@
       <Name>NumericalCalculatorCommon</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Diagram.cd" />
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"C:\Program Files\7-Zip\7z.exe" a -tzip "$(TargetDir)$(ProjectName).zip" "$(TargetDir)*.*"</PostBuildEvent>
