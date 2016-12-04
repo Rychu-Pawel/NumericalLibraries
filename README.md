@@ -7,7 +7,7 @@ You can try them on: http://pawelrychlicki.pl/NumericalCalculator
 
 Or in the sample application: http://pawelrychlicki.pl/Application/Details/6/numerical-calculator-14
 
-Sources for the sample application can be found here: https://github.com/Rychu-Pawel/NumericalCalculator/tree/master
+Sources for the sample application can be found here: https://github.com/Rychu-Pawel/NumericalCalculator
 
 Functions which library can handle:
 
