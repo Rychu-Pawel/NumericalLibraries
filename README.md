@@ -4,6 +4,7 @@ Numerical Libraries in .NET C#
 Easy to use and free numerical .NET C# library that can compute text math formulas.
 
 You can try them on: http://pawelrychlicki.pl/NumericalCalculator
+
 Or in the sample application: http://pawelrychlicki.pl/Application/Details/6/numerical-calculator-14
 
 Sources for the sample application can be found here: https://github.com/Rychu-Pawel/NumericalCalculator/tree/master
