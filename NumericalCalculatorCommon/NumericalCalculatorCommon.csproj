@@ -8,7 +8,7 @@
     <ProjectGuid>{C66448A1-26AF-4603-9109-D430A920C407}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>NumericalCalculatorCommon</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,11 +45,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ExceptionsAndEnums.cs" />
+    <Compile Include="Exceptions\ExceptionsAndEnums.cs" />
     <Compile Include="PointC.cs" />
     <Compile Include="PointD.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

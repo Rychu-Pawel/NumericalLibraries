@@ -8,7 +8,7 @@
     <ProjectGuid>{54E6D3FA-98D4-46EC-A5A2-6E58A32E1950}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Chart</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Chart</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -45,6 +45,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Chart.cs" />
+    <Compile Include="Enums\BesselFunctionTypeEnum.cs" />
+    <Compile Include="Enums\FunctionTypeEnum.cs" />
+    <Compile Include="Exceptions\BesseleSecondArgumentException.cs" />
+    <Compile Include="Exceptions\BesseleThirdArgumentException.cs" />
+    <Compile Include="Exceptions\BesselFirstArgumentException.cs" />
+    <Compile Include="Exceptions\BesseleFourthArgumentException.cs" />
+    <Compile Include="Exceptions\CoordinatesXException.cs" />
+    <Compile Include="Exceptions\CoordinatesYException.cs" />
+    <Compile Include="Exceptions\NoneGraphOptionCheckedException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

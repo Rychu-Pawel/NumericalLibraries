@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Calculator.Exceptions;
+using NumericalLibraries.FunctionRoot.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.FunctionRoot
 {
-    public class Hybrid: Derivative
+    public class Hybrid: Derivative.Derivative
     {
     // ZMIENNE --------------------
         double przedzialOd, przedzialDo;

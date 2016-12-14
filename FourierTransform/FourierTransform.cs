@@ -4,8 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Numerics;
 using System.Drawing;
+using NumericalLibraries.Common;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.FourierTransform
 {
     public class FourierTransform
     {
@@ -23,7 +24,7 @@ namespace NumericalCalculator
         /// <returns></returns>
         public List<PointC> Compute(string function, int sampling, double start, double end)
         {
-            Derivative p = new Derivative(function);
+            Derivative.Derivative p = new Derivative.Derivative(function);
 
             List<PointC> wyniki = new List<PointC>();
 

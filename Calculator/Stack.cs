@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Calculator
 {
 // ELEMENT STOSU
     internal class StackElement

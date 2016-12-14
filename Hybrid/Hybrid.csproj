@@ -8,7 +8,7 @@
     <ProjectGuid>{E042347C-874C-490F-9185-D3F140FE51F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Hybrid</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\NoneOrFewRootsOnGivenIntervalException.cs" />
     <Compile Include="Hybrid.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

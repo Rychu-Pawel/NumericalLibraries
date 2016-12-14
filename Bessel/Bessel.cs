@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.InteropServices;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Bessel
 {
     public class BesselNeumanHyper
     {

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Calculator
 {
     public class Mean
     {
@@ -64,7 +64,7 @@ namespace NumericalCalculator
     }
 }
 
-namespace NumericalCalculator.Exceptions
+namespace NumericalLibraries.Calculator.Exceptions
 {
     public class NoValuesProvidedException : Exception
     { }

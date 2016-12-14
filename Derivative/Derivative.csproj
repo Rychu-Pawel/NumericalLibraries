@@ -8,7 +8,7 @@
     <ProjectGuid>{26084897-09EC-4255-A641-BED2A36FDB99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Derivative</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

@@ -9,8 +9,8 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("LinearEquation")]
-[assembly: AssemblyCopyright("Copyright © 2012 Pawel Rychlicki")]
+[assembly: AssemblyProduct("NumericalLibraries")]
+[assembly: AssemblyCopyright("Copyright © Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

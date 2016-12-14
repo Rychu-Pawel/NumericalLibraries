@@ -8,7 +8,7 @@
     <ProjectGuid>{160A2F87-45D9-4603-BE1A-A1815F3FC034}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Differential</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Differential.cs" />
+    <Compile Include="Exceptions\NaNOccuredException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

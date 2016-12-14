@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Calculator.Exceptions;
+using NumericalLibraries.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Calculator
 {
     public class Calculator: Interior
     {
-    // METODY ---------------------------------
-        new void ErrorCheck() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
+        // METODY ---------------------------------
+        private new void ErrorCheck() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
         {
             base.ErrorCheck();
 
@@ -36,7 +37,7 @@ namespace NumericalCalculator
         }
 
     // KONSTRUKTOR --------------------------
-        public Calculator(string function) : base(function, 0.0)
+        public Calculator(string formula) : base(formula, 0.0)
         {
             ErrorCheck();
             ConvertToTable();

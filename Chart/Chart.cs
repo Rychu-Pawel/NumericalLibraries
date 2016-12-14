@@ -7,9 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Bessel;
+using NumericalLibraries.Chart.Exceptions;
+using NumericalLibraries.Calculator.Enums;
+using NumericalLibraries.Calculator.Exceptions;
+using NumericalLibraries.Chart.Enums;
+using NumericalLibraries.Common;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Chart
 {
     public class Chart
     {
@@ -25,7 +30,7 @@ namespace NumericalCalculator
         PictureBox pWykres;
         Graphics g;
 
-        string funkcja;
+        string function;
 
         Image img;
 
@@ -174,7 +179,7 @@ namespace NumericalCalculator
         {
             punktyWykresu.Clear();
 
-            Derivative funkcjaWPunkcie = new Derivative(funkcja);
+            Derivative.Derivative funkcjaWPunkcie = new Derivative.Derivative(function);
 
             Font font2 = new Font("Arial", 8); // Do wypisywania wzoru funkcji
 
@@ -212,7 +217,7 @@ namespace NumericalCalculator
             }
 
             //Wypisanie wzoru funkcji
-            g.DrawString("f(x) = " + funkcja, font2, Brushes.Black, 3, 3);
+            g.DrawString("f(x) = " + function, font2, Brushes.Black, 3, 3);
 
             switch (functionType)
             {
@@ -265,10 +270,10 @@ namespace NumericalCalculator
 
             Pen pen = null;
 
-            FourierTransform fft = new FourierTransform();
+            FourierTransform.FourierTransform fft = new FourierTransform.FourierTransform();
 
             //Obliczenie FFT
-            punktyC = fft.Compute(funkcja, sampling, xOd, xDo);
+            punktyC = fft.Compute(function, sampling, xOd, xDo);
 
             //Przefiltrowanie
             for (int i = 0; i < punktyC.Count; i++)
@@ -287,7 +292,7 @@ namespace NumericalCalculator
 
             //Nowe przygotowanie
             if (functionType == FunctionTypeEnum.FT)
-                Initialize(funkcja, img.Width, img.Height, 0, sampling + 3, yOd, yDo);
+                Initialize(function, img.Width, img.Height, 0, sampling + 3, yOd, yDo);
 
             //Przeskalowanie pkt-ow
             if (functionType == FunctionTypeEnum.FT)
@@ -340,9 +345,9 @@ namespace NumericalCalculator
 
             //Wypisanie wzoru funkcji
             if (functionType == FunctionTypeEnum.FT)
-                g.DrawString("FFT(" + '\u03C9' + ") = " + funkcja, font2, Brushes.Black, 3, 16);
+                g.DrawString("FFT(" + '\u03C9' + ") = " + function, font2, Brushes.Black, 3, 16);
             else
-                g.DrawString("RFFT(x) = " + funkcja, font2, Brushes.Black, 3, 16);
+                g.DrawString("RFFT(x) = " + function, font2, Brushes.Black, 3, 16);
 
             switch (functionType)
             {
@@ -421,7 +426,7 @@ namespace NumericalCalculator
             {
                 case FunctionTypeEnum.Differential:
 
-                    Differential rozniczka = new Differential(funkcja);
+                    Differential.Differential rozniczka = new Differential.Differential(function);
 
                     List<PointD> lewo = new List<PointD>();
                     List<PointD> prawo = new List<PointD>();
@@ -431,7 +436,7 @@ namespace NumericalCalculator
                         lewo = rozniczka.ComputeDifferentialPointsList(xOd, parameters[0], parameters[1], false, krok);
 
                     //W prawo
-                    rozniczka = new Differential(funkcja);
+                    rozniczka = new Differential.Differential(function);
 
                     if (xDo >= parameters[0])
                         prawo = rozniczka.ComputeDifferentialPointsList(xDo, parameters[0], parameters[1], false, krok);
@@ -483,7 +488,7 @@ namespace NumericalCalculator
                     break;
                 case FunctionTypeEnum.DifferentialII:
 
-                    Differential rozniczkaII = new Differential(funkcja);
+                    Differential.Differential rozniczkaII = new Differential.Differential(function);
 
                     List<PointD> lewoII = new List<PointD>();
                     List<PointD> prawoII = new List<PointD>();
@@ -493,7 +498,7 @@ namespace NumericalCalculator
                         lewoII = rozniczkaII.ComputeDifferentialIIPointsList(xOd, parameters[0], parameters[1], parameters[2], false, krok);
 
                     //W prawo
-                    rozniczkaII = new Differential(funkcja);
+                    rozniczkaII = new Differential.Differential(function);
 
                     if (xDo >= parameters[0])
                         prawoII = rozniczkaII.ComputeDifferentialIIPointsList(xDo, parameters[0], parameters[1], parameters[2], false, krok);
@@ -549,7 +554,7 @@ namespace NumericalCalculator
             }
 
             //Wypisanie wzoru funkcji
-            g.DrawString("f(x) = " + funkcja, font2, Brushes.Black, 3, 3);
+            g.DrawString("f(x) = " + function, font2, Brushes.Black, 3, 3);
 
             switch (functionType)
             {
@@ -723,7 +728,7 @@ namespace NumericalCalculator
         /// </returns>
         public double[] Reskalling(params FunctionTypeEnum[] functionType)
         {
-            Derivative funkcjaWPunkcie = new Derivative(funkcja); // Do obliczania wartosci funkcji w punkcie
+            Derivative.Derivative funkcjaWPunkcie = new Derivative.Derivative(function); // Do obliczania wartosci funkcji w punkcie
             List<PointF> punkty = new List<PointF>();
 
             //Obliczenie punktow
@@ -792,7 +797,7 @@ namespace NumericalCalculator
                 minX = Math.Round(minX, 2);
                 maxX = Math.Round(maxX, 2);
 
-                Chart wykres = new Chart(funkcja, pWykres, minX, maxX, yOd, yDo);
+                Chart wykres = new Chart(function, pWykres, minX, maxX, yOd, yDo);
 
                 return wykres.Reskalling(functionType);
             }
@@ -970,7 +975,7 @@ namespace NumericalCalculator
                 minX = Math.Round(minX, 2);
                 maxX = Math.Round(maxX, 2);
 
-                Chart wykres = new Chart(funkcja, pWykres, minX, maxX, yOd, yDo);
+                Chart wykres = new Chart(function, pWykres, minX, maxX, yOd, yDo);
 
                 parameters[indexZmiennej] = double.NaN;
 
@@ -1185,7 +1190,7 @@ namespace NumericalCalculator
             if (yDo == yOd)
                 throw new CoordinatesYException();
 
-            funkcja = funk;
+            function = funk;
             picWidth = width;
             picHeight = height;
 

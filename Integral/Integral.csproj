@@ -8,7 +8,7 @@
     <ProjectGuid>{7E62C4FF-E2E8-4AA1-B3F1-1A22F12D743C}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Integral</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\IntegralInfinityRangeNotSupportedException.cs" />
     <Compile Include="Integral.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

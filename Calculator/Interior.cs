@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Calculator
 {
     public class Interior : Function
     {
@@ -300,12 +300,12 @@ namespace NumericalCalculator
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="function">Formula</param>
+        /// <param name="formula">Formula</param>
         /// <param name="x">Variable value</param>
         /// <param name="y">First order differential starting value. Used only for computing differentials.</param>
         /// <param name="u">Second order differential starting value. Used only for computing second order differential.</param>
-        public Interior(string function, double x, double y = 0, double u = 0)
-            : base(function)
+        public Interior(string formula, double x, double y = 0, double u = 0)
+            : base(formula)
         {
             this.x = x;
             this.y = y;

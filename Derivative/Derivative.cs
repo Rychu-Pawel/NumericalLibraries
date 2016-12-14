@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using NumericalLibraries.Calculator;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Derivative
 {
     public class Derivative : Interior
     {

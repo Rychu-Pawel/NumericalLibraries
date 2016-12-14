@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Calculator.Exceptions;
+using NumericalLibraries.Integral.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Integral
 {
-    public class Integral : Derivative
+    public class Integral : Derivative.Derivative
     {
     //ZMIENNE ---------------------------------------
         double[,] kwadratury;

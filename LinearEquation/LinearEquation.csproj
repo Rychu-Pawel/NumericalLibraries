@@ -8,7 +8,7 @@
     <ProjectGuid>{990923CB-10A0-46EC-B76E-ED28B12EDEDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>LinearEquation</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -43,8 +43,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Exceptions\InconsistentSystemOfEquationsException.cs" />
     <Compile Include="LinearEquation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Exceptions\RowsNumberMustBeOneLessThenColumnsNumberException.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">

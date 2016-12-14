@@ -8,9 +8,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Bessel")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Microsoft")]
-[assembly: AssemblyProduct("Bessel")]
-[assembly: AssemblyCopyright("Copyright © Politechnika Gdańska 2012")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("NumericalLibraries")]
+[assembly: AssemblyCopyright("Copyright © Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

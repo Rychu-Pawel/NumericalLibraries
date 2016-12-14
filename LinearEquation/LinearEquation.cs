@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.LinearEquation.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.LinearEquation
 {
     public class LinearEquation
     {
@@ -116,12 +113,5 @@ namespace NumericalCalculator
 
             niewiadome = new double[iloscZmiennych];
         }
-    }
-}
-
-namespace NumericalCalculator.Exceptions
-{
-    class RowsNumberMustBeOneLessThenColumnsNumberException : Exception
-    {
     }
 }

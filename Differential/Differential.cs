@@ -3,11 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Drawing;
-using NumericalCalculator.Exceptions;
+using NumericalLibraries.Calculator.Exceptions;
+using NumericalLibraries.Common;
+using NumericalLibraries.Differential.Exceptions;
 
-namespace NumericalCalculator
+namespace NumericalLibraries.Differential
 {
-    public class Differential : Derivative
+    public class Differential : Derivative.Derivative
     {
         //ZMIENNE -----------------------------------
         string funkcjaII;

@@ -8,7 +8,7 @@
     <ProjectGuid>{AAA136B6-9A62-4BDE-88E0-50A0DC9E2215}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
+    <RootNamespace>NumericalLibraries</RootNamespace>
     <AssemblyName>Interpolation</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -44,8 +44,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Approximation.cs" />
-    <Compile Include="Interpolation.cs" />
+    <Compile Include="Approximation\Approximation.cs" />
+    <Compile Include="Approximation\Exceptions\WrongApproximationLevelException.cs" />
+    <Compile Include="Interpolation\Exceptions\NoPointsProvidedException.cs" />
+    <Compile Include="Interpolation\Interpolation.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -58,6 +60,7 @@
       <Name>NumericalCalculatorCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>del /Q /F "$(TargetDir)*"</PreBuildEvent>
