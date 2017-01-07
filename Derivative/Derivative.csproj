@@ -51,6 +51,10 @@
       <Name>Calculator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="CreateNuget.ps1" />
+    <None Include="Derivative.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>

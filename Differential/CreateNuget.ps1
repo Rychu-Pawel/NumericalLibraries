@@ -1,0 +1,1 @@
+nuget pack Differential.csproj
