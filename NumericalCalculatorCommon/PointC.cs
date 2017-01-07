@@ -57,7 +57,7 @@ namespace Rychusoft.NumericalLibraries.Common
             this.x = x;
             this.y = y;
 
-            isEmpty = true;
+            isEmpty = false;
 
         }
 
