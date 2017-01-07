@@ -1,13 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace NumericalLibraries.Calculator.Stack
+﻿namespace Rychusoft.NumericalLibraries.Calculator.Stack
 {
-    // ELEMENT STOSU
-
-    // STOS
     internal class Stack
     {
         StackElement head = null;

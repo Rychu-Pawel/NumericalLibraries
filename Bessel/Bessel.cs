@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 
-namespace NumericalLibraries.Bessel
+namespace Rychusoft.NumericalLibraries.Bessel
 {
     public class BesselNeumanHyper
     {

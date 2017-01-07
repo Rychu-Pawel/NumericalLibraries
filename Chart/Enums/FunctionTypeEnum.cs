@@ -1,4 +1,4 @@
-﻿namespace NumericalLibraries.Calculator.Enums
+﻿namespace Rychusoft.NumericalLibraries.Calculator.Enums
 {
     public enum FunctionTypeEnum
     {

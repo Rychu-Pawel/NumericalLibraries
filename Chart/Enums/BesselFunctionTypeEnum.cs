@@ -1,4 +1,4 @@
-﻿namespace NumericalLibraries.Chart.Enums
+﻿namespace Rychusoft.NumericalLibraries.Chart.Enums
 {
     public enum BesselFunctionTypeEnum
     {

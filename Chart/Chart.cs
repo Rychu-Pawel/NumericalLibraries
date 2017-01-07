@@ -1,20 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.Diagnostics;
-using NumericalLibraries.Bessel;
-using NumericalLibraries.Chart.Exceptions;
-using NumericalLibraries.Calculator.Enums;
-using NumericalLibraries.Calculator.Exceptions;
-using NumericalLibraries.Chart.Enums;
-using NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Bessel;
+using Rychusoft.NumericalLibraries.Chart.Exceptions;
+using Rychusoft.NumericalLibraries.Calculator.Enums;
+using Rychusoft.NumericalLibraries.Chart.Enums;
+using Rychusoft.NumericalLibraries.Common;
 
-namespace NumericalLibraries.Chart
+namespace Rychusoft.NumericalLibraries.Chart
 {
     public class Chart
     {

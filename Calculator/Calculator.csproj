@@ -67,9 +67,9 @@
     <Compile Include="Stack\StackElement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
+    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj">
       <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
-      <Name>NumericalCalculatorCommon</Name>
+      <Name>NumericalLibrariesCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup />

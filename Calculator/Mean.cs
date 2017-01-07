@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NumericalLibraries.Calculator.Exceptions;
+using Rychusoft.NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalLibraries.Calculator
+namespace Rychusoft.NumericalLibraries.Calculator
 {
     public class Mean
     {

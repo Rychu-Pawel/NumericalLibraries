@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalLibraries.Calculator.Exceptions;
-using NumericalLibraries.FunctionRoot.Exceptions;
+using Rychusoft.NumericalLibraries.FunctionRoot.Exceptions;
 
-namespace NumericalLibraries.FunctionRoot
+namespace Rychusoft.NumericalLibraries.FunctionRoot
 {
     public class Hybrid: Derivative.Derivative
     {

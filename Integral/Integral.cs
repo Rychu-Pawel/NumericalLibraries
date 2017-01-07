@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalLibraries.Calculator.Exceptions;
-using NumericalLibraries.Integral.Exceptions;
+using Rychusoft.NumericalLibraries.Integral.Exceptions;
 
-namespace NumericalLibraries.Integral
+namespace Rychusoft.NumericalLibraries.Integral
 {
     public class Integral : Derivative.Derivative
     {

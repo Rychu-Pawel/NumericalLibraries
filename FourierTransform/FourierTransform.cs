@@ -1,12 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Numerics;
-using System.Drawing;
-using NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Common;
 
-namespace NumericalLibraries.FourierTransform
+namespace Rychusoft.NumericalLibraries.FourierTransform
 {
     public class FourierTransform
     {

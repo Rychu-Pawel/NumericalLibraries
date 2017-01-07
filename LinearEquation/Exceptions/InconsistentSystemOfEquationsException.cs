@@ -1,6 +1,6 @@
 using System;
 
-namespace NumericalLibraries.LinearEquation.Exceptions
+namespace Rychusoft.NumericalLibraries.LinearEquation.Exceptions
 {
     public class InconsistentSystemOfEquationsException : Exception
     { }

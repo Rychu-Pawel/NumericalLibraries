@@ -1,4 +1,4 @@
-﻿namespace NumericalLibraries.Calculator.Stack
+﻿namespace Rychusoft.NumericalLibraries.Calculator.Stack
 {
     internal class StackElement
     {

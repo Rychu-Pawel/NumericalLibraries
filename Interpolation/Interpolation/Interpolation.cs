@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NumericalLibraries.Common;
-using NumericalLibraries.Interpolation.Exceptions;
+using Rychusoft.NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Interpolation.Exceptions;
 
-namespace NumericalLibraries.Interpolation
+namespace Rychusoft.NumericalLibraries.Interpolation
 {
     public class Interpolation
     {

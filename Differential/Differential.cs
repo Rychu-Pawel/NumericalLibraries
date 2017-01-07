@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Drawing;
-using NumericalLibraries.Calculator.Exceptions;
-using NumericalLibraries.Common;
-using NumericalLibraries.Differential.Exceptions;
+using Rychusoft.NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Differential.Exceptions;
 
-namespace NumericalLibraries.Differential
+namespace Rychusoft.NumericalLibraries.Differential
 {
     public class Differential : Derivative.Derivative
     {

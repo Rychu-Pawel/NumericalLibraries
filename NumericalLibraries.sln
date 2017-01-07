@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Derivative", "Derivative\De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Differential", "Differential\Differential.csproj", "{160A2F87-45D9-4603-BE1A-A1815F3FC034}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalCalculatorCommon", "NumericalCalculatorCommon\NumericalCalculatorCommon.csproj", "{C66448A1-26AF-4603-9109-D430A920C407}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NumericalLibrariesCommon", "NumericalCalculatorCommon\NumericalLibrariesCommon.csproj", "{C66448A1-26AF-4603-9109-D430A920C407}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FourierTransform", "FourierTransform\FourierTransform.csproj", "{45489865-42D0-47B9-B401-E6F2B7B29A90}"
 EndProject

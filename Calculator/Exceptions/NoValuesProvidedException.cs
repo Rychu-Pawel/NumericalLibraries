@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NumericalLibraries.Calculator.Exceptions
+namespace Rychusoft.NumericalLibraries.Calculator.Exceptions
 {
     public class NoValuesProvidedException : Exception
     { }

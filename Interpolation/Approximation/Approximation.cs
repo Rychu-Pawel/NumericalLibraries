@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using NumericalLibraries.Approximation.Exceptions;
-using NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Approximation.Exceptions;
+using Rychusoft.NumericalLibraries.Common;
 
-namespace NumericalLibraries.Approximation
+namespace Rychusoft.NumericalLibraries.Approximation
 {
     public class Approximation
     {

@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalLibraries.Calculator;
+using Rychusoft.NumericalLibraries.Calculator;
 
-namespace NumericalLibraries.Derivative
+namespace Rychusoft.NumericalLibraries.Derivative
 {
     public class Derivative : Interior
     {

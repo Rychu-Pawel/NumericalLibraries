@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace NumericalLibraries.Chart.Exceptions
+namespace Rychusoft.NumericalLibraries.Chart.Exceptions
 {
     public class NoneGraphOptionCheckedException : Exception
     { }

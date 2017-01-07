@@ -1,7 +1,7 @@
 ﻿using System;
-using NumericalLibraries.LinearEquation.Exceptions;
+using Rychusoft.NumericalLibraries.LinearEquation.Exceptions;
 
-namespace NumericalLibraries.LinearEquation
+namespace Rychusoft.NumericalLibraries.LinearEquation
 {
     public class LinearEquation
     {

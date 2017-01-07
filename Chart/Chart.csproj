@@ -78,9 +78,9 @@
       <Project>{45489865-42D0-47B9-B401-E6F2B7B29A90}</Project>
       <Name>FourierTransform</Name>
     </ProjectReference>
-    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
+    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj">
       <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
-      <Name>NumericalCalculatorCommon</Name>
+      <Name>NumericalLibrariesCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

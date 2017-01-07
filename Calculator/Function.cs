@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Rychusoft.NumericalLibraries.Calculator.Exceptions;
+using System;
 using System.Collections.Generic;
-using NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalLibraries.Calculator
+namespace Rychusoft.NumericalLibraries.Calculator
 {
     public abstract class Function
     {
