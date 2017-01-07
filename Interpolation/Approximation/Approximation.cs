@@ -7,16 +7,15 @@ namespace NumericalLibraries.Approximation
 {
     public class Approximation
     {
-    //ZMIENNE ------------------------
-        private int iloscPunktow, stopien;
+        //ZMIENNE ------------------------
+        private int _pointsCount, _degree;
         private List<PointD> points;
         private double[] Eyx, Ex, x;
-        private double[,] wspolczynniki;
+        private double[,] _factors;
 
-        //Zmienne dla ekstrapolacji liniowej i kwadratowej
         private double Ex1, Ey, Ex2, Ex1y;
         private double Ex3, Ex4, Ex2y;
-        private double x1, x2; //Wspolczynniki stajace przy x-ach
+        private double x1, x2;
         private double x3;
 
         /// <summary>
@@ -30,27 +29,26 @@ namespace NumericalLibraries.Approximation
                 points = value;
 
                 if (points != null)
-                    iloscPunktow = points.Count;
+                    _pointsCount = points.Count;
                 else
-                    iloscPunktow = 0;
+                    _pointsCount = 0;
             }
         }
 
-    //METODY -------------------------
-        private void Sprawdzenie()
+        private void Validation()
         {
-            // Sprawdzenie czy punkty x sie nie powtarzaja
-            for (int i = 0; i < iloscPunktow; i++)
-                for (int j = i + 1; j < iloscPunktow; j++)
+            //Check if the points are distinct
+            for (int i = 0; i < _pointsCount; i++)
+                for (int j = i + 1; j < _pointsCount; j++)
                     if (points[i].X == points[j].X)
-                        throw new SystemException("Wartosci x = " + Convert.ToString(points[i].X) + " wystepuja co najmniej dwukrotnie");
+                        throw new SystemException("x = " + Convert.ToString(points[i].X) + " appears at least twice");
         }
 
-        private void ObliczSumyLiniowe()
+        private void ComputeLineSums()
         {
             Ex1 = Ey = Ex2 = Ex1y = 0;
 
-            for (int i = 0; i < iloscPunktow; i++)
+            for (int i = 0; i < _pointsCount; i++)
             {
                 Ex1 += points[i].X;
                 Ey += points[i].Y;
@@ -59,11 +57,11 @@ namespace NumericalLibraries.Approximation
             }
         }
 
-        private void ObliczSumyKwadratowe()
+        private void ComputeSquaredSums()
         {
             Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = 0;
 
-            for (int i = 0; i < iloscPunktow; i++)
+            for (int i = 0; i < _pointsCount; i++)
             {
                 Ex1 += points[i].X;
                 Ey += points[i].Y;
@@ -75,259 +73,254 @@ namespace NumericalLibraries.Approximation
             }
         }
 
-        private void ObliczSumy()
+        private void ComputeSums()
         {
             //Ex[0]
-            Ex[0] = iloscPunktow;
-            
+            Ex[0] = _pointsCount;
+
             //Eyx[0]
-            for (int i = 0; i < iloscPunktow; i++)
+            for (int i = 0; i < _pointsCount; i++)
                 Eyx[0] += points[i].Y;
 
-            for (int i = 0; i < iloscPunktow; i++)
+            for (int i = 0; i < _pointsCount; i++)
             {
                 //Ex
-                for (int j = 1; j < stopien * 2 + 1; j++)
-                        Ex[j] += Math.Pow(points[i].X, j);
+                for (int j = 1; j < _degree * 2 + 1; j++)
+                    Ex[j] += Math.Pow(points[i].X, j);
 
                 //Eyx
-                for (int j = 1; j < stopien + 1; j++)
-                        Eyx[j] += points[i].Y * Math.Pow(points[i].X, j);
+                for (int j = 1; j < _degree + 1; j++)
+                    Eyx[j] += points[i].Y * Math.Pow(points[i].X, j);
             }
         }
 
-        private void ObliczWspolczynnikiLiniowe()
+        private void ComputeLineFactors()
         {
             x1 = x2 = 0;
 
-            double mianownik = 0;
+            double denominator = 0;
 
-            mianownik = iloscPunktow * Ex2 - Math.Pow(Ex1, 2.0);
+            denominator = _pointsCount * Ex2 - Math.Pow(Ex1, 2.0);
 
-            x2 = (iloscPunktow * Ex1y - Ex1 * Ey) / mianownik;
+            x2 = (_pointsCount * Ex1y - Ex1 * Ey) / denominator;
 
-            x1 = (Ey * Ex2 - Ex1 * Ex1y) / mianownik;
+            x1 = (Ey * Ex2 - Ex1 * Ex1y) / denominator;
         }
 
-        private void ObliczWspolczynnikiKwadratowe()
+        private void ComputeSquareFactors()
         {
             x1 = x2 = x3 = 0;
 
-            double czescPierwsza = 0, czescDruga = 0; //Powtarzajace sie elementy we wzorze
+            double firstPart = 0, secondPart = 0;
 
-            czescPierwsza = iloscPunktow * Ex2 - Math.Pow(Ex1, 2.0);
-            czescDruga = iloscPunktow * Ex3 - Ex2 * Ex1;
+            firstPart = _pointsCount * Ex2 - Math.Pow(Ex1, 2.0);
+            secondPart = _pointsCount * Ex3 - Ex2 * Ex1;
 
-            x3 = (czescPierwsza * (iloscPunktow * Ex2y - Ex2 * Ey) - (iloscPunktow * Ex1y - Ey * Ex1) * (iloscPunktow * Ex3 - Ex2 * Ex1)) / (czescPierwsza * (iloscPunktow * Ex4 - Ex2 * Ex2) - Math.Pow((iloscPunktow * Ex3 - Ex2 * Ex1), 2.0));
+            x3 = (firstPart * (_pointsCount * Ex2y - Ex2 * Ey) - (_pointsCount * Ex1y - Ey * Ex1) * (_pointsCount * Ex3 - Ex2 * Ex1)) / (firstPart * (_pointsCount * Ex4 - Ex2 * Ex2) - Math.Pow((_pointsCount * Ex3 - Ex2 * Ex1), 2.0));
 
-            x2 = (iloscPunktow * Ex1y - Ex1 * Ey - (iloscPunktow * Ex3 - Ex1 * Ex2) * x3) / (iloscPunktow * Ex2 - Ex1 * Ex1);
+            x2 = (_pointsCount * Ex1y - Ex1 * Ey - (_pointsCount * Ex3 - Ex1 * Ex2) * x3) / (_pointsCount * Ex2 - Ex1 * Ex1);
 
-            x1 = (Ey - Ex2 * x3 - Ex1 * x2) / iloscPunktow;
+            x1 = (Ey - Ex2 * x3 - Ex1 * x2) / _pointsCount;
         }
 
-        private void ObliczWspolczynniki()
+        private void ComputeFactors()
         {
-            //Uzupelnienie macierzy dla gaussa
-            for (int i = 0; i < stopien + 1; i++)
-                for (int j = 0; j < stopien + 1; j++)
-                        wspolczynniki[j, i] = Ex[i + j];
+            //Gauss matrix
+            for (int i = 0; i < _degree + 1; i++)
+                for (int j = 0; j < _degree + 1; j++)
+                    _factors[j, i] = Ex[i + j];
 
-            //Rozszerzenie macierzy wspolczynnikow o wyniki
-            for (int i = 0; i < stopien + 1; i++)
-                wspolczynniki[i, stopien + 1] = Eyx[i];
+            //Extend factorial matrix with results
+            for (int i = 0; i < _degree + 1; i++)
+                _factors[i, _degree + 1] = Eyx[i];
 
-            //Wyliczenie wspolczynnikow
-            LinearEquation.LinearEquation Gauss = new LinearEquation.LinearEquation(wspolczynniki);
+            //Compute factors
+            LinearEquation.LinearEquation Gauss = new LinearEquation.LinearEquation(_factors);
             x = Gauss.Compute();
         }
 
-        private string ObliczRegresjeLiniowa()
+        private string ComputeLinearRegression()
         {
-            Sprawdzenie();
+            Validation();
 
-            ObliczSumyLiniowe();
+            ComputeLineSums();
 
-            ObliczWspolczynnikiLiniowe();
+            ComputeLineFactors();
 
-            //Utworzeniu stringu funkcja
-            string funkcja = string.Empty;
+            string function = string.Empty;
 
             if (x2 == -1)
-                funkcja = "-x";
+                function = "-x";
             else if (x2 == 1)
-                funkcja = "x";
+                function = "x";
             else if (x2 != 0)
-                funkcja = Convert.ToString(x2) + "*x";
+                function = Convert.ToString(x2) + "*x";
 
             if (x1 < 0)
-                funkcja += Convert.ToString(x1);
+                function += Convert.ToString(x1);
             else if (x1 > 0)
             {
-                if (x2 != 0) // Jak jest funkcja stala to zeby nie bylo np. "+2" tylko samo "2"
-                    funkcja += "+" + Convert.ToString(x1);
+                if (x2 != 0) // If it is the constant function then make "2" instead of "+2"
+                    function += "+" + Convert.ToString(x1);
                 else
-                    funkcja += Convert.ToString(x1);
+                    function += Convert.ToString(x1);
             }
 
-            if (funkcja == string.Empty) // To znaczy ze funkcja jest stala = 0
-                funkcja = "0";
+            if (function == string.Empty) // Constant function = 0
+                function = "0";
 
-            //Zwrocenie stringu
-            return funkcja;
+            return function;
         }
 
-        private string ObliczRegresjeKwadratowa()
+        private string ComputeSquaredRegression()
         {
-            Sprawdzenie();
+            Validation();
 
-            ObliczSumyKwadratowe();
+            ComputeSquaredSums();
 
-            ObliczWspolczynnikiKwadratowe();
+            ComputeSquareFactors();
 
-            //Utworzeniu stringu funkcja
-            string funkcja = string.Empty;
+            string function = string.Empty;
 
             if (x3 == -1)
-                funkcja = "-x^2";
+                function = "-x^2";
             else if (x3 == 1)
-                funkcja = "x^2";
+                function = "x^2";
             else if (x3 != 0)
-                funkcja = Convert.ToString(x3) + "*x^2";
+                function = Convert.ToString(x3) + "*x^2";
 
             if (x2 == -1)
-                funkcja += "-x";
+                function += "-x";
             else if (x2 == 1)
-                funkcja += "+x";
+                function += "+x";
             else if (x2 < 0)
-                funkcja += Convert.ToString(x2) + "*x";
+                function += Convert.ToString(x2) + "*x";
             else if (x2 > 0)
-                funkcja += "+" + Convert.ToString(x2) + "*x";
+                function += "+" + Convert.ToString(x2) + "*x";
 
             if (x1 < 0)
-                funkcja += Convert.ToString(x1);
+                function += Convert.ToString(x1);
             else if (x1 > 0)
             {
-                if (x2 != 0 || x3 != 0) // Jak jest funkcja stala to zeby nie bylo np. "+2" tylko samo "2"
-                    funkcja += "+" + Convert.ToString(x1);
+                if (x2 != 0 || x3 != 0) // If it is the constant function then make "2" instead of "+2"
+                    function += "+" + Convert.ToString(x1);
                 else
-                    funkcja += Convert.ToString(x1);
+                    function += Convert.ToString(x1);
             }
 
-            if (funkcja == string.Empty) // To znaczy ze funkcja jest stala = 0
-                funkcja = "0";
+            if (function == string.Empty) // Constant function = 0
+                function = "0";
 
-            //Usuwanie "+" z przodu
-            if (funkcja.StartsWith("+"))
-                funkcja = funkcja.Substring(1);
+            //Remove "+" in front
+            if (function.StartsWith("+"))
+                function = function.Substring(1);
 
-            //Usuwanie "1*" z przodu
-            if (funkcja.StartsWith("1*"))
-                funkcja = funkcja.Substring(2);
+            //Remove "1*" in front
+            if (function.StartsWith("1*"))
+                function = function.Substring(2);
 
-            //Zwrocenie funkcji
-            return funkcja;
+            return function;
         }
 
-        private string FormatujWynik()
-        //UWAGA!!!!! WYŁĄCZONE (wykomentowane) JEST POMIJANIE MAŁYCH WSPÓŁCZYNNIKÓW!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!  ---
-        {                          //                                                                                  \
-            int znak = stopien;          //                                                                                   \   
-            string funkcja = string.Empty;                         //                                                    \
-                                                                   //                                                     \
-            //Formatowanie wyjsciowego stringa                                                                             \
-            for (int i = stopien; i >= 0; i--)                     //                                                       \
-            {                                                      //                                                       /
-                if (znak++ % 2 == 0) // ZNAK DODATNI PRZY X                                                                /
-                {                                                  //                                                     /
-                    //if (!(Math.Abs(x[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija   <------
+        private string FormatResult()
+        {
+            int sign = _degree;
+            string function = string.Empty;
+
+            //Format the output
+            for (int i = _degree; i >= 0; i--)
+            {
+                if (sign++ % 2 == 0) // Plus sign by X
+                {
+                    //if (!(Math.Abs(x[i]) < 0.000000001)) // Skip small factors
                     //{
-                        if (x[i] < 0 && x[i] != 1 && x[i] != -1) // + i - daje -
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += (Convert.ToString(x[i]) + "*x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += (Convert.ToString(x[i]) + "*x");
-                            else if (i == 0)
-                                funkcja += (Convert.ToString(x[i]));
-                        }
-                        else if (x[i] > 0 && x[i] != 1 && x[i] != -1) // Po prostu liczba dodatnia
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("+" + Convert.ToString(x[i]) + "*x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("+" + Convert.ToString(x[i]) + "*x");
-                            else if (i == 0)
-                                funkcja += ("+" + Convert.ToString(x[i]));
-                        }
-                        else if (x[i] == 1) // Pomijamy 1* przy x
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("+x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("+x");
-                            else if (i == 0)
-                                funkcja += ("+1");
-                        }
-                        else if (x[i] == -1) // Pomijamy 1* przy x, dodajac -
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("-x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("-x");
-                            else if (i == 0)
-                                funkcja += ("-1");
+                    if (x[i] < 0 && x[i] != 1 && x[i] != -1) // + and - is -
+                    {
+                        if (i > 1)
+                            function += (Convert.ToString(x[i]) + "*x^" + Convert.ToString(i)); // if 1 then just writes X if 0 then just skip it
+                        else if (i == 1)
+                            function += (Convert.ToString(x[i]) + "*x");
+                        else if (i == 0)
+                            function += (Convert.ToString(x[i]));
+                    }
+                    else if (x[i] > 0 && x[i] != 1 && x[i] != -1) // Just positive number
+                    {
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("+" + Convert.ToString(x[i]) + "*x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("+" + Convert.ToString(x[i]) + "*x");
+                        else if (i == 0)
+                            function += ("+" + Convert.ToString(x[i]));
+                    }
+                    else if (x[i] == 1) // Skip 1* by x
+                    {
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("+x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("+x");
+                        else if (i == 0)
+                            function += ("+1");
+                    }
+                    else if (x[i] == -1) // Skip 1* by x, adding -
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("-x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("-x");
+                        else if (i == 0)
+                            function += ("-1");
                     //}
                 }
-                else // ZNAK UJEMNY PRZY X
+                else // Minus sign by X
                 {
-                    //if (!(Math.Abs(x[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija
+                    //if (!(Math.Abs(x[i]) < 0.000000001)) // Skip small factors
                     //{
-                        if (x[i] < 0 && x[i] != 1 && x[i] != -1) // + i - daje -
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("+" + Convert.ToString(Math.Abs(x[i])) + "*x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("+" + Convert.ToString(Math.Abs(x[i])) + "*x");
-                            else if (i == 0)
-                                funkcja += ("+" + Convert.ToString(Math.Abs(x[i])));
-                        }
-                        else if (x[i] > 0 && x[i] != 1 && x[i] != -1) // Po prostu liczba dodatnia
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("-" + Convert.ToString(Math.Abs(x[i])) + "*x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("-" + Convert.ToString(Math.Abs(x[i])) + "*x");
-                            else if (i == 0)
-                                funkcja += ("-" + Convert.ToString(Math.Abs(x[i])));
-                        }
-                        else if (x[i] == 1) // Pomijamy 1* przy x
-                        {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("-x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("-x");
-                            else if (i == 0)
-                                funkcja += ("-1");
-                        }
-                        else if (x[i] == -1) // Pomijamy 1* przy x, dodajac -
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                funkcja += ("+x^" + Convert.ToString(i));
-                            else if (i == 1)
-                                funkcja += ("+x");
-                            else if (i == 0)
-                                funkcja += ("+1");
+                    if (x[i] < 0 && x[i] != 1 && x[i] != -1) // + and - is -
+                    {
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("+" + Convert.ToString(Math.Abs(x[i])) + "*x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("+" + Convert.ToString(Math.Abs(x[i])) + "*x");
+                        else if (i == 0)
+                            function += ("+" + Convert.ToString(Math.Abs(x[i])));
+                    }
+                    else if (x[i] > 0 && x[i] != 1 && x[i] != -1) // Just positive number
+                    {
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("-" + Convert.ToString(Math.Abs(x[i])) + "*x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("-" + Convert.ToString(Math.Abs(x[i])) + "*x");
+                        else if (i == 0)
+                            function += ("-" + Convert.ToString(Math.Abs(x[i])));
+                    }
+                    else if (x[i] == 1) // skip 1* by x
+                    {
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("-x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("-x");
+                        else if (i == 0)
+                            function += ("-1");
+                    }
+                    else if (x[i] == -1) // skip 1* by x, adding -
+                        if (i > 1) // if 1 then just writes X if 0 then just skip it
+                            function += ("+x^" + Convert.ToString(i));
+                        else if (i == 1)
+                            function += ("+x");
+                        else if (i == 0)
+                            function += ("+1");
                     //}
                 }
             }
 
-            //Usuwanie "+" z przodu
-            if (funkcja.StartsWith("+"))
-                funkcja = funkcja.Substring(1);
+            //Remove "+" in front
+            if (function.StartsWith("+"))
+                function = function.Substring(1);
 
-            //Usuwanie "1*" z przodu
-            if (funkcja.StartsWith("1*"))
-                funkcja = funkcja.Substring(2);
+            //Remove "1*" in front
+            if (function.StartsWith("1*"))
+                function = function.Substring(2);
 
-            return funkcja;
+            return function;
         }
 
         /// <summary>
@@ -336,46 +329,42 @@ namespace NumericalLibraries.Approximation
         /// <returns>Approximated function</returns>
         public string Compute()
         {
-            if (stopien == 1)
-                return ObliczRegresjeLiniowa();
-            else if (stopien == 2)
-                return  ObliczRegresjeKwadratowa();
-            else if (stopien < 1)
+            if (_degree == 1)
+                return ComputeLinearRegression();
+            else if (_degree == 2)
+                return ComputeSquaredRegression();
+            else if (_degree < 1)
                 throw new WrongApproximationLevelException();
             else
             {
-                Sprawdzenie();
+                Validation();
 
-                ObliczSumy();
+                ComputeSums();
 
-                ObliczWspolczynniki();
-
-                //Utworzeniu stringu funkcja
-                string funkcja = FormatujWynik();
+                ComputeFactors();
+                
+                string funkcja = FormatResult();
 
                 return funkcja;
             }
         }
-
-    //KONSTRUKTOR --------------------
+        
         /// <summary>
-        /// 
+        /// Approximation contructor
         /// </summary>
         /// <param name="level">Approximation level</param>
         public Approximation(int level)
         {
-            iloscPunktow = 0;
-            this.stopien = level;
-
-            //Dla Ekstrapolacji liniowej i kwadratowej
+            _pointsCount = 0;
+            this._degree = level;
+            
             Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = x1 = x2 = x3 = 0;
-
-            //Dla ekstrapolacji dowolnego stopnia
+            
             Eyx = new double[level + 1];
             Ex = new double[2 * level + 1];
             x = new double[level + 1];
 
-            wspolczynniki = new double[level + 1, level + 2];
+            _factors = new double[level + 1, level + 2];
         }
     }
 }

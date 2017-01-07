@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using NumericalLibraries.Calculator.Exceptions;
-using NumericalLibraries.Exceptions;
 
 namespace NumericalLibraries.Calculator
 {
     public class Calculator: Interior
     {
-        // METODY ---------------------------------
-        private new void ErrorCheck() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
+        private new void ErrorCheck()
         {
             base.ErrorCheck();
 
@@ -35,8 +33,7 @@ namespace NumericalLibraries.Calculator
         {
             return EvaluateInterior();
         }
-
-    // KONSTRUKTOR --------------------------
+        
         public Calculator(string formula) : base(formula, 0.0)
         {
             ErrorCheck();

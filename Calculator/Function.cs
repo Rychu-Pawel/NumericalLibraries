@@ -1,47 +1,46 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using NumericalLibraries.Calculator.Exceptions;
 
 namespace NumericalLibraries.Calculator
 {
     public abstract class Function
     {
-        // ZMIENNE --------------------------------
         protected string function;
         protected string[] functionTable;
         protected string[] functionONP;
 
-        internal Stack stack = new Stack();
+        internal Stack.Stack stack = new Stack.Stack();
 
-        protected HashSet<char> dozwoloneZnaki = new HashSet<char>() { 'E', ' ', ',', '.', 'l', 's', 'i', 'n', 'c', 'o', 't', 'g', 'q', 'r', 'e', 'x', 'p', 'a', '(', ')', '+', '-', '*', '/', '^', '!', 'y', 'h', 'u', 'y', '\'' };
-        protected HashSet<char> operatory = new HashSet<char>() { '+', '-', '*', '/', '^', '!' };
+        protected HashSet<char> allowedSignes = new HashSet<char>() { 'E', ' ', ',', '.', 'l', 's', 'i', 'n', 'c', 'o', 't', 'g', 'q', 'r', 'e', 'x', 'p', 'a', '(', ')', '+', '-', '*', '/', '^', '!', 'y', 'h', 'u', 'y', '\'' };
+        protected HashSet<char> operators = new HashSet<char>() { '+', '-', '*', '/', '^', '!' };
         protected HashSet<char> operatorsWithoutFactorial = new HashSet<char>() { '+', '-', '*', '/', '^' };
-        protected HashSet<char> operatoryBezSilniAleZKropkaPrzecinek = new HashSet<char>() { '+', '-', '*', '/', '^', ',', '.' };
-        protected HashSet<char> operatoryBezPlusMinus = new HashSet<char>() { '*', '/', '^', '!' };
+        protected HashSet<char> operatorWithoutFactorialWithDotAndPeriod = new HashSet<char>() { '+', '-', '*', '/', '^', ',', '.' };
+        protected HashSet<char> operatorWithoutPlusSign = new HashSet<char>() { '*', '/', '^', '!' };
 
-        protected HashSet<string> operatoryBezSilniString = new HashSet<string>() { "+", "-", "*", "/", "^" };
-
-        // METODY ---------------------------------
-        protected bool CzyLiczba(string mayBeANum) // SPRAWDZA CZY STRING JEST LICZBA
+        protected HashSet<string> operatorWithoutFactorialString = new HashSet<string>() { "+", "-", "*", "/", "^" };
+        
+        protected bool IsNumber(string mayBeANum)
         {
             double number;
             return double.TryParse(mayBeANum, out number);
         }
 
-        protected virtual void ErrorCheck() // SPRAWDZA POPRAWNOSC WPROWADZONYCH DANYCH
+        /// <summary>
+        /// Checks if formula is correct
+        /// </summary>
+        protected virtual void ErrorCheck()
         {
             string cache;
 
-            //Tak na szybko zamiana PI na wartość
+            //Change "PI" to value
             function = function.Replace("PI", Math.PI.ToString());
 
             for (int i = 0; i < function.Length; i++)
             {
                 char c = function[i];
 
-                if (c == ' ')  // Usuwanie spacji
+                if (c == ' ')  // space trim
                 {
                     cache = function.Substring(i + 1, function.Length - (i + 1));
                     function = function.Substring(0, i);
@@ -49,82 +48,79 @@ namespace NumericalLibraries.Calculator
                     i--;
                 }
 
-                //Zamiana np. E-05 na 10^(-5)
-                if (c == 'E') // Zliczanie licznika
+                //Change e.g., E-05 na 10^(-5)
+                if (c == 'E')
                 {
                     try
                     {
-                        int licznikNawiasow = 1, licznik = 1; //licznik = znakow po E trzeba objac w nawias
+                        int bracketsCount = 1, counter = 1; //counter is how many signes after E need to be places in brackets
 
-                        if (function[i + licznik] == '+' || function[i + licznik] == '-')
-                            licznik++;
+                        if (function[i + counter] == '+' || function[i + counter] == '-')
+                            counter++;
 
-                        if (function[i + licznik] == '(')
+                        if (function[i + counter] == '(')
                         {
-                            licznik++;
+                            counter++;
 
-                            while (licznikNawiasow != 0)
+                            while (bracketsCount != 0)
                             {
-                                if (function[i + licznik] == '(')
-                                    licznikNawiasow++;
-                                else if (function[i + licznik] == ')')
-                                    licznikNawiasow--;
+                                if (function[i + counter] == '(')
+                                    bracketsCount++;
+                                else if (function[i + counter] == ')')
+                                    bracketsCount--;
 
-                                licznik++;
+                                counter++;
                             }
                         }
 
-                        while (i + licznik < function.Length && (char.IsDigit(function[i + licznik]) || function[i + licznik] == ',' || function[i + licznik] == '.'))
-                            licznik++;
+                        while (i + counter < function.Length && (char.IsDigit(function[i + counter]) || function[i + counter] == ',' || function[i + counter] == '.'))
+                            counter++;
 
-                        //Podmiana E na *10^(
-                        function = function.Substring(0, i) + "*10^(" + function.Substring(i + 1, licznik - 1) + ")" + function.Substring(i + licznik, function.Length - i - licznik);
+                        //Change E to *10^(
+                        function = function.Substring(0, i) + "*10^(" + function.Substring(i + 1, counter - 1) + ")" + function.Substring(i + counter, function.Length - i - counter);
                     }
                     catch (SystemException)
                     {
-                        throw new IncorrectEOperatorOccurrenceException();//FunctionException("Niepoprawne wystąpienie operatora \"E\"");
+                        throw new IncorrectEOperatorOccurrenceException();
                     }
                 }
 
-                //Operator nie moze stac na poczatku wyrazenia (za wyjatkiem + i -), i na koncu (za wyjątkiem silni)
-                if (i == 0 && operatoryBezPlusMinus.Contains(c))
-                    throw new OperatorAtTheBeginningOfTheExpressionException(c);//FunctionException("Operator \"" + c + "\" nie może stać na początku wyrażenia!");
+                //There can't be an operator at the beginning (except of + and -) and at the end (except of the factorial)
+                if (i == 0 && operatorWithoutPlusSign.Contains(c))
+                    throw new OperatorAtTheBeginningOfTheExpressionException(c);
 
                 if (i == function.Length - 1 && operatorsWithoutFactorial.Contains(c))
-                    throw new OperatorAtTheEndOfTheExpressionException(c);//FunctionException("Operator nie może stać na końcu wyrażenia!");
+                    throw new OperatorAtTheEndOfTheExpressionException(c);
 
-                //Czy nie stoja kolo siebie dwa operatory (za wyjątkiem silni jako pierwszej z dwóch operatorów)
+                //Check two operators one by one (exception factorial as a first sign)
                 if (i != 0)
-                    if (operatory.Contains(c) && operatoryBezSilniAleZKropkaPrzecinek.Contains(function[i - 1]))
-                        throw new TwoOperatorsOccurredSideBySideException();//FunctionException("Dwa operatory występują obok siebie!");
+                    if (operators.Contains(c) && operatorWithoutFactorialWithDotAndPeriod.Contains(function[i - 1]))
+                        throw new TwoOperatorsOccurredSideBySideException();
 
-                //Sprawdzenie czy nie ma dwóch silni obok siebie
+                //Check two factorials one by one
                 if (i != 0)
                     if (c == '!' && function[i - 1] == '!')
-                        throw new TwoFactorialsOccuredSideBySideException();//FunctionException("Dwie silnie występują obok siebie!");
+                        throw new TwoFactorialsOccuredSideBySideException();
 
-                //Przepuszcza tylko dozwolone znaki
-                if (!(dozwoloneZnaki.Contains(c) || char.IsDigit(c)))
-                    throw new ForbiddenSignDetectedException(c);//FunctionException("Występuje niedozwolony znak \'" + c.ToString() + "\' !");
-
-                // TO DO: Sprawdzenie czy funkcje np. exp(x) sa dobrze wpisane, np. nie epx, albo exp)
+                //Check sign is allowed
+                if (!(allowedSignes.Contains(c) || char.IsDigit(c)))
+                    throw new ForbiddenSignDetectedException(c);
             }
 
             if (function == string.Empty)
-                throw new EmptyFunctionStringException();//FunctionException("Wpisz funkcję!");
+                throw new EmptyFunctionStringException();
         }
 
-        protected void ConvertToTable()// Konwertuje string funkcja na string[] funkcja
+        protected void ConvertToTable()// CONVERTS string function to table
         {
-            // DEKLARACJA funkcjaTablica
-            int i, cache = 0; // CACHE - ILE TRZEBA UCIAC funkcja.Length ŻEBY ZADEKLAROWAC DOBRA WIELKOSC TABLICY
+            int i, cache = 0; // CACHE - how many function.Length to cut to declare good table length
 
-            for (i = 0; i < function.Length - 1; i++) // SPRAWDZENIE ILE JEST LICZB, a nie CYFR, oraz ile jest funkcji typu cos, sin, exp...
+            for (i = 0; i < function.Length - 1; i++) // count numbers (not digits) and functions
             {
                 if ((char.IsDigit(function[i]) || function[i] == ',' || function[i] == '.') && (char.IsDigit(function[i + 1]) || function[i + 1] == ',' || function[i + 1] == '.'))
                     cache++;
 
-                // IF FUNKCJA DWULITEROWA
+                // IF TWO SIGN FUNCTION
                 if ((i + 1 <= function.Length - 1) && ((function[i] == 't' && function[i + 1] == 'g') || (function[i] == 'l' && function[i + 1] == 'n') || (function[i] == 'l' && function[i + 1] == 'g')))
                 {
                     int n = -1;
@@ -133,12 +129,12 @@ namespace NumericalLibraries.Calculator
 
                     do
                     {
-                        if ((i > function.Length - 1) || (n == -1 && operatory.Contains(function[i]))) break;
+                        if ((i > function.Length - 1) || (n == -1 && operators.Contains(function[i]))) break;
                         if (function[i] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (function[i] == ')')
-                            if (n == -1)  //Obsluga przypadku '...cos30)'
+                            if (n == -1)  //handling '...cos30)'
                                 break;
                             else
                                 n--;
@@ -148,34 +144,34 @@ namespace NumericalLibraries.Calculator
                     }
                     while (n != 0);
                 }
-                // IF FUNKCJA TRZYLITEROWA
+                // IF THREE SIGN FUNCTION
                 else if ((i + 2 <= function.Length - 1) && ((function[i] == 's' && function[i + 1] == 'i' && function[i + 2] == 'n') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 's') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'g') || (function[i] == 'e' && function[i + 1] == 'x' && function[i + 2] == 'p') || (function[i] == 'a' && function[i + 1] == 't' && function[i + 2] == 'g') || (function[i] == 'l' && function[i + 1] == 'o' && function[i + 2] == 'g') || (function[i] == 't' && function[i + 1] == 'g' && function[i + 2] == 'h') || (function[i] == 't' && function[i + 1] == 'a' && function[i + 2] == 'n') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'n') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 't') || (function[i] == 's' && function[i + 1] == 'e' && function[i + 2] == 'c') || (function[i] == 'c' && function[i + 1] == 's' && function[i + 2] == 'c')))
                 {
-                    int n = -1; //n - zlicza nawiasy
+                    int bracketsCount = -1;
                     cache += 2;
-                    i += 3; //przesuniecie indeksu petli for o np. "cos"
+                    i += 3; //move loop index
 
                     do
                     {
-                        if ((i > function.Length - 1) || (n == -1 && operatory.Contains(function[i])))
+                        if ((i > function.Length - 1) || (bracketsCount == -1 && operators.Contains(function[i])))
                             break;
                         if (function[i] == '(')
-                            if (n != -1)
-                                n++;
+                            if (bracketsCount != -1)
+                                bracketsCount++;
                             else
-                                n = 1;
+                                bracketsCount = 1;
                         else if (function[i] == ')')
-                            if (n == -1) //Obsluga przypadku '...cos30)'
+                            if (bracketsCount == -1) //handling '...cos30)'
                                 break;
                             else
-                                n--;
+                                bracketsCount--;
 
                         cache++;
                         i++;
                     }
-                    while (n != 0);
+                    while (bracketsCount != 0);
                 }
-                // IF FUNKCJA 4-ro LITEROWA
+                // IF FOUR SIGN FUNCTION
                 else if ((i + 3 <= function.Length - 1) && ((function[i] == 's' && function[i + 1] == 'q' && function[i + 2] == 'r' && function[i + 3] == 't') || (function[i] == 'a' && ((function[i + 1] == 's' && function[i + 2] == 'i' && function[i + 3] == 'n') || (function[i + 1] == 'c' && function[i + 2] == 'o' && function[i + 3] == 's') || (function[i + 1] == 'c' && function[i + 2] == 't' && function[i + 3] == 'g'))) || (function[i] == 's' && function[i + 1] == 'i' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 's' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'g' && function[i + 3] == 'h') || (function[i] == 't' && function[i + 1] == 'a' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 't' && function[i + 3] == 'h')))
                 {
                     int n = -1;
@@ -184,12 +180,12 @@ namespace NumericalLibraries.Calculator
 
                     do
                     {
-                        if ((i > function.Length - 1) || (n == -1 && operatory.Contains(function[i]))) break;
+                        if ((i > function.Length - 1) || (n == -1 && operators.Contains(function[i]))) break;
                         if (function[i] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (function[i] == ')')
-                            if (n == -1)  //Obsluga przypadku '...cos30)'
+                            if (n == -1)  //handling '...cos30)'
                                 break;
                             else
                                 n--;
@@ -203,124 +199,124 @@ namespace NumericalLibraries.Calculator
 
             functionTable = new string[function.Length - cache];
 
-            // KONWERSJA
+            // CONVERSION
             int j = 0;
 
             for (i = 0; i < functionTable.Length; i++)
             {
-                string zwrot;
+                string result;
 
-                if (char.IsDigit(function[j]) || function[j] == ',' || function[j] == '.' || function[j] == 'x' || function[j] == 'u' || function[j] == 'y') // JAK CYFRA
+                if (char.IsDigit(function[j]) || function[j] == ',' || function[j] == '.' || function[j] == 'x' || function[j] == 'u' || function[j] == 'y') // IF DIGIT
                 {
-                    zwrot = char.ToString(function[j]);
+                    result = char.ToString(function[j]);
 
-                    while ((j + 1 < function.Length) && (char.IsDigit(function[j + 1]) || (function[j + 1] == ',') || (function[j + 1] == '.'))) // JEŚLI LICZBA
-                        zwrot += function[j++ + 1];
+                    while ((j + 1 < function.Length) && (char.IsDigit(function[j + 1]) || (function[j + 1] == ',') || (function[j + 1] == '.'))) // IF NUMBER
+                        result += function[j++ + 1];
 
                     j++;
                 }
-                // FUNKCJA 4 ZNAKOWA
+                // FOUR SIGN FUNCTION
                 else if ((function[j] == 's' && function[j + 1] == 'q' && function[j + 2] == 'r' && function[j + 3] == 't') || (function[j] == 'a' && ((function[j + 1] == 's' && function[j + 2] == 'i' && function[j + 3] == 'n') || (function[j + 1] == 'c' && function[j + 2] == 'o' && function[j + 3] == 's') || (function[j + 1] == 'c' && function[j + 2] == 't' && function[j + 3] == 'g'))) || (function[j] == 's' && function[j + 1] == 'j' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 's' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'g' && function[j + 3] == 'h') || (function[j] == 't' && function[j + 1] == 'a' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 't' && function[j + 3] == 'h'))
                 {
-                    string funkcjaPodstawowa;
-                    funkcjaPodstawowa = (char.ToString(function[j]) + char.ToString(function[j + 1]) + char.ToString(function[j + 2]) + char.ToString(function[j + 3]));
+                    string basicFunction;
+                    basicFunction = (char.ToString(function[j]) + char.ToString(function[j + 1]) + char.ToString(function[j + 2]) + char.ToString(function[j + 3]));
                     j += 4;
                     int n = -1;
 
                     do
                     {
-                        if ((j > function.Length - 1) || (n == -1 && operatory.Contains(function[j]))) break; // obsluga np cos30 zamiast cos(30)
+                        if ((j > function.Length - 1) || (n == -1 && operators.Contains(function[j]))) break; // handling cos30 instead of cos(30)
                         if (function[j] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (function[j] == ')')
-                            if (n == -1)  //Obsluga przypadku '...cos30)'
+                            if (n == -1)  //handling'...cos30)'
                                 break;
                             else
                                 n--;
 
-                        funkcjaPodstawowa += function[j++];
+                        basicFunction += function[j++];
                     }
                     while (n != 0);
 
-                    zwrot = funkcjaPodstawowa;
+                    result = basicFunction;
                 }
-                // FUNKCJA 3 ZNAKOWA
+                // THREE SIGN FUNCTION
                 else if ((function[j] == 's' && function[j + 1] == 'i' && function[j + 2] == 'n') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 's') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'g') || (function[j] == 'e' && function[j + 1] == 'x' && function[j + 2] == 'p') || (function[j] == 'a' && function[j + 1] == 't' && function[j + 2] == 'g') || (function[j] == 'l' && function[j + 1] == 'o' && function[j + 2] == 'g') || (function[j] == 't' && function[j + 1] == 'g' && function[j + 2] == 'h') || (function[j] == 't' && function[j + 1] == 'a' && function[j + 2] == 'n') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'n') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 't') || (function[j] == 's' && function[j + 1] == 'e' && function[j + 2] == 'c') || (function[j] == 'c' && function[j + 1] == 's' && function[j + 2] == 'c'))
                 {
-                    string funkcjaPodstawowa;
-                    funkcjaPodstawowa = (char.ToString(function[j]) + char.ToString(function[j + 1]) + char.ToString(function[j + 2]));
+                    string basicFunction;
+                    basicFunction = (char.ToString(function[j]) + char.ToString(function[j + 1]) + char.ToString(function[j + 2]));
                     j += 3;
                     int n = -1;
 
                     do
                     {
-                        if ((j > function.Length - 1) || (n == -1 && operatory.Contains(function[j])))
-                            break; // obsluga np cos30 zamiast cos(30)
+                        if ((j > function.Length - 1) || (n == -1 && operators.Contains(function[j])))
+                            break; // handling cos30 instead of cos(30)
                         if (function[j] == '(')
                             if (n != -1)
                                 n++;
                             else
                                 n = 1;
                         else if (function[j] == ')')
-                            if (n == -1)  //Obsluga przypadku '...cos30)'
+                            if (n == -1)  //handling '...cos30)'
                                 break;
                             else
                                 n--;
 
-                        funkcjaPodstawowa += function[j++];
+                        basicFunction += function[j++];
                     }
                     while (n != 0);
 
-                    zwrot = funkcjaPodstawowa;
+                    result = basicFunction;
                 }
-                // FUNKCJA 2 LITEROWA
+                // TWO SIGN FUNCTION
                 else if ((function[j] == 't' && function[j + 1] == 'g') || (function[j] == 'l' && function[j + 1] == 'g') || (function[j] == 'l' && function[j + 1] == 'n'))
                 {
-                    string funkcjaPodstawowa;
-                    funkcjaPodstawowa = (char.ToString(function[j]) + char.ToString(function[j + 1]));
+                    string basicFunction;
+                    basicFunction = (char.ToString(function[j]) + char.ToString(function[j + 1]));
                     j += 2;
                     int n = -1;
 
                     do
                     {
-                        if ((j > function.Length - 1) || (n == -1 && operatory.Contains(function[j]))) break; // obsluga np cos30 zamiast cos(30)
+                        if ((j > function.Length - 1) || (n == -1 && operators.Contains(function[j]))) break; // handling cos30 instead of cos(30)
                         if (function[j] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (function[j] == ')')
-                            if (n == -1)  //Obsluga przypadku '...cos30)'
+                            if (n == -1)  //handling '...cos30)'
                                 break;
                             else
                                 n--;
 
-                        funkcjaPodstawowa += function[j++];
+                        basicFunction += function[j++];
                     }
                     while (n != 0);
 
-                    zwrot = funkcjaPodstawowa;
+                    result = basicFunction;
                 }
-                else // JAK OPERATOR
+                else // operator
                 {
-                    zwrot = char.ToString(function[j]);
+                    result = char.ToString(function[j]);
                     j++;
                 }
 
-                functionTable[i] = zwrot;
+                functionTable[i] = result;
             }
         }
 
-        protected void ConvertToONP() // Konwertuje funkcja na ONP
+        protected void ConvertToONP() // convert to ONP
         {
-            // SPRAWDZENIE NAWIASÓW - jakos glupio ten kod napisalem
-            int l, n, nn; // nn - zlicza ilosc nawiasow i ile miejsc w tablicy bedzie potrzebne na "dodatkowe" zera w przypadku np. (-3)
+            // Check brackets
+            int l, n, nn; // nn - counts brackets and how many places in the table will be need for aditional zeros e.g., for (-3)
 
             n = nn = 0;
 
-            if (functionTable[0] == "-") // obsługa pierwszej ujemnej liczby bez nawiasu np. "-3"
+            if (functionTable[0] == "-") // handling first number less then zero e.g., "-3"
                 nn--;
 
-            //Zliczanie nawiasow (exp3*sin3-exp3*cos3)/2+(exp(-3)*(sin3+cos3))/2
+            //Counting brackets (exp3*sin3-exp3*cos3)/2+(exp(-3)*(sin3+cos3))/2
             for (l = 0; l < functionTable.Length; l++)
             {
                 string i = functionTable[l];
@@ -331,33 +327,33 @@ namespace NumericalLibraries.Calculator
                 }
             }
 
-            //Ilosc lewych i prawych nawiasow nie zgadza sie
+            //Brackets count does not match
             if (n != 0)
-                throw new LeftAndRightBracketsAmountDoesNotMatchException();//FunctionException("Ilość lewych i prawych nawiasów nie zgadza się!");
+                throw new LeftAndRightBracketsAmountDoesNotMatchException();
 
-            // PRZYGOTOWANIE ZMIENNYCH
+            // variables
             functionONP = new string[functionTable.Length - nn];
             stack.Clear();
 
-            // ZAMIANA NA ONP
+            // change to ONP
             int j, k = 0;
 
             for (j = 0; j < functionTable.Length; j++)
             {
                 string i = functionTable[j];
 
-                if (CzyLiczba(i) || i == "," || i == "x" || i == "u" || i == "y") // JAK CYFRA
+                if (IsNumber(i) || i == "," || i == "x" || i == "u" || i == "y") // DIGIT
                     functionONP[k++] = i;
-                // JAK FUNKCJA
+                // Function
                 else if (i.StartsWith("sin") || i.StartsWith("cos") || i.StartsWith("tg") || i.StartsWith("ctg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("atg") || i.StartsWith("actg") || i.StartsWith("exp") || i.StartsWith("sqrt") || i.StartsWith("ln") || i.StartsWith("lg") || i.StartsWith("log") || i.StartsWith("tgh") || i.StartsWith("tan") || i.StartsWith("ctn") || i.StartsWith("cot") || i.StartsWith("sec") || i.StartsWith("csc") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
                     functionONP[k++] = i;
-                else // JAK OPERATOR
+                else // operator
                 {
-                    switch (i) // JAKI OPERATOR
+                    switch (i)
                     {
                         case "-":
 
-                            if (j == 0 || functionTable[j - 1] == "(") // OBSŁUGA np. (-3)
+                            if (j == 0 || functionTable[j - 1] == "(") // handling e.g., (-3)
                                 functionONP[k++] = "0";
 
                             if (stack.Value() == "(" || stack.Empty)
@@ -438,68 +434,19 @@ namespace NumericalLibraries.Calculator
                             while (stack.Value() != "(")
                                 functionONP[k++] = stack.Pull();
 
-                            stack.Pull(); // ZDEJMUJE ZE STOSU TEZ NAWIAS
+                            stack.Pull();
                             break;
                     }
                 }
             }
 
-            while (!stack.Empty)  // ZDJECIE ZE STOSU POZOSTALOSCI
+            while (!stack.Empty)  // take the rest
                 functionONP[k++] = stack.Pull();
         }
-
-        // KONSTRUKTOR ----------------------------
-        public Function(string function) // KONSTRUKTOR
+        
+        public Function(string function)
         {
             this.function = function;
         }
     }
-}
-
-namespace NumericalLibraries.Calculator.Exceptions
-{
-    public class IncorrectEOperatorOccurrenceException : Exception
-    { }
-
-    public class OperatorAtTheBeginningOfTheExpressionException : Exception
-    {
-        public char Operator { get; set; }
-
-        public OperatorAtTheBeginningOfTheExpressionException(char op)
-        {
-            Operator = op;
-        }
-    }
-
-    public class OperatorAtTheEndOfTheExpressionException : Exception
-    {
-        public char Operator { get; set; }
-
-        public OperatorAtTheEndOfTheExpressionException(char op)
-        {
-            Operator = op;
-        }
-    }
-
-    public class TwoOperatorsOccurredSideBySideException : Exception
-    { }
-
-    public class TwoFactorialsOccuredSideBySideException : Exception
-    { }
-
-    public class ForbiddenSignDetectedException : Exception
-    {
-        public char Sign { get; set; }
-
-        public ForbiddenSignDetectedException(char sign)
-        {
-            Sign = sign;
-        }
-    }
-
-    public class EmptyFunctionStringException : Exception
-    { }
-
-    public class LeftAndRightBracketsAmountDoesNotMatchException : Exception
-    { }
 }

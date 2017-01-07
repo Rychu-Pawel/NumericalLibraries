@@ -8,29 +8,29 @@ namespace NumericalLibraries.Interpolation
     public class Interpolation
     {
 //ZMIENNE ------------------------------------
-        private int iloscPunktow;
-        private double[,] bazy;
-        private double[] bazyMianownikow;
-        private List<PointD> points;
+        private int _pointsCount;
+        private double[,] _base;
+        private double[] _denominatorBase;
+        private List<PointD> _points;
 
-        private double[] wynik; // Wynik jako tablica współczynników
+        private double[] _result; 
 
-        private string strResult; //Wynik jakos f(x)
+        private string _strResult; 
 
         /// <summary>
         /// Points list for interpolation
         /// </summary>
         public List<PointD> Points
         {
-            get { return points; }
+            get { return _points; }
             set
             {
-                points = value; 
+                _points = value; 
 
-                if (points != null)
-                    iloscPunktow = points.Count;
+                if (_points != null)
+                    _pointsCount = _points.Count;
                 else
-                    iloscPunktow = 0;
+                    _pointsCount = 0;
             }
         }
 
@@ -38,180 +38,173 @@ namespace NumericalLibraries.Interpolation
 
         private void ErrorCheck()
         {
-            // Sprawdzenie czy punkty x sie nie powtarzaja
-            for (int i = 0; i < iloscPunktow; i++)
-                for (int j = i + 1; j < iloscPunktow; j++)
-                    if (points[i].X == points[j].X)
-                        throw new SystemException("x = " + Convert.ToString(points[i].X) + " appears at least twice");
+            // Check if the points are distinct
+            for (int i = 0; i < _pointsCount; i++)
+                for (int j = i + 1; j < _pointsCount; j++)
+                    if (_points[i].X == _points[j].X)
+                        throw new SystemException("x = " + Convert.ToString(_points[i].X) + " appears at least twice");
         }
 
-        private void StworzBaze(int j, int iteracja) // j - pomijany index we wzorze lagrange'a
+        private void CreateBase(int j, int iteration) // j - skipped index in lagrange formula
         {
-            // wszedzie j - 1, bo tablice sa od 0, a nie od 1;
-            if (iteracja == -1)
+            if (iteration == -1)
             {
-                //Stwórz pierwsza iteracje
-                if (j == 1) // tworzymy l(j,2)
-                    bazy[j - 1, 0] = points[1].X;
+                //Create first iteration
+                if (j == 1) // create l(j,2)
+                    _base[j - 1, 0] = _points[1].X;
                 else
-                    bazy[j - 1, 0] = points[0].X;
+                    _base[j - 1, 0] = _points[0].X;
 
-                bazy[j - 1, 1] = 1;
-
-                //Jesli iloscPunktow > 2
-                    //stworzBaze(baza, iteracja + 1)
-                if (iloscPunktow > 2)
-                    StworzBaze(j, iteracja + 1);
+                _base[j - 1, 1] = 1;
+                
+                if (_pointsCount > 2)
+                    CreateBase(j, iteration + 1);
             }
             else
             {
-                //Stworz nowa potege
-                bazy[j - 1, iteracja + 2] = 1;
+                //Create new power
+                _base[j - 1, iteration + 2] = 1;
 
-                //Stworz (n-i)-te potegi (oznaczenie n - zgodnie ze wzorem lagrange'a)
-                int mnoznik = iteracja + 1; // mnoznik - przez ktory punkt (x) ma pomnozyc
-                if (j - 1 <= mnoznik) // pominiecie elementu pomijanego we wzorze lagrange'a
-                    mnoznik++;
+                //Create (n-i) powers
+                int multiplier = iteration + 1;
+                if (j - 1 <= multiplier)
+                    multiplier++;
 
-                for (int i = iteracja + 1; i > 0; i--)
-                        bazy[j - 1, i] = bazy[j - 1, i]*points[mnoznik].X + bazy[j - 1, i - 1];
+                for (int i = iteration + 1; i > 0; i--)
+                        _base[j - 1, i] = _base[j - 1, i]*_points[multiplier].X + _base[j - 1, i - 1];
 
-                //Stworz nowy ostatni (wolny) element
-                bazy[j - 1, 0] *= points[mnoznik].X;
+                //Create last element
+                _base[j - 1, 0] *= _points[multiplier].X;
 
-                // Rekurencja //Jesli (iteracja < wielkosc bazy) => stworzBaze(baza, iteracja + 1)
-                if (iteracja < iloscPunktow - 3)
-                    StworzBaze(j, iteracja + 1);
+                // Recursion
+                if (iteration < _pointsCount - 3)
+                    CreateBase(j, iteration + 1);
             }
         }
 
-        private void StworzBazeMianownikow(int j)
+        private void CreateDenominatorBase(int j)
         {
-            bazyMianownikow[j - 1] = 1;
+            _denominatorBase[j - 1] = 1;
 
-            for (int i = 1; i <= iloscPunktow; i++)
+            for (int i = 1; i <= _pointsCount; i++)
                 if (i != j)
-                    bazyMianownikow[j - 1] *= (points[j - 1].X - points[i - 1].X);
+                    _denominatorBase[j - 1] *= (_points[j - 1].X - _points[i - 1].X);
 
-            bazyMianownikow[j - 1] = points[j - 1].Y/bazyMianownikow[j - 1];
+            _denominatorBase[j - 1] = _points[j - 1].Y/_denominatorBase[j - 1];
         }
 
-        private void Interpoluj()
+        private void Interpolate()
         {
-            //Zmienne
-            bazy = new double[iloscPunktow, iloscPunktow];
-            bazyMianownikow = new double[iloscPunktow];
-            wynik = new double[iloscPunktow];
+            _base = new double[_pointsCount, _pointsCount];
+            _denominatorBase = new double[_pointsCount];
+            _result = new double[_pointsCount];
+            
+            for (int i = 1; i <= _pointsCount; i++)
+                CreateBase(i, -1);
 
-            //Wykonujemy
-            for (int i = 1; i <= iloscPunktow; i++)
-                StworzBaze(i, -1);
-
-            for (int i = 1; i <= iloscPunktow; i++)
-                StworzBazeMianownikow(i);
-
-            //Wykonanie interpolacji
-            for (int i = 0; i < iloscPunktow; i++)
-                for (int j = 0; j < iloscPunktow; j++)
-                    wynik[i] += bazy[j, i] * bazyMianownikow[j];
+            for (int i = 1; i <= _pointsCount; i++)
+                CreateDenominatorBase(i);
+            
+            for (int i = 0; i < _pointsCount; i++)
+                for (int j = 0; j < _pointsCount; j++)
+                    _result[i] += _base[j, i] * _denominatorBase[j];
         }
 
-        private void FormatujWynik()
+        private void FormatResult()
         {
-            int znak = 2;
-
-            //Formatowanie wyjsciowego stringa
-            for (int i = iloscPunktow - 1; i >= 0; i--)
+            int sign = 2;
+            
+            for (int i = _pointsCount - 1; i >= 0; i--)
             {
-                if (znak++ % 2 == 0) // ZNAK DODATNI PRZY X
+                if (sign++ % 2 == 0) // Plus sign by X
                 {
-                    if (!(Math.Abs(wynik[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija
+                    if (!(Math.Abs(_result[i]) < 0.000000001)) // if 1 then just writes X if 0 then just skip it
                     {
-                        if (wynik[i] < 0 && wynik[i] != 1 && wynik[i] != -1) // + i - daje -
+                        if (_result[i] < 0 && _result[i] != 1 && _result[i] != -1) // + and - is -
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += (Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += (Convert.ToString(_result[i]) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += (Convert.ToString(wynik[i]) + "*x");
+                                _strResult += (Convert.ToString(_result[i]) + "*x");
                             else if (i == 0)
-                                strResult += (Convert.ToString(wynik[i]));
+                                _strResult += (Convert.ToString(_result[i]));
                         }
-                        else if (wynik[i] > 0 && wynik[i] != 1 && wynik[i] != -1) // Po prostu liczba dodatnia
+                        else if (_result[i] > 0 && _result[i] != 1 && _result[i] != -1) // Just positive number
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("+" + Convert.ToString(wynik[i]) + "*x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("+" + Convert.ToString(_result[i]) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("+" + Convert.ToString(wynik[i]) + "*x");
+                                _strResult += ("+" + Convert.ToString(_result[i]) + "*x");
                             else if (i == 0)
-                                strResult += ("+" + Convert.ToString(wynik[i]));
+                                _strResult += ("+" + Convert.ToString(_result[i]));
                         }
-                        else if (wynik[i] == 1) // Pomijamy 1* przy x
+                        else if (_result[i] == 1) // skip 1* by x
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("+x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("+x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("+x");
+                                _strResult += ("+x");
                             else if (i == 0)
-                                strResult += ("+1");
+                                _strResult += ("+1");
                         }
-                        else if (wynik[i] == -1) // Pomijamy 1* przy x, dodajac -
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("-x^" + Convert.ToString(i));
+                        else if (_result[i] == -1) // skip 1* by x, adding -
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("-x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("-x");
+                                _strResult += ("-x");
                             else if (i == 0)
-                                strResult += ("-1");
+                                _strResult += ("-1");
                     }
                 }
-                else // ZNAK UJEMNY PRZY X
+                else // Minus sign by X
                 {
-                    if (!(Math.Abs(wynik[i]) < 0.000000001)) // JAK WSPOLCZYNNIK PRZY X jest bardzo maly to pomija
+                    if (!(Math.Abs(_result[i]) < 0.000000001)) //Skip small factors
                     {
-                        if (wynik[i] < 0 && wynik[i] != 1 && wynik[i] != -1) // + i - daje -
+                        if (_result[i] < 0 && _result[i] != 1 && _result[i] != -1) // + and - is -
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("+" + Convert.ToString(Math.Abs(_result[i])) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
+                                _strResult += ("+" + Convert.ToString(Math.Abs(_result[i])) + "*x");
                             else if (i == 0)
-                                strResult += ("+" + Convert.ToString(Math.Abs(wynik[i])));
+                                _strResult += ("+" + Convert.ToString(Math.Abs(_result[i])));
                         }
-                        else if (wynik[i] > 0 && wynik[i] != 1 && wynik[i] != -1) // Po prostu liczba dodatnia
+                        else if (_result[i] > 0 && _result[i] != 1 && _result[i] != -1) // just positive number
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("-" + Convert.ToString(Math.Abs(_result[i])) + "*x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])) + "*x");
+                                _strResult += ("-" + Convert.ToString(Math.Abs(_result[i])) + "*x");
                             else if (i == 0)
-                                strResult += ("-" + Convert.ToString(Math.Abs(wynik[i])));
+                                _strResult += ("-" + Convert.ToString(Math.Abs(_result[i])));
                         }
-                        else if (wynik[i] == 1) // Pomijamy 1* przy x
+                        else if (_result[i] == 1) // skip 1* by x
                         {
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("-x^" + Convert.ToString(i));
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("-x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("-x");
+                                _strResult += ("-x");
                             else if (i == 0)
-                                strResult += ("-1");
+                                _strResult += ("-1");
                         }
-                        else if (wynik[i] == -1) // Pomijamy 1* przy x, dodajac -
-                            if (i > 1) // Jak 1, to pisze sam x, jak 0 w ogole pomija x;
-                                strResult += ("+x^" + Convert.ToString(i));
+                        else if (_result[i] == -1) // skip 1* by x, adding -
+                            if (i > 1) // if 1 then just writes X if 0 then just skip it
+                                _strResult += ("+x^" + Convert.ToString(i));
                             else if (i == 1)
-                                strResult += ("+x");
+                                _strResult += ("+x");
                             else if (i == 0)
-                                strResult += ("+1");
+                                _strResult += ("+1");
                     }
                 }
             }
 
-            //Usuwanie "+" z przodu
-            if (strResult.StartsWith("+"))
-                strResult = strResult.Substring(1);
+            //Remove "+" in front
+            if (_strResult.StartsWith("+"))
+                _strResult = _strResult.Substring(1);
 
-            //Usuwanie "1*" z przodu
-            if (strResult.StartsWith("1*"))
-                strResult = strResult.Substring(2);
+            //Remove "1*" in front
+            if (_strResult.StartsWith("1*"))
+                _strResult = _strResult.Substring(2);
         }
 
         /// <summary>
@@ -220,25 +213,25 @@ namespace NumericalLibraries.Interpolation
         /// <returns>Interpolated function</returns>
         public string Compute()
         {
-            ErrorCheck(); //Wykonanie sprawdzenia
+            ErrorCheck(); 
 
-            strResult = string.Empty;
+            _strResult = string.Empty;
 
-            if (iloscPunktow == 0) // Jezeli nie ma punktow, to blad, jak tylko 1, to zwraca funkcje stala, jak 2 lub wiecej to liczy
+            if (_pointsCount == 0) 
                 throw new NoPointsProvidedException();
-            else if (iloscPunktow == 1)
-                return Convert.ToString(points[0].Y);
-            else if (iloscPunktow >= 2) //INTERPOLACJA !!!
+            else if (_pointsCount == 1)
+                return Convert.ToString(_points[0].Y);
+            else if (_pointsCount >= 2)
             {
-                Interpoluj();
+                Interpolate();
 
-                FormatujWynik();
+                FormatResult();
             }
 
-            if (strResult == string.Empty) // To znaczy ze funkcja jest stala = 0
-                strResult = "0";
+            if (_strResult == string.Empty)
+                _strResult = "0";
 
-            return strResult;
+            return _strResult;
         }
     }
 }

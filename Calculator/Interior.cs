@@ -10,56 +10,25 @@ namespace NumericalLibraries.Calculator
         // ZMIENNE ------------------------------
         protected double x, u, y;
 
-        ///// <summary>
-        ///// Variable value
-        ///// </summary>
-        //public double X
-        //{
-        //    get { return x; }
-        //    set { x = value; }
-        //}
-
-        ///// <summary>
-        ///// Second order differential starting value.
-        ///// Used only for computing second order differential.
-        ///// </summary>
-        //public double U
-        //{
-        //    get { return u; }
-        //    set { u = value; }
-        //}
-
-        ///// <summary>
-        ///// First order differential starting value.
-        ///// Used only for computing differentials.
-        ///// </summary>
-        //public double Y
-        //{
-        //    get { return y; }
-        //    set { y = value; }
-        //}
-
         // METODY -------------------------------
         protected double EvaluateInterior()
         {
-            // PRZYGOTOWANIE ZMIENNYCH
             stack.Clear();
-
-            // LICZENIE
+            
             int j;
 
             for (j = 0; j < functionONP.Length; j++)
             {
                 string i = functionONP[j];
-                double a, b, wynikAB = 0;
+                double a, b, resultAB = 0;
 
-                if (CzyLiczba(i) || i == "x" || i == "u" || i == "y") // JEŚLI CYFRA
+                if (IsNumber(i) || i == "x" || i == "u" || i == "y") // Digit
                     stack.Add(i);
-                // funkcja 4 LITEROWA
+                // Four sign function
                 else if (i.StartsWith("actg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("sqrt") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
                 {
-                    // obliczanie wnetrza
-                    string sWnetrze = String.Empty;
+                    // compute interior
+                    string sInterior = string.Empty;
                     int k = 4, n = -1;
 
                     do
@@ -69,105 +38,105 @@ namespace NumericalLibraries.Calculator
                             if (n != -1) n++;
                             else n = 1;
                         else if (i[k] == ')') n--;
-                        sWnetrze += i[k++];
+                        sInterior += i[k++];
                     }
                     while (n != 0);
 
-                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateInterior();
+                    Interior interior = new Interior(sInterior, x, y, u);
+                    double interiorValue = interior.EvaluateInterior();
 
-                    // obliczenie funkcji
-                    double funkcjaPodstawowa = 0;
+                    // compute function
+                    double basicFunction = 0;
 
-                    if (i.StartsWith("actg")) funkcjaPodstawowa = 1 / Math.Atan(wnetrze);
-                    else if (i.StartsWith("acos")) funkcjaPodstawowa = Math.Acos(wnetrze);
-                    else if (i.StartsWith("sqrt")) funkcjaPodstawowa = Math.Sqrt(wnetrze);
-                    else if (i.StartsWith("asin")) funkcjaPodstawowa = Math.Asin(wnetrze);
-                    else if (i.StartsWith("sinh")) funkcjaPodstawowa = Math.Sinh(wnetrze);
-                    else if (i.StartsWith("cosh")) funkcjaPodstawowa = Math.Cosh(wnetrze);
-                    else if (i.StartsWith("ctgh") || i.StartsWith("ctnh") || i.StartsWith("coth")) funkcjaPodstawowa = 1 / Math.Tanh(wnetrze);
-                    else if (i.StartsWith("tanh")) funkcjaPodstawowa = Math.Tanh(wnetrze);
+                    if (i.StartsWith("actg")) basicFunction = 1 / Math.Atan(interiorValue);
+                    else if (i.StartsWith("acos")) basicFunction = Math.Acos(interiorValue);
+                    else if (i.StartsWith("sqrt")) basicFunction = Math.Sqrt(interiorValue);
+                    else if (i.StartsWith("asin")) basicFunction = Math.Asin(interiorValue);
+                    else if (i.StartsWith("sinh")) basicFunction = Math.Sinh(interiorValue);
+                    else if (i.StartsWith("cosh")) basicFunction = Math.Cosh(interiorValue);
+                    else if (i.StartsWith("ctgh") || i.StartsWith("ctnh") || i.StartsWith("coth")) basicFunction = 1 / Math.Tanh(interiorValue);
+                    else if (i.StartsWith("tanh")) basicFunction = Math.Tanh(interiorValue);
 
-                    stack.Add(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(basicFunction));
                 }
-                // funkcja 3 literowa
+                // three sign function
                 else if (i.StartsWith("sin") || i.StartsWith("cos") || i.StartsWith("ctg") || i.StartsWith("atg") || i.StartsWith("exp") || i.StartsWith("log") || i.StartsWith("tgh") || i.StartsWith("tan") || i.StartsWith("ctn") || i.StartsWith("cot") || i.StartsWith("sec") || i.StartsWith("csc"))
                 {
-                    // obliczanie wnetrza
-                    string sWnetrze = String.Empty;
+                    // compute interior
+                    string sInterior = string.Empty;
                     int k = 3, n = -1;
 
                     do
                     {
-                        if ((k > i.Length - 1) || (n == -1 && operatory.Contains(i[k]))) break;
+                        if ((k > i.Length - 1) || (n == -1 && operators.Contains(i[k]))) break;
                         if (i[k] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (i[k] == ')') n--;
-                        sWnetrze += i[k++];
+                        sInterior += i[k++];
                     }
                     while (n != 0);
 
-                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateInterior();
+                    Interior interior = new Interior(sInterior, x, y, u);
+                    double interiorValue = interior.EvaluateInterior();
 
                     // obliczenie funkcji
-                    double funkcjaPodstawowa = 0;
+                    double basicFunction = 0;
 
-                    if (i.StartsWith("sin")) funkcjaPodstawowa = Math.Sin(wnetrze);
-                    else if (i.StartsWith("cos")) funkcjaPodstawowa = Math.Cos(wnetrze);
-                    else if (i.StartsWith("ctg") || i.StartsWith("ctn") || i.StartsWith("cot")) funkcjaPodstawowa = 1 / Math.Tan(wnetrze);
-                    else if (i.StartsWith("atg")) funkcjaPodstawowa = Math.Atan(wnetrze);
-                    else if (i.StartsWith("exp")) funkcjaPodstawowa = Math.Exp(wnetrze);
-                    else if (i.StartsWith("log")) funkcjaPodstawowa = Math.Log10(wnetrze);
-                    else if (i.StartsWith("tgh")) funkcjaPodstawowa = Math.Tanh(wnetrze);
-                    else if (i.StartsWith("tan")) funkcjaPodstawowa = Math.Tan(wnetrze);
-                    else if (i.StartsWith("sec")) funkcjaPodstawowa = 1 / Math.Cos(wnetrze);
-                    else if (i.StartsWith("csc")) funkcjaPodstawowa = 1 / Math.Sin(wnetrze);
+                    if (i.StartsWith("sin")) basicFunction = Math.Sin(interiorValue);
+                    else if (i.StartsWith("cos")) basicFunction = Math.Cos(interiorValue);
+                    else if (i.StartsWith("ctg") || i.StartsWith("ctn") || i.StartsWith("cot")) basicFunction = 1 / Math.Tan(interiorValue);
+                    else if (i.StartsWith("atg")) basicFunction = Math.Atan(interiorValue);
+                    else if (i.StartsWith("exp")) basicFunction = Math.Exp(interiorValue);
+                    else if (i.StartsWith("log")) basicFunction = Math.Log10(interiorValue);
+                    else if (i.StartsWith("tgh")) basicFunction = Math.Tanh(interiorValue);
+                    else if (i.StartsWith("tan")) basicFunction = Math.Tan(interiorValue);
+                    else if (i.StartsWith("sec")) basicFunction = 1 / Math.Cos(interiorValue);
+                    else if (i.StartsWith("csc")) basicFunction = 1 / Math.Sin(interiorValue);
 
-                    stack.Add(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(basicFunction));
                 }
                 else if (i.StartsWith("tg") || i.StartsWith("ln") || i.StartsWith("lg")) // TANGENS, LG, LN
                 {
-                    // obliczanie wnetrza
-                    string sWnetrze = String.Empty;
+                    // compute interior
+                    string sInterior = string.Empty;
                     int k = 2, n = -1;
 
                     do
                     {
-                        if ((k > i.Length - 1) || (n == -1 && operatory.Contains(i[k]))) break;
+                        if ((k > i.Length - 1) || (n == -1 && operators.Contains(i[k]))) break;
                         if (i[k] == '(')
                             if (n != -1) n++;
                             else n = 1;
                         else if (i[k] == ')') n--;
-                        sWnetrze += i[k++];
+                        sInterior += i[k++];
                     }
                     while (n != 0);
 
-                    Interior Wnetrze = new Interior(sWnetrze, x, y, u);
-                    double wnetrze = Wnetrze.EvaluateInterior();
+                    Interior interior = new Interior(sInterior, x, y, u);
+                    double interiorValue = interior.EvaluateInterior();
 
-                    // obliczenie funkcji
-                    double funkcjaPodstawowa = 0;
+                    // compute function
+                    double basicFunction = 0;
 
-                    if (i.StartsWith("tg")) funkcjaPodstawowa = Math.Tan(wnetrze);
-                    else if (i.StartsWith("lg")) funkcjaPodstawowa = Math.Log(wnetrze, 2);
-                    else if (i.StartsWith("ln")) funkcjaPodstawowa = Math.Log(wnetrze, Math.E);
+                    if (i.StartsWith("tg")) basicFunction = Math.Tan(interiorValue);
+                    else if (i.StartsWith("lg")) basicFunction = Math.Log(interiorValue, 2);
+                    else if (i.StartsWith("ln")) basicFunction = Math.Log(interiorValue, Math.E);
 
-                    stack.Add(Convert.ToString(funkcjaPodstawowa));
+                    stack.Add(Convert.ToString(basicFunction));
                 }
-                else if (operatoryBezSilniString.Contains(i)) // OPERATOR
+                else if (operatorWithoutFactorialString.Contains(i)) // OPERATOR
                 {
-                    string wartosc = stack.Value();
+                    string value = stack.Value();
 
                     //a
-                    if (wartosc != "x" && wartosc != "u" && wartosc != "y")
+                    if (value != "x" && value != "u" && value != "y")
                         a = Convert.ToDouble(stack.Pull());
                     else
                     {
                         stack.Pull();
 
-                        switch (wartosc)
+                        switch (value)
                         {
                             case "x":
                                 a = x;
@@ -185,15 +154,15 @@ namespace NumericalLibraries.Calculator
                     }
 
                     //b
-                    wartosc = stack.Value();
+                    value = stack.Value();
 
-                    if (wartosc != "x" && wartosc != "u" && wartosc != "y")
+                    if (value != "x" && value != "u" && value != "y")
                         b = Convert.ToDouble(stack.Pull());
                     else
                     {
                         stack.Pull();
 
-                        switch (wartosc)
+                        switch (value)
                         {
                             case "x":
                                 b = x;
@@ -212,14 +181,14 @@ namespace NumericalLibraries.Calculator
 
                     switch (i) // WYKONANIE DZIAŁAŃ
                     {
-                        case "+": wynikAB = b + a; break;
-                        case "-": wynikAB = b - a; break;
-                        case "*": wynikAB = b * a; break;
-                        case "/": wynikAB = b / a; break;
-                        case "^": wynikAB = Math.Pow(b, a); break;
+                        case "+": resultAB = b + a; break;
+                        case "-": resultAB = b - a; break;
+                        case "*": resultAB = b * a; break;
+                        case "/": resultAB = b / a; break;
+                        case "^": resultAB = Math.Pow(b, a); break;
                     }
 
-                    stack.Add(Convert.ToString(wynikAB));
+                    stack.Add(Convert.ToString(resultAB));
                 }
                 else if (i == "!")
                 {
@@ -248,18 +217,18 @@ namespace NumericalLibraries.Calculator
                         }
                     }
 
-                    double wynik = Factorial.Compute(c);
+                    double result = Factorial.Compute(c);
 
-                    stack.Add(Convert.ToString(wynik));
+                    stack.Add(Convert.ToString(result));
                 }
             }
 
-            string wartosc2 = stack.Value();
-            if (wartosc2 == "x" || wartosc2 == "u" || wartosc2 == "y")
+            string result2 = stack.Value();
+            if (result2 == "x" || result2 == "u" || result2 == "y")
             {
                 stack.Pull();
 
-                switch (wartosc2)
+                switch (result2)
                 {
                     case "x":
                         stack.Add(Convert.ToString(x));
@@ -285,20 +254,19 @@ namespace NumericalLibraries.Calculator
         /// <returns></returns>
         protected virtual double ComputeInterior()
         {
-            double wynik = EvaluateInterior();
+            double result = EvaluateInterior();
 
-            //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-            if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                wynik = Math.Floor(wynik);
-            else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                wynik = Math.Ceiling(wynik);
+            //Format the output (4,0000000000001 is 4)
+            if (Math.Abs(result - Math.Floor(result)) < 0.000000001)
+                result = Math.Floor(result);
+            else if (Math.Abs(result - Math.Ceiling(result)) < 0.000000001)
+                result = Math.Ceiling(result);
 
-            return wynik;
+            return result;
         }
-
-        // KONSTRUKTOR --------------------------
+        
         /// <summary>
-        /// 
+        /// Interior constructor
         /// </summary>
         /// <param name="formula">Formula</param>
         /// <param name="x">Variable value</param>

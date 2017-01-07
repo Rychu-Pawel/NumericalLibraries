@@ -12,21 +12,21 @@ namespace NumericalLibraries.Differential
     public class Differential : Derivative.Derivative
     {
         //ZMIENNE -----------------------------------
-        string funkcjaII;
-        double szukanyPunkt;
-        double szukanyPunktII;
-        double pktPoczatkowy, wartoscPoczatkowa;
-        double pktPoczatkowyII, wartoscPoczatkowaII;
-        double krok;
+        string _functionII;
+        double _searchingPoint;
+        double _searchingPointII;
+        double _startingPoint, _startingValue;
+        double _startingPointII, _startingValueII;
+        double _step;
 
-        string[] tablicaONPfunkcjiI;
-        string[] tablicaONPfunkcjiII;
+        string[] _ONP;
+        string[] _ONPII;
 
         double f0, f1, f2, f3;
         double f0II, f1II, f2II, f3II;
 
-        double wynik;
-        double wynikII;
+        double _result;
+        double _resultII;
 
         //METODY ------------------------------------
 
@@ -57,91 +57,90 @@ namespace NumericalLibraries.Differential
         /// <returns></returns>
         public List<PointD> ComputeDifferentialPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
         {
-            this.krok = step;
+            this._step = step;
 
             f0 = f1 = f2 = f3 = 0;
-            wynik = 0;
+            _result = 0;
 
-            List<PointD> punkty = new List<PointD>();
+            List<PointD> points = new List<PointD>();
+            
+            _searchingPoint = valueLookingPoint;
+            _startingPoint = startingPoint;
+            _startingValue = startingPointFunctionValue;
 
-            //Przygotowanie
-            szukanyPunkt = valueLookingPoint;
-            pktPoczatkowy = startingPoint;
-            wartoscPoczatkowa = startingPointFunctionValue;
-
-            //sprawdzenie czy mam sie posuwać do przodu czy do tyłu
-            if (szukanyPunkt > pktPoczatkowy)
+            //Check if should move forward or backward
+            if (_searchingPoint > _startingPoint)
             {
-                //Posuwam się do przodu
-                for (double i = pktPoczatkowy + step; i < szukanyPunkt; i += step)
+                //Moving forward
+                for (double i = _startingPoint + step; i < _searchingPoint; i += step)
                 {
                     ComputeFy();
 
-                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                    //Ustawienie nowych wartosci startowych dla kolejnej iteracji
-                    wartoscPoczatkowa = wynik;
-                    pktPoczatkowy = i;
+                    //Set values for next iteration
+                    _startingValue = _result;
+                    _startingPoint = i;
 
-                    punkty.Add(new PointD(i, wynik));
+                    points.Add(new PointD(i, _result));
                 }
 
-                //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                step = szukanyPunkt - pktPoczatkowy;
+                //Move to the searching value (e.g., to x = 3,4567 because now we are in 3,456)
+                step = _searchingPoint - _startingPoint;
                 ComputeFy();
-                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (applyResultFormatting)
                 {
-                    //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-                    if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                        wynik = Math.Floor(wynik);
-                    else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                        wynik = Math.Ceiling(wynik);
+                    //Change e.g., 4,0000000000001 to 4
+                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                        _result = Math.Floor(_result);
+                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                        _result = Math.Ceiling(_result);
                 }
 
-                punkty.Add(new PointD(szukanyPunkt, wynik));
+                points.Add(new PointD(_searchingPoint, _result));
 
-                return punkty;
+                return points;
             }
-            else if (szukanyPunkt < pktPoczatkowy)
+            else if (_searchingPoint < _startingPoint)
             {
                 step = -step;
 
-                //Posuwam się do tyłu
-                for (double i = pktPoczatkowy + step; i > szukanyPunkt; i += step)
+                //Moving backward
+                for (double i = _startingPoint + step; i > _searchingPoint; i += step)
                 {
                     ComputeFy();
 
-                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                    //Ustawienie nowych wartosci startowych dla kolejnej iteracji
-                    wartoscPoczatkowa = wynik;
-                    pktPoczatkowy = i;
+                    //Set values for next iteration
+                    _startingValue = _result;
+                    _startingPoint = i;
 
-                    punkty.Add(new PointD(i, y));
+                    points.Add(new PointD(i, y));
                 }
 
-                //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                step = -(pktPoczatkowy - szukanyPunkt);
+                //Move to the searching value (e.g., to x = 3,4567 because now we are in 3,456)
+                step = -(_startingPoint - _searchingPoint);
                 ComputeFy();
-                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (applyResultFormatting)
                 {
-                    //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-                    if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                        wynik = Math.Floor(wynik);
-                    else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                        wynik = Math.Ceiling(wynik);
+                    //Change e.g., 4,0000000000001 to 4
+                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                        _result = Math.Floor(_result);
+                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                        _result = Math.Ceiling(_result);
                 }
 
-                punkty.Add(new PointD(szukanyPunkt, wynik));
+                points.Add(new PointD(_searchingPoint, _result));
 
-                return punkty;
+                return points;
             }
             else //Szukany pkt jest == zadanemu punktowi
-                return new List<PointD>() { new PointD(szukanyPunkt, startingPointFunctionValue) };
+                return new List<PointD>() { new PointD(_searchingPoint, startingPointFunctionValue) };
         }
 
         /// <summary>
@@ -173,159 +172,156 @@ namespace NumericalLibraries.Differential
         /// <returns></returns>
         public List<PointD> ComputeDifferentialIIPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
         {
-            this.krok = step;
-
-            //Podstawienie
-            funkcjaII = function.Replace("y'", "u");
+            this._step = step;
+            
+            _functionII = function.Replace("y'", "u");
             function = "u";
 
-            //Obliczenie ONP dla I
+            //ONP for the first
             ConvertToTable();
             ConvertToONP();
 
-            tablicaONPfunkcjiI = functionONP;
+            _ONP = functionONP;
 
-            //Obliczenie ONP dla II
-            function = funkcjaII;
+            //ONP for the second
+            function = _functionII;
 
             ConvertToTable();
             ConvertToONP();
 
-            tablicaONPfunkcjiII = functionONP;
+            _ONPII = functionONP;
 
-            //Przywrocenie poprzedniej funkcji i ONP
+            //Restore previous ONP and function
             function = "u";
-            functionONP = tablicaONPfunkcjiI;
+            functionONP = _ONP;
 
-            //Właściwe obliczenia
+            //Compute
             f0 = f1 = f2 = f3 = f0II = f1II = f2II = f3II = 0;
-            wynik = wynikII = 0;
+            _result = _resultII = 0;
 
-            List<PointD> punkty = new List<PointD>();
-            List<PointD> punktyII = new List<PointD>();
+            List<PointD> points = new List<PointD>();
+            List<PointD> pointsII = new List<PointD>();
+            
+            _searchingPointII = valueLookingPoint;
+            _startingPoint = startingPoint;
+            _startingPointII = startingPoint;
+            _startingValue = startingPointFunctionValue;
+            _startingValueII = startingPointFunctionValueII;
 
-            //Przygotowanie
-            szukanyPunktII = valueLookingPoint;
-            pktPoczatkowy = startingPoint;
-            pktPoczatkowyII = startingPoint; //pkt poczatkowy II jest chyba do wyrzucenia, ale trzeba to sprawdzic w algorytmie czy moze sie zdazyc ze pktPocztkowy != pktPoczatkowyII
-            wartoscPoczatkowa = startingPointFunctionValue;
-            wartoscPoczatkowaII = startingPointFunctionValueII;
-
-            //sprawdzenie czy mam sie posuwać do przodu czy do tyłu
-            if (szukanyPunktII > pktPoczatkowyII)
+            //Check if should move forward or backward
+            if (_searchingPointII > _startingPointII)
             {
-                //Posuwam się do przodu
-                for (double i = pktPoczatkowyII + step; i < szukanyPunktII; i += step)
+                //Movinf forward
+                for (double i = _startingPointII + step; i < _searchingPointII; i += step)
                 {
                     ComputeFyII();
 
-                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
-                    wynikII = wartoscPoczatkowaII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
+                    _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    _resultII = _startingValueII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
 
-                    //Ustawienie nowych wartosci startowych dla kolejnej iteracji
-                    wartoscPoczatkowa = wynik;
-                    wartoscPoczatkowaII = wynikII;
-                    pktPoczatkowy = i;
-                    pktPoczatkowyII = i;
+                    //Set values for next iteration
+                    _startingValue = _result;
+                    _startingValueII = _resultII;
+                    _startingPoint = i;
+                    _startingPointII = i;
 
-                    punkty.Add(new PointD(i, wynik));
-                    punktyII.Add(new PointD(i, wynikII));
+                    points.Add(new PointD(i, _result));
+                    pointsII.Add(new PointD(i, _resultII));
                 }
 
-                //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                step = szukanyPunktII - pktPoczatkowyII;
+                //Move to the searching value (e.g., to x = 3,4567 because now we are in 3,456)
+                step = _searchingPointII - _startingPointII;
                 ComputeFyII();
-                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (applyResultFormatting)
                 {
-                    //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-                    if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                        wynik = Math.Floor(wynik);
-                    else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                        wynik = Math.Ceiling(wynik);
+                    //Change e.g., 4,0000000000001 to 4
+                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                        _result = Math.Floor(_result);
+                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                        _result = Math.Ceiling(_result);
                 }
 
-                punkty.Add(new PointD(szukanyPunktII, wynik));
+                points.Add(new PointD(_searchingPointII, _result));
 
-                return punkty;
+                return points;
             }
-            else if (szukanyPunktII < pktPoczatkowyII)
+            else if (_searchingPointII < _startingPointII)
             {
                 step = -step;
 
-                //Posuwam się do tyłu
-                //Posuwam się do przodu
-                for (double i = pktPoczatkowyII + step; i > szukanyPunktII; i += step)
+                //Moving backward
+                for (double i = _startingPointII + step; i > _searchingPointII; i += step)
                 {
                     ComputeFyII();
 
-                    wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
-                    wynikII = wartoscPoczatkowaII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
+                    _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                    _resultII = _startingValueII + (step / 6) * (f0II + 2 * f1II + 2 * f2II + f3II);
 
-                    //Ustawienie nowych wartosci startowych dla kolejnej iteracji
-                    wartoscPoczatkowa = wynik;
-                    wartoscPoczatkowaII = wynikII;
-                    pktPoczatkowy = i;
-                    pktPoczatkowyII = i;
+                    //Set values for next iteration
+                    _startingValue = _result;
+                    _startingValueII = _resultII;
+                    _startingPoint = i;
+                    _startingPointII = i;
 
-                    punkty.Add(new PointD(i, wynik));
-                    punktyII.Add(new PointD(i, wynikII));
+                    points.Add(new PointD(i, _result));
+                    pointsII.Add(new PointD(i, _resultII));
                 }
 
-                //Doliczenie do żądanej wartosci (bo jak szukam np. x = 3,4567 to teraz doliczyłem do 3,456)
-                step = szukanyPunktII - pktPoczatkowyII;
+                //Move to the searching value (e.g., to x = 3,4567 because now we are in 3,456)
+                step = _searchingPointII - _startingPointII;
                 ComputeFyII();
-                wynik = wartoscPoczatkowa + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
+                _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
                 if (applyResultFormatting)
                 {
-                    //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-                    if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                        wynik = Math.Floor(wynik);
-                    else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                        wynik = Math.Ceiling(wynik);
+                    //Change e.g., 4,0000000000001 to 4
+                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                        _result = Math.Floor(_result);
+                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                        _result = Math.Ceiling(_result);
                 }
 
-                punkty.Add(new PointD(szukanyPunktII, wynik));
+                points.Add(new PointD(_searchingPointII, _result));
 
-                return punkty;
+                return points;
             }
             else //Szukany pkt jest == zadanemu punktowi
-                return new List<PointD>() { new PointD(szukanyPunkt, startingPointFunctionValue) };
+                return new List<PointD>() { new PointD(_searchingPoint, startingPointFunctionValue) };
         }
 
         private void ComputeFy()
         {
-            y = wartoscPoczatkowa;
-            x = pktPoczatkowy;
+            y = _startingValue;
+            x = _startingPoint;
 
-            //Obliczenie f0
+            //Compute f0
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
             f0 = ComputeFunctionAtPoint();
 
-            //Obliczenie f1
-            x += krok / 2;
-            y = wartoscPoczatkowa + ((krok / 2) * f0);
+            //Compute f1
+            x += _step / 2;
+            y = _startingValue + ((_step / 2) * f0);
 
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
             f1 = ComputeFunctionAtPoint();
 
-            //Obliczenie f2
-            y = wartoscPoczatkowa + ((krok / 2) * f1);
+            //Compute f2
+            y = _startingValue + ((_step / 2) * f1);
 
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
             f2 = ComputeFunctionAtPoint();
 
-            //Obliczenie f3
-            x += krok / 2;
-            y = wartoscPoczatkowa + (krok * f2);
+            //Compute f3
+            x += _step / 2;
+            y = _startingValue + (_step * f2);
 
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
@@ -335,96 +331,95 @@ namespace NumericalLibraries.Differential
 
         private void ComputeFyII()
         {
-            u = wartoscPoczatkowaII;
-            y = wartoscPoczatkowa;
-            x = pktPoczatkowy;
+            u = _startingValueII;
+            y = _startingValue;
+            x = _startingPoint;
 
-            //Obliczenie f0
+            //Compute f0
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
             f0 = ComputeFunctionAtPoint();
 
-            //Obliczenie f0II
+            //Compute f0II
             string funkcjaTemp = function;
-            function = funkcjaII;
+            function = _functionII;
 
-            functionONP = tablicaONPfunkcjiII;
+            functionONP = _ONPII;
 
             f0II = ComputeFunctionAtPoint();
 
-            //Obliczenie f1
+            //Compute f1
             function = funkcjaTemp;
 
-            functionONP = tablicaONPfunkcjiI;
+            functionONP = _ONP;
 
-            x += krok / 2;
-            y = wartoscPoczatkowa + ((krok / 2) * f0);
-            u = wartoscPoczatkowaII + ((krok / 2) * f0II);
+            x += _step / 2;
+            y = _startingValue + ((_step / 2) * f0);
+            u = _startingValueII + ((_step / 2) * f0II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
             f1 = ComputeFunctionAtPoint();
 
-            //Obliczenie f1II
+            //Compute f1II
             funkcjaTemp = function;
-            function = funkcjaII;
+            function = _functionII;
 
-            functionONP = tablicaONPfunkcjiII;
+            functionONP = _ONPII;
 
             f1II = ComputeFunctionAtPoint();
 
-            //Obliczenie f2
+            //Compute f2
             function = funkcjaTemp;
 
-            functionONP = tablicaONPfunkcjiI;
+            functionONP = _ONP;
 
-            y = wartoscPoczatkowa + ((krok / 2) * f1);
-            u = wartoscPoczatkowaII + ((krok / 2) * f1II);
+            y = _startingValue + ((_step / 2) * f1);
+            u = _startingValueII + ((_step / 2) * f1II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
             f2 = ComputeFunctionAtPoint();
 
-            //Obliczenie f2II
+            //Compute f2II
             funkcjaTemp = function;
-            function = funkcjaII;
+            function = _functionII;
 
-            functionONP = tablicaONPfunkcjiII;
+            functionONP = _ONPII;
 
             f2II = ComputeFunctionAtPoint();
 
-            //Oblicenie f3
+            //Compute f3
             function = funkcjaTemp;
 
-            functionONP = tablicaONPfunkcjiI;
+            functionONP = _ONP;
 
-            x += krok / 2;
-            y = wartoscPoczatkowa + (krok * f2);
-            u = wartoscPoczatkowaII + ((krok) * f2II);
+            x += _step / 2;
+            y = _startingValue + (_step * f2);
+            u = _startingValueII + ((_step) * f2II);
 
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
             f3 = ComputeFunctionAtPoint();
 
-            //Obliczenie f3II
+            //Compute f3II
             funkcjaTemp = function;
-            function = funkcjaII;
+            function = _functionII;
 
-            functionONP = tablicaONPfunkcjiII;
+            functionONP = _ONPII;
 
             f3II = ComputeFunctionAtPoint();
 
-            //Przywrocenie funkcji i ONP
+            //Restore function and ONP
             function = funkcjaTemp;
 
-            functionONP = tablicaONPfunkcjiI;
+            functionONP = _ONP;
         }
-
-        //KONSTUKTOR --------------------------------
+        
         public Differential(string function)
             : base(function)
         { }

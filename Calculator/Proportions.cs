@@ -18,7 +18,7 @@ namespace NumericalLibraries.Calculator
         /// <returns></returns>
         public double Compute(double v1, double v2, double v3, double v4)
         {
-            //Sprawdzenie czy jest i czy tylko jedna zmienna
+            //Check if there is and if there is only one variable
             int nanCount = 0;
 
             if (double.IsNaN(v1))
@@ -38,7 +38,7 @@ namespace NumericalLibraries.Calculator
             else if (nanCount < 1)
                 throw new VariableNotFoundException();
 
-            //Obliczenia
+            //Compute
             if (double.IsNaN(v1))
                 return v2 * v3 / v4;
             else if (double.IsNaN(v2))
@@ -49,13 +49,4 @@ namespace NumericalLibraries.Calculator
                 return v2 * v3 / v1;
         }
     }
-}
-
-namespace NumericalLibraries.Calculator.Exceptions
-{
-    public class ThereCanBeOnlyOneVariableInProportionException : Exception
-    { }
-
-    public class VariableNotFoundException : Exception
-    { }
 }

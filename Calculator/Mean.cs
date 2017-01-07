@@ -15,13 +15,13 @@ namespace NumericalLibraries.Calculator
         /// <returns></returns>
         public double ComputeArithmetic(IEnumerable<double> values)
         {
-            //Walidacja ilosci punktow
+            //Validation
             double count = values.LongCount();
 
             if (count == 0)
                 throw new NoValuesProvidedException();
 
-            //Obliczenia
+            //Compute
             double result = 0.0d;
 
             foreach (double item in values)
@@ -37,13 +37,13 @@ namespace NumericalLibraries.Calculator
         /// <returns></returns>
         public double ComputeWeighted(IEnumerable<double[]> values)
         {
-            //Walidacja ilosci punktow
+            //Validation
             double count = values.LongCount();
 
             if (count == 0)
                 throw new NoValuesProvidedException();
 
-            //Obliczenia
+            //Compute
             double result = 0.0d;
             double weight = 0.0d;
 
@@ -62,16 +62,4 @@ namespace NumericalLibraries.Calculator
             return result / weight;
         }
     }
-}
-
-namespace NumericalLibraries.Calculator.Exceptions
-{
-    public class NoValuesProvidedException : Exception
-    { }
-
-    public class ValueArrayLowerBoundDifferentThenZeroException : Exception
-    { }
-
-    public class ValueArrayUpperBoundDifferentThenOneException : Exception
-    { }
 }

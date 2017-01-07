@@ -22,22 +22,23 @@ namespace NumericalLibraries.Calculator
                 number = number * (-1.0);
             }
 
-            //Sprawdzenie czy mozna bezpośrednio zrzutowac na int i czy jest on
-            //odpowiednio maly by mozna bylo obliczyc w tradycyjny sposob
             int numberInt;
             
             if (int.TryParse(number.ToString(), out numberInt) && numberInt < 20)
             {
+                //Traditional way if it is a integer number less than 20
                 for (int i = 2; i <= number; i++)
                     result *= i;
 
                 return multiplier * result;
             }
+            else
+            {
+                double alpha = ((1 / (12 * number)) + (1 / (12 * number + 1))) / 2;
+                result = Math.Sqrt(2 * Math.PI * number) * Math.Pow((number / Math.E), number) * Math.Pow(Math.E, alpha);
 
-            double alpha = ((1 / (12 * number)) + (1 / (12 * number + 1))) / 2;
-            result = Math.Sqrt(2 * Math.PI * number) * Math.Pow((number / Math.E), number) * Math.Pow(Math.E, alpha);
-            
-            return multiplier * result;
+                return multiplier * result;
+            }
         }
     }
 }

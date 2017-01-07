@@ -43,14 +43,28 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="Exceptions\EmptyFunctionStringException.cs" />
+    <Compile Include="Exceptions\ForbiddenSignDetectedException.cs" />
+    <Compile Include="Exceptions\IncorrectEOperatorOccurrenceException.cs" />
+    <Compile Include="Exceptions\LeftAndRightBracketsAmountDoesNotMatchException.cs" />
+    <Compile Include="Exceptions\NoValuesProvidedException.cs" />
+    <Compile Include="Exceptions\OperatorAtTheBeginningOfTheExpressionException.cs" />
+    <Compile Include="Exceptions\OperatorAtTheEndOfTheExpressionException.cs" />
+    <Compile Include="Exceptions\ThereCanBeOnlyOneVariableInProportionException.cs" />
+    <Compile Include="Exceptions\TwoFactorialsOccuredSideBySideException.cs" />
+    <Compile Include="Exceptions\TwoOperatorsOccurredSideBySideException.cs" />
+    <Compile Include="Exceptions\ValueArrayLowerBoundDifferentThenZeroException.cs" />
+    <Compile Include="Exceptions\ValueArrayUpperBoundDifferentThenOneException.cs" />
     <Compile Include="Exceptions\VariableFoundException.cs" />
+    <Compile Include="Exceptions\VariableNotFoundException.cs" />
     <Compile Include="Factorial.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="Interior.cs" />
     <Compile Include="Mean.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proportions.cs" />
-    <Compile Include="Stack.cs" />
+    <Compile Include="Stack\Stack.cs" />
+    <Compile Include="Stack\StackElement.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
@@ -58,6 +72,7 @@
       <Name>NumericalCalculatorCommon</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PostBuildEvent>"C:\Program Files\7-Zip\7z.exe" a -tzip "$(TargetDir)$(ProjectName).zip" "$(TargetDir)*.*"</PostBuildEvent>

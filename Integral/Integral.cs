@@ -10,112 +10,111 @@ namespace NumericalLibraries.Integral
     public class Integral : Derivative.Derivative
     {
     //ZMIENNE ---------------------------------------
-        double[,] kwadratury;
-        double xOd, xDo;
+        double[,] _quadrature;
+        double _xFrom, _xTo;
 
-        double wynik;
+        double _result;
 
         //METODY ----------------------------------------
-        private void ZamienGranice()
+        private void ChangeBoundaries()
         {
-            double wspolczynnik, wyrazWolny;
+            double factor, freeComponent;
 
-            wspolczynnik = (xDo - xOd) / 2;
+            factor = (_xTo - _xFrom) / 2;
 
-            wyrazWolny = (xOd + xDo) / 2;
+            freeComponent = (_xFrom + _xTo) / 2;
 
-            //Zamiana x na np. (2*x+3)
+            //Change x to e.g., (2*x+3)
             if (function.Length > 1)
             {
-                //Przeszukanie funkcji w celu znalezienia 'x'
+                //Search function for 'x'
                 for (int i = 0; i < function.Length; i++)
                 {
-                    //Zamienia x jesli nie jest on czescia 'exp' bo wychodzilo 'e(2*x+3)p
+                    //Change x  if it is not a part of 'exp' because we don't want to get 'e(2*x+3)p
                     if (function[i] == 'x' && ((i > 0) ? (function[i - 1] != 'e') : true))
                     {
-                        if (wyrazWolny > 0)
+                        if (freeComponent > 0)
                         {
-                            int wielkoscStringPrzed = function.Length;
-                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny) + ")" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            int lengthBefore = function.Length;
+                            function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x+" + Convert.ToString(freeComponent) + ")" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - lengthBefore + 1; 
                         }
-                        else if (wyrazWolny < 0)
+                        else if (freeComponent < 0)
                         {
                             int wielkoscStringPrzed = function.Length;
-                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny) + ")" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x" + Convert.ToString(freeComponent) + ")" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - wielkoscStringPrzed + 1;
                         }
-                        else // Wyraz wolny == 0
+                        else // freeComponent == 0
                         {
                             int wielkoscStringPrzed = function.Length;
-                            function = function.Substring(0, i) + "(" + Convert.ToString(wspolczynnik) + "*x)" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - wielkoscStringPrzed + 1; // przesuniecie iteracji o dodana funkcje
+                            function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x)" + function.Substring(i + 1, function.Length - i - 1);
+                            i += function.Length - wielkoscStringPrzed + 1;
                         }
                     }
                 }
             }
-            else if (function == "x") // Funkcja nie jest stała
+            else if (function == "x") // Function is not constant
             {
-                if (wyrazWolny > 0)
-                    function = Convert.ToString(wspolczynnik) + "*x+" + Convert.ToString(wyrazWolny);
-                else if (wyrazWolny < 0)
-                    function = Convert.ToString(wspolczynnik) + "*x" + Convert.ToString(wyrazWolny);
+                if (freeComponent > 0)
+                    function = Convert.ToString(factor) + "*x+" + Convert.ToString(freeComponent);
+                else if (freeComponent < 0)
+                    function = Convert.ToString(factor) + "*x" + Convert.ToString(freeComponent);
             }
 
-            //Dodanie z przodu wspolczynnika - np. 28*x^3+3*x => (32)*(28*x^3+3*x)
-            function = "(" + Convert.ToString(wspolczynnik) + ")*(" + function + ")";
+            //Add prefix factor - e.g., 28*x^3+3*x => (32)*(28*x^3+3*x)
+            function = "(" + Convert.ToString(factor) + ")*(" + function + ")";
 
             ErrorCheck();
             ConvertToTable();
             ConvertToONP();
         }
 
-        private double ObliczPosrednie()
+        private double ComputeIndirect()
         {
-            string funkcjaWlasciwa = function;
+            string previousFunction = function;
 
-            //Zamienienie granic posrednich np. (-1, -0,9) => (-1, 1);
-            ZamienGranice();
+            //Change indirect boundaries e.g., (-1, -0,9) => (-1, 1);
+            ChangeBoundaries();
             
-            double wynikPosredni = 0;
+            double indirectResult = 0;
 
-            //Obliczenie całki kwadraturą Gaussa-Legendre'a
+            //Calculate integral using Gaussa-Legendre'a quadrature
             for (int i = 0; i < 5; i++)
-                wynikPosredni += kwadratury[0, i] * (ComputeFunctionAtPoint(kwadratury[1, i]) + ComputeFunctionAtPoint(-kwadratury[1, i]));
+                indirectResult += _quadrature[0, i] * (ComputeFunctionAtPoint(_quadrature[1, i]) + ComputeFunctionAtPoint(-_quadrature[1, i]));
 
-            function = funkcjaWlasciwa;
+            function = previousFunction;
 
-            return wynikPosredni;
+            return indirectResult;
         }
 
         public double ComputeIntegral()
         {
-            //Zamiana granic
-            if (xOd != -1 || xDo != 1)
-                ZamienGranice();
+            //Change boundaries
+            if (_xFrom != -1 || _xTo != 1)
+                ChangeBoundaries();
 
-            //Obliczenie całki od -1 do 1 jako sumy 100 całek
+            // Compute integral from -1 to 1 as a sum of 100 integrals
             for (double i = -1; i <= 1; i += 0.01)
             {
-                xOd = i;
-                xDo = i + 0.01;
-                wynik += ObliczPosrednie();
+                _xFrom = i;
+                _xTo = i + 0.01;
+                _result += ComputeIndirect();
             }
 
-            //Przywrocenie z powrotem ustawien dla oryginalnej funkcji
+            //Restore settings for original function
             ConvertToTable();
             ConvertToONP();
 
-            //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-            if (Math.Abs(wynik - Math.Floor(wynik)) < 0.000000001)
-                wynik = Math.Floor(wynik);
-            else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.000000001)
-                wynik = Math.Ceiling(wynik);
+            //Change e.g., 4,0000000000001 to 4
+            if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                _result = Math.Floor(_result);
+            else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                _result = Math.Ceiling(_result);
 
-            return wynik;
+            return _result;
         }
-
-        //KONSTRUKTOR -----------------------------------
+        
         /// <summary>
         /// 
         /// </summary>
@@ -124,27 +123,27 @@ namespace NumericalLibraries.Integral
         /// <param name="xTo">Upper limit</param>
         public Integral(string function, double xFrom, double xTo) : base(function)
         {
-            this.xOd = xFrom;
-            this.xDo = xTo;
+            this._xFrom = xFrom;
+            this._xTo = xTo;
 
             if (double.IsInfinity(xFrom) || double.IsInfinity(xTo))
                 throw new IntegralInfinityRangeNotSupportedException();
 
-            kwadratury = new double[2, 5]; //calka dla 10 kwadratur
+            _quadrature = new double[2, 5]; // Integral for 10 quadratures
 
-            //Wpisanie kwadratur [0,2] 0 <- waga, 2 <- wartosc funkcji w pkcie 2 i -2 dla wagi 0;
-            kwadratury[0, 0] = 0.0666713443;
-            kwadratury[1, 0] = 0.9739065285;
-            kwadratury[0, 1] = 0.1494513492;
-            kwadratury[1, 1] = 0.8650633667;
-            kwadratury[0, 2] = 0.2190863625;
-            kwadratury[1, 2] = 0.6794095683;
-            kwadratury[0, 3] = 0.2692667193;
-            kwadratury[1, 3] = 0.4333953941;
-            kwadratury[0, 4] = 0.2955242247;
-            kwadratury[1, 4] = 0.1488743390;
+            //Quadratures [0,2] 0 <- weight, 2 <- function value at point 2 and -2 for weight = 0;
+            _quadrature[0, 0] = 0.0666713443;
+            _quadrature[1, 0] = 0.9739065285;
+            _quadrature[0, 1] = 0.1494513492;
+            _quadrature[1, 1] = 0.8650633667;
+            _quadrature[0, 2] = 0.2190863625;
+            _quadrature[1, 2] = 0.6794095683;
+            _quadrature[0, 3] = 0.2692667193;
+            _quadrature[1, 3] = 0.4333953941;
+            _quadrature[0, 4] = 0.2955242247;
+            _quadrature[1, 4] = 0.1488743390;
 
-            wynik = 0;
+            _result = 0;
 
             ErrorCheck();
             ConvertToTable();

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace NumericalLibraries.Exceptions
+namespace NumericalLibraries.Calculator.Exceptions
 {
     public class VariableFoundException : Exception
     { }
