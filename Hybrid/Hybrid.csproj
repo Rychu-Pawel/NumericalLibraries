@@ -8,8 +8,8 @@
     <ProjectGuid>{E042347C-874C-490F-9185-D3F140FE51F0}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalLibraries</RootNamespace>
-    <AssemblyName>Hybrid</AssemblyName>
+    <RootNamespace>Rychusoft.NumericalLibraries.Hybrid</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.Hybrid</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Hybrid.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rychusoft.NumericalLibraries.Hybrid.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Hybrid.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Rychusoft.NumericalLibraries.Hybrid.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -61,7 +61,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CreateNuget.ps1" />
+    <None Include="RemoveAndCreateNuget.ps1" />
     <None Include="Hybrid.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

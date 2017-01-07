@@ -14,8 +14,8 @@
     <tags>Bessel Calculator NumericalLibraries Numerical Libraries Math</tags>
   </metadata>
   <files>
-	<file src="..\Bessele\*.dll" target="" />
-	<file src="..\Bessele\*.f" target="" />
-	<file src="..\Bessele\*.f90" target="" />
+    <file src="..\Bessele\*.dll" target="" />
+    <file src="..\Bessele\*.f" target="" />
+    <file src="..\Bessele\*.f90" target="" />
   </files>
 </package>

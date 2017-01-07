@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Interpolation and Approximation")]
+[assembly: AssemblyTitle("NumericalLibraries Interpolation and Approximation")]
 [assembly: AssemblyDescription("Library for computing function interpolation and apporximation")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]

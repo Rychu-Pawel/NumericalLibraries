@@ -12,5 +12,8 @@
     <description>$description$</description>
     <copyright>$copyright$</copyright>
     <tags>Function Root Zero Calculator NumericalLibraries Numerical Libraries Math</tags>
+    <dependencies>
+      <dependency id="Rychusoft.NumericalLibraries.Derivative" version="1.0" />
+    </dependencies>
   </metadata>
 </package>

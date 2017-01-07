@@ -5,10 +5,10 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Bessel")]
+[assembly: AssemblyTitle("NumericalLibraries Bessel")]
 [assembly: AssemblyDescription("Set of Bessel's functions for Rychusoft.NumericalLibraries suite")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Rychusoft & Paweł Syty")]
+[assembly: AssemblyCompany("Rychusoft and Pawel Syty")]
 [assembly: AssemblyProduct("NumericalLibraries")]
 [assembly: AssemblyCopyright("© Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]

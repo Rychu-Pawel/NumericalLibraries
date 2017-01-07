@@ -12,5 +12,10 @@
     <description>$description$</description>
     <copyright>$copyright$</copyright>
     <tags>Chart Calculator NumericalLibraries Numerical Libraries Math Derivative Differential</tags>
+    <dependencies>
+      <dependency id="Rychusoft.NumericalLibraries.Bessel" version="1.0" />
+      <dependency id="Rychusoft.NumericalLibraries.Differential" version="1.0" />
+      <dependency id="Rychusoft.NumericalLibraries.FourierTransform" version="1.0" />
+    </dependencies>
   </metadata>
 </package>

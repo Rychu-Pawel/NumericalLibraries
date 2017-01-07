@@ -8,8 +8,8 @@
     <ProjectGuid>{990923CB-10A0-46EC-B76E-ED28B12EDEDC}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalLibraries</RootNamespace>
-    <AssemblyName>LinearEquation</AssemblyName>
+    <RootNamespace>Rychusoft.NumericalLibraries.LinearEquation</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.LinearEquation</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\LinearEquation.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rychusoft.NumericalLibraries.LinearEquation.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\LinearEquation.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Rychusoft.NumericalLibraries.LinearEquation.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -55,7 +55,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="CreateNuget.ps1" />
+    <None Include="RemoveAndCreateNuget.ps1" />
     <None Include="LinearEquation.nuspec" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

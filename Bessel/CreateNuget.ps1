@@ -1,1 +1,0 @@
-nuget pack Bessel.csproj

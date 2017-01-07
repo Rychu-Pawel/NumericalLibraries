@@ -1,1 +1,0 @@
-nuget pack LinearEquation.csproj -IncludeReferencedProjects 

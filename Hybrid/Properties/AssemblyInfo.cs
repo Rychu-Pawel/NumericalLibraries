@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Hybrid")]
+[assembly: AssemblyTitle("NumericalLibraries Function Zero Root")]
 [assembly: AssemblyDescription("Library for computing zero of a function")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
