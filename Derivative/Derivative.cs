@@ -5,10 +5,8 @@ namespace Rychusoft.NumericalLibraries.Derivative
 {
     public class Derivative : Interior
     {
-    // ZMIENNE ------------------------------
         double h;
         
-    // METODY -------------------------------
         /// <summary>
         /// Compute function value at given point
         /// </summary>
@@ -133,8 +131,7 @@ namespace Rychusoft.NumericalLibraries.Derivative
 
             return this.ComputeDerivativeBis();
         }
-
-    // KONSTRUKTOR --------------------------
+        
         public Derivative(string function, double x) : base(function, x)
         {
             h = 0.0001;

@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("FourierTransform")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Library for computing fourier transform")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]
 [assembly: AssemblyCopyright("Copyright © Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]

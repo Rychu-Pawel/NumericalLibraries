@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Interpolation")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("Interpolation and Approximation")]
+[assembly: AssemblyDescription("Library for computing function interpolation and apporximation")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]
-[assembly: AssemblyCopyright("Copyright © Pawel Rychlicki 2012-2017")]
+[assembly: AssemblyCopyright("© Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
