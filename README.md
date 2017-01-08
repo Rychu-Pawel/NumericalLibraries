@@ -61,3 +61,4 @@ Library is divided into parts:
 * Interpolation - Function interpolation and approximation
 * LinearEquation
 
+These libraries were one of two main parts of my master's thesis. Second one was the sample application mentioned above.
