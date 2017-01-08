@@ -819,7 +819,7 @@ namespace Rychusoft.NumericalLibraries.Chart
         }
 
         /// <summary>
-        /// Function that returns reskalled chart parameters for Bessel, Neumann or Hypergeometric functions
+        /// Function that returns rescalled chart parameters for Bessel, Neumann or Hypergeometric functions
         /// 0. Abscissa from
         /// 1. Abscissa to
         /// 2. Ordinate from
@@ -833,7 +833,7 @@ namespace Rychusoft.NumericalLibraries.Chart
         /// 2. Ordinate from
         /// 3. Ordinate to
         /// </returns>
-        public double[] Reskalling(BesselFunctionTypeEnum functionType, params double[] parameters)
+        public double[] Rescalling(BesselFunctionTypeEnum functionType, params double[] parameters)
         {
             int variableIndex = FindVariableIndex(functionType, parameters);
 
@@ -962,7 +962,7 @@ namespace Rychusoft.NumericalLibraries.Chart
 
                 parameters[variableIndex] = double.NaN;
 
-                return chart.Reskalling(functionType, parameters);
+                return chart.Rescalling(functionType, parameters);
             }
 
             double maxY = newPoints.Select(p => p.Y).Max();
