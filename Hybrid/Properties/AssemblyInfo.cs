@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NumericalLibraries Function Zero Root")]
-[assembly: AssemblyDescription("Library for computing zero (root) of a function")]
+[assembly: AssemblyDescription(@"Easy to use library for computing zero (root) of a function.
+
+var math = new FunctionRoot.Hybrid(""(x+1)^2-9"", 0, 1.5);
+var result = math.ComputeHybrid(); // result = 2")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]

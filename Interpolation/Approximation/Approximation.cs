@@ -8,8 +8,8 @@ namespace Rychusoft.NumericalLibraries.Approximation
     public class Approximation
     {
         //ZMIENNE ------------------------
-        private int _pointsCount, _degree;
-        private List<PointD> points;
+        private int _degree;
+        private List<PointD> _points;
         private double[] Eyx, Ex, x;
         private double[,] _factors;
 
@@ -18,42 +18,60 @@ namespace Rychusoft.NumericalLibraries.Approximation
         private double x1, x2;
         private double x3;
 
-        /// <summary>
-        /// Points list for approximation
-        /// </summary>
-        public List<PointD> Points
-        {
-            get { return points; }
-            set
-            {
-                points = value;
+        string _result;
 
-                if (points != null)
-                    _pointsCount = points.Count;
-                else
-                    _pointsCount = 0;
-            }
+        public List<PointD> Points { get { return _points; } }
+        public string Result { get { return _result; } }
+
+        /// <summary>
+        /// Approximation contructor
+        /// </summary>
+        /// <param name="points">Points which will be used for approximation</param>
+        /// <param name="level">Approximation level</param>
+        public Approximation(List<PointD> points, int level)
+        {
+            if (points == null)
+                throw new ArgumentNullException(nameof(points));
+
+            if (_points.Count == 0)
+                throw new ArgumentException("No points provided", nameof(points));
+
+            if (level <= 0)
+                throw new WrongApproximationLevelException();
+
+            this._points = points;
+            this._degree = level;
+
+            Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = x1 = x2 = x3 = 0;
+
+            Eyx = new double[level + 1];
+            Ex = new double[2 * level + 1];
+            x = new double[level + 1];
+
+            _factors = new double[level + 1, level + 2];
+
+            Validation();
         }
 
         private void Validation()
         {
             //Check if the points are distinct
-            for (int i = 0; i < _pointsCount; i++)
-                for (int j = i + 1; j < _pointsCount; j++)
-                    if (points[i].X == points[j].X)
-                        throw new SystemException("x = " + Convert.ToString(points[i].X) + " appears at least twice");
+            for (int i = 0; i < _points.Count; i++)
+                for (int j = i + 1; j < _points.Count; j++)
+                    if (_points[i].X == _points[j].X)
+                        throw new SystemException("x = " + Convert.ToString(_points[i].X) + " appears at least twice");
         }
 
         private void ComputeLineSums()
         {
             Ex1 = Ey = Ex2 = Ex1y = 0;
 
-            for (int i = 0; i < _pointsCount; i++)
+            for (int i = 0; i < _points.Count; i++)
             {
-                Ex1 += points[i].X;
-                Ey += points[i].Y;
-                Ex2 += Math.Pow(points[i].X, 2.0);
-                Ex1y += points[i].X * points[i].Y;
+                Ex1 += _points[i].X;
+                Ey += _points[i].Y;
+                Ex2 += Math.Pow(_points[i].X, 2.0);
+                Ex1y += _points[i].X * _points[i].Y;
             }
         }
 
@@ -61,36 +79,36 @@ namespace Rychusoft.NumericalLibraries.Approximation
         {
             Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = 0;
 
-            for (int i = 0; i < _pointsCount; i++)
+            for (int i = 0; i < _points.Count; i++)
             {
-                Ex1 += points[i].X;
-                Ey += points[i].Y;
-                Ex2 += Math.Pow(points[i].X, 2.0);
-                Ex1y += points[i].X * points[i].Y;
-                Ex3 += Math.Pow(points[i].X, 3.0);
-                Ex4 += Math.Pow(points[i].X, 4.0);
-                Ex2y += Math.Pow(points[i].X, 2.0) * points[i].Y;
+                Ex1 += _points[i].X;
+                Ey += _points[i].Y;
+                Ex2 += Math.Pow(_points[i].X, 2.0);
+                Ex1y += _points[i].X * _points[i].Y;
+                Ex3 += Math.Pow(_points[i].X, 3.0);
+                Ex4 += Math.Pow(_points[i].X, 4.0);
+                Ex2y += Math.Pow(_points[i].X, 2.0) * _points[i].Y;
             }
         }
 
         private void ComputeSums()
         {
             //Ex[0]
-            Ex[0] = _pointsCount;
+            Ex[0] = _points.Count;
 
             //Eyx[0]
-            for (int i = 0; i < _pointsCount; i++)
-                Eyx[0] += points[i].Y;
+            for (int i = 0; i < _points.Count; i++)
+                Eyx[0] += _points[i].Y;
 
-            for (int i = 0; i < _pointsCount; i++)
+            for (int i = 0; i < _points.Count; i++)
             {
                 //Ex
                 for (int j = 1; j < _degree * 2 + 1; j++)
-                    Ex[j] += Math.Pow(points[i].X, j);
+                    Ex[j] += Math.Pow(_points[i].X, j);
 
                 //Eyx
                 for (int j = 1; j < _degree + 1; j++)
-                    Eyx[j] += points[i].Y * Math.Pow(points[i].X, j);
+                    Eyx[j] += _points[i].Y * Math.Pow(_points[i].X, j);
             }
         }
 
@@ -100,9 +118,9 @@ namespace Rychusoft.NumericalLibraries.Approximation
 
             double denominator = 0;
 
-            denominator = _pointsCount * Ex2 - Math.Pow(Ex1, 2.0);
+            denominator = _points.Count * Ex2 - Math.Pow(Ex1, 2.0);
 
-            x2 = (_pointsCount * Ex1y - Ex1 * Ey) / denominator;
+            x2 = (_points.Count * Ex1y - Ex1 * Ey) / denominator;
 
             x1 = (Ey * Ex2 - Ex1 * Ex1y) / denominator;
         }
@@ -113,14 +131,14 @@ namespace Rychusoft.NumericalLibraries.Approximation
 
             double firstPart = 0, secondPart = 0;
 
-            firstPart = _pointsCount * Ex2 - Math.Pow(Ex1, 2.0);
-            secondPart = _pointsCount * Ex3 - Ex2 * Ex1;
+            firstPart = _points.Count * Ex2 - Math.Pow(Ex1, 2.0);
+            secondPart = _points.Count * Ex3 - Ex2 * Ex1;
 
-            x3 = (firstPart * (_pointsCount * Ex2y - Ex2 * Ey) - (_pointsCount * Ex1y - Ey * Ex1) * (_pointsCount * Ex3 - Ex2 * Ex1)) / (firstPart * (_pointsCount * Ex4 - Ex2 * Ex2) - Math.Pow((_pointsCount * Ex3 - Ex2 * Ex1), 2.0));
+            x3 = (firstPart * (_points.Count * Ex2y - Ex2 * Ey) - (_points.Count * Ex1y - Ey * Ex1) * (_points.Count * Ex3 - Ex2 * Ex1)) / (firstPart * (_points.Count * Ex4 - Ex2 * Ex2) - Math.Pow((_points.Count * Ex3 - Ex2 * Ex1), 2.0));
 
-            x2 = (_pointsCount * Ex1y - Ex1 * Ey - (_pointsCount * Ex3 - Ex1 * Ex2) * x3) / (_pointsCount * Ex2 - Ex1 * Ex1);
+            x2 = (_points.Count * Ex1y - Ex1 * Ey - (_points.Count * Ex3 - Ex1 * Ex2) * x3) / (_points.Count * Ex2 - Ex1 * Ex1);
 
-            x1 = (Ey - Ex2 * x3 - Ex1 * x2) / _pointsCount;
+            x1 = (Ey - Ex2 * x3 - Ex1 * x2) / _points.Count;
         }
 
         private void ComputeFactors()
@@ -330,11 +348,9 @@ namespace Rychusoft.NumericalLibraries.Approximation
         public string Compute()
         {
             if (_degree == 1)
-                return ComputeLinearRegression();
+                _result = ComputeLinearRegression();
             else if (_degree == 2)
-                return ComputeSquaredRegression();
-            else if (_degree < 1)
-                throw new WrongApproximationLevelException();
+                _result = ComputeSquaredRegression();
             else
             {
                 Validation();
@@ -342,29 +358,11 @@ namespace Rychusoft.NumericalLibraries.Approximation
                 ComputeSums();
 
                 ComputeFactors();
-                
-                string funkcja = FormatResult();
 
-                return funkcja;
+                _result = FormatResult();
             }
-        }
-        
-        /// <summary>
-        /// Approximation contructor
-        /// </summary>
-        /// <param name="level">Approximation level</param>
-        public Approximation(int level)
-        {
-            _pointsCount = 0;
-            this._degree = level;
-            
-            Ex1 = Ey = Ex2 = Ex1y = Ex3 = Ex4 = Ex2y = x1 = x2 = x3 = 0;
-            
-            Eyx = new double[level + 1];
-            Ex = new double[2 * level + 1];
-            x = new double[level + 1];
 
-            _factors = new double[level + 1, level + 2];
+            return _result;
         }
     }
 }

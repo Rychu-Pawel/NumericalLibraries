@@ -190,7 +190,7 @@ namespace Rychusoft.NumericalLibraries.Chart
                 switch (functionType)
                 {
                     case FunctionTypeEnum.Function:
-                        fx = (float)(functionInThePoint.ComputeFunctionAtPoint(x) * factorY);
+                        fx = (float)(functionInThePoint.ComputeFunctionValueAtPoint(x) * factorY);
                         break;
                     case FunctionTypeEnum.Derivative:
                         fx = (float)(functionInThePoint.ComputeDerivative(x) * factorY);
@@ -403,19 +403,6 @@ namespace Rychusoft.NumericalLibraries.Chart
 
             Pen pen = null;
 
-            //Adjust the step
-            double step = 0.001;
-            double range = xTo - xFrom;
-
-            if (range > 20 && range < 50)
-                step = 0.0025;
-            else if (range >= 50 && range < 150)
-                step = 0.005;
-            else if (range >= 150 && range < 500)
-                step = 0.01;
-            else if (range >= 500)
-                step = 0.05;
-
             //Move to the left edge then the right edge
             switch (functionType)
             {
@@ -428,13 +415,13 @@ namespace Rychusoft.NumericalLibraries.Chart
 
                     //Left
                     if (xFrom < parameters[0])
-                        left = differential.ComputeDifferentialPointsList(xFrom, parameters[0], parameters[1], false, step);
+                        left = differential.ComputeDifferentialPointsList(xFrom, parameters[0], parameters[1]);
 
                     //Right
                     differential = new Differential.Differential(function);
 
                     if (xTo >= parameters[0])
-                        right = differential.ComputeDifferentialPointsList(xTo, parameters[0], parameters[1], false, step);
+                        right = differential.ComputeDifferentialPointsList(xTo, parameters[0], parameters[1]);
 
                     //Join
                     //Reverse to the left
@@ -490,13 +477,13 @@ namespace Rychusoft.NumericalLibraries.Chart
 
                     //Left
                     if (xFrom < parameters[0])
-                        leftII = differentialII.ComputeDifferentialIIPointsList(xFrom, parameters[0], parameters[1], parameters[2], false, step);
+                        leftII = differentialII.ComputeDifferentialIIPointsList(xFrom, parameters[0], parameters[1], parameters[2]);
 
                     //Right
                     differentialII = new Differential.Differential(function);
 
                     if (xTo >= parameters[0])
-                        rightII = differentialII.ComputeDifferentialIIPointsList(xTo, parameters[0], parameters[1], parameters[2], false, step);
+                        rightII = differentialII.ComputeDifferentialIIPointsList(xTo, parameters[0], parameters[1], parameters[2]);
 
                     //JOIN
                     //Reverse left
@@ -709,7 +696,7 @@ namespace Rychusoft.NumericalLibraries.Chart
         }
 
         /// <summary>
-        /// Function that returns reskalled chart parameters
+        /// Function that returns rescalled chart parameters
         /// 0. Abscissa from
         /// 1. Abscissa to
         /// 2. Ordinate from
@@ -722,7 +709,7 @@ namespace Rychusoft.NumericalLibraries.Chart
         /// 2. Ordinate from
         /// 3. Ordinate to
         /// </returns>
-        public double[] Reskalling(params FunctionTypeEnum[] functionType)
+        public double[] Rescalling(params FunctionTypeEnum[] functionType)
         {
             Derivative.Derivative functionValueInAPoint = new Derivative.Derivative(function); // To compute function value in a point
             List<PointF> points = new List<PointF>();
@@ -735,7 +722,7 @@ namespace Rychusoft.NumericalLibraries.Chart
 
                 if (functionType.Contains(FunctionTypeEnum.Function))
                 {
-                    fx = (float)functionValueInAPoint.ComputeFunctionAtPoint(thePoint);
+                    fx = (float)functionValueInAPoint.ComputeFunctionValueAtPoint(thePoint);
 
                     if (fx > max)
                         fx = (float)max;
@@ -795,7 +782,7 @@ namespace Rychusoft.NumericalLibraries.Chart
 
                 Chart chart = new Chart(function, pChart, minX, maxX, yFrom, yTo);
 
-                return chart.Reskalling(functionType);
+                return chart.Rescalling(functionType);
             }
 
             double maxY = newPoints.Select(p => p.Y).Max();
@@ -1081,22 +1068,6 @@ namespace Rychusoft.NumericalLibraries.Chart
 
             return variableIndex;
         }
-        
-        /// <summary>
-        /// Chart constructor
-        /// </summary>
-        /// <param name="function">Function formula to draw</param>
-        /// <param name="picGraph">PictureBox to display the chart</param>
-        /// <param name="xFrom">Chart abscissa from</param>
-        /// <param name="xTo">Chart abscissa to</param>
-        /// <param name="yFrom">Chart cordinate from</param>
-        /// <param name="yTo">Chart cordinate to</param>
-        public Chart(string function, PictureBox picGraph, double xFrom, double xTo, double yFrom, double yTo)
-        {
-            this.pChart = picGraph;
-
-            Initialize(function, picGraph.Width, picGraph.Height, xFrom, xTo, yFrom, yTo);
-        }
 
         /// <summary>
         /// Chart constructor
@@ -1115,6 +1086,22 @@ namespace Rychusoft.NumericalLibraries.Chart
             pChart.Height = height;
 
             Initialize(function, width, height, xFrom, xTo, yFrom, yTo);
+        }
+
+        /// <summary>
+        /// Chart constructor
+        /// </summary>
+        /// <param name="function">Function formula to draw</param>
+        /// <param name="picGraph">PictureBox to display the chart</param>
+        /// <param name="xFrom">Chart abscissa from</param>
+        /// <param name="xTo">Chart abscissa to</param>
+        /// <param name="yFrom">Chart cordinate from</param>
+        /// <param name="yTo">Chart cordinate to</param>
+        public Chart(string function, PictureBox picGraph, double xFrom, double xTo, double yFrom, double yTo)
+        {
+            this.pChart = picGraph;
+
+            Initialize(function, picGraph.Width, picGraph.Height, xFrom, xTo, yFrom, yTo);
         }
 
         private void Initialize(string func, int width, int height, double xFrom, double xTo, double yFrom, double yTo)

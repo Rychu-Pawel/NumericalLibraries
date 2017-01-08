@@ -21,8 +21,8 @@ namespace Rychusoft.NumericalLibraries.FunctionRoot
 
             _counter++;
 
-            double a = ComputeFunctionAtPoint(_rangeFrom); // f(x1)
-            double b = ComputeFunctionAtPoint(_rangeTo); // f(x2)
+            double a = ComputeFunctionValueAtPoint(_rangeFrom); // f(x1)
+            double b = ComputeFunctionValueAtPoint(_rangeTo); // f(x2)
 
             // Check if the root is here and if the x1 and x2 are not the function's zeros
             if (a * b > 0)
@@ -34,7 +34,7 @@ namespace Rychusoft.NumericalLibraries.FunctionRoot
             else // If not the recuration with new range
             {
                 double x = (_rangeFrom + _rangeTo) / 2; // new range (X1 + X2) / 2
-                double fx = ComputeFunctionAtPoint(x); // f(x)
+                double fx = ComputeFunctionValueAtPoint(x); // f(x)
 
                 if (a * fx <= 0) // F(X1)*F(X) <= 0
                 {
@@ -70,8 +70,8 @@ namespace Rychusoft.NumericalLibraries.FunctionRoot
             if (_counter > 28)
                 return double.NaN;
 
-            double a = ComputeFunctionAtPoint(_rangeFrom); // f(x1)
-            double b = ComputeFunctionAtPoint(_rangeTo); // f(x2)
+            double a = ComputeFunctionValueAtPoint(_rangeFrom); // f(x1)
+            double b = ComputeFunctionValueAtPoint(_rangeTo); // f(x2)
 
             // Check if the root is here and if the x1 and x2 are not the function's zeros
             if (a == 0)
@@ -84,7 +84,7 @@ namespace Rychusoft.NumericalLibraries.FunctionRoot
                 if (double.IsNaN(x))
                     return double.NaN;
 
-                double fx = ComputeFunctionAtPoint(x); // f(x)
+                double fx = ComputeFunctionValueAtPoint(x); // f(x)
 
                 if (Math.Abs(a) <= 0.00000000000001 || Math.Abs(_rangeFrom - x) <= 0.00000000000001 || fx == 0) // accuracy
                     return x;
@@ -133,7 +133,7 @@ namespace Rychusoft.NumericalLibraries.FunctionRoot
             double result;
 
             //If simple check says that there is no root over that range then only fire newton
-            if (ComputeFunctionAtPoint(_rangeFrom) * ComputeFunctionAtPoint(_rangeTo) > 0)
+            if (ComputeFunctionValueAtPoint(_rangeFrom) * ComputeFunctionValueAtPoint(_rangeTo) > 0)
             {
                 result = NewtonMethod();
 

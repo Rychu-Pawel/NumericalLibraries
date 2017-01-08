@@ -73,11 +73,11 @@ namespace Rychusoft.NumericalLibraries.LinearEquation
         /// <param name="coefficients">Coefficients standing by the variables. Double[rows, rows + 1]</param>
         public LinearEquation(double[,] coefficients)
         {
-            //Sprawdzenie rozmiaru tablicy
+            //Check if algorithm can solve the matrix
             if (coefficients.GetLength(0) + 1 != coefficients.GetLength(1))
                 throw new RowsNumberMustBeOneLessThenColumnsNumberException();
 
-            //niestety algorytm zostal napisany źle i trzeba przepisać tablice
+            //Need to transpose the table for the algorithm needs
             this._factors = new double[coefficients.GetLength(1), coefficients.GetLength(0)];
 
             for (int i = 0; i < coefficients.GetLength(0); i++)
@@ -85,26 +85,6 @@ namespace Rychusoft.NumericalLibraries.LinearEquation
                     _factors[j, i] = coefficients[i, j];
 
             _variablesCount = _factors.GetLength(1);
-
-            _variables = new double[_variablesCount];
-        }
-
-        /// <summary>
-        /// Linear equation constructor
-        /// </summary>
-        /// <param name="dgvGauss">Data grid view with coefficients standing by the variables</param>
-        public LinearEquation(System.Windows.Forms.DataGridView dgvGauss)
-        {
-            if (dgvGauss.Rows.Count + 1 != dgvGauss.Columns.Count)
-                throw new RowsNumberMustBeOneLessThenColumnsNumberException();
-
-            _variablesCount = dgvGauss.Rows.Count;
-
-            _factors = new double[_variablesCount + 1, _variablesCount];
-
-            for (int i = 0; i <= _variablesCount; i++)
-                for (int j = 0; j < _variablesCount; j++)
-                    _factors[i, j] = Convert.ToDouble(dgvGauss[i, j].Value);
 
             _variables = new double[_variablesCount];
         }

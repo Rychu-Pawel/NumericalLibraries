@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NumericalLibraries Derivative")]
-[assembly: AssemblyDescription("Library for computing derivatives and function value at given point")]
+[assembly: AssemblyDescription(@"Easy to use library for computing derivative and function value at given point.
+
+var derivative = new Derivative(""x^2 + 5 - cos(2 * PI * x)"");
+var result = derivative.ComputeDerivative(1); // result = 2")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]

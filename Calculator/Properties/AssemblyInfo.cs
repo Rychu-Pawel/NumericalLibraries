@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NumericalLibraries Calculator")]
-[assembly: AssemblyDescription("Basic library of Rychusoft.NumericalLibraries suite. Allows compute math formulas, mean and proportion.")]
+[assembly: AssemblyDescription(@"Easy to use library for computing math formulas, mean and proportion. Is a basis of Rychusoft.NumericalLibraries.
+
+var calc = new Calculator(""8^2+5-cos(2*PI)"");
+var result = calc.Compute(); // result = 68")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]

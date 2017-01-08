@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NumericalLibraries Integral")]
-[assembly: AssemblyDescription("Library for computing integrals")]
+[assembly: AssemblyDescription(@"Easy to use library for computing integrals.
+
+var math = new Integral(""3*x^2-5"", 5, 10);
+var result = math.ComputeIntegral(); // result = 850")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]

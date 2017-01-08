@@ -5,13 +5,11 @@ namespace Rychusoft.NumericalLibraries.Integral
 {
     public class Integral : Derivative.Derivative
     {
-    //ZMIENNE ---------------------------------------
         double[,] _quadrature;
         double _xFrom, _xTo;
 
         double _result;
-
-        //METODY ----------------------------------------
+        
         private void ChangeBoundaries()
         {
             double factor, freeComponent;
@@ -37,15 +35,15 @@ namespace Rychusoft.NumericalLibraries.Integral
                         }
                         else if (freeComponent < 0)
                         {
-                            int wielkoscStringPrzed = function.Length;
+                            int lengthBefore = function.Length;
                             function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x" + Convert.ToString(freeComponent) + ")" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - wielkoscStringPrzed + 1;
+                            i += function.Length - lengthBefore + 1;
                         }
                         else // freeComponent == 0
                         {
-                            int wielkoscStringPrzed = function.Length;
+                            int lengthBefore = function.Length;
                             function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x)" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - wielkoscStringPrzed + 1;
+                            i += function.Length - lengthBefore + 1;
                         }
                     }
                 }
@@ -77,7 +75,7 @@ namespace Rychusoft.NumericalLibraries.Integral
 
             //Calculate integral using Gaussa-Legendre'a quadrature
             for (int i = 0; i < 5; i++)
-                indirectResult += _quadrature[0, i] * (ComputeFunctionAtPoint(_quadrature[1, i]) + ComputeFunctionAtPoint(-_quadrature[1, i]));
+                indirectResult += _quadrature[0, i] * (ComputeFunctionValueAtPoint(_quadrature[1, i]) + ComputeFunctionValueAtPoint(-_quadrature[1, i]));
 
             function = previousFunction;
 
@@ -112,7 +110,7 @@ namespace Rychusoft.NumericalLibraries.Integral
         }
         
         /// <summary>
-        /// 
+        /// Integral constructor
         /// </summary>
         /// <param name="function">Formula</param>
         /// <param name="xFrom">Lower limit</param>

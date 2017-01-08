@@ -7,8 +7,6 @@ namespace Rychusoft.NumericalLibraries.Interpolation
 {
     public class Interpolation
     {
-//ZMIENNE ------------------------------------
-        private int _pointsCount;
         private double[,] _base;
         private double[] _denominatorBase;
         private List<PointD> _points;
@@ -17,30 +15,31 @@ namespace Rychusoft.NumericalLibraries.Interpolation
 
         private string _strResult; 
 
+        public List<PointD> Points { get { return _points; } }
+        public string Result { get { return _strResult; } }
+
         /// <summary>
-        /// Points list for interpolation
+        /// Constructor for interpolation
         /// </summary>
-        public List<PointD> Points
+        /// <param name="points">Points which will be used for interpolation</param>
+        public Interpolation(List<PointD> points)
         {
-            get { return _points; }
-            set
-            {
-                _points = value; 
+            if (points == null)
+                throw new ArgumentNullException(nameof(points));
 
-                if (_points != null)
-                    _pointsCount = _points.Count;
-                else
-                    _pointsCount = 0;
-            }
+            this._points = points;
+
+            ErrorCheck();
         }
-
-//METODY -------------------------------------
 
         private void ErrorCheck()
         {
+            if (_points.Count == 0)
+                throw new NoPointsProvidedException();
+
             // Check if the points are distinct
-            for (int i = 0; i < _pointsCount; i++)
-                for (int j = i + 1; j < _pointsCount; j++)
+            for (int i = 0; i < _points.Count; i++)
+                for (int j = i + 1; j < _points.Count; j++)
                     if (_points[i].X == _points[j].X)
                         throw new SystemException("x = " + Convert.ToString(_points[i].X) + " appears at least twice");
         }
@@ -57,7 +56,7 @@ namespace Rychusoft.NumericalLibraries.Interpolation
 
                 _base[j - 1, 1] = 1;
                 
-                if (_pointsCount > 2)
+                if (_points.Count > 2)
                     CreateBase(j, iteration + 1);
             }
             else
@@ -77,7 +76,7 @@ namespace Rychusoft.NumericalLibraries.Interpolation
                 _base[j - 1, 0] *= _points[multiplier].X;
 
                 // Recursion
-                if (iteration < _pointsCount - 3)
+                if (iteration < _points.Count - 3)
                     CreateBase(j, iteration + 1);
             }
         }
@@ -86,7 +85,7 @@ namespace Rychusoft.NumericalLibraries.Interpolation
         {
             _denominatorBase[j - 1] = 1;
 
-            for (int i = 1; i <= _pointsCount; i++)
+            for (int i = 1; i <= _points.Count; i++)
                 if (i != j)
                     _denominatorBase[j - 1] *= (_points[j - 1].X - _points[i - 1].X);
 
@@ -95,18 +94,18 @@ namespace Rychusoft.NumericalLibraries.Interpolation
 
         private void Interpolate()
         {
-            _base = new double[_pointsCount, _pointsCount];
-            _denominatorBase = new double[_pointsCount];
-            _result = new double[_pointsCount];
+            _base = new double[_points.Count, _points.Count];
+            _denominatorBase = new double[_points.Count];
+            _result = new double[_points.Count];
             
-            for (int i = 1; i <= _pointsCount; i++)
+            for (int i = 1; i <= _points.Count; i++)
                 CreateBase(i, -1);
 
-            for (int i = 1; i <= _pointsCount; i++)
+            for (int i = 1; i <= _points.Count; i++)
                 CreateDenominatorBase(i);
             
-            for (int i = 0; i < _pointsCount; i++)
-                for (int j = 0; j < _pointsCount; j++)
+            for (int i = 0; i < _points.Count; i++)
+                for (int j = 0; j < _points.Count; j++)
                     _result[i] += _base[j, i] * _denominatorBase[j];
         }
 
@@ -114,7 +113,7 @@ namespace Rychusoft.NumericalLibraries.Interpolation
         {
             int sign = 2;
             
-            for (int i = _pointsCount - 1; i >= 0; i--)
+            for (int i = _points.Count - 1; i >= 0; i--)
             {
                 if (sign++ % 2 == 0) // Plus sign by X
                 {
@@ -213,15 +212,11 @@ namespace Rychusoft.NumericalLibraries.Interpolation
         /// <returns>Interpolated function</returns>
         public string Compute()
         {
-            ErrorCheck(); 
-
             _strResult = string.Empty;
-
-            if (_pointsCount == 0) 
-                throw new NoPointsProvidedException();
-            else if (_pointsCount == 1)
+            
+            if (_points.Count == 1)
                 return Convert.ToString(_points[0].Y);
-            else if (_pointsCount >= 2)
+            else if (_points.Count >= 2)
             {
                 Interpolate();
 

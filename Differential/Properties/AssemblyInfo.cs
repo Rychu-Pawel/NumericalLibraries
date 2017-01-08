@@ -6,7 +6,10 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("NumericalLibraries Differential")]
-[assembly: AssemblyDescription("Library for computing differentials")]
+[assembly: AssemblyDescription(@"Easy to use library for computing differential equations.
+
+var math = new Rychusoft.NumericalLibraries.Differential.Differential(""3*x^2-5"");
+var result = math.ComputeDifferential(4, 2, 0); // result = 46")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Rychusoft")]
 [assembly: AssemblyProduct("NumericalLibraries")]

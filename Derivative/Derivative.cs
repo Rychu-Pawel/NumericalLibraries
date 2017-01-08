@@ -11,7 +11,7 @@ namespace Rychusoft.NumericalLibraries.Derivative
         /// Compute function value at given point
         /// </summary>
         /// <returns></returns>
-        public double ComputeFunctionAtPoint()
+        protected double ComputeFunctionValueAtPoint()
         {
             double result = EvaluateInterior();
 
@@ -22,13 +22,13 @@ namespace Rychusoft.NumericalLibraries.Derivative
                 result = Math.Ceiling(result);
 
             return result;
-        }            
+        }
 
         /// <summary>
         /// Compute first order derivative
         /// </summary>
         /// <returns></returns>
-        public double ComputeDerivative() 
+        protected double ComputeDerivative() 
         {
             double fx1, fx2, fx3, fx4;
             double result;
@@ -63,7 +63,7 @@ namespace Rychusoft.NumericalLibraries.Derivative
         /// Compute second order derivative
         /// </summary>
         /// <returns></returns>
-        public double ComputeDerivativeBis()
+        protected double ComputeDerivativeBis()
         {
             double result;
             double fx, fx1, fx2, fx3, fx4;
@@ -101,11 +101,11 @@ namespace Rychusoft.NumericalLibraries.Derivative
         /// </summary>
         /// <param name="x">Point in which you want to compute the value</param>
         /// <returns></returns>
-        public double ComputeFunctionAtPoint(double x)
+        public double ComputeFunctionValueAtPoint(double x)
         {
             this.x = x;
 
-            return this.ComputeFunctionAtPoint();
+            return this.ComputeFunctionValueAtPoint();
         }
 
         /// <summary>
@@ -131,16 +131,11 @@ namespace Rychusoft.NumericalLibraries.Derivative
 
             return this.ComputeDerivativeBis();
         }
-        
-        public Derivative(string function, double x) : base(function, x)
-        {
-            h = 0.0001;
 
-            ErrorCheck();
-            ConvertToTable();
-            ConvertToONP();
-        }
-
+        /// <summary>
+        /// Derivative constructor
+        /// </summary>
+        /// <param name="function">Function formula</param>
         public Derivative(string function) : base(function, 0.0)
         {
             h = 0.0001;

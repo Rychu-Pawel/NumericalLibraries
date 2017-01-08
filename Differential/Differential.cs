@@ -8,7 +8,6 @@ namespace Rychusoft.NumericalLibraries.Differential
 {
     public class Differential : Derivative.Derivative
     {
-        //ZMIENNE -----------------------------------
         string _functionII;
         double _searchingPoint;
         double _searchingPointII;
@@ -25,20 +24,16 @@ namespace Rychusoft.NumericalLibraries.Differential
         double _result;
         double _resultII;
 
-        //METODY ------------------------------------
-
         /// <summary>
         /// Compute differential
         /// </summary>
-        /// <param name="valueLookingPoint">Point at which return the value</param>
-        /// <param name="startingPoint">Starting point</param>
+        /// <param name="valueLookingPoint">Point at which compute function value</param>
+        /// <param name="startingPoint">Point at which function value is known</param>
         /// <param name="startingPointFunctionValue">Function value at starting point</param>
-        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
-        /// <param name="step"></param>
         /// <returns></returns>
-        public double ComputeDifferential(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
+        public double ComputeDifferential(double valueLookingPoint, double startingPoint, double startingPointFunctionValue)
         {
-            List<PointD> points = ComputeDifferentialPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue, applyResultFormatting, step);
+            List<PointD> points = ComputeDifferentialPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue);
 
             return points.Last().Y;
         }
@@ -47,20 +42,19 @@ namespace Rychusoft.NumericalLibraries.Differential
         /// Compute all function values from starting point to valueLookingPoint
         /// </summary>
         /// <param name="valueLookingPoint">Ending point</param>
-        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPoint">Point at which function value is known</param>
         /// <param name="startingPointFunctionValue">Function value at starting point</param>
-        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
-        /// <param name="step"></param>
         /// <returns></returns>
-        public List<PointD> ComputeDifferentialPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, bool applyResultFormatting = true, double step = 0.001)
+        public List<PointD> ComputeDifferentialPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue)
         {
+            double step = 0.001;
             this._step = step;
 
             f0 = f1 = f2 = f3 = 0;
             _result = 0;
 
             List<PointD> points = new List<PointD>();
-            
+
             _searchingPoint = valueLookingPoint;
             _startingPoint = startingPoint;
             _startingValue = startingPointFunctionValue;
@@ -87,14 +81,11 @@ namespace Rychusoft.NumericalLibraries.Differential
                 ComputeFy();
                 _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (applyResultFormatting)
-                {
-                    //Change e.g., 4,0000000000001 to 4
-                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
-                        _result = Math.Floor(_result);
-                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
-                        _result = Math.Ceiling(_result);
-                }
+                //Change e.g., 4,0000000000001 to 4
+                if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                    _result = Math.Floor(_result);
+                else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                    _result = Math.Ceiling(_result);
 
                 points.Add(new PointD(_searchingPoint, _result));
 
@@ -123,20 +114,17 @@ namespace Rychusoft.NumericalLibraries.Differential
                 ComputeFy();
                 _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (applyResultFormatting)
-                {
-                    //Change e.g., 4,0000000000001 to 4
-                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
-                        _result = Math.Floor(_result);
-                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
-                        _result = Math.Ceiling(_result);
-                }
+                //Change e.g., 4,0000000000001 to 4
+                if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                    _result = Math.Floor(_result);
+                else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                    _result = Math.Ceiling(_result);
 
                 points.Add(new PointD(_searchingPoint, _result));
 
                 return points;
             }
-            else //Szukany pkt jest == zadanemu punktowi
+            else //Looking point is not equal to any point
                 return new List<PointD>() { new PointD(_searchingPoint, startingPointFunctionValue) };
         }
 
@@ -144,15 +132,13 @@ namespace Rychusoft.NumericalLibraries.Differential
         /// Compute second order differential
         /// </summary>
         /// <param name="valueLookingPoint">Ending point</param>
-        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPoint">Point at which function and derivative values are known</param>
         /// <param name="startingPointFunctionValue">Function value at starting point</param>
         /// <param name="startingPointFunctionValueII">Derivative value at starting point</param>
-        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
-        /// <param name="step"></param>
         /// <returns></returns>
-        public double ComputeDifferentialII(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
+        public double ComputeDifferentialII(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII)
         {
-            List<PointD> points = ComputeDifferentialIIPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue, startingPointFunctionValueII, applyResultFormatting, step);
+            List<PointD> points = ComputeDifferentialIIPointsList(valueLookingPoint, startingPoint, startingPointFunctionValue, startingPointFunctionValueII);
 
             return points.Last().Y;
         }
@@ -161,16 +147,15 @@ namespace Rychusoft.NumericalLibraries.Differential
         /// Compute all function values from starting point to valueLookingPoint
         /// </summary>
         /// <param name="valueLookingPoint">Ending point</param>
-        /// <param name="startingPoint">Starting point</param>
+        /// <param name="startingPoint">Point at which function and derivative values are known</param>
         /// <param name="startingPointFunctionValue">Function value at starting point</param>
         /// <param name="startingPointFunctionValueII">Derivative value at starting point</param>
-        /// <param name="applyResultFormatting">Makes output better look. For example outputs 4.0 instead 4,000000000000001 or 3,999999999999999</param>
-        /// <param name="step"></param>
         /// <returns></returns>
-        public List<PointD> ComputeDifferentialIIPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII, bool applyResultFormatting = true, double step = 0.001)
+        public List<PointD> ComputeDifferentialIIPointsList(double valueLookingPoint, double startingPoint, double startingPointFunctionValue, double startingPointFunctionValueII)
         {
+            double step = 0.001;
             this._step = step;
-            
+
             _functionII = function.Replace("y'", "u");
             function = "u";
 
@@ -198,7 +183,7 @@ namespace Rychusoft.NumericalLibraries.Differential
 
             List<PointD> points = new List<PointD>();
             List<PointD> pointsII = new List<PointD>();
-            
+
             _searchingPointII = valueLookingPoint;
             _startingPoint = startingPoint;
             _startingPointII = startingPoint;
@@ -208,7 +193,7 @@ namespace Rychusoft.NumericalLibraries.Differential
             //Check if should move forward or backward
             if (_searchingPointII > _startingPointII)
             {
-                //Movinf forward
+                //Moving forward
                 for (double i = _startingPointII + step; i < _searchingPointII; i += step)
                 {
                     ComputeFyII();
@@ -231,14 +216,11 @@ namespace Rychusoft.NumericalLibraries.Differential
                 ComputeFyII();
                 _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (applyResultFormatting)
-                {
-                    //Change e.g., 4,0000000000001 to 4
-                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
-                        _result = Math.Floor(_result);
-                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
-                        _result = Math.Ceiling(_result);
-                }
+                //Change e.g., 4,0000000000001 to 4
+                if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                    _result = Math.Floor(_result);
+                else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                    _result = Math.Ceiling(_result);
 
                 points.Add(new PointD(_searchingPointII, _result));
 
@@ -271,20 +253,17 @@ namespace Rychusoft.NumericalLibraries.Differential
                 ComputeFyII();
                 _result = _startingValue + (step / 6) * (f0 + 2 * f1 + 2 * f2 + f3);
 
-                if (applyResultFormatting)
-                {
-                    //Change e.g., 4,0000000000001 to 4
-                    if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
-                        _result = Math.Floor(_result);
-                    else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
-                        _result = Math.Ceiling(_result);
-                }
+                //Change e.g., 4,0000000000001 to 4
+                if (Math.Abs(_result - Math.Floor(_result)) < 0.000000001)
+                    _result = Math.Floor(_result);
+                else if (Math.Abs(_result - Math.Ceiling(_result)) < 0.000000001)
+                    _result = Math.Ceiling(_result);
 
                 points.Add(new PointD(_searchingPointII, _result));
 
                 return points;
             }
-            else //Szukany pkt jest == zadanemu punktowi
+            else //Looking point is not equal to any point
                 return new List<PointD>() { new PointD(_searchingPoint, startingPointFunctionValue) };
         }
 
@@ -297,7 +276,7 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
-            f0 = ComputeFunctionAtPoint();
+            f0 = ComputeFunctionValueAtPoint();
 
             //Compute f1
             x += _step / 2;
@@ -306,7 +285,7 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
-            f1 = ComputeFunctionAtPoint();
+            f1 = ComputeFunctionValueAtPoint();
 
             //Compute f2
             y = _startingValue + ((_step / 2) * f1);
@@ -314,7 +293,7 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
-            f2 = ComputeFunctionAtPoint();
+            f2 = ComputeFunctionValueAtPoint();
 
             //Compute f3
             x += _step / 2;
@@ -323,7 +302,7 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y))
                 throw new NaNOccuredException();
 
-            f3 = ComputeFunctionAtPoint();
+            f3 = ComputeFunctionValueAtPoint();
         }
 
         private void ComputeFyII()
@@ -336,18 +315,18 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
-            f0 = ComputeFunctionAtPoint();
+            f0 = ComputeFunctionValueAtPoint();
 
             //Compute f0II
-            string funkcjaTemp = function;
+            string tempFunction = function;
             function = _functionII;
 
             functionONP = _ONPII;
 
-            f0II = ComputeFunctionAtPoint();
+            f0II = ComputeFunctionValueAtPoint();
 
             //Compute f1
-            function = funkcjaTemp;
+            function = tempFunction;
 
             functionONP = _ONP;
 
@@ -358,18 +337,18 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
-            f1 = ComputeFunctionAtPoint();
+            f1 = ComputeFunctionValueAtPoint();
 
             //Compute f1II
-            funkcjaTemp = function;
+            tempFunction = function;
             function = _functionII;
 
             functionONP = _ONPII;
 
-            f1II = ComputeFunctionAtPoint();
+            f1II = ComputeFunctionValueAtPoint();
 
             //Compute f2
-            function = funkcjaTemp;
+            function = tempFunction;
 
             functionONP = _ONP;
 
@@ -379,18 +358,18 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
-            f2 = ComputeFunctionAtPoint();
+            f2 = ComputeFunctionValueAtPoint();
 
             //Compute f2II
-            funkcjaTemp = function;
+            tempFunction = function;
             function = _functionII;
 
             functionONP = _ONPII;
 
-            f2II = ComputeFunctionAtPoint();
+            f2II = ComputeFunctionValueAtPoint();
 
             //Compute f3
-            function = funkcjaTemp;
+            function = tempFunction;
 
             functionONP = _ONP;
 
@@ -401,24 +380,28 @@ namespace Rychusoft.NumericalLibraries.Differential
             if (double.IsNaN(y) || double.IsNaN(u))
                 throw new NaNOccuredException();
 
-            f3 = ComputeFunctionAtPoint();
+            f3 = ComputeFunctionValueAtPoint();
 
             //Compute f3II
-            funkcjaTemp = function;
+            tempFunction = function;
             function = _functionII;
 
             functionONP = _ONPII;
 
-            f3II = ComputeFunctionAtPoint();
+            f3II = ComputeFunctionValueAtPoint();
 
             //Restore function and ONP
-            function = funkcjaTemp;
+            function = tempFunction;
 
             functionONP = _ONP;
         }
-        
-        public Differential(string function)
-            : base(function)
+
+        /// <summary>
+        /// Differential constructor
+        /// </summary>
+        /// <param name="equation">Differential equation</param>
+        public Differential(string equation)
+            : base(equation)
         { }
     }
 }

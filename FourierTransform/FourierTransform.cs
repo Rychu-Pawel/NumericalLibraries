@@ -33,7 +33,7 @@ namespace Rychusoft.NumericalLibraries.FourierTransform
 
             while (n < functionValues.Length)
             {
-                functionValues[n] = p.ComputeFunctionAtPoint(k);
+                functionValues[n] = p.ComputeFunctionValueAtPoint(k);
 
                 n++;
                 k += step;
