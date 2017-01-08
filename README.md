@@ -9,6 +9,8 @@ Or in the sample application: http://pawelrychlicki.pl/Application/Details/6/num
 
 Sources for the sample application can be found here: https://github.com/Rychu-Pawel/NumericalCalculator
 
+Compiled libraries can be downloaded from nuget: https://www.nuget.org/packages?q=rychusoft.numericallibraries
+
 Functions which library can handle:
 
     Sine = sin
@@ -49,16 +51,16 @@ Numerical Calculator encounter imaginary numbers it will return "not a number" r
 
 You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))
 
-Library is divided into parts:
+Library is divided into parts (follow links for more details and usage info):
 * Bessel - computes Bessel's function thanks to my professor's, Pawel Syty, library
-* Calculator - the main part of the library which implements the basic functions such as Calculator itself and mean, proportion, factorial
-* Chart - part responsible for drawing function chart
-* Derivative - computes first and second derivative
-* Differential
-* FourierTransform - computes FT and inverse the result back
-* Hybrid - used for computing function root
-* Integral
-* Interpolation - Function interpolation and approximation
-* LinearEquation
+* Calculator - http://pawelrychlicki.pl/Application/Details/14/numerical-calculator-net-library-10 - the main part of the library which implements the basic functions such as Calculator itself and mean, proportion, factorial
+* Chart - http://pawelrychlicki.pl/Application/Details/47/chart-net-library-10 - part responsible for drawing function chart
+* Derivative - http://pawelrychlicki.pl/Application/Details/19/numerical-derivative-net-library-10 - computes first and second derivative
+* Differential - http://pawelrychlicki.pl/Application/Details/24/numerical-differential-net-library-10
+* FourierTransform - http://pawelrychlicki.pl/Application/Details/28/numerical-fourier-transform-net-library-10 - computes FT and inverse the result back
+* Hybrid - http://pawelrychlicki.pl/Application/Details/30/numerical-function-root-hybrid-net-library-10 - used for computing function root (zero)
+* Integral - http://pawelrychlicki.pl/Application/Details/32/numerical-integral-net-library-10
+* Interpolation - http://pawelrychlicki.pl/Application/Details/37/analytical-interpolation-and-approximation-net-library-10 - Function interpolation and approximation
+* LinearEquation - http://pawelrychlicki.pl/Application/Details/42/numerical-linear-equation-net-library-10
 
 These libraries were one of two main parts of my master's thesis. Second one was the sample application mentioned above.
