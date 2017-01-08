@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Drawing;
+﻿using System.Drawing;
 using System.Numerics;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.Common
 {
     public class PointC
     {
@@ -61,7 +57,7 @@ namespace NumericalCalculator
             this.x = x;
             this.y = y;
 
-            isEmpty = true;
+            isEmpty = false;
 
         }
 

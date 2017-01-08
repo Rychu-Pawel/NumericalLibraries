@@ -8,8 +8,8 @@
     <ProjectGuid>{26084897-09EC-4255-A641-BED2A36FDB99}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
-    <AssemblyName>Derivative</AssemblyName>
+    <RootNamespace>Rychusoft.NumericalLibraries.Derivative</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.Derivative</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Derivative.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rychusoft.NumericalLibraries.Derivative.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Derivative.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Rychusoft.NumericalLibraries.Derivative.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -51,12 +51,18 @@
       <Name>Calculator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="RemoveAndCreateNuget.ps1" />
+    <None Include="Derivative.nuspec" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files\7-Zip\7z.exe" a -tzip "$(TargetDir)$(ProjectName).zip" "$(TargetDir)*.*"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del /Q /F "$(TargetDir)*"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

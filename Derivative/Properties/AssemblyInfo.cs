@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Derivative")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("NumericalLibraries Derivative")]
+[assembly: AssemblyDescription("Library for computing derivatives and function value at given point")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Derivative")]
-[assembly: AssemblyCopyright("Copyright © 2012 Pawel Rychlicki")]
+[assembly: AssemblyCompany("Rychusoft")]
+[assembly: AssemblyProduct("NumericalLibraries")]
+[assembly: AssemblyCopyright("© Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

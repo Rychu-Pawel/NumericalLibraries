@@ -8,8 +8,8 @@
     <ProjectGuid>{ABCF2024-B9ED-4BF1-B19F-336BB94CEFB2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NumericalCalculator</RootNamespace>
-    <AssemblyName>Calculator</AssemblyName>
+    <RootNamespace>Rychusoft.NumericalLibraries.Calculator</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.Calculator</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -21,7 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Calculator.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Rychusoft.NumericalLibraries.Calculator.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>none</DebugType>
@@ -30,7 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Calculator.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Rychusoft.NumericalLibraries.Calculator.xml</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -43,29 +43,47 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Calculator.cs" />
+    <Compile Include="Exceptions\EmptyFunctionStringException.cs" />
+    <Compile Include="Exceptions\ForbiddenSignDetectedException.cs" />
+    <Compile Include="Exceptions\IncorrectEOperatorOccurrenceException.cs" />
+    <Compile Include="Exceptions\LeftAndRightBracketsAmountDoesNotMatchException.cs" />
+    <Compile Include="Exceptions\NoValuesProvidedException.cs" />
+    <Compile Include="Exceptions\OperatorAtTheBeginningOfTheExpressionException.cs" />
+    <Compile Include="Exceptions\OperatorAtTheEndOfTheExpressionException.cs" />
+    <Compile Include="Exceptions\ThereCanBeOnlyOneVariableInProportionException.cs" />
+    <Compile Include="Exceptions\TwoFactorialsOccuredSideBySideException.cs" />
+    <Compile Include="Exceptions\TwoOperatorsOccurredSideBySideException.cs" />
+    <Compile Include="Exceptions\ValueArrayLowerBoundDifferentThenZeroException.cs" />
+    <Compile Include="Exceptions\ValueArrayUpperBoundDifferentThenOneException.cs" />
+    <Compile Include="Exceptions\VariableFoundException.cs" />
+    <Compile Include="Exceptions\VariableNotFoundException.cs" />
     <Compile Include="Factorial.cs" />
     <Compile Include="Function.cs" />
     <Compile Include="Interior.cs" />
     <Compile Include="Mean.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proportions.cs" />
-    <Compile Include="Stack.cs" />
+    <Compile Include="Stack\Stack.cs" />
+    <Compile Include="Stack\StackElement.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalCalculatorCommon.csproj">
+    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj">
       <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
-      <Name>NumericalCalculatorCommon</Name>
+      <Name>NumericalLibrariesCommon</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Diagram.cd" />
+    <None Include="Calculator.nuspec" />
+    <None Include="RemoveAndCreateNuget.ps1" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files\7-Zip\7z.exe" a -tzip "$(TargetDir)$(ProjectName).zip" "$(TargetDir)*.*"</PostBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
-    <PreBuildEvent>del /Q /F "$(TargetDir)*"</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

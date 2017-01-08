@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+﻿using Rychusoft.NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.Calculator
 {
     public class Proportions
     {
@@ -18,7 +14,7 @@ namespace NumericalCalculator
         /// <returns></returns>
         public double Compute(double v1, double v2, double v3, double v4)
         {
-            //Sprawdzenie czy jest i czy tylko jedna zmienna
+            //Check if there is and if there is only one variable
             int nanCount = 0;
 
             if (double.IsNaN(v1))
@@ -38,7 +34,7 @@ namespace NumericalCalculator
             else if (nanCount < 1)
                 throw new VariableNotFoundException();
 
-            //Obliczenia
+            //Compute
             if (double.IsNaN(v1))
                 return v2 * v3 / v4;
             else if (double.IsNaN(v2))
@@ -49,13 +45,4 @@ namespace NumericalCalculator
                 return v2 * v3 / v1;
         }
     }
-}
-
-namespace NumericalCalculator.Exceptions
-{
-    public class ThereCanBeOnlyOneVariableInProportionException : Exception
-    { }
-
-    public class VariableNotFoundException : Exception
-    { }
 }

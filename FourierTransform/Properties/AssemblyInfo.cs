@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FourierTransform")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("NumericalLibraries Fourier Transform")]
+[assembly: AssemblyDescription("Library for computing fourier transform")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("FourierTransform")]
-[assembly: AssemblyCopyright("Copyright © 2012 Pawel Rychlicki")]
+[assembly: AssemblyCompany("Rychusoft")]
+[assembly: AssemblyProduct("NumericalLibraries")]
+[assembly: AssemblyCopyright("© Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -1,57 +1,56 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+using Rychusoft.NumericalLibraries.FunctionRoot.Exceptions;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.FunctionRoot
 {
-    public class Hybrid: Derivative
+    public class Hybrid: Derivative.Derivative
     {
-    // ZMIENNE --------------------
-        double przedzialOd, przedzialDo;
-        double przedzialOdPrzedNewtonem, przedzialDoPrzedNewtonem;
-        readonly int iloscIteracjiBisekcji = 8;
-        int licznik;
+        double _rangeFrom, _rangeTo;
+        double _rangeFromBeforeNewron, _rangeToBeforeNewton;
+        readonly int _bisectionIterationCount = 8;
+        int _counter;
 
-    // METODY ---------------------
-        double Bisekcja() //Zwraca NaN jak osiagnie zadana ilosc iteracji
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns NaN if the iteration limit is reached</returns>
+        double Bisection()
         {
-            if (licznik == iloscIteracjiBisekcji)
+            if (_counter == _bisectionIterationCount)
                 return double.NaN;
 
-            licznik++;
+            _counter++;
 
-            double a = ComputeFunctionAtPoint(przedzialOd); // f(x1)
-            double b = ComputeFunctionAtPoint(przedzialDo); // f(x2)
+            double a = ComputeFunctionAtPoint(_rangeFrom); // f(x1)
+            double b = ComputeFunctionAtPoint(_rangeTo); // f(x2)
 
-            // SPRAWDZENIE CZY JEST TU PIERWIASTEK I CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
+            // Check if the root is here and if the x1 and x2 are not the function's zeros
             if (a * b > 0)
                 throw new NoneOrFewRootsOnGivenIntervalException();
             else if (a == 0)
-                return przedzialOd;
+                return _rangeFrom;
             else if (b == 0)
-                return przedzialDo;
-            else // JAK NIE TO REKURENCJA Z NOWYM PRZEDZIAŁEM
+                return _rangeTo;
+            else // If not the recuration with new range
             {
-                double x = (przedzialOd + przedzialDo) / 2; // NOWY PRZEDZIAL (X1 + X2) / 2
+                double x = (_rangeFrom + _rangeTo) / 2; // new range (X1 + X2) / 2
                 double fx = ComputeFunctionAtPoint(x); // f(x)
 
                 if (a * fx <= 0) // F(X1)*F(X) <= 0
                 {
-                    przedzialDo = x;
+                    _rangeTo = x;
 
-                    if (Math.Abs(przedzialOd - przedzialDo) > 0.00000000000001) // DOKLADNOSC OBLICZEN
-                        return Bisekcja(); // REKURANCJA Z NOWYM PRZEDZIALEM
+                    if (Math.Abs(_rangeFrom - _rangeTo) > 0.00000000000001) // computation accuracy
+                        return Bisection(); // recursion with new range
                     else
                         return x;
                 }
                 else if (fx * b <= 0) // F(X)*F(X2) <= 0
                 {
-                    przedzialOd = x;
+                    _rangeFrom = x;
 
-                    if (Math.Abs(przedzialOd - przedzialDo) > 0.00000000000001) // DOKLADNOSC OBLICZEN
-                        return Bisekcja(); // REKURANCJA Z NOWYM PRZEDZIALEM
+                    if (Math.Abs(_rangeFrom - _rangeTo) > 0.00000000000001) // computation accuracy
+                        return Bisection(); // recursion with new range
                     else
                         return x;
                 }
@@ -59,63 +58,67 @@ namespace NumericalCalculator
                     throw new NoneOrFewRootsOnGivenIntervalException();
             }
         }
-        
-        double Newton() //Zwraca NaN jak wymiekla
-        {
-            licznik++;
 
-            if (licznik > 28)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Returns NaN if the iteration limit is reached</returns>
+        double NewtonMethod()
+        {
+            _counter++;
+
+            if (_counter > 28)
                 return double.NaN;
 
-            double a = ComputeFunctionAtPoint(przedzialOd); // f(x1)
-            double b = ComputeFunctionAtPoint(przedzialDo); // f(x2)
+            double a = ComputeFunctionAtPoint(_rangeFrom); // f(x1)
+            double b = ComputeFunctionAtPoint(_rangeTo); // f(x2)
 
-            // SPRAWDZENIE CZY X1 I X2 TO NIE SĄ MIEJSCA ZEROWE
+            // Check if the root is here and if the x1 and x2 are not the function's zeros
             if (a == 0)
-                return przedzialOd;
+                return _rangeFrom;
             else if (b == 0)
-                return przedzialDo;
-            else // JAK NIE TO REKURENCJA Z NOWYM PRZEDZIAŁEM
+                return _rangeTo;
+            else // If not the recuration with new range
             {
-                double x = przedzialOd - a / ComputeDerivative(przedzialOd); // NOWY PRZEDZIAL = (przedzialOd - f(x)/f'(x)
+                double x = _rangeFrom - a / ComputeDerivative(_rangeFrom); // new range = (rangeFrom - f(x)/f'(x)
                 if (double.IsNaN(x))
                     return double.NaN;
 
                 double fx = ComputeFunctionAtPoint(x); // f(x)
 
-                if (Math.Abs(a) <= 0.00000000000001 || Math.Abs(przedzialOd - x) <= 0.00000000000001 || fx == 0) // DOKLADNOSC OBLICZEN
+                if (Math.Abs(a) <= 0.00000000000001 || Math.Abs(_rangeFrom - x) <= 0.00000000000001 || fx == 0) // accuracy
                     return x;
                 else
                 {
-                    przedzialOd = x;
-                    return Newton(); // REKURANCJA Z NOWYM PRZEDZIALEM
+                    _rangeFrom = x;
+                    return NewtonMethod(); // recursion with new range
                 }
             }
         }
 
-        double HybrydaOblicz()
+        double HybridMethod()
         {
             double result;
 
-            licznik = 0;
+            _counter = 0;
             
-            result = Bisekcja(); // 8 ITERACJI BISEKCJI
+            result = Bisection(); // 8 bisection iterations
 
             if (!(double.IsNaN(result)))
-                return result; // bisekcja znalazla wynik
+                return result; // bisection found the result
 
-            //Zachowanie przedzialow w razie niepowodzenia Newtona, bo Newton psuje przedzial
-            przedzialDoPrzedNewtonem = przedzialDo;
-            przedzialOdPrzedNewtonem = przedzialOd;
+            //Keep the ranges in case of newton failure
+            _rangeToBeforeNewton = _rangeTo;
+            _rangeFromBeforeNewron = _rangeFrom;
 
-            result = Newton(); // NEWTON
+            result = NewtonMethod(); // NEWTON
 
-            if (double.IsNaN(result)) // Czy newton zawiodl, jak tak to przywracam przedzial sprzed Newtona i dokanczam bisekcja
+            if (double.IsNaN(result)) // Newton failure
             {
-                przedzialOd = przedzialOdPrzedNewtonem;
-                przedzialDo = przedzialDoPrzedNewtonem;
+                _rangeFrom = _rangeFromBeforeNewron;
+                _rangeTo = _rangeToBeforeNewton;
 
-                return Bisekcja(); // Dokonczenie bisekcja
+                return Bisection(); // End with bisection
             }
             else
                 return result;                
@@ -129,10 +132,10 @@ namespace NumericalCalculator
         {
             double result;
 
-            //Spawdzenie czy w przedziale jest pierwiastek, jeśli nie to próbujemy uruchomić tylko newtona i jak zawiedzie to walimy błąd
-            if (ComputeFunctionAtPoint(przedzialOd) * ComputeFunctionAtPoint(przedzialDo) > 0)
+            //If simple check says that there is no root over that range then only fire newton
+            if (ComputeFunctionAtPoint(_rangeFrom) * ComputeFunctionAtPoint(_rangeTo) > 0)
             {
-                result = Newton();
+                result = NewtonMethod();
 
                 if (double.IsNaN(result))
                     throw new NoneOrFewRootsOnGivenIntervalException();
@@ -140,9 +143,9 @@ namespace NumericalCalculator
                     return result;
             }
 
-            result = HybrydaOblicz();
+            result = HybridMethod();
 
-            //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
+            //Change e.g., 4,0000000000001 to 4
             if (Math.Abs(result - Math.Floor(result)) < 0.000000001)
                 result = Math.Floor(result);
             else if (Math.Abs(result - Math.Ceiling(result)) < 0.000000001)
@@ -150,22 +153,20 @@ namespace NumericalCalculator
 
             return result;
         }
-
-
-    // KONSTRUKTOR ----------------
+        
         /// <summary>
-        /// 
+        /// Hybrid constructor
         /// </summary>
         /// <param name="function">Formula</param>
         /// <param name="intervalFrom">Point at which you want to start looking for function root</param>
         /// <param name="intervalTo">Point at which you want to stop looking for function root</param>
         public Hybrid(string function, double intervalFrom, double intervalTo): base(function)
         {
-            this.przedzialOd = intervalFrom;
-            this.przedzialDo = intervalTo;
-            licznik = 0;
+            this._rangeFrom = intervalFrom;
+            this._rangeTo = intervalTo;
+            _counter = 0;
             
-            przedzialOdPrzedNewtonem = przedzialDoPrzedNewtonem = 0;
+            _rangeFromBeforeNewron = _rangeToBeforeNewton = 0;
 
             ErrorCheck();
             ConvertToTable();

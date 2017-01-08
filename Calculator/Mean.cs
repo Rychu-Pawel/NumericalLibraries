@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+using Rychusoft.NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.Calculator
 {
     public class Mean
     {
@@ -15,13 +13,13 @@ namespace NumericalCalculator
         /// <returns></returns>
         public double ComputeArithmetic(IEnumerable<double> values)
         {
-            //Walidacja ilosci punktow
+            //Validation
             double count = values.LongCount();
 
             if (count == 0)
                 throw new NoValuesProvidedException();
 
-            //Obliczenia
+            //Compute
             double result = 0.0d;
 
             foreach (double item in values)
@@ -37,13 +35,13 @@ namespace NumericalCalculator
         /// <returns></returns>
         public double ComputeWeighted(IEnumerable<double[]> values)
         {
-            //Walidacja ilosci punktow
+            //Validation
             double count = values.LongCount();
 
             if (count == 0)
                 throw new NoValuesProvidedException();
 
-            //Obliczenia
+            //Compute
             double result = 0.0d;
             double weight = 0.0d;
 
@@ -62,16 +60,4 @@ namespace NumericalCalculator
             return result / weight;
         }
     }
-}
-
-namespace NumericalCalculator.Exceptions
-{
-    public class NoValuesProvidedException : Exception
-    { }
-
-    public class ValueArrayLowerBoundDifferentThenZeroException : Exception
-    { }
-
-    public class ValueArrayUpperBoundDifferentThenOneException : Exception
-    { }
 }

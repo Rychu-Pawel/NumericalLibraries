@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Runtime.InteropServices;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.Bessel
 {
     public class BesselNeumanHyper
     {
@@ -42,11 +39,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = bessel_(ref v, ref z);
+                double result = bessel_(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -61,11 +58,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = sphbess_(ref v, ref z);
+                double result = sphbess_(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -80,11 +77,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = sphbess_prim__(ref v, ref z);
+                double result = sphbess_prim__(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -99,11 +96,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = neumann_(ref v, ref z);
+                double result = neumann_(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -118,11 +115,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = sphneum_(ref v, ref z);
+                double result = sphneum_(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -137,11 +134,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = sphneum_prim__(ref v, ref z);
+                double result = sphneum_prim__(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -157,11 +154,11 @@ namespace NumericalCalculator
                 c = Math.Round(c, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = hyperg11_(ref v, ref c, ref z);
+                double result = hyperg11_(ref v, ref c, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -178,11 +175,11 @@ namespace NumericalCalculator
                 c = Math.Round(c, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = hyperg21_(ref a, ref b, ref c, ref z);
+                double result = hyperg21_(ref a, ref b, ref c, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -197,11 +194,11 @@ namespace NumericalCalculator
                 v = Math.Round(v, 15);
                 z = Math.Round(z, 15);
 
-                double wynik = hyperg01_(ref v, ref z);
+                double result = hyperg01_(ref v, ref z);
 
-                wynik = FormatujWynik(wynik);
+                result = FormatResult(result);
 
-                return wynik;
+                return result;
             }
             catch
             {
@@ -210,19 +207,18 @@ namespace NumericalCalculator
         }
 
 
-        private double FormatujWynik(double wynik)
+        private double FormatResult(double result)
         {
-            //Sprawdzenie czy czasem nie jest to NaN
-            if (wynik > 1E60 || Math.Abs(wynik) < 1E-60 || wynik < -1E60)
+            if (result > 1E60 || Math.Abs(result) < 1E-60 || result < -1E60)
                 return double.NaN;
 
-            //Formatowanie wyniku, żeby 4,0000000000001 wypluł jako 4
-            if (Math.Abs(wynik - Math.Floor(wynik)) < 0.00000001)
-                wynik = Math.Floor(wynik);
-            else if (Math.Abs(wynik - Math.Ceiling(wynik)) < 0.00000001)
-                wynik = Math.Ceiling(wynik);
+            //Changing e.g., 4,0000000000001 to 4
+            if (Math.Abs(result - Math.Floor(result)) < 0.00000001)
+                result = Math.Floor(result);
+            else if (Math.Abs(result - Math.Ceiling(result)) < 0.00000001)
+                result = Math.Ceiling(result);
 
-            return wynik;
+            return result;
         }
     }
 }

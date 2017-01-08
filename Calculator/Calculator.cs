@@ -1,15 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+﻿using Rychusoft.NumericalLibraries.Calculator.Exceptions;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.Calculator
 {
     public class Calculator: Interior
     {
-    // METODY ---------------------------------
-        new void ErrorCheck() // DODATKOWO SPRAWDZENIE CZY NIE MA GDZIES X
+        private new void ErrorCheck()
         {
             base.ErrorCheck();
 
@@ -34,9 +29,8 @@ namespace NumericalCalculator
         {
             return EvaluateInterior();
         }
-
-    // KONSTRUKTOR --------------------------
-        public Calculator(string function) : base(function, 0.0)
+        
+        public Calculator(string formula) : base(formula, 0.0)
         {
             ErrorCheck();
             ConvertToTable();

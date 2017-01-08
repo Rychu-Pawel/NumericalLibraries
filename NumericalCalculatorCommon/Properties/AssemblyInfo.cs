@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("NumericalCalculatorCommon")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("NumericalLibraries Common")]
+[assembly: AssemblyDescription("Common library for Rychusoft.NumericalLibraries suite")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("NumericalCalculatorCommon")]
-[assembly: AssemblyCopyright("Copyright © 2012 Pawel Rychlicki")]
+[assembly: AssemblyProduct("NumericalLibraries")]
+[assembly: AssemblyCopyright("© Pawel Rychlicki 2012-2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

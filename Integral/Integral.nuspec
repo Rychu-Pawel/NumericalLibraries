@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <licenseUrl>https://github.com/Rychu-Pawel/NumericalLibraries/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/Rychu-Pawel/NumericalLibraries</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <copyright>$copyright$</copyright>
+    <tags>Integral Calculator NumericalLibraries Numerical Libraries Math</tags>
+    <dependencies>
+      <dependency id="Rychusoft.NumericalLibraries.Derivative" version="1.0" />
+    </dependencies>
+  </metadata>
+</package>

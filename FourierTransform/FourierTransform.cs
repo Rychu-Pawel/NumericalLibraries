@@ -1,16 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Numerics;
-using System.Drawing;
+using Rychusoft.NumericalLibraries.Common;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.FourierTransform
 {
     public class FourierTransform
     {
-        Complex complexMinusDwa = new Complex(-2.0, 0);
-        Complex complexDwa = new Complex(2.0, 0);
+        Complex complexMinusTwo = new Complex(-2.0, 0);
+        Complex complexTwo = new Complex(2.0, 0);
         Complex complexPi = new Complex(Math.PI, 0);
 
         /// <summary>
@@ -23,38 +21,37 @@ namespace NumericalCalculator
         /// <returns></returns>
         public List<PointC> Compute(string function, int sampling, double start, double end)
         {
-            Derivative p = new Derivative(function);
+            Derivative.Derivative p = new Derivative.Derivative(function);
 
-            List<PointC> wyniki = new List<PointC>();
+            List<PointC> result = new List<PointC>();
 
-            double krok = (end - start) / sampling;
+            double step = (end - start) / sampling;
 
             int n = 0;
             double k = start;
-            Complex[] wartosciFunkcji = new Complex[sampling + 1];
+            Complex[] functionValues = new Complex[sampling + 1];
 
-            while (n < wartosciFunkcji.Length)
+            while (n < functionValues.Length)
             {
-                wartosciFunkcji[n] = p.ComputeFunctionAtPoint(k);
+                functionValues[n] = p.ComputeFunctionAtPoint(k);
 
                 n++;
-                k += krok;
+                k += step;
             }
+            
+            Complex numberOfComplexPoints = new Complex(functionValues.Length, 0);
 
-            //Stałe
-            Complex complexIloscPunktow = new Complex(wartosciFunkcji.Length, 0);
-
-            for (k = 0; k < wartosciFunkcji.Length; k++)
+            for (k = 0; k < functionValues.Length; k++)
             {
-                Complex suma = new Complex();
+                Complex sum = new Complex();
                 
-                for (n = 0; n < wartosciFunkcji.Length; n++)
-                    suma += wartosciFunkcji[n] * Complex.Exp((complexMinusDwa * complexPi * Complex.ImaginaryOne * n * k) / complexIloscPunktow);
+                for (n = 0; n < functionValues.Length; n++)
+                    sum += functionValues[n] * Complex.Exp((complexMinusTwo * complexPi * Complex.ImaginaryOne * n * k) / numberOfComplexPoints);
 
-                wyniki.Add(new PointC(k, suma));
+                result.Add(new PointC(k, sum));
             }
 
-            return wyniki;
+            return result;
         }
 
         /// <summary>
@@ -67,23 +64,23 @@ namespace NumericalCalculator
         /// <returns></returns>
         public List<PointC> ComputeInverse(List<PointC> points, int sampling, double start, double end)
         {
-            double krok = (end - start) / sampling;
+            double step = (end - start) / sampling;
 
-            List<PointC> wyniki = new List<PointC>();
+            List<PointC> result = new List<PointC>();
 
-            Complex complexIloscPunktow = new Complex(points.Count, 0);
+            Complex numberOfComplexPoints = new Complex(points.Count, 0);
 
             for (int k = 0; k < points.Count; k++)
             {
-                Complex suma = new Complex();
+                Complex sum = new Complex();
 
                 for (int n = 0; n < points.Count; n++)
-                    suma += points[n].Y * Complex.Exp((complexDwa * complexPi * Complex.ImaginaryOne * n * k) / complexIloscPunktow);
+                    sum += points[n].Y * Complex.Exp((complexTwo * complexPi * Complex.ImaginaryOne * n * k) / numberOfComplexPoints);
 
-                wyniki.Add(new PointC(start + (points[k].X + 1) * krok, suma / complexIloscPunktow));
+                result.Add(new PointC(start + (points[k].X + 1) * step, sum / numberOfComplexPoints));
             }
 
-            return wyniki;
+            return result;
         }
     }
 }

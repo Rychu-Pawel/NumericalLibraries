@@ -1,57 +1,50 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using NumericalCalculator.Exceptions;
+using Rychusoft.NumericalLibraries.LinearEquation.Exceptions;
 
-namespace NumericalCalculator
+namespace Rychusoft.NumericalLibraries.LinearEquation
 {
     public class LinearEquation
     {
-    //ZMIENNE --------------------------
-        private int iloscZmiennych;
-        double[,] wspolczynniki;
-        double[] niewiadome;
-
-    //METODY ---------------------------
-        private void Mnozenie(int n)
+        private int _variablesCount;
+        double[,] _factors;
+        double[] _variables;
+        
+        private void Multiplication(int n)
         {
-            for (int i = n; i < iloscZmiennych; i++)
+            for (int i = n; i < _variablesCount; i++)
             {
-                double mnoznik = (wspolczynniki[n - 1, n - 1] / wspolczynniki[n - 1, i]); // wartosc przez ktora mnozymy caly wiersz macierzy
+                double multiplier = (_factors[n - 1, n - 1] / _factors[n - 1, i]);
 
-                if (mnoznik != 1)
-                    for (int j = n - 1; j <= iloscZmiennych; j++)
-                        wspolczynniki[j, i] *= mnoznik;
+                if (multiplier != 1)
+                    for (int j = n - 1; j <= _variablesCount; j++)
+                        _factors[j, i] *= multiplier;
             }
         }
 
-        private void Odejmowanie(int n)
+        private void Substraction(int n)
         {
-            for (int i = n; i < iloscZmiennych; i++)
-                for (int j = n - 1; j <= iloscZmiennych; j++)
-                    wspolczynniki[j, i] -= wspolczynniki[j, n - 1];
+            for (int i = n; i < _variablesCount; i++)
+                for (int j = n - 1; j <= _variablesCount; j++)
+                    _factors[j, i] -= _factors[j, n - 1];
         }
 
-        private void WyliczNiewiadome()
+        private void ComputeVariables()
         {
-            for (int i = iloscZmiennych - 1; i >= 0; i--)
+            for (int i = _variablesCount - 1; i >= 0; i--)
             {
-                //Obliczam ostateczne r
-                for(int j = iloscZmiennych - i - 1; j > 0; j--)
-                    wspolczynniki[iloscZmiennych, i] -= (wspolczynniki[iloscZmiennych - j, i] * niewiadome[iloscZmiennych - j]);
+                for(int j = _variablesCount - i - 1; j > 0; j--)
+                    _factors[_variablesCount, i] -= (_factors[_variablesCount - j, i] * _variables[_variablesCount - j]);
+                
+                _variables[i] = _factors[_variablesCount, i] / _factors[i, i];
 
-                //Obliczam i-tą niewiadomą
-                niewiadome[i] = wspolczynniki[iloscZmiennych, i] / wspolczynniki[i, i];
-
-                if (double.IsNaN(niewiadome[i]))
+                if (double.IsNaN(_variables[i]))
                     throw new InconsistentSystemOfEquationsException();
 
-                //Formatowanie niewiadomoej, żeby 4,0000000000001 wypluł jako 4
-                if (Math.Abs(niewiadome[i] - Math.Floor(niewiadome[i])) < 0.000000001)
-                    niewiadome[i] = Math.Floor(niewiadome[i]);
-                else if (Math.Abs(niewiadome[i] - Math.Ceiling(niewiadome[i])) < 0.000000001)
-                    niewiadome[i] = Math.Ceiling(niewiadome[i]);
+                // Change e.g., 4,0000000000001 to 4
+                if (Math.Abs(_variables[i] - Math.Floor(_variables[i])) < 0.000000001)
+                    _variables[i] = Math.Floor(_variables[i]);
+                else if (Math.Abs(_variables[i] - Math.Ceiling(_variables[i])) < 0.000000001)
+                    _variables[i] = Math.Ceiling(_variables[i]);
             }
         }
 
@@ -61,22 +54,43 @@ namespace NumericalCalculator
         /// <returns></returns>
         public double[] Compute()
         {
-            //Eliminacja Gaussa (otrzymujemy zera pod diagonala)
-            for (int i = 1; i < iloscZmiennych; i++)
+            //Gauss elimination
+            for (int i = 1; i < _variablesCount; i++)
             {
-                Mnozenie(i);
+                Multiplication(i);
 
-                Odejmowanie(i);
+                Substraction(i);
             }
 
-            WyliczNiewiadome();
+            ComputeVariables();
 
-            return niewiadome;
+            return _variables;
         }
 
-        //KONSTRUKTOR ----------------------
         /// <summary>
-        /// 
+        /// Linear equation constructor
+        /// </summary>
+        /// <param name="coefficients">Coefficients standing by the variables. Double[rows, rows + 1]</param>
+        public LinearEquation(double[,] coefficients)
+        {
+            //Sprawdzenie rozmiaru tablicy
+            if (coefficients.GetLength(0) + 1 != coefficients.GetLength(1))
+                throw new RowsNumberMustBeOneLessThenColumnsNumberException();
+
+            //niestety algorytm zostal napisany źle i trzeba przepisać tablice
+            this._factors = new double[coefficients.GetLength(1), coefficients.GetLength(0)];
+
+            for (int i = 0; i < coefficients.GetLength(0); i++)
+                for (int j = 0; j < coefficients.GetLength(1); j++)
+                    _factors[j, i] = coefficients[i, j];
+
+            _variablesCount = _factors.GetLength(1);
+
+            _variables = new double[_variablesCount];
+        }
+
+        /// <summary>
+        /// Linear equation constructor
         /// </summary>
         /// <param name="dgvGauss">Data grid view with coefficients standing by the variables</param>
         public LinearEquation(System.Windows.Forms.DataGridView dgvGauss)
@@ -84,44 +98,15 @@ namespace NumericalCalculator
             if (dgvGauss.Rows.Count + 1 != dgvGauss.Columns.Count)
                 throw new RowsNumberMustBeOneLessThenColumnsNumberException();
 
-            iloscZmiennych = dgvGauss.Rows.Count;
+            _variablesCount = dgvGauss.Rows.Count;
 
-            wspolczynniki = new double[iloscZmiennych + 1, iloscZmiennych];
+            _factors = new double[_variablesCount + 1, _variablesCount];
 
-            for (int i = 0; i <= iloscZmiennych; i++)
-                for (int j = 0; j < iloscZmiennych; j++)
-                    wspolczynniki[i, j] = Convert.ToDouble(dgvGauss[i, j].Value);
+            for (int i = 0; i <= _variablesCount; i++)
+                for (int j = 0; j < _variablesCount; j++)
+                    _factors[i, j] = Convert.ToDouble(dgvGauss[i, j].Value);
 
-            niewiadome = new double[iloscZmiennych];
+            _variables = new double[_variablesCount];
         }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="coefficients">Coefficients standing by the variables. Double[rows, rows + 1]</param>
-        public LinearEquation(double[,] coefficients) //wspolczynniki
-        {
-            //Sprawdzenie rozmiaru tablicy
-            if (coefficients.GetLength(0) + 1 != coefficients.GetLength(1))
-                throw new RowsNumberMustBeOneLessThenColumnsNumberException();
-
-            //niestety algorytm zostal napisany źle i trzeba przepisać tablice
-            this.wspolczynniki = new double[coefficients.GetLength(1), coefficients.GetLength(0)];
-
-            for (int i = 0; i < coefficients.GetLength(0); i++)
-                for (int j = 0; j < coefficients.GetLength(1); j++)
-                    wspolczynniki[j, i] = coefficients[i, j];
-
-            iloscZmiennych = wspolczynniki.GetLength(1);
-
-            niewiadome = new double[iloscZmiennych];
-        }
-    }
-}
-
-namespace NumericalCalculator.Exceptions
-{
-    class RowsNumberMustBeOneLessThenColumnsNumberException : Exception
-    {
     }
 }
