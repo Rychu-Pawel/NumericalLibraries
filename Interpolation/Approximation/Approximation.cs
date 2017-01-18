@@ -33,7 +33,7 @@ namespace Rychusoft.NumericalLibraries.Approximation
             if (points == null)
                 throw new ArgumentNullException(nameof(points));
 
-            if (_points.Count == 0)
+            if (points.Count == 0)
                 throw new ArgumentException("No points provided", nameof(points));
 
             if (level <= 0)
