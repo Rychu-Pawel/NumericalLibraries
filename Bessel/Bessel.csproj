@@ -45,7 +45,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Bessel.nuspec" />
+    <None Include="build\Rychusoft.NumericalLibraries.Bessel.targets" />
     <None Include="RemoveAndCreateNuget.ps1" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="build\jm_specfun.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
