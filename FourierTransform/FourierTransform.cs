@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Rychusoft.NumericalLibraries.Common;
+using Rychusoft.NumericalLibraries.Derivative;
+using System;
 using System.Collections.Generic;
 using System.Numerics;
-using Rychusoft.NumericalLibraries.Common;
 
 namespace Rychusoft.NumericalLibraries.FourierTransform
 {

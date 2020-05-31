@@ -79,7 +79,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                         //Change E to *10^(
                         function = function.Substring(0, i) + "*10^(" + function.Substring(i + 1, counter - 1) + ")" + function.Substring(i + counter, function.Length - i - counter);
                     }
-                    catch (SystemException)
+                    catch (Exception)
                     {
                         throw new IncorrectEOperatorOccurrenceException();
                     }
