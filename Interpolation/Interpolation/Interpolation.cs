@@ -41,7 +41,7 @@ namespace Rychusoft.NumericalLibraries.Interpolation
             for (int i = 0; i < _points.Count; i++)
                 for (int j = i + 1; j < _points.Count; j++)
                     if (_points[i].X == _points[j].X)
-                        throw new SystemException("x = " + Convert.ToString(_points[i].X) + " appears at least twice");
+                        throw new Exception("x = " + Convert.ToString(_points[i].X) + " appears at least twice");
         }
 
         private void CreateBase(int j, int iteration) // j - skipped index in lagrange formula

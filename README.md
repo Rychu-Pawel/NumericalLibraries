@@ -52,7 +52,6 @@ Numerical Calculator encounter imaginary numbers it will return "not a number" r
 You can input nested expressions like sin(cos(30)+tg(sqrt(0,4)))
 
 Library is divided into parts (follow links for more details and usage info):
-* Bessel - computes Bessel's function thanks to my professor's, Pawel Syty, library
 * Calculator - http://pawelrychlicki.pl/Application/Details/14/numerical-calculator-net-library-10 - the main part of the library which implements the basic functions such as Calculator itself and mean, proportion, factorial
 * Chart - http://pawelrychlicki.pl/Application/Details/47/chart-net-library-10 - part responsible for drawing function chart
 * Derivative - http://pawelrychlicki.pl/Application/Details/19/numerical-derivative-net-library-10 - computes first and second derivative
@@ -62,5 +61,3 @@ Library is divided into parts (follow links for more details and usage info):
 * Integral - http://pawelrychlicki.pl/Application/Details/32/numerical-integral-net-library-10
 * Interpolation - http://pawelrychlicki.pl/Application/Details/37/analytical-interpolation-and-approximation-net-library-10 - Function interpolation and approximation
 * LinearEquation - http://pawelrychlicki.pl/Application/Details/42/numerical-linear-equation-net-library-10
-
-These libraries were one of two main parts of my master's thesis. Second one was the sample application mentioned above.

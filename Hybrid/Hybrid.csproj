@@ -1,83 +1,40 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.30703</ProductVersion>
-    <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{E042347C-874C-490F-9185-D3F140FE51F0}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rychusoft.NumericalLibraries.Hybrid</RootNamespace>
+    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <RootNamespace>Rychusoft.NumericalLibraries.FunctionRoot</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>Rychusoft.NumericalLibraries.Hybrid</PackageId>
+    <Version>1.1.1</Version>
+    <Authors>Rychusoft</Authors>
+    <Product>NumericalLibraries</Product>
+    <Description>Easy to use library for computing zero (root) of a function.
+
+var math = new FunctionRoot.Hybrid("(x+1)^2-9", 0, 1.5);
+var result = math.ComputeHybrid(); // result = 2</Description>
+    <Copyright>© Pawel Rychlicki</Copyright>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://pawelrychlicki.pl/Application/Details/30/numerical-function-root-hybrid-net-library-11</PackageProjectUrl>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
+    <PackageTags>Function Root Zero Calculator Numerical Libraries Math</PackageTags>
+    <PackageReleaseNotes>.</PackageReleaseNotes>
     <AssemblyName>Rychusoft.NumericalLibraries.Hybrid</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Debug\Rychusoft.NumericalLibraries.Hybrid.xml</DocumentationFile>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>none</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <DocumentationFile>bin\Release\Rychusoft.NumericalLibraries.Hybrid.xml</DocumentationFile>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Xml" />
+    <None Include="..\Icon\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Exceptions\NoneOrFewRootsOnGivenIntervalException.cs" />
-    <Compile Include="Hybrid.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <ProjectReference Include="..\Derivative\Derivative.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Calculator\Calculator.csproj">
-      <Project>{ABCF2024-B9ED-4BF1-B19F-336BB94CEFB2}</Project>
-      <Name>Calculator</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Derivative\Derivative.csproj">
-      <Project>{26084897-09EC-4255-A641-BED2A36FDB99}</Project>
-      <Name>Derivative</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj">
-      <Project>{C66448A1-26AF-4603-9109-D430A920C407}</Project>
-      <Name>NumericalLibrariesCommon</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="RemoveAndCreateNuget.ps1" />
-    <None Include="Hybrid.nuspec" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PreBuildEvent>
-    </PreBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup>
-    <PostBuildEvent>
-    </PostBuildEvent>
-  </PropertyGroup>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-       Other similar extension points exist, see Microsoft.Common.targets.
-  <Target Name="BeforeBuild">
-  </Target>
-  <Target Name="AfterBuild">
-  </Target>
-  -->
+
 </Project>
