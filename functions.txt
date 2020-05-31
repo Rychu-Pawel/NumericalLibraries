@@ -2,5 +2,5 @@ sin(x/0.3)*cos(x)*e(x)p(3*cos(x/10))
 
 exp(x/20)*(sin(1/2*x)+cos(3*x)+0.2*sin(4*x)*cos(40*x))
 
-probkowanie 256
-0<->6, odciecie 10
+samping 256
+0<->6, cut-off 10
