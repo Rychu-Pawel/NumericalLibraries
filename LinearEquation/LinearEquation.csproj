@@ -1,7 +1,33 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <PackageId>Rychusoft.NumericalLibraries.LinearEquation</PackageId>
+    <Version>1.1.1</Version>
+    <Authors>Rychusoft</Authors>
+    <Copyright>© Pawel Rychlicki</Copyright>
+    <Product>NumericalLibraries</Product>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageProjectUrl>https://pawelrychlicki.pl/Application/Details/42/numerical-linear-equation-net-library-11</PackageProjectUrl>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
+    <PackageTags>Linear Equation Numerical Libraries Calculator Math</PackageTags>
+    <Description>Library for computing linear equations</Description>
+    <RootNamespace>Rychusoft.NumericalLibraries.LinearEquation</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.LinearEquation</AssemblyName>
+    <PackageReleaseNotes>.</PackageReleaseNotes>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
 
 </Project>

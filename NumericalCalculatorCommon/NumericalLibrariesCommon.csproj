@@ -1,27 +1,42 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
     <Title>NumericalLibraries Common</Title>
-    <AssemblyVersion>1.1.0.0</AssemblyVersion>
-    <FileVersion>1.1.0.0</FileVersion>
-    <PackageReleaseNotes>Moved to .NET Standard</PackageReleaseNotes>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <PackageReleaseNotes>.</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
     <PackageProjectUrl>http://pawelrychlicki.pl/Application/Details/14/numerical-calculator-net-library-11</PackageProjectUrl>
-    <PackageLicenseUrl>https://github.com/Rychu-Pawel/NumericalLibraries/blob/master/LICENSE</PackageLicenseUrl>
-    <Copyright>© Pawel Rychlicki 2012-2017</Copyright>
+    <PackageLicenseUrl></PackageLicenseUrl>
+    <Copyright>© Pawel Rychlicki</Copyright>
     <Description>Common library for Rychusoft.NumericalLibraries suite</Description>
     <Product>NumericalLibraries</Product>
     <Company />
     <Authors>Rychusoft</Authors>
-    <Version>1.1.0</Version>
-    <PackageIconUrl>http://pawelrychlicki.pl/favicon.ico</PackageIconUrl>
+    <Version>1.1.1</Version>
+    <PackageIconUrl></PackageIconUrl>
     <PackageId>Rychusoft.NumericalLibraries.Common</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <RootNamespace>Rychusoft.NumericalLibraries.Common</RootNamespace>
+    <AssemblyName>Rychusoft.NumericalLibraries.Common</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="System.Drawing.Primitives" Version="4.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

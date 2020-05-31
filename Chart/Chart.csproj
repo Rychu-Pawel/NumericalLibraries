@@ -1,7 +1,47 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFrameworks>net45;net48</TargetFrameworks>
+    <RootNamespace>Rychusoft.NumericalLibraries.Chart</RootNamespace>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
+    <PackageTags>Chart Calculator Numerical Libraries Math Derivative Differential</PackageTags>
+    <PackageReleaseNotes>.</PackageReleaseNotes>
+    <AssemblyVersion>1.1.1.0</AssemblyVersion>
+    <FileVersion>1.1.1.0</FileVersion>
+    <Version>1.1.1</Version>
+    <PackageId>Rychusoft.NumericalLibraries.Chart</PackageId>
+    <PackageProjectUrl>https://pawelrychlicki.pl/Application/Details/47/chart-net-library-11</PackageProjectUrl>
+    <Authors>Rychusoft</Authors>
+    <Product>NumericalLibraries</Product>
+    <Copyright>© Pawel Rychlicki</Copyright>
+    <Description>Chart component for Rychusoft.NumericalLibraries suite</Description>
+    <AssemblyName>Rychusoft.NumericalLibraries.Chart</AssemblyName>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Calculator\Calculator.csproj" />
+    <ProjectReference Include="..\Derivative\Derivative.csproj" />
+    <ProjectReference Include="..\Differential\Differential.csproj" />
+    <ProjectReference Include="..\FourierTransform\FourierTransform.csproj" />
+    <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Windows.Forms" />
+  </ItemGroup>
 
 </Project>

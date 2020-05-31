@@ -1,29 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
-    <PackageTags>Differential Calculator NumericalLibraries Numerical Libraries Math</PackageTags>
+    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <PackageTags>Differential Calculator Numerical Libraries Math</PackageTags>
     <Title>NumericalLibraries Differential</Title>
     <Description>Easy to use library for computing differential equations.
 
 var math = new Rychusoft.NumericalLibraries.Differential.Differential(""3*x^2-5"");
 var result = math.ComputeDifferential(4, 2, 0); // result = 46</Description>
     <PackageId>Rychusoft.NumericalLibraries.Differential</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.1.1</Version>
     <Authors>Rychusoft</Authors>
     <Company>Rychusoft</Company>
-    <Copyright>© Pawel Rychlicki 2012-2017</Copyright>
+    <Copyright>© Pawel Rychlicki</Copyright>
     <Product>NumericalLibraries</Product>
-    <PackageLicenseUrl>https://github.com/Rychu-Pawel/NumericalLibraries/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseUrl></PackageLicenseUrl>
     <PackageProjectUrl>http://pawelrychlicki.pl/Application/Details/24/numerical-differential-net-library-11</PackageProjectUrl>
-    <PackageIconUrl>http://pawelrychlicki.pl/favicon.ico</PackageIconUrl>
+    <PackageIconUrl></PackageIconUrl>
     <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
     <PackageReleaseNotes>Moved to .NET Standard</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <RootNamespace>Rychusoft.NumericalLibraries.Differential</RootNamespace>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <AssemblyName>Rychusoft.NumericalLibraries.Differential</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Derivative\Derivative.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\Icon\icon.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
+    <None Include="..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>

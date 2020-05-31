@@ -1,15 +1,15 @@
-﻿using System;
-using Rychusoft.NumericalLibraries.Integral.Exceptions;
+﻿using Rychusoft.NumericalLibraries.Integral.Exceptions;
+using System;
 
 namespace Rychusoft.NumericalLibraries.Integral
 {
     public class Integral : Derivative.Derivative
     {
-        double[,] _quadrature;
-        double _xFrom, _xTo;
+        private double[,] _quadrature;
+        private double _xFrom, _xTo;
 
-        double _result;
-        
+        private double _result;
+
         private void ChangeBoundaries()
         {
             double factor, freeComponent;
@@ -31,7 +31,7 @@ namespace Rychusoft.NumericalLibraries.Integral
                         {
                             int lengthBefore = function.Length;
                             function = function.Substring(0, i) + "(" + Convert.ToString(factor) + "*x+" + Convert.ToString(freeComponent) + ")" + function.Substring(i + 1, function.Length - i - 1);
-                            i += function.Length - lengthBefore + 1; 
+                            i += function.Length - lengthBefore + 1;
                         }
                         else if (freeComponent < 0)
                         {
@@ -70,7 +70,7 @@ namespace Rychusoft.NumericalLibraries.Integral
 
             //Change indirect boundaries e.g., (-1, -0,9) => (-1, 1);
             ChangeBoundaries();
-            
+
             double indirectResult = 0;
 
             //Calculate integral using Gaussa-Legendre'a quadrature
@@ -108,7 +108,7 @@ namespace Rychusoft.NumericalLibraries.Integral
 
             return _result;
         }
-        
+
         /// <summary>
         /// Integral constructor
         /// </summary>

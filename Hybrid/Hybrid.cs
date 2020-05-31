@@ -1,4 +1,5 @@
 ﻿using System;
+using Rychusoft.NumericalLibraries.Derivative;
 using Rychusoft.NumericalLibraries.FunctionRoot.Exceptions;
 
 namespace Rychusoft.NumericalLibraries.FunctionRoot
