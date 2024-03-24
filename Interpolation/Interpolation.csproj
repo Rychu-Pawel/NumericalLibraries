@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <PackageId>Rychusoft.NumericalLibraries.Interpolation</PackageId>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Version>1.1.1</Version>
@@ -19,21 +18,20 @@
     <RootNamespace>Rychusoft.NumericalLibraries.Interpolation</RootNamespace>
     <AssemblyName>Rychusoft.NumericalLibraries.Interpolation</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\LinearEquation\LinearEquation.csproj" />
     <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj" />
   </ItemGroup>
-
 </Project>

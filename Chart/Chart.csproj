@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>net45;net48</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <RootNamespace>Rychusoft.NumericalLibraries.Chart</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
@@ -20,18 +19,18 @@
     <Description>Chart component for Rychusoft.NumericalLibraries suite</Description>
     <AssemblyName>Rychusoft.NumericalLibraries.Chart</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Calculator\Calculator.csproj" />
     <ProjectReference Include="..\Derivative\Derivative.csproj" />
@@ -39,9 +38,7 @@
     <ProjectReference Include="..\FourierTransform\FourierTransform.csproj" />
     <ProjectReference Include="..\NumericalCalculatorCommon\NumericalLibrariesCommon.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
-
 </Project>

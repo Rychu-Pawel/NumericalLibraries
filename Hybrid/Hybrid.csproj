@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFrameworks>net8.0</TargetFrameworks>
     <RootNamespace>Rychusoft.NumericalLibraries.FunctionRoot</RootNamespace>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>Rychusoft.NumericalLibraries.Hybrid</PackageId>
@@ -21,20 +20,19 @@ var result = math.ComputeHybrid(); // result = 2</Description>
     <PackageReleaseNotes>.</PackageReleaseNotes>
     <AssemblyName>Rychusoft.NumericalLibraries.Hybrid</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Derivative\Derivative.csproj" />
   </ItemGroup>
-
 </Project>
