@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0-windows</TargetFramework>
     <UseWindowsForms>true</UseWindowsForms>
@@ -21,18 +20,18 @@
     <Description>Chart component for Rychusoft.NumericalLibraries suite</Description>
     <AssemblyName>Rychusoft.NumericalLibraries.Chart</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Calculator\Calculator.csproj" />
     <ProjectReference Include="..\Derivative\Derivative.csproj" />
