@@ -19,11 +19,38 @@ namespace Rychusoft.NumericalLibraries.Calculator
         protected HashSet<char> operatorWithoutPlusSign = new HashSet<char>() { '*', '/', '^', '!' };
 
         protected HashSet<string> operatorWithoutFactorialString = new HashSet<string>() { "+", "-", "*", "/", "^" };
-        
+
         protected bool IsNumber(string mayBeANum)
         {
-            double number;
-            return double.TryParse(mayBeANum, out number);
+            if (double.TryParse(mayBeANum, out _))
+                return true;
+
+            var normalizedMayBeANum = mayBeANum.Replace('.', ',');
+
+            if (double.TryParse(normalizedMayBeANum, out _))
+                return true;
+
+            normalizedMayBeANum = mayBeANum.Replace(',', '.');
+
+            if (double.TryParse(normalizedMayBeANum, out _))
+                return true;
+
+            return false;
+        }
+
+        protected double ConvertToNumber(string number)
+        {
+            if (double.TryParse(number, out var valueFromFirstTry))
+                return valueFromFirstTry;
+
+            var normalizedNumber = number.Replace('.', ',');
+
+            if (double.TryParse(normalizedNumber, out var valueFromSecondTry))
+                return valueFromSecondTry;
+
+            normalizedNumber = number.Replace(',', '.');
+
+            return double.Parse(normalizedNumber);
         }
 
         /// <summary>
@@ -34,7 +61,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
             string cache;
 
             //Change "PI" to value
-            function = function.Replace("PI", Math.PI.ToString());
+            function = function.Replace("pi", Math.PI.ToString());
 
             for (int i = 0; i < function.Length; i++)
             {
@@ -48,8 +75,8 @@ namespace Rychusoft.NumericalLibraries.Calculator
                     i--;
                 }
 
-                //Change e.g., E-05 na 10^(-5)
-                if (c == 'E')
+                //Change e.g., E-05 to 10^(-5)
+                if (c == 'e' && (function[i + 1] == '+' || function[i + 1] == '-' || char.IsDigit(function[i + 1])))
                 {
                     try
                     {
@@ -172,7 +199,24 @@ namespace Rychusoft.NumericalLibraries.Calculator
                     while (bracketsCount != 0);
                 }
                 // IF FOUR SIGN FUNCTION
-                else if ((i + 3 <= function.Length - 1) && ((function[i] == 's' && function[i + 1] == 'q' && function[i + 2] == 'r' && function[i + 3] == 't') || (function[i] == 'a' && ((function[i + 1] == 's' && function[i + 2] == 'i' && function[i + 3] == 'n') || (function[i + 1] == 'c' && function[i + 2] == 'o' && function[i + 3] == 's') || (function[i + 1] == 'c' && function[i + 2] == 't' && function[i + 3] == 'g'))) || (function[i] == 's' && function[i + 1] == 'i' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 's' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'g' && function[i + 3] == 'h') || (function[i] == 't' && function[i + 1] == 'a' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'n' && function[i + 3] == 'h') || (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 't' && function[i + 3] == 'h')))
+                else if (
+                    (i + 3 <= function.Length - 1) && (
+                        (function[i] == 's' && function[i + 1] == 'q' && function[i + 2] == 'r' && function[i + 3] == 't') ||
+                        (function[i] == 'a' && (
+                            (function[i + 1] == 'c' && function[i + 2] == 't' && function[i + 3] == 'n') ||
+                            (function[i + 1] == 'c' && function[i + 2] == 'o' && function[i + 3] == 't') ||
+                            (function[i + 1] == 't' && function[i + 2] == 'a' && function[i + 3] == 'n') ||
+                            (function[i + 1] == 's' && function[i + 2] == 'i' && function[i + 3] == 'n') ||
+                            (function[i + 1] == 'c' && function[i + 2] == 'o' && function[i + 3] == 's') ||
+                            (function[i + 1] == 'c' && function[i + 2] == 't' && function[i + 3] == 'g')
+                        )) ||
+                        (function[i] == 's' && function[i + 1] == 'i' && function[i + 2] == 'n' && function[i + 3] == 'h') ||
+                        (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 's' && function[i + 3] == 'h') ||
+                        (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'g' && function[i + 3] == 'h') ||
+                        (function[i] == 't' && function[i + 1] == 'a' && function[i + 2] == 'n' && function[i + 3] == 'h') ||
+                        (function[i] == 'c' && function[i + 1] == 't' && function[i + 2] == 'n' && function[i + 3] == 'h') ||
+                        (function[i] == 'c' && function[i + 1] == 'o' && function[i + 2] == 't' && function[i + 3] == 'h')
+                    ))
                 {
                     int n = -1;
                     cache += 3;
@@ -216,7 +260,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                     j++;
                 }
                 // FOUR SIGN FUNCTION
-                else if ((function[j] == 's' && function[j + 1] == 'q' && function[j + 2] == 'r' && function[j + 3] == 't') || (function[j] == 'a' && ((function[j + 1] == 's' && function[j + 2] == 'i' && function[j + 3] == 'n') || (function[j + 1] == 'c' && function[j + 2] == 'o' && function[j + 3] == 's') || (function[j + 1] == 'c' && function[j + 2] == 't' && function[j + 3] == 'g'))) || (function[j] == 's' && function[j + 1] == 'j' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 's' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'g' && function[j + 3] == 'h') || (function[j] == 't' && function[j + 1] == 'a' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 't' && function[j + 3] == 'h'))
+                else if ((function[j] == 's' && function[j + 1] == 'q' && function[j + 2] == 'r' && function[j + 3] == 't') || (function[j] == 'a' && ((function[j + 1] == 's' && function[j + 2] == 'i' && function[j + 3] == 'n') || (function[j + 1] == 'c' && function[j + 2] == 'o' && function[j + 3] == 's') || (function[j + 1] == 'c' && function[j + 2] == 't' && function[j + 3] == 'g'))) || (function[j] == 's' && function[j + 1] == 'i' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 's' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'g' && function[j + 3] == 'h') || (function[j] == 't' && function[j + 1] == 'a' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 't' && function[j + 2] == 'n' && function[j + 3] == 'h') || (function[j] == 'c' && function[j + 1] == 'o' && function[j + 2] == 't' && function[j + 3] == 'h') || (function[j] == 'a' && function[j + 1] == 't' && function[j + 2] == 'a' && function[j + 3] == 'n') || (function[j] == 'a' && function[j + 1] == 'c' && function[j + 2] == 'o' && function[j + 3] == 't') || (function[j] == 'a' && function[j + 1] == 'c' && function[j + 2] == 't' && function[j + 3] == 'n'))
                 {
                     string basicFunction;
                     basicFunction = (char.ToString(function[j]) + char.ToString(function[j + 1]) + char.ToString(function[j + 2]) + char.ToString(function[j + 3]));
@@ -309,26 +353,26 @@ namespace Rychusoft.NumericalLibraries.Calculator
         protected void ConvertToONP() // convert to ONP
         {
             // Check brackets
-            int l, n, nn; // nn - counts brackets and how many places in the table will be need for aditional zeros e.g., for (-3)
+            int index, bracketsBalance, nn; // nn - counts brackets and how many places in the table will be need for zeros e.g., for (-3) or (+3)
 
-            n = nn = 0;
+            bracketsBalance = nn = 0;
 
-            if (functionTable[0] == "-") // handling first number less then zero e.g., "-3"
+            if (functionTable[0] == "-" || functionTable[0] == "+") // handling first number with operator e.g., "-3" or "+3"
                 nn--;
 
             //Counting brackets (exp3*sin3-exp3*cos3)/2+(exp(-3)*(sin3+cos3))/2
-            for (l = 0; l < functionTable.Length; l++)
+            for (index = 0; index < functionTable.Length; index++)
             {
-                string i = functionTable[l];
-                switch (i)
+                string part = functionTable[index];
+                switch (part)
                 {
-                    case "(": n++; if (functionTable[l + 1] != "-") nn++; break;
-                    case ")": n--; nn++; break;
+                    case "(": bracketsBalance++; if (functionTable[index + 1] != "-" && functionTable[index + 1] != "+") nn++; break;
+                    case ")": bracketsBalance--; nn++; break;
                 }
             }
 
             //Brackets count does not match
-            if (n != 0)
+            if (bracketsBalance != 0)
                 throw new LeftAndRightBracketsAmountDoesNotMatchException();
 
             // variables
@@ -345,7 +389,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                 if (IsNumber(i) || i == "," || i == "x" || i == "u" || i == "y") // DIGIT
                     functionONP[k++] = i;
                 // Function
-                else if (i.StartsWith("sin") || i.StartsWith("cos") || i.StartsWith("tg") || i.StartsWith("ctg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("atg") || i.StartsWith("actg") || i.StartsWith("exp") || i.StartsWith("sqrt") || i.StartsWith("ln") || i.StartsWith("lg") || i.StartsWith("log") || i.StartsWith("tgh") || i.StartsWith("tan") || i.StartsWith("ctn") || i.StartsWith("cot") || i.StartsWith("sec") || i.StartsWith("csc") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
+                else if (i.StartsWith("sin") || i.StartsWith("cos") || i.StartsWith("tg") || i.StartsWith("ctg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("atg") || i.StartsWith("atan") || i.StartsWith("actg") || i.StartsWith("actn") || i.StartsWith("acot") || i.StartsWith("exp") || i.StartsWith("sqrt") || i.StartsWith("ln") || i.StartsWith("lg") || i.StartsWith("log") || i.StartsWith("tgh") || i.StartsWith("tan") || i.StartsWith("ctn") || i.StartsWith("cot") || i.StartsWith("sec") || i.StartsWith("csc") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
                     functionONP[k++] = i;
                 else // operator
                 {
@@ -368,6 +412,9 @@ namespace Rychusoft.NumericalLibraries.Calculator
                             break;
 
                         case "+":
+
+                            if (j == 0 || functionTable[j - 1] == "(") // handling e.g., (+3)
+                                functionONP[k++] = "0";
 
                             if (stack.Value() == "(" || stack.Empty)
                                 stack.Add(i);
@@ -436,6 +483,9 @@ namespace Rychusoft.NumericalLibraries.Calculator
 
                             stack.Pull();
                             break;
+
+                        default:
+                            throw new UnrecognizedPartException(i);
                     }
                 }
             }
@@ -443,10 +493,10 @@ namespace Rychusoft.NumericalLibraries.Calculator
             while (!stack.Empty)  // take the rest
                 functionONP[k++] = stack.Pull();
         }
-        
+
         public Function(string function)
         {
-            this.function = function;
+            this.function = function.ToLower();
         }
     }
 }
