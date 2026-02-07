@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard1.1;netstandard2.0;net45;net48;netcoreapp3.1</TargetFrameworks>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>Rychusoft.NumericalLibraries.Derivative</PackageId>
     <Version>1.1.1</Version>
     <Title>NumericalLibraries Derivative</Title>
