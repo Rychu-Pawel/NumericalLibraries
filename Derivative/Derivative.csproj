@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>Rychusoft.NumericalLibraries.Derivative</PackageId>
@@ -13,9 +12,11 @@ var result = derivative.ComputeDerivative(1); // result = 2</Description>
     <Company>Rychusoft</Company>
     <Product>NumericalLibraries</Product>
     <Copyright>© Pawel Rychlicki</Copyright>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>
+    </PackageLicenseUrl>
     <PackageProjectUrl>http://pawelrychlicki.pl/Application/Details/19/numerical-derivative-net-library-11</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>
+    </PackageIconUrl>
     <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
     <RepositoryType />
     <PackageTags>Derivative Calculator Numerical Libraries Math</PackageTags>
@@ -26,20 +27,19 @@ var result = derivative.ComputeDerivative(1); // result = 2</Description>
     <PackageIcon>icon.png</PackageIcon>
     <AssemblyName>Rychusoft.NumericalLibraries.Derivative</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Calculator\Calculator.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

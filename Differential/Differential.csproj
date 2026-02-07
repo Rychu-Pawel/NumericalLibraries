@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageTags>Differential Calculator Numerical Libraries Math</PackageTags>
@@ -14,9 +13,11 @@ var result = math.ComputeDifferential(4, 2, 0); // result = 46</Description>
     <Company>Rychusoft</Company>
     <Copyright>© Pawel Rychlicki</Copyright>
     <Product>NumericalLibraries</Product>
-    <PackageLicenseUrl></PackageLicenseUrl>
+    <PackageLicenseUrl>
+    </PackageLicenseUrl>
     <PackageProjectUrl>http://pawelrychlicki.pl/Application/Details/24/numerical-differential-net-library-11</PackageProjectUrl>
-    <PackageIconUrl></PackageIconUrl>
+    <PackageIconUrl>
+    </PackageIconUrl>
     <RepositoryUrl>https://github.com/Rychu-Pawel/NumericalLibraries</RepositoryUrl>
     <PackageReleaseNotes>Moved to .NET Standard</PackageReleaseNotes>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -25,20 +26,19 @@ var result = math.ComputeDifferential(4, 2, 0); // result = 46</Description>
     <PackageIcon>icon.png</PackageIcon>
     <AssemblyName>Rychusoft.NumericalLibraries.Differential</AssemblyName>
   </PropertyGroup>
-
   <ItemGroup>
     <ProjectReference Include="..\Derivative\Derivative.csproj" />
   </ItemGroup>
-
   <ItemGroup>
     <None Include="..\Icon\icon.png">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
     <None Include="..\LICENSE">
       <Pack>True</Pack>
-      <PackagePath></PackagePath>
+      <PackagePath>
+      </PackagePath>
     </None>
   </ItemGroup>
-
 </Project>

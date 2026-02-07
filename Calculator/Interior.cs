@@ -22,7 +22,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                 if (IsNumber(i) || i == "x" || i == "u" || i == "y") // Digit
                     stack.Add(i);
                 // Four sign function
-                else if (i.StartsWith("actg") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("sqrt") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
+                else if (i.StartsWith("atan") || i.StartsWith("actg") || i.StartsWith("actn") || i.StartsWith("acot") || i.StartsWith("asin") || i.StartsWith("acos") || i.StartsWith("sqrt") || i.StartsWith("sinh") || i.StartsWith("cosh") || i.StartsWith("ctgh") || i.StartsWith("tanh") || i.StartsWith("ctnh") || i.StartsWith("coth"))
                 {
                     // compute interior
                     string sInterior = string.Empty;
@@ -45,13 +45,14 @@ namespace Rychusoft.NumericalLibraries.Calculator
                     // compute function
                     double basicFunction = 0;
 
-                    if (i.StartsWith("actg")) basicFunction = 1 / Math.Atan(interiorValue);
+                    if (i.StartsWith("atan")) basicFunction = Math.Atan(interiorValue);
+                    else if (i.StartsWith("actg") || i.StartsWith("actn") || i.StartsWith("acot")) basicFunction = Math.PI / 2 - Math.Atan(interiorValue);
                     else if (i.StartsWith("acos")) basicFunction = Math.Acos(interiorValue);
                     else if (i.StartsWith("sqrt")) basicFunction = Math.Sqrt(interiorValue);
                     else if (i.StartsWith("asin")) basicFunction = Math.Asin(interiorValue);
                     else if (i.StartsWith("sinh")) basicFunction = Math.Sinh(interiorValue);
                     else if (i.StartsWith("cosh")) basicFunction = Math.Cosh(interiorValue);
-                    else if (i.StartsWith("ctgh") || i.StartsWith("ctnh") || i.StartsWith("coth")) basicFunction = 1 / Math.Tanh(interiorValue);
+                    else if (i.StartsWith("ctgh") || i.StartsWith("ctnh") || i.StartsWith("coth")) basicFunction = Math.Cosh(interiorValue) / Math.Sinh(interiorValue);
                     else if (i.StartsWith("tanh")) basicFunction = Math.Tanh(interiorValue);
 
                     stack.Add(Convert.ToString(basicFunction));
@@ -128,7 +129,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
 
                     //a
                     if (value != "x" && value != "u" && value != "y")
-                        a = Convert.ToDouble(stack.Pull());
+                        a = ConvertToNumber(stack.Pull());
                     else
                     {
                         stack.Pull();
@@ -154,7 +155,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                     value = stack.Value();
 
                     if (value != "x" && value != "u" && value != "y")
-                        b = Convert.ToDouble(stack.Pull());
+                        b = ConvertToNumber(stack.Pull());
                     else
                     {
                         stack.Pull();
@@ -189,15 +190,15 @@ namespace Rychusoft.NumericalLibraries.Calculator
                 }
                 else if (i == "!")
                 {
-                    string wartoscZeStosu = stack.Pull();
+                    string stackValue = stack.Pull();
 
                     double c;
 
-                    if (wartoscZeStosu != "x" && wartoscZeStosu != "u" && wartoscZeStosu != "y")
-                        c = Convert.ToDouble(wartoscZeStosu);
+                    if (stackValue != "x" && stackValue != "u" && stackValue != "y")
+                        c = ConvertToNumber(stackValue);
                     else
                     {
-                        switch (wartoscZeStosu)
+                        switch (stackValue)
                         {
                             case "x":
                                 c = x;
@@ -242,7 +243,7 @@ namespace Rychusoft.NumericalLibraries.Calculator
                 }
             }
 
-            return Convert.ToDouble(stack.Pull()); // WYNIK
+            return ConvertToNumber(stack.Pull()); // WYNIK
         }
 
         /// <summary>
