@@ -18,6 +18,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Calculator\Calculator.csproj" />
+    <ProjectReference Include="..\Derivative\Derivative.csproj" />
+    <ProjectReference Include="..\Differential\Differential.csproj" />
+    <ProjectReference Include="..\FourierTransform\FourierTransform.csproj" />
+    <ProjectReference Include="..\Hybrid\Hybrid.csproj" />
+    <ProjectReference Include="..\Integral\Integral.csproj" />
+    <ProjectReference Include="..\Interpolation\Interpolation.csproj" />
+    <ProjectReference Include="..\LinearEquation\LinearEquation.csproj" />
   </ItemGroup>
 
   <ItemGroup>
